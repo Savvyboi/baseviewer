@@ -8,21 +8,15 @@
   },
   "site_count": 1,
   "planned_area_m2": 4000000,
-  "has_errors": true,
+  "has_errors": false,
   "sites": [
     {
       "id": "engels-air-base",
       "status": "possible_change",
       "errors": [],
-      "preview_errors": [
-        {
-          "id": "5ec9b7b32fe91574920b482d",
-          "error": "EEException",
-          "message": "Permission 'earthengine.thumbnails.create' denied on resource 'projects/baseviewer-511722' (or it may not exist)."
-        }
-      ],
+      "preview_errors": [],
       "workload_tag": "sentinel-0d938c6c2828198c1593",
-      "elapsed_seconds": 8.776
+      "elapsed_seconds": 10.007
     }
   ]
 }

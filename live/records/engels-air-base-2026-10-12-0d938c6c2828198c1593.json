@@ -34,7 +34,7 @@
     "target_end": "2026-10-12"
   },
   "mode": "live",
-  "generated_at": "2026-10-15T23:32:55.037754+00:00",
+  "generated_at": "2026-10-15T23:37:12.259382+00:00",
   "settings": {
     "analysis_version": "0.1.0",
     "earth_engine_project": "baseviewer-511722",
@@ -55,7 +55,7 @@
     "request_attempts": 3,
     "preview_pixels": 400
   },
-  "elapsed_seconds": 8.776,
+  "elapsed_seconds": 10.007,
   "comparisons": [
     {
       "id": "17ad531758ef53c1d2e5fcf2",
@@ -280,8 +280,11 @@
       "valid_coverage": 0.88505,
       "changed_area_m2": 2968955.4444885254,
       "changed_cells": 29671,
-      "preview_error": "EEException",
-      "preview_error_message": "Permission 'earthengine.thumbnails.create' denied on resource 'projects/baseviewer-511722' (or it may not exist)."
+      "previews": {
+        "before": "assets/5ec9b7b32fe91574920b482d/before.png",
+        "after": "assets/5ec9b7b32fe91574920b482d/after.png",
+        "overlay": "assets/5ec9b7b32fe91574920b482d/overlay.png"
+      }
     }
   ],
   "errors": [],
@@ -297,5 +300,5 @@
     "optical",
     "radar"
   ],
-  "has_errors": true
+  "has_errors": false
 }
