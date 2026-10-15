@@ -1,0 +1,20 @@
+{
+  "mode": "live",
+  "windows": {
+    "baseline_start": "2026-09-07",
+    "baseline_end": "2026-10-05",
+    "target_start": "2026-10-05",
+    "target_end": "2026-10-12"
+  },
+  "site_count": 1,
+  "planned_area_m2": 4000000,
+  "has_errors": true,
+  "sites": [
+    {
+      "id": "engels-air-base",
+      "status": "error",
+      "workload_tag": "sentinel-0d938c6c2828198c1593",
+      "elapsed_seconds": 4.023
+    }
+  ]
+}
