@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sentinel-ground-monitor"
+version = "0.1.0"
+description = "Possible ground-change monitoring with Earth Engine and GitHub Pages"
+requires-python = ">=3.11"
+dependencies = [
+  "earthengine-api>=1.5,<2",
+  "google-auth>=2.38,<3",
+  "PyYAML>=6.0.2,<7",
+  "pyproj>=3.7,<4",
+  "Jinja2>=3.1.6,<4",
+  "Pillow>=11,<13",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
+
+[project.scripts]
+sentinel-monitor = "sentinel_monitor.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+sentinel_monitor = ["templates/*.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
