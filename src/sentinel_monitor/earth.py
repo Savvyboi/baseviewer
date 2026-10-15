@@ -1,6 +1,7 @@
 """Server-side Earth Engine analysis; only metadata, summaries and previews leave EE."""
 
 import logging
+import re
 import time
 from collections import defaultdict
 from datetime import UTC, datetime
@@ -21,6 +22,26 @@ RADAR = ["VV", "VH"]
 S2 = "COPERNICUS/S2_SR_HARMONIZED"
 S1 = "COPERNICUS/S1_GRD"
 CLOUDS = "GOOGLE/CLOUD_SCORE_PLUS/V1/S2_HARMONIZED"
+
+
+def error_details(exc: Exception):
+    """Keep actionable service errors without persisting credentials or signed URLs."""
+    message = re.sub(
+        r"-----BEGIN (?:RSA )?PRIVATE KEY-----.*?-----END (?:RSA )?PRIVATE KEY-----",
+        "[REDACTED]",
+        str(exc),
+        flags=re.DOTALL,
+    )
+    message = re.sub(r"https?://[^\s]+", "[URL redacted]", message)
+    message = re.sub(r"(?i)\bBearer\s+[^\s,;]+", "Bearer [REDACTED]", message)
+    message = re.sub(
+        r'(?i)(["\']?(?:access_token|id_token|refresh_token|client_secret|private_key)["\']?'
+        r'\s*[:=]\s*)(?:"[^"\n]*"|\'[^\'\n]*\'|[^\s,};]+)',
+        r"\1[REDACTED]",
+        message,
+    )
+    message = " ".join(message.split()) or type(exc).__name__
+    return {"error": type(exc).__name__, "message": message[:2000]}
 
 
 def retry(operation, attempts: int):
@@ -228,6 +249,7 @@ class EarthEngineAnalyzer:
                     "acquisition days in this group"
                 )
                 continue
+            stage = "prepare comparison"
             try:
                 target = self.on_grid(
                     ee.Image(
@@ -272,6 +294,7 @@ class EarthEngineAnalyzer:
                         .Or(baseline_collection.select("cloud_fallback").max().unmask(0))
                     )
                     summary = summary.addBands(fallback.multiply(common).rename("fallback_cells"))
+                stage = "reduce comparison"
                 stats = self.request(lambda summary=summary: self.reduce(summary).getInfo())
                 status, coverage = comparison_status(
                     stats.get("valid_cells") or 0,
@@ -298,15 +321,20 @@ class EarthEngineAnalyzer:
                             entry["id"], sensor, before, after, changed
                         )
                     except Exception as exc:
-                        entry["preview_error"] = type(exc).__name__
-                        logging.warning("Preview generation failed for %s", entry["id"])
+                        details = error_details(exc)
+                        entry["preview_error"] = details["error"]
+                        entry["preview_error_message"] = details["message"]
+                        logging.warning(
+                            "Preview generation failed for %s: %s", entry["id"], details["message"]
+                        )
             except Exception as exc:
-                entry.update(status="error", reason=f"Comparison failed ({type(exc).__name__})")
+                details = error_details(exc)
+                entry.update(status="error", reason=f"{stage}: {details['message']}")
                 self.errors.append(
-                    {"sensor": sensor, "acquisition_date": day, "error": type(exc).__name__}
+                    {"sensor": sensor, "acquisition_date": day, "stage": stage, **details}
                 )
                 logging.error(
-                    "%s/%s/%s comparison failed: %s", self.site.id, sensor, day, type(exc).__name__
+                    "%s/%s/%s %s failed: %s", self.site.id, sensor, day, stage, details["message"]
                 )
 
     def sensor(self, sensor):
@@ -393,8 +421,9 @@ class EarthEngineAnalyzer:
             try:
                 self.sensor(sensor)
             except Exception as exc:
-                self.errors.append({"sensor": sensor, "error": type(exc).__name__})
-                logging.error("%s/%s failed: %s", self.site.id, sensor, type(exc).__name__)
+                details = error_details(exc)
+                self.errors.append({"sensor": sensor, **details})
+                logging.error("%s/%s failed: %s", self.site.id, sensor, details["message"])
         area = {"optical_m2": None, "radar_m2": None, "overlap_m2": None}
         if self.masks:
             try:
@@ -417,7 +446,9 @@ class EarthEngineAnalyzer:
                 if len(self.masks) == 2:
                     area["overlap_m2"] = summary.get("overlap_m2") or 0.0
             except Exception as exc:
-                self.errors.append({"sensor": "summary", "error": type(exc).__name__})
+                details = error_details(exc)
+                self.errors.append({"sensor": "summary", **details})
+                logging.error("%s/summary failed: %s", self.site.id, details["message"])
         return {
             "comparisons": self.comparisons,
             "errors": self.errors,

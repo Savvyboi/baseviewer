@@ -154,7 +154,9 @@ jobs:
           path: site/
       - name: Surface partial analysis failures
         if: steps.analysis.outcome == 'failure'
-        run: exit 1
+        run: |
+          echo "::error::Image analysis failed. Expand 'Analyze selected locations and build report' for the service error, or inspect monitoring-report/site/history.json."
+          exit 1
 
   deploy:
     needs: monitor
