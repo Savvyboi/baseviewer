@@ -4,7 +4,7 @@ Weekly **possible ground-change** monitoring with Google Earth Engine, Sentinel-
 
 The first location is **Engels air base**, with a 2 km square around the [public aerodrome reference coordinate](https://ourairports.com/airports/RU-8602/). This initial tile covers only part of the airfield. The configured Earth Engine project is `baseviewer-511722`. Coordinates and project IDs are not credentials.
 
-This is an initial implementation. Offline regression checks and synthetic reports are available. Live imagery validation, a manual Pages publication, threshold calibration, and the 20-location compute benchmark remain to be completed after Google authentication is configured. Scheduled analysis is gated by `MONITOR_ENABLED=true`.
+The one-location live workflow has passed, including Google federation authentication, both sensors, persistent history, and PNG previews. The public report is a prototype: quiet/known-change validation, threshold calibration, the first Pages publication, and the 20-location EECU benchmark are still pending. See [validation status](docs/validation.md). Scheduled analysis is gated by `MONITOR_ENABLED=true`.
 
 ## Run locally
 
@@ -118,6 +118,6 @@ ruff format --check src tests
 pytest -q
 ```
 
-The checks exercise configuration, UTC windows, grid construction, coverage/status handling, orbit isolation, tile deduplication, history, mode separation, escaping and Earth Engine expression serialization using the client library's offline API fixture. Reducer outputs in those graph tests are mocked. They establish client-side construction and handling, not real imagery accuracy; live Earth Engine evaluation remains an acceptance step.
+The checks exercise configuration, UTC windows, grid construction, coverage/status handling, orbit isolation, tile deduplication, history, mode separation, escaping and Earth Engine expression serialization using the client library's offline API fixture. Reducer outputs in those graph tests are mocked. They establish client-side construction and handling, not real imagery accuracy; the live one-site run verifies server execution and saved previews, while scientific accuracy remains an acceptance step.
 
 Object recognition, people/vehicle counting, a database and coordinate-entry forms are outside this initial milestone.

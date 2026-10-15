@@ -14,7 +14,7 @@
 <div class="eyebrow">Sentinel / Surface observations</div>
 <h1>Possible ground change</h1>
 <p class="muted">Weekly Sentinel-1 radar and Sentinel-2 optical comparisons against a 28-day baseline.</p>
-{% if mode == 'demo' %}<div class="banner"><strong>DEMO — SYNTHETIC DATA.</strong> These illustrations test the reporting pipeline. They are not satellite imagery or evidence of real-world change.</div>{% endif %}
+{% if mode == 'demo' %}<div class="banner"><strong>DEMO — SYNTHETIC DATA.</strong> These illustrations test the reporting pipeline. They are not satellite imagery or evidence of real-world change.</div>{% else %}<div class="banner"><strong>PROTOTYPE — CALIBRATION PENDING.</strong> These starting thresholds have not been validated against quiet and known-change examples. Candidates require imagery review.</div>{% endif %}
 <p class="muted">Weather, vegetation and moisture can change the signal. Flags identify candidates for review; they do not establish a cause. Missing imagery never implies no activity.</p>
 </header>
 <main>
@@ -38,7 +38,7 @@
 {% set count = namespace(value=0) %}
 {% for r in records %}{% for c in r.comparisons if c.status == 'possible_change' %}{% set count.value = count.value + 1 %}
 <article class="report"><span class="badge possible_change">Possible ground change · {{ c.sensor }}</span><h3>{{ r.site.name }} · {{ c.acquisition_date }}</h3>
-<p>{{ '%.0f' | format(c.changed_area_m2) }} m² flagged · {{ '%.1f' | format(c.valid_coverage * 100) }}% common valid coverage</p>
+<p>{{ '%.0f' | format(c.changed_area_m2) }} m² flagged · {{ '%.1f' | format(c.valid_coverage * 100) }}% common valid coverage{% if c.changed_cells is defined and c.valid_coverage > 0 %} · {{ '%.1f' | format(100 * c.changed_cells / (r.grid.cells * c.valid_coverage)) }}% of valid cells flagged{% endif %}</p>
 {% if c.previews %}<div class="images">
 <figure><img src="{{ c.previews.before }}" alt="{{ r.site.name }} {{ c.sensor }} baseline composite" loading="lazy"><figcaption>Baseline median composite<br>{{ r.windows.baseline_start }} → {{ r.windows.baseline_end }} (exclusive)</figcaption></figure>
 <figure><img src="{{ c.previews.after }}" alt="{{ r.site.name }} {{ c.sensor }} observation on {{ c.acquisition_date }}" loading="lazy"><figcaption>Target observation · {{ c.acquisition_date }}</figcaption></figure>
