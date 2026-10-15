@@ -13,8 +13,46 @@
     {
       "id": "engels-air-base",
       "status": "error",
+      "errors": [
+        {
+          "sensor": "optical",
+          "acquisition_date": "2026-10-10",
+          "stage": "reduce comparison",
+          "error": "EEException",
+          "message": "Image.reduceRegion: Too many pixels in the region. Found 160000, but maxPixels allows only 40100. Ensure that you are not aggregating at a higher resolution than you intended; that is a frequent cause of this error. If not, then you may set the 'maxPixels' argument to a limit suitable for your computation; set 'bestEffort' to true to aggregate at whatever scale results in 'maxPixels' total pixels; or both."
+        },
+        {
+          "sensor": "optical",
+          "acquisition_date": "2026-10-10",
+          "stage": "reduce comparison",
+          "error": "EEException",
+          "message": "Image.reduceRegion: Too many pixels in the region. Found 160000, but maxPixels allows only 40100. Ensure that you are not aggregating at a higher resolution than you intended; that is a frequent cause of this error. If not, then you may set the 'maxPixels' argument to a limit suitable for your computation; set 'bestEffort' to true to aggregate at whatever scale results in 'maxPixels' total pixels; or both."
+        },
+        {
+          "sensor": "optical",
+          "acquisition_date": "2026-10-05",
+          "stage": "reduce comparison",
+          "error": "EEException",
+          "message": "Image.reduceRegion: Too many pixels in the region. Found 160000, but maxPixels allows only 40100. Ensure that you are not aggregating at a higher resolution than you intended; that is a frequent cause of this error. If not, then you may set the 'maxPixels' argument to a limit suitable for your computation; set 'bestEffort' to true to aggregate at whatever scale results in 'maxPixels' total pixels; or both."
+        },
+        {
+          "sensor": "optical",
+          "acquisition_date": "2026-10-08",
+          "stage": "reduce comparison",
+          "error": "EEException",
+          "message": "Image.reduceRegion: Too many pixels in the region. Found 160000, but maxPixels allows only 40100. Ensure that you are not aggregating at a higher resolution than you intended; that is a frequent cause of this error. If not, then you may set the 'maxPixels' argument to a limit suitable for your computation; set 'bestEffort' to true to aggregate at whatever scale results in 'maxPixels' total pixels; or both."
+        },
+        {
+          "sensor": "radar",
+          "acquisition_date": "2026-10-08",
+          "stage": "reduce comparison",
+          "error": "EEException",
+          "message": "Image.reduceRegion: Too many pixels in the region. Found 120000, but maxPixels allows only 40100. Ensure that you are not aggregating at a higher resolution than you intended; that is a frequent cause of this error. If not, then you may set the 'maxPixels' argument to a limit suitable for your computation; set 'bestEffort' to true to aggregate at whatever scale results in 'maxPixels' total pixels; or both."
+        }
+      ],
+      "preview_errors": [],
       "workload_tag": "sentinel-0d938c6c2828198c1593",
-      "elapsed_seconds": 4.023
+      "elapsed_seconds": 5.094
     }
   ]
 }
