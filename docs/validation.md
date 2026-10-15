@@ -8,6 +8,7 @@ Recorded 16 October 2026 (Europe/Helsinki).
 - The [one-site live run](https://github.com/Savvyboi/baseviewer/actions/runs/38824576055) passed for Engels air base, with exclusive end date `2026-10-12` and publishing disabled.
 - Workload Identity Federation and the monitoring service account performed server-side comparisons and created PNG previews after the thumbnail-creation permission was granted.
 - The results branch contains a complete JSON record and valid 400 x 400 before, after, and overlay PNGs.
+- The [first Pages deployment](https://github.com/Savvyboi/baseviewer/actions/runs/38825866484) passed. The [public prototype](https://savvyboi.github.io/baseviewer/) and all three PNG previews plus both JSON links returned HTTP 200. Publication reused the completed live record without requesting an analysis refresh.
 - Repeated refreshes replaced the same site/window record; no duplicate record was created for these reruns.
 
 ## Current example
@@ -22,8 +23,8 @@ One optical acquisition passed the coverage rule and reported no threshold cross
 2. Select representative public validation locations with independent dated evidence of change and quiet controls. Include varied AOI sizes, cloud conditions and terrain.
 3. Measure 20 locations across several weeks, including both sensors, all baseline work, summaries and previews. Use tagged Cloud Monitoring EECU data; elapsed runtime is not compute consumption.
 4. Record the measured EECU-hours, source weeks and site mix. Extrapolate to five monthly runs only after this representative measurement.
-5. Verify a manual Pages deployment, saved assets, JSON links, status handling and persistent history before enabling scheduled publication.
+5. Complete the imagery validation and compute review before enabling scheduled publication. The first manual Pages deployment and its saved asset/JSON links have been verified; failure-state publication still needs a controlled acceptance check.
 
 ## Publication scope
 
-The first publication should contain only the reviewed Engels example and its explicit prototype/calibration notice. Keep `max_sites: 1` and leave `MONITOR_ENABLED` unset during validation. Pages publication does not establish detection accuracy or completion of the compute benchmark.
+The first publication contains only the reviewed Engels example and its explicit prototype/calibration notice. `max_sites: 1` remains in place, and `MONITOR_ENABLED` is unset, so scheduled monitoring stays disabled during validation. Pages publication does not establish detection accuracy or completion of the compute benchmark.

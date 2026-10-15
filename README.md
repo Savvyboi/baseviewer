@@ -4,7 +4,7 @@ Weekly **possible ground-change** monitoring with Google Earth Engine, Sentinel-
 
 The first location is **Engels air base**, with a 2 km square around the [public aerodrome reference coordinate](https://ourairports.com/airports/RU-8602/). This initial tile covers only part of the airfield. The configured Earth Engine project is `baseviewer-511722`. Coordinates and project IDs are not credentials.
 
-The one-location live workflow has passed, including Google federation authentication, both sensors, persistent history, and PNG previews. The public report is a prototype: quiet/known-change validation, threshold calibration, the first Pages publication, and the 20-location EECU benchmark are still pending. See [validation status](docs/validation.md). Scheduled analysis is gated by `MONITOR_ENABLED=true`.
+The one-location live workflow has passed, including Google federation authentication, both sensors, persistent history, and PNG previews. The [published report](https://savvyboi.github.io/baseviewer/) is a prototype: quiet/known-change validation, threshold calibration, and the 20-location EECU benchmark are still pending. See [validation status](docs/validation.md). Scheduled analysis is gated by `MONITOR_ENABLED=true`.
 
 ## Run locally
 
