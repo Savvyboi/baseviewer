@@ -12,7 +12,7 @@ from sentinel_monitor.cli import main
 from sentinel_monitor.config import Settings, Site, signature, windows
 from sentinel_monitor.decisions import comparison_status, detection_id, location_status
 from sentinel_monitor.demo import patch_cells
-from sentinel_monitor.earth import EarthEngineAnalyzer, retry
+from sentinel_monitor.earth import EarthEngineAnalyzer, error_details, retry
 from sentinel_monitor.reports import build_site, read_records
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -305,7 +305,9 @@ class TestEarthEngineGraphs(ApiTestCase):
 
         analyzer.sensor = sensor
         result = analyzer.analyze()
-        assert result["errors"] == [{"sensor": "radar", "error": "TimeoutError"}]
+        assert result["errors"] == [
+            {"sensor": "radar", "error": "TimeoutError", "message": "TimeoutError"}
+        ]
         assert location_status(result["comparisons"], result["errors"]) == "possible_change"
 
     def test_distinct_same_day_acquisitions_are_each_evaluated(self):
@@ -330,3 +332,71 @@ class TestEarthEngineGraphs(ApiTestCase):
         analyzer.sensor("radar")
         assert len(analyzer.comparisons) == 1
         assert len(analyzer.comparisons[0]["source_ids"]) == 2
+
+    def test_service_error_message_is_preserved_and_comparison_continues(self):
+        analyzer = self.analyzer(Path("unused"))
+        sources = self.sources("optical")
+        additional = dict(sources[-1])
+        additional.update(id="second", index="second", time=additional["time"] + 3600000)
+        analyzer.metadata = lambda collection: sources + [additional]
+        message = "Image.reduceRegion: server rejected the comparison"
+
+        def compute(obj):
+            raise ee.EEException(message)
+
+        ee.data.computeValue = compute
+        analyzer.sensor("optical")
+        assert len(analyzer.comparisons) == 2
+        assert all(c["status"] == "error" for c in analyzer.comparisons)
+        assert all(message in c["reason"] for c in analyzer.comparisons)
+        assert all(
+            e["message"] == message and e["stage"] == "reduce comparison" for e in analyzer.errors
+        )
+        assert analyzer.masks == {}
+
+
+def test_service_diagnostics_redact_credentials_and_signed_urls():
+    message = error_details(
+        ee.EEException(
+            'API error access_token="secret123" refresh_token=secret456 '
+            "Authorization: Bearer abc.def.ghi https://example.test/preview?token=secret789"
+        )
+    )["message"]
+    assert "API error" in message
+    for secret in ["secret123", "secret456", "abc.def.ghi", "secret789", "secret-key-data"]:
+        assert secret not in message
+
+
+def test_live_failure_exports_diagnostic_summary_and_returns_nonzero(tmp_path):
+    diagnostic = {"sensor": "radar", "error": "EEException", "message": "Image error detail"}
+    result = {
+        "comparisons": [],
+        "errors": [diagnostic],
+        "changed_area": {"optical_m2": None, "radar_m2": None, "overlap_m2": None},
+        "newest_observation": None,
+        "workload_tag": "test",
+    }
+    with (
+        patch("sentinel_monitor.earth.initialize"),
+        patch.object(EarthEngineAnalyzer, "__init__", return_value=None),
+        patch.object(EarthEngineAnalyzer, "analyze", return_value=result),
+    ):
+        status = main(
+            [
+                "run",
+                "--sites",
+                str(ROOT / "sites.yaml"),
+                "--settings",
+                str(ROOT / "settings.yaml"),
+                "--end-date",
+                "2026-10-12",
+                "--results",
+                str(tmp_path / "results"),
+                "--output",
+                str(tmp_path / "site"),
+            ]
+        )
+    assert status == 2
+    summary = json.loads((tmp_path / "results/run-summary.json").read_text(encoding="utf-8"))
+    assert summary["sites"][0]["errors"] == [diagnostic]
+    assert "Image error detail" in (tmp_path / "site/index.html").read_text(encoding="utf-8")

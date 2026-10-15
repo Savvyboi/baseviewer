@@ -136,6 +136,16 @@ def run(args):
                 {
                     "id": r["site"]["id"],
                     "status": r["status"],
+                    "errors": r["errors"],
+                    "preview_errors": [
+                        {
+                            "id": c["id"],
+                            "error": c["preview_error"],
+                            "message": c.get("preview_error_message", c["preview_error"]),
+                        }
+                        for c in r["comparisons"]
+                        if c.get("preview_error")
+                    ],
                     "workload_tag": r["workload_tag"],
                     "elapsed_seconds": r["elapsed_seconds"],
                 }
