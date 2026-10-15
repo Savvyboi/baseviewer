@@ -400,3 +400,27 @@ def test_live_failure_exports_diagnostic_summary_and_returns_nonzero(tmp_path):
     summary = json.loads((tmp_path / "results/run-summary.json").read_text(encoding="utf-8"))
     assert summary["sites"][0]["errors"] == [diagnostic]
     assert "Image error detail" in (tmp_path / "site/index.html").read_text(encoding="utf-8")
+
+
+class TestReductionPixelBudget(ApiTestCase):
+    def test_four_band_live_summary_fits_without_coarsening_the_grid(self):
+        analyzer = EarthEngineAnalyzer(
+            Site("engels", "Engels", 51.480499, 46.215, 2000),
+            Settings(),
+            PERIOD,
+            "budget-test",
+            Path("unused"),
+        )
+        image = ee.Image.constant([1, 0, 0, 0]).rename(
+            ["valid_cells", "changed_cells", "area", "fallback_cells"]
+        )
+        with patch.object(ee.Image, "reduceRegion", return_value=ee.Dictionary({})) as reduce:
+            analyzer.reduce(image)
+        options = reduce.call_args.kwargs
+        # The live server rejected 160,000 band-pixels against the old 40,100 cap.
+        assert options["maxPixels"] >= 160000
+        assert options["maxPixels"] < 200000
+        assert options["crs"] == "EPSG:32638"
+        assert options["crsTransform"] == [10, 0, 583370, 0, -10, 5704960]
+        assert "bestEffort" not in options
+        assert "scale" not in options
