@@ -3,7 +3,7 @@
 Project: `baseviewer-511722`. This guide prepares authentication; it does not assert that the project has already been registered or configured.
 
 1. Open the [Earth Engine registration page](https://console.cloud.google.com/earth-engine) for this project. Enable the Earth Engine API and choose commercial access or the appropriate verified noncommercial registration for your actual use. Check your applicable terms and compute allowance.
-2. Create a dedicated service account. Grant **Earth Engine Resource Viewer** (`roles/earthengine.viewer`) and **Service Usage Consumer** (`roles/serviceusage.serviceUsageConsumer`) on the project. The [Earth Engine service-account guide](https://developers.google.com/earth-engine/guides/service_account) documents the project registration, API and role requirements.
+2. Create a dedicated service account. Grant **Earth Engine Resource Viewer** (`roles/earthengine.viewer`) and **Service Usage Consumer** (`roles/serviceusage.serviceUsageConsumer`) on the project. Also grant thumbnail creation through the narrow custom role in the commands below; Viewer alone does not authorize PNG preview creation. The [Earth Engine service-account guide](https://developers.google.com/earth-engine/guides/service_account) documents the project registration, API and role requirements.
 3. Configure GitHub OIDC/Workload Identity Federation to impersonate that service account. No downloadable service-account key is required.
 
 ## Local authentication
@@ -42,6 +42,16 @@ gcloud projects add-iam-policy-binding "$PROJECT_ID" \
 gcloud projects add-iam-policy-binding "$PROJECT_ID" \
   --member="serviceAccount:${SERVICE_ACCOUNT}" --role=roles/serviceusage.serviceUsageConsumer
 
+# Viewer includes computations and thumbnail reads, but not thumbnail creation.
+# Google currently lists this custom-role permission at TESTING support level.
+gcloud iam roles create sentinelPreviewCreator --project="$PROJECT_ID" \
+  --title='Sentinel preview creator' \
+  --permissions=earthengine.thumbnails.create --stage=BETA
+
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+  --member="serviceAccount:${SERVICE_ACCOUNT}" \
+  --role="projects/${PROJECT_ID}/roles/sentinelPreviewCreator"
+
 gcloud iam workload-identity-pools create github --project="$PROJECT_ID" \
   --location=global --display-name='GitHub Actions'
 
@@ -64,3 +74,18 @@ The stable repository ID `1421373524` belongs to `Savvyboi/baseviewer`; owner ID
 Set the printed provider and service-account values as repository Actions variables, along with `EE_PROJECT_ID=baseviewer-511722`. Leave `MONITOR_ENABLED` unset until the first manual live run and Pages publication have been checked. The workflow provides `id-token: write` and `google-github-actions/auth` creates a temporary ADC file for the run.
 
 If an organization restricts identity pools, service accounts, API enablement or Pages deployments, an administrator will need to apply the corresponding setup. Authentication failures must be resolved before running a real imagery or compute benchmark.
+
+## PNG preview permissions
+
+`getThumbURL()` creates an Earth Engine thumbnail before downloading it. That
+requires `earthengine.thumbnails.create`, which is absent from
+`roles/earthengine.viewer`; Viewer already includes `earthengine.thumbnails.get`.
+The setup above adds just the missing creation permission through a custom role.
+See the [Earth Engine role permissions](https://docs.cloud.google.com/iam/docs/roles-permissions/earthengine)
+and [thumbnail create API](https://developers.google.com/earth-engine/reference/rest/v1/projects.thumbnails/create).
+
+If image comparisons succeed but the run reports `earthengine.thumbnails.create`
+permission denied, run only the custom-role creation and project binding commands
+above as the project administrator. If the role already exists with that
+permission, skip its creation and apply the binding. Allow IAM changes to
+propagate, then run the same live workflow with refresh enabled and publishing off.
