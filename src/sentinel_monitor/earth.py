@@ -101,7 +101,9 @@ class EarthEngineAnalyzer:
             geometry=self.aoi,
             crs=self.grid["crs"],
             crsTransform=self.grid["transform"],
-            maxPixels=self.grid["cells"] + 100,
+            # Earth Engine's limit counts input band-pixels: optical summaries
+            # have four bands; radar and sensor-overlap summaries have three.
+            maxPixels=(self.grid["cells"] + 100) * 4,
             tileScale=2,
         )
 
