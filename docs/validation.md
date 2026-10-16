@@ -2,6 +2,8 @@
 
 Recorded 16 October 2026 (Europe/Helsinki).
 
+The published one-site prototype and its analysis/publication plumbing work. It remains an experimental detector: reliable ground-change discrimination, representative EECU consumption and the real failed-analysis deployment path are still unproven. The Park Fire review below adds a concrete optical appearance/detection discrepancy; it does not establish product readiness.
+
 ## Verified
 
 - 58 offline checks pass, including UTC windows, metric grids, sensor/orbit isolation, coverage rules, saved history, error diagnostics, reduction limits, optional radar diagnostics, validation fixture construction, isolated imagery cases, review-preview caching and controlled HTTP publication bundles.
@@ -92,9 +94,54 @@ The Park Fire pair is now frozen in [validation/cases.json](../validation/cases.
 
 `sentinel-monitor review-case --case park-fire-event` (or `park-fire-pre-event`) runs one selected case with the unchanged production settings. It saves results and an imagery-review report under separate `results-imagery-review/<case>/` and `site-imagery-review/<case>/` directories, records the frozen inputs/hash and UTC invocation bounds, and requests diagnostics plus previews for every usable comparison. A detector-negative observation therefore has before/after imagery available for inspection. Insufficient-data comparisons still do not generate previews or become negatives. Review flags change presentation/asset requests, not scientific keys or detection rules.
 
-The validation workflow's manual `imagery` option selects exactly one frozen case, uploads an ordinary report artifact and has no deployment job or results-branch write permission. Active `sites.yaml` and `max_sites: 1` are unchanged. First live execution of these frozen cases remains pending merge; their source selection and offline handling are ready, not an accuracy result.
+The validation workflow's manual `imagery` option selects exactly one frozen case, uploads an ordinary report artifact and has no deployment job or results-branch write permission. Active `sites.yaml` and `max_sites: 1` are unchanged. Both frozen cases have now executed successfully on main; the review below records a detector/appearance discrepancy and insufficient radar coverage, not accuracy acceptance.
 
 These are candidate validation designs, not completed accuracy checks. Freeze AOIs and labels from independent evidence before examining detector outputs. Include a pre-event week at each AOI and nearby control areas, visually review both dates, and record review provenance and exclusions. Absence of a reported event alone does not establish a quiet control. No event attribution is assigned to Engels candidates.
+
+## Park Fire live imagery review
+
+The [event run](https://github.com/Savvyboi/baseviewer/actions/runs/38834470348) and subsequent [pre-event run](https://github.com/Savvyboi/baseviewer/actions/runs/38834575557) both passed on main at `28b03299b021d7d00a5789b346a6dab8dc536095`. They ran serially with unchanged production settings and the frozen manifest SHA-256 `64dead7deff02af7751ec9680b7f9764b78410bc8cad83569ede2b76b334db37`. Neither workflow deployed or wrote the results branch. [The evidence manifest](evidence/park-fire-imagery-2026-10-16.json) retains run/artifact IDs, archive and individual file hashes, complete source acquisitions, settings, UTC invocation bounds, signed radar diagnostics and visual observations. All nine original 400 x 400 PNGs are retained under [the review image directory](evidence/park-fire-2026-10-16/).
+
+| Case / target acquisition | Sensor / orbit | Baseline days | Common valid coverage | Production result |
+| --- | --- | --- | --- | --- |
+| Pre-event / July 17 | Optical | 6 | 100.00% | No change detected; 0 qualifying cells |
+| Pre-event / July 16 | Radar / 115 descending | 2 | 59.10% | Insufficient data: below 70% coverage |
+| Pre-event / July 18 | Radar / 137 ascending | 1 | Not evaluated | Insufficient data: fewer than 2 baseline days |
+| Event / July 22 | Optical | 5 | 100.00% | No change detected; 0 qualifying cells |
+| Event / July 27 | Optical | 5 | 97.00% | No change detected; 0 qualifying cells |
+| Event / July 23 | Radar / 35 ascending | 1 | Not evaluated | Insufficient data: fewer than 2 baseline days |
+| Event / July 23 | Radar / 42 descending | 2 | 59.78% | Insufficient data: below 70% coverage |
+| Event / July 28 | Radar / 115 descending | 2 | 59.01% | Insufficient data: below 70% coverage |
+
+The optical baseline dates are June 17, June 22, June 27, July 2, July 7 and July 12 for the pre-event case, and June 27, July 2, July 7, July 12 and July 17 for the event case. Each optical acquisition mosaics the two intersecting T10TEK/T10TFK granules rather than counting them as two dates. All radar source IDs identify Sentinel-1A. The records have no service or preview errors and only optical is usable; each location-level `no_change_detected` status therefore has no usable radar corroboration.
+
+Codex visually inspected every original before/after/overlay PNG. This is an agent review of appearance and saved metadata, not a blinded independent analyst or ground-truth certification:
+
+| Optical target | Original previews | Visual finding |
+| --- | --- | --- |
+| July 17, pre-event | [Before](evidence/park-fire-2026-10-16/park-fire-pre-event/0c40a43ee8516db782feae0e/before.png), [after](evidence/park-fire-2026-10-16/park-fire-pre-event/0c40a43ee8516db782feae0e/after.png), [overlay](evidence/park-fire-2026-10-16/park-fire-pre-event/0c40a43ee8516db782feae0e/overlay.png) | Broadly similar terrain/vegetation appearance at preview resolution; no obvious broad transition. |
+| July 22, event window but before fire start | [Before](evidence/park-fire-2026-10-16/park-fire-event/349d9d5ee826baddb31343c3/before.png), [after](evidence/park-fire-2026-10-16/park-fire-event/349d9d5ee826baddb31343c3/after.png), [overlay](evidence/park-fire-2026-10-16/park-fire-event/349d9d5ee826baddb31343c3/overlay.png) | Broadly similar to baseline; this observation cannot test post-fire detection. |
+| July 27, after fire start | [Before](evidence/park-fire-2026-10-16/park-fire-event/7164b43ecfd490262dcc76ad/before.png), [after](evidence/park-fire-2026-10-16/park-fire-event/7164b43ecfd490262dcc76ad/after.png), [overlay](evidence/park-fire-2026-10-16/park-fire-event/7164b43ecfd490262dcc76ad/overlay.png) | Broad north/west darkening and a reddish roughly north-south boundary-like feature; southeast remains relatively tan. Zero qualifying cells despite the visible appearance difference. |
+
+All three overlays are byte-identical to their target PNG, consistent with zero detections. The July 27 target has 4,800 transparent display pixels out of 160,000 (3%); the northwest holes are missing display data, not dark ground. The remaining darkening is visible outside those holes. Both other targets and all baseline previews are fully opaque. Display pixels are not independent analysis cells: the fixed metric grid is 100 x 100 cells with 10 m spacing. RGB previews use B4/B3/B2 with fixed 0-0.3 stretch and gamma 1.2; production optical detection uses mean absolute reflectance difference across B2/B3/B4/B8 >0.10 followed by a nine-cell connected-patch filter. A visible RGB transition alone does not identify which numerical stage excluded it. No raw optical difference distribution or qualifying pre-filter mask was measured in these artifacts.
+
+Optical processing retains SCL vegetation/bare-soil classes and Cloud Score+ `cs_cdf >= 0.6`; all three comparisons report full Cloud Score+ screening without fallback. Radar processing screens backscatter, incidence angle and slopes above 15 degrees and requires at least two valid daily baseline observations per cell. The artifacts give combined valid coverage, not a separate attribution of each rejected pixel to terrain, angle, backscatter or baseline validity. No radar previews were generated for the insufficient comparisons, as intended. Their saved `changed_area_m2: 0` must not be interpreted as observed zero radar change; the aggregate radar area is null.
+
+Signed radar diagnostics remain available on the valid subset even when whole-AOI coverage is insufficient:
+
+| Target / orbit | Median VV delta | Median VH delta | Raw either-band / both-band support | Baseline range >3 dB, VV / VH |
+| --- | --- | --- | --- | --- |
+| July 16 / 115 | -0.03 dB | -0.19 dB | 13.03% / 0.49% | 2.37% / 18.07% |
+| July 23 / 42 | +0.10 dB | +0.09 dB | 4.67% / 0.00% | 1.72% / 8.08% |
+| July 28 / 115 | -0.28 dB | -0.41 dB | 15.10% / 0.37% | 3.29% / 15.40% |
+
+Diagnostic counts match the 5,910, 5,978 and 5,901 common valid cells respectively. Fractions describe these subsets before patch filtering; they are not accepted radar detections, quiet controls or comparable accuracy scores against Engels.
+
+[CAL FIRE's incident page](https://www.fire.ca.gov/incidents/2024/7/24/park-fire/) confirms the July 24 start and frozen reference coordinate. Its [dated July 27 update](https://www.fire.ca.gov/incidents/2024/7/24/park-fire/updates/1d23c265-853e-413e-a1e8-314b367a210c) supplies incident context, and [USGS](https://www.usgs.gov/media/images/landsat-images-park-fire-july-2024) identifies regional Landsat acquisitions on July 26 and July 27. These establish the regional event and timing, not a dated burn-interior label for every cell of this square. No dated independent AOI burn polygon was established in this review. The original case labels remain `unreviewed` in the frozen manifest and saved artifacts; visual review does not silently promote them to ground truth.
+
+**Acceptance finding:** live case execution, source isolation, diagnostic persistence and negative-result preview packaging passed. Imagery accuracy acceptance remains open. The July 27 visual/numeric discrepancy needs independent dated AOI labels and raw optical difference/mask diagnostics before assessing a false negative or considering calibration. July 17 is a visually similar optical candidate control, not an independently established quiet week; radar supplies no accepted control. This pair adds evidence but does not satisfy the required representative known-change/quiet-control gate. Thresholds, masks, windows, AOI and labels were not changed to fit the results.
+
+Public snapshots taken after the event run and after the completed pair had identical HTML, latest/history JSON and three PNG hashes (six files). The first snapshot preceded the pre-event dispatch; it was not a before-both-runs snapshot. The results ref remained `8714435fea8b875f960d396f0b43d79f7545e22c`, the public analysis key remained `0d938c6c2828198c1593`, and `MONITOR_ENABLED` remained unset. No imagery-review case replaced the public Engels report.
 
 ## Compute acceptance before scaling
 
@@ -110,4 +157,4 @@ Extrapolate to five monthly runs only after measuring the representative sample.
 
 `sites.yaml` still contains only Engels, `max_sites: 1` is unchanged and `MONITOR_ENABLED` was verified unset. Scheduled monitoring and expansion remain disabled. Historical validation saved records to the results branch with publishing off; the reviewed October 12 prototype remains public.
 
-Before any rollout: complete independent quiet/change imagery review, characterize the broad radar response against those controls, complete the representative EECU review, and exercise the failed-analysis Pages deployment path. Live numeric checks, per-band diagnostic execution and controlled Pages-artifact packaging have passed. Do not tune to this single site or treat the reference agent plan as approval to enable scheduling or expand the site list.
+Before any rollout: complete independent quiet/change imagery review, characterize the broad radar response against those controls, complete the representative EECU review, and exercise the failed-analysis Pages deployment path. Live numeric checks, per-band diagnostic execution, controlled Pages-artifact packaging and frozen real-imagery case execution have passed. The Park Fire review exposed a visible optical transition with zero detections and no usable radar comparisons; it did not pass the imagery accuracy gate. Do not tune to this single site or treat the reference agent plan as approval to enable scheduling or expand the site list.

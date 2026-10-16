@@ -1,0 +1,1286 @@
+{
+  "recorded_date": "2026-10-16",
+  "timezone": "Europe/Helsinki",
+  "reviewer": "Codex; visual observations and data consistency review, not independent ground-truth certification",
+  "frozen_manifest_sha256": "64dead7deff02af7751ec9680b7f9764b78410bc8cad83569ede2b76b334db37",
+  "independent_sources_reviewed": [
+    {
+      "url": "https://www.fire.ca.gov/incidents/2024/7/24/park-fire/",
+      "supports": "July 24 start and published reference coordinate; not an AOI burn polygon."
+    },
+    {
+      "url": "https://www.usgs.gov/media/images/landsat-images-park-fire-july-2024",
+      "supports": "Regional Landsat 8 July 26 and Landsat 9 July 27 observations; not a pixel-level label for this square."
+    },
+    {
+      "url": "https://www.fire.ca.gov/incidents/2024/7/24/park-fire/updates/1d23c265-853e-413e-a1e8-314b367a210c",
+      "supports": "Dated July 27 incident status; regional context only."
+    }
+  ],
+  "conclusion": {
+    "live_execution_passed": true,
+    "preview_pngs_verified_and_reviewed": 9,
+    "accuracy_acceptance_passed": false,
+    "known_change_control_established": false,
+    "independent_quiet_control_established": false,
+    "reason": "July 27 appearance changes have zero qualifying optical cells; all radar comparisons are insufficient data. A dated independent AOI burn label and representative controls are still required. No thresholds, masks, AOI, windows or frozen labels were changed."
+  },
+  "publication_preservation": {
+    "after_observed_at": "2026-10-16T01:23:40.104782+00:00",
+    "after_files_sha256": {
+      "assets/5ec9b7b32fe91574920b482d/after.png": "e635312e52985c861eec724738ff059430aedc9bfc349da15e1cb41e38a02002",
+      "assets/5ec9b7b32fe91574920b482d/before.png": "5bf1df73bd90ca248b534a9a253d8c883b42c100f5213d6dcfe9e60ddd7ff97e",
+      "assets/5ec9b7b32fe91574920b482d/overlay.png": "afd4e962ef812fcd658906bd5c4b6e06a2fb809bd2ccce22e60a8ad1e1460a2e",
+      "history.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da",
+      "index.html": "b2acef24c563ed0adc84914f3fadc78a1338831039d912667c588c74282e8ea1",
+      "latest.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da"
+    },
+    "hashes_identical": true,
+    "after_monitor_enabled": null,
+    "after_results_ref": "8714435fea8b875f960d396f0b43d79f7545e22c",
+    "between_runs_snapshot": {
+      "observed_at": "2026-10-16T01:20:11.646858+00:00",
+      "base_url": "https://savvyboi.github.io/baseviewer/",
+      "files_sha256": {
+        "assets/5ec9b7b32fe91574920b482d/after.png": "e635312e52985c861eec724738ff059430aedc9bfc349da15e1cb41e38a02002",
+        "assets/5ec9b7b32fe91574920b482d/before.png": "5bf1df73bd90ca248b534a9a253d8c883b42c100f5213d6dcfe9e60ddd7ff97e",
+        "assets/5ec9b7b32fe91574920b482d/overlay.png": "afd4e962ef812fcd658906bd5c4b6e06a2fb809bd2ccce22e60a8ad1e1460a2e",
+        "history.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da",
+        "index.html": "b2acef24c563ed0adc84914f3fadc78a1338831039d912667c588c74282e8ea1",
+        "latest.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da"
+      },
+      "analysis_keys": [
+        "0d938c6c2828198c1593"
+      ],
+      "monitor_enabled": null,
+      "results_ref": "8714435fea8b875f960d396f0b43d79f7545e22c"
+    },
+    "scope_note": "Baseline snapshot captured after the event run completed and before the pre-event dispatch, then compared with a post-pair snapshot. Workflow jobs have no deployment job; results ref also matches the independently recorded pre-pair handoff ref."
+  },
+  "cases": [
+    {
+      "recorded_date": "2026-10-16",
+      "timezone": "Europe/Helsinki",
+      "case_id": "park-fire-event",
+      "dispatch": {
+        "case_id": "park-fire-event",
+        "dispatch_started_at": "2026-10-16T01:19:16.962481+00:00",
+        "dispatch_completed_at": "2026-10-16T01:19:19.293894+00:00",
+        "run_id": 38834470348
+      },
+      "workflow": {
+        "id": 38834470348,
+        "html_url": "https://github.com/Savvyboi/baseviewer/actions/runs/38834470348",
+        "head_sha": "28b03299b021d7d00a5789b346a6dab8dc536095",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-16T01:19:18Z"
+      },
+      "deployed": false,
+      "jobs": [
+        {
+          "name": "imagery",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install -r requirements.lock && python -m pip install --no-deps -e .",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run sentinel-monitor review-case --case \"$CASE_ID\"",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "numeric",
+          "conclusion": "skipped",
+          "steps": []
+        },
+        {
+          "name": "failure-artifacts",
+          "conclusion": "skipped",
+          "steps": []
+        }
+      ],
+      "artifact": {
+        "id": 12018339473,
+        "name": "imagery-review-park-fire-event",
+        "zip_sha256": "c35934861cfaa4956b32eb0c08930340057c9aa9288016db90a5f69448a47712",
+        "github_digest": "sha256:c35934861cfaa4956b32eb0c08930340057c9aa9288016db90a5f69448a47712",
+        "files": [
+          {
+            "path": "site-imagery-review/park-fire-event/assets/349d9d5ee826baddb31343c3/after.png",
+            "bytes": 34289,
+            "sha256": "c3c99baa523dd45fc337c98dfe81888e3cbea7687f7077fcbf0d8d8c625abe29",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/park-fire-event/assets/349d9d5ee826baddb31343c3/before.png",
+            "bytes": 33904,
+            "sha256": "0cd74de739ad6ca4351d23a2df12fe72625c36b26c5639e3455f571237e2dd11",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/park-fire-event/assets/349d9d5ee826baddb31343c3/overlay.png",
+            "bytes": 34289,
+            "sha256": "c3c99baa523dd45fc337c98dfe81888e3cbea7687f7077fcbf0d8d8c625abe29",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/park-fire-event/assets/7164b43ecfd490262dcc76ad/after.png",
+            "bytes": 35774,
+            "sha256": "a9dea7b0f3bc9f0769ff438b32f68dbf8b002f5af82823c7b82337e784453b42",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/park-fire-event/assets/7164b43ecfd490262dcc76ad/before.png",
+            "bytes": 33904,
+            "sha256": "0cd74de739ad6ca4351d23a2df12fe72625c36b26c5639e3455f571237e2dd11",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/park-fire-event/assets/7164b43ecfd490262dcc76ad/overlay.png",
+            "bytes": 35774,
+            "sha256": "a9dea7b0f3bc9f0769ff438b32f68dbf8b002f5af82823c7b82337e784453b42",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/park-fire-event/history.json",
+            "bytes": 13803,
+            "sha256": "1d58fafe3fc377f621452c3217f4d9e07373e7e7f5c36f46aa91c6abecffcfd4"
+          },
+          {
+            "path": "site-imagery-review/park-fire-event/index.html",
+            "bytes": 11234,
+            "sha256": "65e3d271a896e61f3bfd754647b6e1b8e8f3d4bb7f4f749615f444accb54cd1a"
+          },
+          {
+            "path": "site-imagery-review/park-fire-event/latest.json",
+            "bytes": 13803,
+            "sha256": "1d58fafe3fc377f621452c3217f4d9e07373e7e7f5c36f46aa91c6abecffcfd4"
+          },
+          {
+            "path": "site-imagery-review/park-fire-event/validation-case.json",
+            "bytes": 1540,
+            "sha256": "ee36401164c097eae86adfc7dc811bcc5bbc9d67828a9d20b87fa0e49e5ee981"
+          },
+          {
+            "path": "results-imagery-review/park-fire-event/run-summary.json",
+            "bytes": 485,
+            "sha256": "f8a8e039ddb0bd352182dca173b3708ad27f39adcff958c3827f8a33e0cf2d5c"
+          }
+        ]
+      },
+      "validation_context": {
+        "kind": "artifact-only imagery validation",
+        "case_id": "park-fire-event",
+        "case_manifest_sha256": "64dead7deff02af7751ec9680b7f9764b78410bc8cad83569ede2b76b334db37",
+        "frozen_on": "2026-10-16",
+        "case": {
+          "label": "Documented fire event; AOI change candidate requiring imagery review",
+          "review_status": "unreviewed",
+          "site": {
+            "id": "park-fire-reference",
+            "name": "Park Fire reference area (validation)",
+            "latitude": 39.7789,
+            "longitude": -121.76168,
+            "size_m": 1000
+          },
+          "end_date": "2024-07-29",
+          "selection_basis": "A 1 km square at CAL FIRE's published incident reference point. The fire began July 24, within the target week. This does not label every cell as burned.",
+          "references": [
+            {
+              "url": "https://www.fire.ca.gov/incidents/2024/7/24/park-fire/",
+              "supports": "Incident start July 24, 2024 and reference coordinate [39.7789, -121.76168]."
+            },
+            {
+              "url": "https://www.usgs.gov/media/images/landsat-images-park-fire-july-2024",
+              "supports": "Independent Landsat observations on July 26 and July 27 show the regional fire and burn scar."
+            }
+          ]
+        },
+        "windows": {
+          "baseline_start": "2024-06-24",
+          "baseline_end": "2024-07-22",
+          "target_start": "2024-07-22",
+          "target_end": "2024-07-29"
+        },
+        "started_at": "2026-10-16T01:19:38.258179+00:00",
+        "completed_at": "2026-10-16T01:19:51.784545+00:00",
+        "exit_code": 0,
+        "note": "Provisional labels require independent imagery review; no accuracy claim."
+      },
+      "run_summary": {
+        "mode": "live",
+        "windows": {
+          "baseline_start": "2024-06-24",
+          "baseline_end": "2024-07-22",
+          "target_start": "2024-07-22",
+          "target_end": "2024-07-29"
+        },
+        "site_count": 1,
+        "planned_area_m2": 1000000,
+        "has_errors": false,
+        "sites": [
+          {
+            "id": "park-fire-reference",
+            "status": "no_change_detected",
+            "errors": [],
+            "preview_errors": [],
+            "workload_tag": "sentinel-6ab0754c4dc88468128d",
+            "elapsed_seconds": 13.482
+          }
+        ]
+      },
+      "result": {
+        "schema_version": 1,
+        "analysis_version": "0.1.0",
+        "analysis_key": "6ab0754c4dc88468128d",
+        "radar_diagnostics_requested": true,
+        "review_previews_requested": true,
+        "site": {
+          "id": "park-fire-reference",
+          "name": "Park Fire reference area (validation)",
+          "latitude": 39.7789,
+          "longitude": -121.76168,
+          "size_m": 1000
+        },
+        "grid": {
+          "crs": "EPSG:32610",
+          "transform": [
+            10,
+            0,
+            605540,
+            0,
+            -10,
+            4404450
+          ],
+          "bounds": [
+            605540,
+            4403450,
+            606540,
+            4404450
+          ],
+          "cells": 10000
+        },
+        "windows": {
+          "baseline_start": "2024-06-24",
+          "baseline_end": "2024-07-22",
+          "target_start": "2024-07-22",
+          "target_end": "2024-07-29"
+        },
+        "mode": "live",
+        "generated_at": "2026-10-16T01:19:51.743816+00:00",
+        "settings": {
+          "analysis_version": "0.1.0",
+          "earth_engine_project": "baseviewer-511722",
+          "optical_threshold": 0.1,
+          "radar_threshold_db": 3.0,
+          "cloud_score_min": 0.6,
+          "min_baseline_observations": 2,
+          "min_valid_coverage": 0.7,
+          "min_patch_pixels": 9,
+          "radar_speckle_radius_m": 10,
+          "radar_min_db": -35,
+          "radar_min_angle": 31,
+          "radar_max_angle": 45,
+          "terrain_max_slope_deg": 15,
+          "dem_collection": "COPERNICUS/DEM/GLO30_2024_1",
+          "max_sites": 1,
+          "max_images_per_sensor": 300,
+          "request_attempts": 3,
+          "preview_pixels": 400
+        },
+        "elapsed_seconds": 13.482,
+        "comparisons": [
+          {
+            "id": "349d9d5ee826baddb31343c3",
+            "sensor": "optical",
+            "acquisition_date": "2024-07-22",
+            "acquisition_times": [
+              "2024-07-22T19:03:27.839000+00:00",
+              "2024-07-22T19:03:24.471000+00:00"
+            ],
+            "source_ids": [
+              "20240722T184921_20240722T190019_T10TEK",
+              "20240722T184921_20240722T190019_T10TFK"
+            ],
+            "baseline_source_ids": [
+              "20240627T184919_20240627T185741_T10TEK",
+              "20240627T184919_20240627T185741_T10TFK",
+              "20240702T184921_20240702T185828_T10TEK",
+              "20240702T184921_20240702T185828_T10TFK",
+              "20240707T184919_20240707T185734_T10TEK",
+              "20240707T184919_20240707T185734_T10TFK",
+              "20240712T184931_20240712T185252_T10TEK",
+              "20240712T184931_20240712T185252_T10TFK",
+              "20240717T184919_20240717T185716_T10TEK",
+              "20240717T184919_20240717T185716_T10TFK"
+            ],
+            "baseline_acquisition_dates": [
+              "2024-06-27",
+              "2024-07-02",
+              "2024-07-07",
+              "2024-07-12",
+              "2024-07-17"
+            ],
+            "baseline_observations": 5,
+            "radar_group": null,
+            "status": "no_change_detected",
+            "valid_coverage": 1.0,
+            "changed_area_m2": 0.0,
+            "cloud_screening": "SCL and Cloud Score+",
+            "changed_cells": 0,
+            "previews": {
+              "before": "assets/349d9d5ee826baddb31343c3/before.png",
+              "after": "assets/349d9d5ee826baddb31343c3/after.png",
+              "overlay": "assets/349d9d5ee826baddb31343c3/overlay.png"
+            }
+          },
+          {
+            "id": "7164b43ecfd490262dcc76ad",
+            "sensor": "optical",
+            "acquisition_date": "2024-07-27",
+            "acquisition_times": [
+              "2024-07-27T19:03:28.170000+00:00",
+              "2024-07-27T19:03:24.803000+00:00"
+            ],
+            "source_ids": [
+              "20240727T184919_20240727T185654_T10TEK",
+              "20240727T184919_20240727T185654_T10TFK"
+            ],
+            "baseline_source_ids": [
+              "20240627T184919_20240627T185741_T10TEK",
+              "20240627T184919_20240627T185741_T10TFK",
+              "20240702T184921_20240702T185828_T10TEK",
+              "20240702T184921_20240702T185828_T10TFK",
+              "20240707T184919_20240707T185734_T10TEK",
+              "20240707T184919_20240707T185734_T10TFK",
+              "20240712T184931_20240712T185252_T10TEK",
+              "20240712T184931_20240712T185252_T10TFK",
+              "20240717T184919_20240717T185716_T10TEK",
+              "20240717T184919_20240717T185716_T10TFK"
+            ],
+            "baseline_acquisition_dates": [
+              "2024-06-27",
+              "2024-07-02",
+              "2024-07-07",
+              "2024-07-12",
+              "2024-07-17"
+            ],
+            "baseline_observations": 5,
+            "radar_group": null,
+            "status": "no_change_detected",
+            "valid_coverage": 0.97,
+            "changed_area_m2": 0.0,
+            "cloud_screening": "SCL and Cloud Score+",
+            "changed_cells": 0,
+            "previews": {
+              "before": "assets/7164b43ecfd490262dcc76ad/before.png",
+              "after": "assets/7164b43ecfd490262dcc76ad/after.png",
+              "overlay": "assets/7164b43ecfd490262dcc76ad/overlay.png"
+            }
+          },
+          {
+            "id": "2ee914ed3b77c22bbbf17004",
+            "sensor": "radar",
+            "acquisition_date": "2024-07-23",
+            "acquisition_times": [
+              "2024-07-23T02:08:41+00:00"
+            ],
+            "source_ids": [
+              "S1A_IW_GRDH_1SDV_20240723T020841_20240723T020906_054882_06AF26_0C22"
+            ],
+            "baseline_source_ids": [
+              "S1A_IW_GRDH_1SDV_20240629T020841_20240629T020906_054532_06A2F8_3F58"
+            ],
+            "baseline_acquisition_dates": [
+              "2024-06-29"
+            ],
+            "baseline_observations": 1,
+            "radar_group": {
+              "relative_orbit": 35,
+              "pass": "ASCENDING"
+            },
+            "status": "insufficient_data",
+            "valid_coverage": 0.0,
+            "changed_area_m2": 0.0,
+            "reason": "Fewer than 2 distinct baseline acquisition days in this group"
+          },
+          {
+            "id": "2167ce3b65febf8ac1c48c18",
+            "sensor": "radar",
+            "acquisition_date": "2024-07-23",
+            "acquisition_times": [
+              "2024-07-23T14:07:42+00:00"
+            ],
+            "source_ids": [
+              "S1A_IW_GRDH_1SDV_20240723T140742_20240723T140807_054889_06AF64_8D39"
+            ],
+            "baseline_source_ids": [
+              "S1A_IW_GRDH_1SDV_20240629T140743_20240629T140808_054539_06A336_98BE",
+              "S1A_IW_GRDH_1SDV_20240711T140743_20240711T140808_054714_06A94E_E0F7"
+            ],
+            "baseline_acquisition_dates": [
+              "2024-06-29",
+              "2024-07-11"
+            ],
+            "baseline_observations": 2,
+            "radar_group": {
+              "relative_orbit": 42,
+              "pass": "DESCENDING"
+            },
+            "status": "insufficient_data",
+            "valid_coverage": 0.5978,
+            "changed_area_m2": 0.0,
+            "radar_diagnostics": {
+              "scope": "common valid cells, before connected-patch filtering",
+              "threshold_db": 3.0,
+              "polarizations": {
+                "VV": {
+                  "baseline_db": {
+                    "count": 5978,
+                    "mean_db": -11.687883095760405,
+                    "p05_db": -14.971394498364482,
+                    "median_db": -11.655617964891078,
+                    "p95_db": -8.403383567427065
+                  },
+                  "target_db": {
+                    "count": 5978,
+                    "mean_db": -11.605865582211685,
+                    "p05_db": -15.088312518775602,
+                    "median_db": -11.593175109601328,
+                    "p95_db": -8.09570348906503
+                  },
+                  "signed_delta_db": {
+                    "count": 5978,
+                    "mean_db": 0.08201751354875511,
+                    "p05_db": -1.6591593603037316,
+                    "median_db": 0.09620536585930545,
+                    "p95_db": 1.6606457215026522
+                  },
+                  "baseline_range_db": {
+                    "count": 5978,
+                    "mean_db": 0.9586901850334548,
+                    "p05_db": 0.07867355131585368,
+                    "median_db": 0.7978012906911217,
+                    "p95_db": 2.3918172180290207
+                  },
+                  "baseline_range_exceedance_fraction": 0.01722984275677484,
+                  "positive_fraction": 0.003011040481766477,
+                  "negative_fraction": 0.004014720642355303
+                },
+                "VH": {
+                  "baseline_db": {
+                    "count": 5978,
+                    "mean_db": -19.77916323273915,
+                    "p05_db": -23.346653354613988,
+                    "median_db": -19.779099797739466,
+                    "p95_db": -15.976031628977527
+                  },
+                  "target_db": {
+                    "count": 5978,
+                    "mean_db": -19.699545788446986,
+                    "p05_db": -23.596881128744293,
+                    "median_db": -19.784717930975027,
+                    "p95_db": -15.53468299251556
+                  },
+                  "signed_delta_db": {
+                    "count": 5978,
+                    "mean_db": 0.07961744429219397,
+                    "p05_db": -2.280477471585852,
+                    "median_db": 0.09286476274222456,
+                    "p95_db": 2.341163242915852
+                  },
+                  "baseline_range_db": {
+                    "count": 5978,
+                    "mean_db": 1.3306668647402002,
+                    "p05_db": 0.09334818858823808,
+                    "median_db": 1.090615075538676,
+                    "p95_db": 3.4058850142238337
+                  },
+                  "baseline_range_exceedance_fraction": 0.08079625292740047,
+                  "positive_fraction": 0.018902643024422884,
+                  "negative_fraction": 0.02074272331883573
+                }
+              },
+              "either_fraction": 0.0466711274673804,
+              "both_fraction": 0
+            },
+            "reason": "Common valid coverage is below the configured minimum"
+          },
+          {
+            "id": "d375d5d6f29a340c55d59f26",
+            "sensor": "radar",
+            "acquisition_date": "2024-07-28",
+            "acquisition_times": [
+              "2024-07-28T14:15:41+00:00"
+            ],
+            "source_ids": [
+              "S1A_IW_GRDH_1SDV_20240728T141541_20240728T141606_054962_06B1F9_1D97"
+            ],
+            "baseline_source_ids": [
+              "S1A_IW_GRDH_1SDV_20240704T141541_20240704T141606_054612_06A5D2_4D49",
+              "S1A_IW_GRDH_1SDV_20240716T141541_20240716T141606_054787_06ABDE_4892"
+            ],
+            "baseline_acquisition_dates": [
+              "2024-07-04",
+              "2024-07-16"
+            ],
+            "baseline_observations": 2,
+            "radar_group": {
+              "relative_orbit": 115,
+              "pass": "DESCENDING"
+            },
+            "status": "insufficient_data",
+            "valid_coverage": 0.5901,
+            "changed_area_m2": 0.0,
+            "radar_diagnostics": {
+              "scope": "common valid cells, before connected-patch filtering",
+              "threshold_db": 3.0,
+              "polarizations": {
+                "VV": {
+                  "baseline_db": {
+                    "count": 5901,
+                    "mean_db": -10.340163768258448,
+                    "p05_db": -13.941622293341595,
+                    "median_db": -10.315457333959351,
+                    "p95_db": -6.571871441788453
+                  },
+                  "target_db": {
+                    "count": 5901,
+                    "mean_db": -10.65678065308263,
+                    "p05_db": -14.336650176392359,
+                    "median_db": -10.714766810183722,
+                    "p95_db": -6.655427613072113
+                  },
+                  "signed_delta_db": {
+                    "count": 5901,
+                    "mean_db": -0.3166168848242002,
+                    "p05_db": -2.40226169500345,
+                    "median_db": -0.2813840569830372,
+                    "p95_db": 1.6583307546660315
+                  },
+                  "baseline_range_db": {
+                    "count": 5901,
+                    "mean_db": 1.0605120218551018,
+                    "p05_db": 0.0796183820060175,
+                    "median_db": 0.8911353760934203,
+                    "p95_db": 2.7398649481912303
+                  },
+                  "baseline_range_exceedance_fraction": 0.03287578376546348,
+                  "positive_fraction": 0.0020335536349771225,
+                  "negative_fraction": 0.018301982714794104
+                },
+                "VH": {
+                  "baseline_db": {
+                    "count": 5901,
+                    "mean_db": -19.171119017429366,
+                    "p05_db": -22.944004142109147,
+                    "median_db": -19.18673539754417,
+                    "p95_db": -15.565882771641224
+                  },
+                  "target_db": {
+                    "count": 5901,
+                    "mean_db": -19.65436907800462,
+                    "p05_db": -24.066579760521176,
+                    "median_db": -19.56656349366051,
+                    "p95_db": -15.317906642107962
+                  },
+                  "signed_delta_db": {
+                    "count": 5901,
+                    "mean_db": -0.4832500605751588,
+                    "p05_db": -3.907826757958065,
+                    "median_db": -0.40501168085211664,
+                    "p95_db": 2.5289133055197537
+                  },
+                  "baseline_range_db": {
+                    "count": 5901,
+                    "mean_db": 1.7260012978577053,
+                    "p05_db": 0.1544549191047449,
+                    "median_db": 1.4686460514209851,
+                    "p95_db": 4.152345555470924
+                  },
+                  "baseline_range_exceedance_fraction": 0.15404168784951702,
+                  "positive_fraction": 0.03118115573631588,
+                  "negative_fraction": 0.10320284697508897
+                }
+              },
+              "either_fraction": 0.15099135739705136,
+              "both_fraction": 0.0037281816641247245
+            },
+            "reason": "Common valid coverage is below the configured minimum"
+          }
+        ],
+        "errors": [],
+        "changed_area": {
+          "optical_m2": 0.0,
+          "radar_m2": null,
+          "overlap_m2": null
+        },
+        "newest_observation": "2024-07-28T14:15:41+00:00",
+        "workload_tag": "sentinel-6ab0754c4dc88468128d",
+        "status": "no_change_detected",
+        "usable_sensors": [
+          "optical"
+        ],
+        "has_errors": false,
+        "validation_case": {
+          "id": "park-fire-event",
+          "label": "Documented fire event; AOI change candidate requiring imagery review",
+          "review_status": "unreviewed"
+        }
+      },
+      "visual_reviews": [
+        {
+          "comparison_id": "349d9d5ee826baddb31343c3",
+          "sensor": "optical",
+          "acquisition_date": "2024-07-22",
+          "review_method": "Codex visual inspection of original 400 x 400 before, after and overlay PNGs, plus saved source/mask/coverage metadata; not a blinded or independent analyst label.",
+          "observation": "July 22 RGB target broadly resembles the five-day baseline composite; no obvious broad visual transition at preview resolution. This target predates the documented fire start.",
+          "detector_result": "Zero connected qualifying cells; overlay is byte-identical to target.",
+          "images": [
+            {
+              "name": "before",
+              "repository_path": "docs/evidence/park-fire-2026-10-16/park-fire-event/349d9d5ee826baddb31343c3/before.png",
+              "sha256": "0cd74de739ad6ca4351d23a2df12fe72625c36b26c5639e3455f571237e2dd11",
+              "mode": "RGB",
+              "transparent_pixels": 0,
+              "opaque_pixels": 160000
+            },
+            {
+              "name": "after",
+              "repository_path": "docs/evidence/park-fire-2026-10-16/park-fire-event/349d9d5ee826baddb31343c3/after.png",
+              "sha256": "c3c99baa523dd45fc337c98dfe81888e3cbea7687f7077fcbf0d8d8c625abe29",
+              "mode": "RGB",
+              "transparent_pixels": 0,
+              "opaque_pixels": 160000
+            },
+            {
+              "name": "overlay",
+              "repository_path": "docs/evidence/park-fire-2026-10-16/park-fire-event/349d9d5ee826baddb31343c3/overlay.png",
+              "sha256": "c3c99baa523dd45fc337c98dfe81888e3cbea7687f7077fcbf0d8d8c625abe29",
+              "mode": "RGB",
+              "transparent_pixels": 0,
+              "opaque_pixels": 160000
+            }
+          ]
+        },
+        {
+          "comparison_id": "7164b43ecfd490262dcc76ad",
+          "sensor": "optical",
+          "acquisition_date": "2024-07-27",
+          "review_method": "Codex visual inspection of original 400 x 400 before, after and overlay PNGs, plus saved source/mask/coverage metadata; not a blinded or independent analyst label.",
+          "observation": "July 27 RGB target shows broad darkening across the north and west and a reddish roughly north-south boundary-like feature, with the southeast relatively tan. Transparent holes occur near the northwest. These are visible appearance differences, not an independently verified burn label or cause attribution.",
+          "detector_result": "Zero connected qualifying cells; overlay is byte-identical to target.",
+          "images": [
+            {
+              "name": "before",
+              "repository_path": "docs/evidence/park-fire-2026-10-16/park-fire-event/7164b43ecfd490262dcc76ad/before.png",
+              "sha256": "0cd74de739ad6ca4351d23a2df12fe72625c36b26c5639e3455f571237e2dd11",
+              "mode": "RGB",
+              "transparent_pixels": 0,
+              "opaque_pixels": 160000
+            },
+            {
+              "name": "after",
+              "repository_path": "docs/evidence/park-fire-2026-10-16/park-fire-event/7164b43ecfd490262dcc76ad/after.png",
+              "sha256": "a9dea7b0f3bc9f0769ff438b32f68dbf8b002f5af82823c7b82337e784453b42",
+              "mode": "RGBA",
+              "transparent_pixels": 4800,
+              "opaque_pixels": 155200
+            },
+            {
+              "name": "overlay",
+              "repository_path": "docs/evidence/park-fire-2026-10-16/park-fire-event/7164b43ecfd490262dcc76ad/overlay.png",
+              "sha256": "a9dea7b0f3bc9f0769ff438b32f68dbf8b002f5af82823c7b82337e784453b42",
+              "mode": "RGBA",
+              "transparent_pixels": 4800,
+              "opaque_pixels": 155200
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "recorded_date": "2026-10-16",
+      "timezone": "Europe/Helsinki",
+      "case_id": "park-fire-pre-event",
+      "dispatch": {
+        "case_id": "park-fire-pre-event",
+        "dispatch_started_at": "2026-10-16T01:20:23.831375+00:00",
+        "dispatch_completed_at": "2026-10-16T01:20:26.155623+00:00",
+        "run_id": 38834575557
+      },
+      "workflow": {
+        "id": 38834575557,
+        "html_url": "https://github.com/Savvyboi/baseviewer/actions/runs/38834575557",
+        "head_sha": "28b03299b021d7d00a5789b346a6dab8dc536095",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-16T01:20:25Z"
+      },
+      "deployed": false,
+      "jobs": [
+        {
+          "name": "imagery",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install -r requirements.lock && python -m pip install --no-deps -e .",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run sentinel-monitor review-case --case \"$CASE_ID\"",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "numeric",
+          "conclusion": "skipped",
+          "steps": []
+        },
+        {
+          "name": "failure-artifacts",
+          "conclusion": "skipped",
+          "steps": []
+        }
+      ],
+      "artifact": {
+        "id": 12017804202,
+        "name": "imagery-review-park-fire-pre-event",
+        "zip_sha256": "7f40d78fb7d91eba259cf1ca451bd93241c7a0eb4ae9ab045b4acc6a9f5e7a11",
+        "github_digest": "sha256:7f40d78fb7d91eba259cf1ca451bd93241c7a0eb4ae9ab045b4acc6a9f5e7a11",
+        "files": [
+          {
+            "path": "site-imagery-review/park-fire-pre-event/assets/0c40a43ee8516db782feae0e/before.png",
+            "bytes": 33856,
+            "sha256": "83511f144d35b0b19439fcb2a226323b39e713ab8d951b7ad2688ff7dbafa7e6",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/park-fire-pre-event/history.json",
+            "bytes": 8506,
+            "sha256": "543573a943c36bed3735d4247d4d76396d08293ecabe86b75eab10407afae5bd"
+          },
+          {
+            "path": "site-imagery-review/park-fire-pre-event/assets/0c40a43ee8516db782feae0e/after.png",
+            "bytes": 34132,
+            "sha256": "20fb54edce4bc526f12b657a677f6478f611ae0746171c2c6ccbb973cf0422b2",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/park-fire-pre-event/assets/0c40a43ee8516db782feae0e/overlay.png",
+            "bytes": 34132,
+            "sha256": "20fb54edce4bc526f12b657a677f6478f611ae0746171c2c6ccbb973cf0422b2",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/park-fire-pre-event/index.html",
+            "bytes": 8970,
+            "sha256": "2205238736ef2c1c5e4a65fa3b042354e5fb58ed0f1675cf55b96f0727e3e350"
+          },
+          {
+            "path": "site-imagery-review/park-fire-pre-event/latest.json",
+            "bytes": 8506,
+            "sha256": "543573a943c36bed3735d4247d4d76396d08293ecabe86b75eab10407afae5bd"
+          },
+          {
+            "path": "site-imagery-review/park-fire-pre-event/validation-case.json",
+            "bytes": 1347,
+            "sha256": "ac750b4ef80e581c6506093d84f8c5c52b1add781859684569393d9ab6b0bd2d"
+          },
+          {
+            "path": "results-imagery-review/park-fire-pre-event/run-summary.json",
+            "bytes": 484,
+            "sha256": "6e0d3c9e1be5942112dd484499a1b05dd4fc7defb40f545f7e16c5204f8bbaef"
+          }
+        ]
+      },
+      "validation_context": {
+        "kind": "artifact-only imagery validation",
+        "case_id": "park-fire-pre-event",
+        "case_manifest_sha256": "64dead7deff02af7751ec9680b7f9764b78410bc8cad83569ede2b76b334db37",
+        "frozen_on": "2026-10-16",
+        "case": {
+          "label": "Pre-event control candidate; quiet conditions not established",
+          "review_status": "unreviewed",
+          "site": {
+            "id": "park-fire-reference",
+            "name": "Park Fire reference area (validation)",
+            "latitude": 39.7789,
+            "longitude": -121.76168,
+            "size_m": 1000
+          },
+          "end_date": "2024-07-22",
+          "selection_basis": "Same square as the event case, ending before the documented July 24 start. Other ground, weather and vegetation changes still require review.",
+          "references": [
+            {
+              "url": "https://www.fire.ca.gov/incidents/2024/7/24/park-fire/",
+              "supports": "The target window ends before the documented incident start. This alone is not evidence that all imagery is unchanged."
+            }
+          ]
+        },
+        "windows": {
+          "baseline_start": "2024-06-17",
+          "baseline_end": "2024-07-15",
+          "target_start": "2024-07-15",
+          "target_end": "2024-07-22"
+        },
+        "started_at": "2026-10-16T01:20:42.815978+00:00",
+        "completed_at": "2026-10-16T01:20:51.278648+00:00",
+        "exit_code": 0,
+        "note": "Provisional labels require independent imagery review; no accuracy claim."
+      },
+      "run_summary": {
+        "mode": "live",
+        "windows": {
+          "baseline_start": "2024-06-17",
+          "baseline_end": "2024-07-15",
+          "target_start": "2024-07-15",
+          "target_end": "2024-07-22"
+        },
+        "site_count": 1,
+        "planned_area_m2": 1000000,
+        "has_errors": false,
+        "sites": [
+          {
+            "id": "park-fire-reference",
+            "status": "no_change_detected",
+            "errors": [],
+            "preview_errors": [],
+            "workload_tag": "sentinel-7860d0c047a404d37ebc",
+            "elapsed_seconds": 8.435
+          }
+        ]
+      },
+      "result": {
+        "schema_version": 1,
+        "analysis_version": "0.1.0",
+        "analysis_key": "7860d0c047a404d37ebc",
+        "radar_diagnostics_requested": true,
+        "review_previews_requested": true,
+        "site": {
+          "id": "park-fire-reference",
+          "name": "Park Fire reference area (validation)",
+          "latitude": 39.7789,
+          "longitude": -121.76168,
+          "size_m": 1000
+        },
+        "grid": {
+          "crs": "EPSG:32610",
+          "transform": [
+            10,
+            0,
+            605540,
+            0,
+            -10,
+            4404450
+          ],
+          "bounds": [
+            605540,
+            4403450,
+            606540,
+            4404450
+          ],
+          "cells": 10000
+        },
+        "windows": {
+          "baseline_start": "2024-06-17",
+          "baseline_end": "2024-07-15",
+          "target_start": "2024-07-15",
+          "target_end": "2024-07-22"
+        },
+        "mode": "live",
+        "generated_at": "2026-10-16T01:20:51.253712+00:00",
+        "settings": {
+          "analysis_version": "0.1.0",
+          "earth_engine_project": "baseviewer-511722",
+          "optical_threshold": 0.1,
+          "radar_threshold_db": 3.0,
+          "cloud_score_min": 0.6,
+          "min_baseline_observations": 2,
+          "min_valid_coverage": 0.7,
+          "min_patch_pixels": 9,
+          "radar_speckle_radius_m": 10,
+          "radar_min_db": -35,
+          "radar_min_angle": 31,
+          "radar_max_angle": 45,
+          "terrain_max_slope_deg": 15,
+          "dem_collection": "COPERNICUS/DEM/GLO30_2024_1",
+          "max_sites": 1,
+          "max_images_per_sensor": 300,
+          "request_attempts": 3,
+          "preview_pixels": 400
+        },
+        "elapsed_seconds": 8.435,
+        "comparisons": [
+          {
+            "id": "0c40a43ee8516db782feae0e",
+            "sensor": "optical",
+            "acquisition_date": "2024-07-17",
+            "acquisition_times": [
+              "2024-07-17T19:03:29.323000+00:00",
+              "2024-07-17T19:03:25.956000+00:00"
+            ],
+            "source_ids": [
+              "20240717T184919_20240717T185716_T10TEK",
+              "20240717T184919_20240717T185716_T10TFK"
+            ],
+            "baseline_source_ids": [
+              "20240617T184919_20240617T190041_T10TEK",
+              "20240617T184919_20240617T190041_T10TFK",
+              "20240622T184921_20240622T185703_T10TEK",
+              "20240622T184921_20240622T185703_T10TFK",
+              "20240627T184919_20240627T185741_T10TEK",
+              "20240627T184919_20240627T185741_T10TFK",
+              "20240702T184921_20240702T185828_T10TEK",
+              "20240702T184921_20240702T185828_T10TFK",
+              "20240707T184919_20240707T185734_T10TEK",
+              "20240707T184919_20240707T185734_T10TFK",
+              "20240712T184931_20240712T185252_T10TEK",
+              "20240712T184931_20240712T185252_T10TFK"
+            ],
+            "baseline_acquisition_dates": [
+              "2024-06-17",
+              "2024-06-22",
+              "2024-06-27",
+              "2024-07-02",
+              "2024-07-07",
+              "2024-07-12"
+            ],
+            "baseline_observations": 6,
+            "radar_group": null,
+            "status": "no_change_detected",
+            "valid_coverage": 1.0,
+            "changed_area_m2": 0.0,
+            "cloud_screening": "SCL and Cloud Score+",
+            "changed_cells": 0,
+            "previews": {
+              "before": "assets/0c40a43ee8516db782feae0e/before.png",
+              "after": "assets/0c40a43ee8516db782feae0e/after.png",
+              "overlay": "assets/0c40a43ee8516db782feae0e/overlay.png"
+            }
+          },
+          {
+            "id": "36ea4b60aeefba68c486af47",
+            "sensor": "radar",
+            "acquisition_date": "2024-07-16",
+            "acquisition_times": [
+              "2024-07-16T14:15:41+00:00"
+            ],
+            "source_ids": [
+              "S1A_IW_GRDH_1SDV_20240716T141541_20240716T141606_054787_06ABDE_4892"
+            ],
+            "baseline_source_ids": [
+              "S1A_IW_GRDH_1SDV_20240622T141542_20240622T141607_054437_069FB7_1BC0",
+              "S1A_IW_GRDH_1SDV_20240704T141541_20240704T141606_054612_06A5D2_4D49"
+            ],
+            "baseline_acquisition_dates": [
+              "2024-06-22",
+              "2024-07-04"
+            ],
+            "baseline_observations": 2,
+            "radar_group": {
+              "relative_orbit": 115,
+              "pass": "DESCENDING"
+            },
+            "status": "insufficient_data",
+            "valid_coverage": 0.591,
+            "changed_area_m2": 0.0,
+            "radar_diagnostics": {
+              "scope": "common valid cells, before connected-patch filtering",
+              "threshold_db": 3.0,
+              "polarizations": {
+                "VV": {
+                  "baseline_db": {
+                    "count": 5910,
+                    "mean_db": -10.380231200073142,
+                    "p05_db": -13.813269733643102,
+                    "median_db": -10.44237113933721,
+                    "p95_db": -6.568160866756809
+                  },
+                  "target_db": {
+                    "count": 5910,
+                    "mean_db": -10.415760975758646,
+                    "p05_db": -14.29419641952673,
+                    "median_db": -10.572204767624905,
+                    "p95_db": -6.68216108699924
+                  },
+                  "signed_delta_db": {
+                    "count": 5910,
+                    "mean_db": -0.035529775685523894,
+                    "p05_db": -2.1542561736117896,
+                    "median_db": -0.03132657844670999,
+                    "p95_db": 1.9727841892799343
+                  },
+                  "baseline_range_db": {
+                    "count": 5910,
+                    "mean_db": 0.9728282951837405,
+                    "p05_db": 0.07817515351001965,
+                    "median_db": 0.7984213691880169,
+                    "p95_db": 2.5169824668234857
+                  },
+                  "baseline_range_exceedance_fraction": 0.023688663282571912,
+                  "positive_fraction": 0.007952622673434856,
+                  "negative_fraction": 0.015905245346869712
+                },
+                "VH": {
+                  "baseline_db": {
+                    "count": 5910,
+                    "mean_db": -19.183949475257972,
+                    "p05_db": -22.93013827785022,
+                    "median_db": -19.187570814103,
+                    "p95_db": -15.56431445861227
+                  },
+                  "target_db": {
+                    "count": 5910,
+                    "mean_db": -19.41796618832902,
+                    "p05_db": -23.55962975491054,
+                    "median_db": -19.310755562943232,
+                    "p95_db": -15.561445914004793
+                  },
+                  "signed_delta_db": {
+                    "count": 5910,
+                    "mean_db": -0.23401671307093938,
+                    "p05_db": -3.3059402352070664,
+                    "median_db": -0.18855651216588476,
+                    "p95_db": 2.8064131136831194
+                  },
+                  "baseline_range_db": {
+                    "count": 5910,
+                    "mean_db": 1.7838010870349892,
+                    "p05_db": 0.158000326680034,
+                    "median_db": 1.4676758265988534,
+                    "p95_db": 4.4695630237303
+                  },
+                  "baseline_range_exceedance_fraction": 0.18071065989847715,
+                  "positive_fraction": 0.04297800338409476,
+                  "negative_fraction": 0.06835871404399323
+                }
+              },
+              "either_fraction": 0.13028764805414553,
+              "both_fraction": 0.004906937394247039
+            },
+            "reason": "Common valid coverage is below the configured minimum"
+          },
+          {
+            "id": "2ef121233dfd3f64d416530f",
+            "sensor": "radar",
+            "acquisition_date": "2024-07-18",
+            "acquisition_times": [
+              "2024-07-18T02:00:33+00:00"
+            ],
+            "source_ids": [
+              "S1A_IW_GRDH_1SDV_20240718T020033_20240718T020058_054809_06ACA2_3678"
+            ],
+            "baseline_source_ids": [
+              "S1A_IW_GRDH_1SDV_20240706T020034_20240706T020059_054634_06A693_DF45"
+            ],
+            "baseline_acquisition_dates": [
+              "2024-07-06"
+            ],
+            "baseline_observations": 1,
+            "radar_group": {
+              "relative_orbit": 137,
+              "pass": "ASCENDING"
+            },
+            "status": "insufficient_data",
+            "valid_coverage": 0.0,
+            "changed_area_m2": 0.0,
+            "reason": "Fewer than 2 distinct baseline acquisition days in this group"
+          }
+        ],
+        "errors": [],
+        "changed_area": {
+          "optical_m2": 0.0,
+          "radar_m2": null,
+          "overlap_m2": null
+        },
+        "newest_observation": "2024-07-18T02:00:33+00:00",
+        "workload_tag": "sentinel-7860d0c047a404d37ebc",
+        "status": "no_change_detected",
+        "usable_sensors": [
+          "optical"
+        ],
+        "has_errors": false,
+        "validation_case": {
+          "id": "park-fire-pre-event",
+          "label": "Pre-event control candidate; quiet conditions not established",
+          "review_status": "unreviewed"
+        }
+      },
+      "visual_reviews": [
+        {
+          "comparison_id": "0c40a43ee8516db782feae0e",
+          "sensor": "optical",
+          "acquisition_date": "2024-07-17",
+          "review_method": "Codex visual inspection of original 400 x 400 before, after and overlay PNGs, plus saved source/mask/coverage metadata; not a blinded or independent analyst label.",
+          "observation": "July 17 RGB target broadly resembles the six-day baseline composite at preview resolution. No obvious broad transition is apparent. This does not establish absence of smaller, masked or spectrally subtle changes.",
+          "detector_result": "Zero connected qualifying cells; overlay is byte-identical to target.",
+          "images": [
+            {
+              "name": "before",
+              "repository_path": "docs/evidence/park-fire-2026-10-16/park-fire-pre-event/0c40a43ee8516db782feae0e/before.png",
+              "sha256": "83511f144d35b0b19439fcb2a226323b39e713ab8d951b7ad2688ff7dbafa7e6",
+              "mode": "RGB",
+              "transparent_pixels": 0,
+              "opaque_pixels": 160000
+            },
+            {
+              "name": "after",
+              "repository_path": "docs/evidence/park-fire-2026-10-16/park-fire-pre-event/0c40a43ee8516db782feae0e/after.png",
+              "sha256": "20fb54edce4bc526f12b657a677f6478f611ae0746171c2c6ccbb973cf0422b2",
+              "mode": "RGB",
+              "transparent_pixels": 0,
+              "opaque_pixels": 160000
+            },
+            {
+              "name": "overlay",
+              "repository_path": "docs/evidence/park-fire-2026-10-16/park-fire-pre-event/0c40a43ee8516db782feae0e/overlay.png",
+              "sha256": "20fb54edce4bc526f12b657a677f6478f611ae0746171c2c6ccbb973cf0422b2",
+              "mode": "RGB",
+              "transparent_pixels": 0,
+              "opaque_pixels": 160000
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "offline_verification": {
+    "pytest": "58 passed",
+    "ruff_check": "passed",
+    "ruff_format_check": "12 source/test files already formatted",
+    "configuration": "validate passed; only Engels active, max_sites 1",
+    "evidence_consistency": "Frozen case hash, windows, production settings, archive digests, all extracted files, original PNG copies, latest/history equality, radar diagnostic counts and preview eligibility asserted."
+  }
+}
