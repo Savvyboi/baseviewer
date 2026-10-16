@@ -43,6 +43,87 @@
           "supports": "The target window ends before the documented incident start. This alone is not evidence that all imagery is unchanged."
         }
       ]
+    },
+    "huoshenshan-event": {
+      "review_status": "unreviewed",
+      "references": [
+        {
+          "url": "https://en.nhc.gov.cn/2020-02/03/c_76130.htm",
+          "supports": "January 23, 2020 groundbreaking and February 2 delivery of the emergency public-health hospital."
+        },
+        {
+          "url": "https://english.cscec.com/CompanyNews/CorporateNews/202002/3018196.html",
+          "supports": "Contractor report published January 28 documents construction underway on January 27."
+        },
+        {
+          "url": "https://www.openstreetmap.org/way/766315840",
+          "supports": "Hospital footprint location, using way version 9 from January 14, 2024; geometry locator, not dated construction or quiet ground truth."
+        }
+      ],
+      "label": "Documented rapid hospital construction; surface-change candidate requiring imagery review",
+      "site": {
+        "id": "huoshenshan-construction",
+        "name": "Huoshenshan hospital construction (validation)",
+        "latitude": 30.5302291,
+        "longitude": 114.0825944,
+        "size_m": 500
+      },
+      "end_date": "2020-02-03",
+      "selection_basis": "500 m square at the midpoint of OSM way 766315840 version 9 bounds, frozen before detector output. Target Jan 27-Feb 3 brackets documented ongoing construction and delivery. The rolling Dec 30-Jan 27 baseline includes Jan 23-26 initial work; it is not a pure pre-construction baseline."
+    },
+    "huoshenshan-pre-event": {
+      "review_status": "unreviewed",
+      "references": [
+        {
+          "url": "https://en.nhc.gov.cn/2020-02/03/c_76130.htm",
+          "supports": "January 23, 2020 groundbreaking and February 2 delivery of the emergency public-health hospital."
+        },
+        {
+          "url": "https://english.cscec.com/CompanyNews/CorporateNews/202002/3018196.html",
+          "supports": "Contractor report published January 28 documents construction underway on January 27."
+        },
+        {
+          "url": "https://www.openstreetmap.org/way/766315840",
+          "supports": "Hospital footprint location, using way version 9 from January 14, 2024; geometry locator, not dated construction or quiet ground truth."
+        }
+      ],
+      "label": "Pre-construction comparison candidate; quiet conditions not established",
+      "site": {
+        "id": "huoshenshan-construction",
+        "name": "Huoshenshan hospital construction (validation)",
+        "latitude": 30.5302291,
+        "longitude": 114.0825944,
+        "size_m": 500
+      },
+      "end_date": "2020-01-20",
+      "selection_basis": "Same frozen square, with target Jan 13-Jan 20 ending before documented Jan 23 groundbreaking. Other surface, weather and vegetation changes remain possible."
+    },
+    "huoshenshan-nearby": {
+      "review_status": "unreviewed",
+      "references": [
+        {
+          "url": "https://en.nhc.gov.cn/2020-02/03/c_76130.htm",
+          "supports": "January 23, 2020 groundbreaking and February 2 delivery of the emergency public-health hospital."
+        },
+        {
+          "url": "https://english.cscec.com/CompanyNews/CorporateNews/202002/3018196.html",
+          "supports": "Contractor report published January 28 documents construction underway on January 27."
+        },
+        {
+          "url": "https://www.openstreetmap.org/way/766315840",
+          "supports": "Hospital footprint location, using way version 9 from January 14, 2024; geometry locator, not dated construction or quiet ground truth."
+        }
+      ],
+      "label": "Nearby comparison candidate; quiet conditions not established",
+      "site": {
+        "id": "huoshenshan-nearby",
+        "name": "Huoshenshan nearby comparison (validation)",
+        "latitude": 30.5302291,
+        "longitude": 114.0925944,
+        "size_m": 500
+      },
+      "end_date": "2020-02-03",
+      "selection_basis": "Same 500 m width and event windows, shifted exactly 0.01 degrees longitude east (about 960 m) from the hospital reference. Fixed geometric comparison before detector output; land cover and quiet conditions require imagery review."
     }
   }
 }

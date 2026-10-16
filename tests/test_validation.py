@@ -124,13 +124,18 @@ class TestNumericFixtureGraphs(ApiTestCase):
 
 
 @pytest.mark.parametrize(
-    "case_id,end",
+    "case_id,end,site_id,size_m",
     [
-        ("park-fire-event", "2024-07-29"),
-        ("park-fire-pre-event", "2024-07-22"),
+        ("park-fire-event", "2024-07-29", "park-fire-reference", 1000),
+        ("park-fire-pre-event", "2024-07-22", "park-fire-reference", 1000),
+        ("huoshenshan-event", "2020-02-03", "huoshenshan-construction", 500),
+        ("huoshenshan-pre-event", "2020-01-20", "huoshenshan-construction", 500),
+        ("huoshenshan-nearby", "2020-02-03", "huoshenshan-nearby", 500),
     ],
 )
-def test_frozen_case_runs_one_site_without_modifying_active_configuration(tmp_path, case_id, end):
+def test_frozen_case_runs_one_site_without_modifying_active_configuration(
+    tmp_path, case_id, end, site_id, size_m
+):
     from sentinel_monitor.cli import parser
     from sentinel_monitor.validation import review_case
 
@@ -158,8 +163,8 @@ def test_frozen_case_runs_one_site_without_modifying_active_configuration(tmp_pa
     import yaml
 
     sites = yaml.safe_load(Path(arguments[arguments.index("--sites") + 1]).read_text())["sites"]
-    assert len(sites) == 1 and sites[0]["id"] == "park-fire-reference"
-    assert sites[0]["size_m"] == 1000
+    assert len(sites) == 1 and sites[0]["id"] == site_id
+    assert sites[0]["size_m"] == size_m
     provenance = json.loads((tmp_path / "site" / case_id / "validation-case.json").read_text())
     assert provenance["case"]["review_status"] == "unreviewed"
     assert provenance["exit_code"] == 2
