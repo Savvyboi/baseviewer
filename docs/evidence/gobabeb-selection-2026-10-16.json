@@ -1,0 +1,1199 @@
+{
+  "frozen_on": "2026-10-16",
+  "timezone": "Europe/Helsinki",
+  "kind": "Pre-detector civilian quiet-reference selection and independent ground-sample measurements",
+  "base_commit": "1dda669c26623e5288e4e1b03f3421930bfebd38",
+  "case_id": "gobabeb-quiet-reference",
+  "case": {
+    "label": "Published stable-surface reference; full AOI and radar quiet conditions require review",
+    "review_status": "unreviewed",
+    "site": {
+      "id": "gobabeb-hypernets",
+      "name": "Gobabeb HYPERNETS stable-surface reference (validation)",
+      "latitude": -23.60153,
+      "longitude": 15.12589,
+      "size_m": 200
+    },
+    "end_date": "2022-07-18",
+    "selection_basis": "200 m square centred on the GHNA instrument coordinates in De Vis et al. (2024) Section 2.1.1, using the same cutout width as Section 2.2.4. Select the earliest accepted Sentinel-2 matchup in Table 1 whose preceding rolling baseline starts after the first listed good Sentinel-2 matchup (June 8): July 13, 2022, in target July 11-18 and baseline June 13-July 11. Fixed before any detector result, without searching for a negative satellite output. Published surface stability and independently selected ground samples support a quiet-reference candidate; they do not certify every AOI cell, SAR stability, or equivalence to urban construction/transport land cover.",
+    "references": [
+      {
+        "url": "https://www.frontiersin.org/journals/remote-sensing/articles/10.3389/frsen.2024.1323998/full",
+        "supports": "GHNA instrument coordinates, stable gravel-plain surface, 200 m satellite cutout method, deployment from May 2022 and accepted July 13 Sentinel-2 / ground-instrument matchup. GHNA is distinct from the nearby GONA RadCalNet station."
+      },
+      {
+        "url": "https://doi.org/10.5281/zenodo.8039303",
+        "supports": "Version 1.0.0 independent ground-reflectance sample files. Five fixed sequences on June 22/28/30, July 10 and July 13 were checksum-verified; all quality-valid common five-degree directions and excluded flags are retained in selection evidence."
+      }
+    ]
+  },
+  "windows": {
+    "baseline_start": "2022-06-13",
+    "baseline_end": "2022-07-11",
+    "target_start": "2022-07-11",
+    "target_end": "2022-07-18"
+  },
+  "grid": {
+    "crs": "EPSG:32733",
+    "transform": [
+      10,
+      0,
+      512740,
+      0,
+      -10,
+      7389980
+    ],
+    "bounds": [
+      512740,
+      7389780,
+      512940,
+      7389980
+    ],
+    "cells": 400
+  },
+  "selection_rule": {
+    "center": "Published GHNA instrument coordinates, not nearby GONA or a generic Gobabeb catalog centre.",
+    "width_m": 200,
+    "width_basis": "Published study satellite cutout width; not a claim that the ground instrument samples all 400 grid cells.",
+    "date_rule": "First listed accepted Sentinel-2 matchup with all 28 baseline days later than the first listed accepted matchup, June 8, 2022. Dates: June 8 -> baseline starts May 9; June 28 -> starts May 30; July 13 -> starts June 13. Select July 13 week ending July 18.",
+    "selected_before_satellite_detector_output": true,
+    "ground_samples_selected_by": "Table 1 dates within the fixed windows: June 22/28/30, July 10/13. Nearest filename time to 09:00 UTC, ties by filename; this does not guarantee each file is the exact paper matchup.",
+    "geometry_adaptation": "Initial attempt at the Figure 2 direction, 5/98 degrees, failed the quality rule on June 22 and July 13. Inventory all six common five-degree directions; report every direction valid across all five files, without inspecting reflectance magnitudes to choose a direction. Valid azimuths are 83/113. Retain the failed attempt and all exclusions."
+  },
+  "source_manifest": {
+    "path": "validation/cases.json",
+    "sha256_lf_bytes": "f40871b6ee1f718c9d9c809b97d42c5fcece25f77e09233cb77d7cccd94c0ac0",
+    "newline": "LF, written explicitly before Git staging",
+    "previous_cases_unchanged": true
+  },
+  "independent_ground_data": {
+    "doi": "10.5281/zenodo.8039303",
+    "version": "1.0.0",
+    "authors": [
+      {
+        "name": "De Vis, Pieter",
+        "affiliation": "National Physical Laboratory (NPL)",
+        "orcid": "0000-0002-0549-6610"
+      },
+      {
+        "name": "Bialek, Agnieszka",
+        "affiliation": "National Physical Laboratory (NPL)",
+        "orcid": "0000-0003-4502-2687"
+      },
+      {
+        "name": "Sinclair, Morven",
+        "affiliation": "National Physical Laboratory (NPL)",
+        "orcid": "0000-0002-9184-9020"
+      }
+    ],
+    "metadata_sha256": "6b0ccf4b3a9db757f9b8708d4406f6714197ea5dd422d919f1671044498e5d19",
+    "metadata_license": {
+      "id": "cc-by-4.0"
+    },
+    "downloaded_bytes": 5171829,
+    "files": [
+      {
+        "key": "HYPERNETS_L_GHNA_L2A_REF_20220622T0900_20230426T2225_v1.0.nc",
+        "size": 955836,
+        "sha256": "cd86a49237ff305a17775b5c6fd612ad7a9ef24d2a5494c07065f02b6c04c3f8",
+        "url": "https://zenodo.org/api/records/8039303/files/HYPERNETS_L_GHNA_L2A_REF_20220622T0900_20230426T2225_v1.0.nc/content",
+        "published_checksum": "md5:7a1e2dfeec508c7daf42b23a8d20a301"
+      },
+      {
+        "key": "HYPERNETS_L_GHNA_L2A_REF_20220628T0830_20230423T0559_v1.0.nc",
+        "size": 1010343,
+        "sha256": "9f5022a7feec6b51e9eeb3425e8ba696a9d7916f1564a3def55e4b8d529ed8d3",
+        "url": "https://zenodo.org/api/records/8039303/files/HYPERNETS_L_GHNA_L2A_REF_20220628T0830_20230423T0559_v1.0.nc/content",
+        "published_checksum": "md5:0fc85bf3645b266c8cb3f7778ed22b5c"
+      },
+      {
+        "key": "HYPERNETS_L_GHNA_L2A_REF_20220630T0830_20230426T1443_v1.0.nc",
+        "size": 989964,
+        "sha256": "1a6052ee07402dc1d0501110a9a07a018948b5b76960e4f6991f4ad984b7ba7b",
+        "url": "https://zenodo.org/api/records/8039303/files/HYPERNETS_L_GHNA_L2A_REF_20220630T0830_20230426T1443_v1.0.nc/content",
+        "published_checksum": "md5:75c83093c4e38dd6e7dd3fa6c9ab5bb5"
+      },
+      {
+        "key": "HYPERNETS_L_GHNA_L2A_REF_20220710T0831_20230422T1029_v1.0.nc",
+        "size": 1101609,
+        "sha256": "f816e66c570d48a2824a7ab93ad481cde6ed4d43de706d3fd9a3ca33eb8240da",
+        "url": "https://zenodo.org/api/records/8039303/files/HYPERNETS_L_GHNA_L2A_REF_20220710T0831_20230422T1029_v1.0.nc/content",
+        "published_checksum": "md5:5d423211835186d8ed419576eee7b26d"
+      },
+      {
+        "key": "HYPERNETS_L_GHNA_L2A_REF_20220713T0900_20230422T0707_v1.0.nc",
+        "size": 1114077,
+        "sha256": "c29ee9536bb0194930fd29523783fb9b42a8a6fe4ff04d6d312fb66d229a1fc3",
+        "url": "https://zenodo.org/api/records/8039303/files/HYPERNETS_L_GHNA_L2A_REF_20220713T0900_20230422T0707_v1.0.nc/content",
+        "published_checksum": "md5:75cfd5b9363b18d55442846d41d362d9"
+      }
+    ],
+    "measurements": {
+      "method": "Decode NetCDF fill, scale and offset metadata. Inventory every common azimuth at viewing zenith 5 degrees. Report all directions for which all five independently selected sequences have quality_flag=0, n_valid_scans>0, and finite values at the five nearest measured channels. Retain all rejected directions and flags; no selection by reflectance magnitude. The paper Figure 2 direction (98 degrees) fails on June 22 and July 13; retain this unsuccessful initial check. Valid directions 83/113 bracket it. Compare July 13 against the median of June 22, June 28, June 30 and July 10 at each accepted geometry separately. These are ground instrument samples, not production satellite bands or the satellite baseline.",
+      "libraries": {
+        "h5py": "3.16.0",
+        "numpy": "2.3.5"
+      },
+      "samples": [
+        {
+          "filename": "HYPERNETS_L_GHNA_L2A_REF_20220622T0900_20230426T2225_v1.0.nc",
+          "sha256": "cd86a49237ff305a17775b5c6fd612ad7a9ef24d2a5494c07065f02b6c04c3f8",
+          "sequence_id": "SEQ20220622T090040",
+          "date": "20220622",
+          "site_latitude": -23.60153,
+          "site_longitude": 15.12589,
+          "directions_at_vza_5_deg": {
+            "113": {
+              "series_index": 17,
+              "quality_flag": 0,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.1476624608039856
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.23172587156295776
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.3198632299900055
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.3566635251045227
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.35193681716918945
+                }
+              }
+            },
+            "98": {
+              "series_index": 18,
+              "quality_flag": 16,
+              "n_valid_scans": 37,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": null
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": null
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": null
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": null
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": null
+                }
+              }
+            },
+            "83": {
+              "series_index": 19,
+              "quality_flag": 0,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.15609796345233917
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.23637813329696655
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.3326566219329834
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.3731338679790497
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.36995798349380493
+                }
+              }
+            },
+            "293": {
+              "series_index": 23,
+              "quality_flag": 16,
+              "n_valid_scans": 37,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": null
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": null
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": null
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": null
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": null
+                }
+              }
+            },
+            "278": {
+              "series_index": 24,
+              "quality_flag": 16,
+              "n_valid_scans": 37,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": null
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": null
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": null
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": null
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": null
+                }
+              }
+            },
+            "263": {
+              "series_index": 25,
+              "quality_flag": 16,
+              "n_valid_scans": 37,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": null
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": null
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": null
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": null
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": null
+                }
+              }
+            }
+          },
+          "embedded_license": "Attribution-NonCommercial-NoDerivs CC BY-NC-ND"
+        },
+        {
+          "filename": "HYPERNETS_L_GHNA_L2A_REF_20220628T0830_20230423T0559_v1.0.nc",
+          "sha256": "9f5022a7feec6b51e9eeb3425e8ba696a9d7916f1564a3def55e4b8d529ed8d3",
+          "sequence_id": "SEQ20220628T083037",
+          "date": "20220628",
+          "site_latitude": -23.60153,
+          "site_longitude": 15.12589,
+          "directions_at_vza_5_deg": {
+            "113": {
+              "series_index": 17,
+              "quality_flag": 0,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.16184093058109283
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.251444011926651
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.3459954559803009
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.38511860370635986
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.381637305021286
+                }
+              }
+            },
+            "98": {
+              "series_index": 18,
+              "quality_flag": 0,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.16719242930412292
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.25378549098968506
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.3554946184158325
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.39752182364463806
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.39453500509262085
+                }
+              }
+            },
+            "83": {
+              "series_index": 19,
+              "quality_flag": 0,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.16498525440692902
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.24661755561828613
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.34505340456962585
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.3853520154953003
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.38232964277267456
+                }
+              }
+            },
+            "293": {
+              "series_index": 23,
+              "quality_flag": 16,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": null
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": null
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": null
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": null
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": null
+                }
+              }
+            },
+            "278": {
+              "series_index": 24,
+              "quality_flag": 16,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": null
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": null
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": null
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": null
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": null
+                }
+              }
+            },
+            "263": {
+              "series_index": 25,
+              "quality_flag": 16,
+              "n_valid_scans": 72,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": null
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": null
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": null
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": null
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": null
+                }
+              }
+            }
+          },
+          "embedded_license": "Attribution-NonCommercial-NoDerivs CC BY-NC-ND"
+        },
+        {
+          "filename": "HYPERNETS_L_GHNA_L2A_REF_20220630T0830_20230426T1443_v1.0.nc",
+          "sha256": "1a6052ee07402dc1d0501110a9a07a018948b5b76960e4f6991f4ad984b7ba7b",
+          "sequence_id": "SEQ20220630T083040",
+          "date": "20220630",
+          "site_latitude": -23.60153,
+          "site_longitude": 15.12589,
+          "directions_at_vza_5_deg": {
+            "113": {
+              "series_index": 17,
+              "quality_flag": 0,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.16179408133029938
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.25060558319091797
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.34505435824394226
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.3834128975868225
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.3802620470523834
+                }
+              }
+            },
+            "98": {
+              "series_index": 18,
+              "quality_flag": 0,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.16675937175750732
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.25294801592826843
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.35342517495155334
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.3956904411315918
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.3919227421283722
+                }
+              }
+            },
+            "83": {
+              "series_index": 19,
+              "quality_flag": 0,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.16394594311714172
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.24514958262443542
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.34294310212135315
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.3828277289867401
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.3780495226383209
+                }
+              }
+            },
+            "293": {
+              "series_index": 23,
+              "quality_flag": 16,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": null
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": null
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": null
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": null
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": null
+                }
+              }
+            },
+            "278": {
+              "series_index": 24,
+              "quality_flag": 16,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": null
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": null
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": null
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": null
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": null
+                }
+              }
+            },
+            "263": {
+              "series_index": 25,
+              "quality_flag": 16,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": null
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": null
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": null
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": null
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": null
+                }
+              }
+            }
+          },
+          "embedded_license": "Attribution-NonCommercial-NoDerivs CC BY-NC-ND"
+        },
+        {
+          "filename": "HYPERNETS_L_GHNA_L2A_REF_20220710T0831_20230422T1029_v1.0.nc",
+          "sha256": "f816e66c570d48a2824a7ab93ad481cde6ed4d43de706d3fd9a3ca33eb8240da",
+          "sequence_id": "SEQ20220710T083127",
+          "date": "20220710",
+          "site_latitude": -23.60153,
+          "site_longitude": 15.12589,
+          "directions_at_vza_5_deg": {
+            "113": {
+              "series_index": 17,
+              "quality_flag": 0,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.15762551128864288
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.2464018315076828
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.34115222096443176
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.3805089294910431
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.37569352984428406
+                }
+              }
+            },
+            "98": {
+              "series_index": 18,
+              "quality_flag": 0,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.1629972755908966
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.24957922101020813
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.3507125973701477
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.3937346339225769
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.3902033865451813
+                }
+              }
+            },
+            "83": {
+              "series_index": 19,
+              "quality_flag": 0,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.1606633961200714
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.24227643013000488
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.34042617678642273
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.38237541913986206
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.3783648610115051
+                }
+              }
+            },
+            "293": {
+              "series_index": 23,
+              "quality_flag": 0,
+              "n_valid_scans": 71,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.16705983877182007
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.251443088054657
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.3531564474105835
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.39548030495643616
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.39330053329467773
+                }
+              }
+            },
+            "278": {
+              "series_index": 24,
+              "quality_flag": 16,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": null
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": null
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": null
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": null
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": null
+                }
+              }
+            },
+            "263": {
+              "series_index": 25,
+              "quality_flag": 16,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": null
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": null
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": null
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": null
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": null
+                }
+              }
+            }
+          },
+          "embedded_license": "Attribution-NonCommercial-NoDerivs CC BY-NC-ND"
+        },
+        {
+          "filename": "HYPERNETS_L_GHNA_L2A_REF_20220713T0900_20230422T0707_v1.0.nc",
+          "sha256": "c29ee9536bb0194930fd29523783fb9b42a8a6fe4ff04d6d312fb66d229a1fc3",
+          "sequence_id": "SEQ20220713T090042",
+          "date": "20220713",
+          "site_latitude": -23.60153,
+          "site_longitude": 15.12589,
+          "directions_at_vza_5_deg": {
+            "113": {
+              "series_index": 17,
+              "quality_flag": 0,
+              "n_valid_scans": 73,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.1536552608013153
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.2383626401424408
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.3319180905818939
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.37022411823272705
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.3648829758167267
+                }
+              }
+            },
+            "98": {
+              "series_index": 18,
+              "quality_flag": 16,
+              "n_valid_scans": 37,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": null
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": null
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": null
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": null
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": null
+                }
+              }
+            },
+            "83": {
+              "series_index": 19,
+              "quality_flag": 0,
+              "n_valid_scans": 37,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.15851713716983795
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.23802922666072845
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.33715587854385376
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.3776693046092987
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.3729594349861145
+                }
+              }
+            },
+            "293": {
+              "series_index": 23,
+              "quality_flag": 0,
+              "n_valid_scans": 37,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.1650877147912979
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.247357577085495
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.3493943512439728
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.39130714535713196
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.38813382387161255
+                }
+              }
+            },
+            "278": {
+              "series_index": 24,
+              "quality_flag": 0,
+              "n_valid_scans": 37,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.16487768292427063
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.24677062034606934
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.3491978943347931
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.39149999618530273
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.38678616285324097
+                }
+              }
+            },
+            "263": {
+              "series_index": 25,
+              "quality_flag": 0,
+              "n_valid_scans": 37,
+              "values": {
+                "490": {
+                  "observed_wavelength_nm": 490.2,
+                  "reflectance": 0.16333606839179993
+                },
+                "560": {
+                  "observed_wavelength_nm": 560.12,
+                  "reflectance": 0.24437551200389862
+                },
+                "665": {
+                  "observed_wavelength_nm": 665.0,
+                  "reflectance": 0.34502604603767395
+                },
+                "842": {
+                  "observed_wavelength_nm": 842.07,
+                  "reflectance": 0.38686931133270264
+                },
+                "900": {
+                  "observed_wavelength_nm": 900.14,
+                  "reflectance": 0.38354557752609253
+                }
+              }
+            }
+          },
+          "embedded_license": "Attribution-NonCommercial-NoDerivs CC BY-NC-ND"
+        }
+      ],
+      "accepted_azimuths_deg": [
+        83,
+        113
+      ],
+      "excluded_directions": [
+        {
+          "azimuth_deg": 98,
+          "failed_samples": [
+            {
+              "filename": "HYPERNETS_L_GHNA_L2A_REF_20220622T0900_20230426T2225_v1.0.nc",
+              "quality_flag": 16,
+              "n_valid_scans": 37
+            },
+            {
+              "filename": "HYPERNETS_L_GHNA_L2A_REF_20220713T0900_20230422T0707_v1.0.nc",
+              "quality_flag": 16,
+              "n_valid_scans": 37
+            }
+          ]
+        },
+        {
+          "azimuth_deg": 263,
+          "failed_samples": [
+            {
+              "filename": "HYPERNETS_L_GHNA_L2A_REF_20220622T0900_20230426T2225_v1.0.nc",
+              "quality_flag": 16,
+              "n_valid_scans": 37
+            },
+            {
+              "filename": "HYPERNETS_L_GHNA_L2A_REF_20220628T0830_20230423T0559_v1.0.nc",
+              "quality_flag": 16,
+              "n_valid_scans": 72
+            },
+            {
+              "filename": "HYPERNETS_L_GHNA_L2A_REF_20220630T0830_20230426T1443_v1.0.nc",
+              "quality_flag": 16,
+              "n_valid_scans": 73
+            },
+            {
+              "filename": "HYPERNETS_L_GHNA_L2A_REF_20220710T0831_20230422T1029_v1.0.nc",
+              "quality_flag": 16,
+              "n_valid_scans": 73
+            }
+          ]
+        },
+        {
+          "azimuth_deg": 278,
+          "failed_samples": [
+            {
+              "filename": "HYPERNETS_L_GHNA_L2A_REF_20220622T0900_20230426T2225_v1.0.nc",
+              "quality_flag": 16,
+              "n_valid_scans": 37
+            },
+            {
+              "filename": "HYPERNETS_L_GHNA_L2A_REF_20220628T0830_20230423T0559_v1.0.nc",
+              "quality_flag": 16,
+              "n_valid_scans": 73
+            },
+            {
+              "filename": "HYPERNETS_L_GHNA_L2A_REF_20220630T0830_20230426T1443_v1.0.nc",
+              "quality_flag": 16,
+              "n_valid_scans": 73
+            },
+            {
+              "filename": "HYPERNETS_L_GHNA_L2A_REF_20220710T0831_20230422T1029_v1.0.nc",
+              "quality_flag": 16,
+              "n_valid_scans": 73
+            }
+          ]
+        },
+        {
+          "azimuth_deg": 293,
+          "failed_samples": [
+            {
+              "filename": "HYPERNETS_L_GHNA_L2A_REF_20220622T0900_20230426T2225_v1.0.nc",
+              "quality_flag": 16,
+              "n_valid_scans": 37
+            },
+            {
+              "filename": "HYPERNETS_L_GHNA_L2A_REF_20220628T0830_20230423T0559_v1.0.nc",
+              "quality_flag": 16,
+              "n_valid_scans": 73
+            },
+            {
+              "filename": "HYPERNETS_L_GHNA_L2A_REF_20220630T0830_20230426T1443_v1.0.nc",
+              "quality_flag": 16,
+              "n_valid_scans": 73
+            }
+          ]
+        }
+      ],
+      "comparison": {
+        "83": {
+          "490": {
+            "baseline_median": 0.16230466961860657,
+            "baseline_min": 0.15609796345233917,
+            "baseline_max": 0.16498525440692902,
+            "target": 0.15851713716983795,
+            "target_minus_baseline_median": -0.0037875324487686157
+          },
+          "560": {
+            "baseline_median": 0.24371300637722015,
+            "baseline_min": 0.23637813329696655,
+            "baseline_max": 0.24661755561828613,
+            "target": 0.23802922666072845,
+            "target_minus_baseline_median": -0.005683779716491699
+          },
+          "665": {
+            "baseline_median": 0.34168463945388794,
+            "baseline_min": 0.3326566219329834,
+            "baseline_max": 0.34505340456962585,
+            "target": 0.33715587854385376,
+            "target_minus_baseline_median": -0.00452876091003418
+          },
+          "842": {
+            "baseline_median": 0.3826015740633011,
+            "baseline_min": 0.3731338679790497,
+            "baseline_max": 0.3853520154953003,
+            "target": 0.3776693046092987,
+            "target_minus_baseline_median": -0.00493226945400238
+          },
+          "900": {
+            "baseline_median": 0.378207191824913,
+            "baseline_min": 0.36995798349380493,
+            "baseline_max": 0.38232964277267456,
+            "target": 0.3729594349861145,
+            "target_minus_baseline_median": -0.005247756838798523
+          }
+        },
+        "113": {
+          "490": {
+            "baseline_median": 0.15970979630947113,
+            "baseline_min": 0.1476624608039856,
+            "baseline_max": 0.16184093058109283,
+            "target": 0.1536552608013153,
+            "target_minus_baseline_median": -0.006054535508155823
+          },
+          "560": {
+            "baseline_median": 0.24850370734930038,
+            "baseline_min": 0.23172587156295776,
+            "baseline_max": 0.251444011926651,
+            "target": 0.2383626401424408,
+            "target_minus_baseline_median": -0.010141067206859589
+          },
+          "665": {
+            "baseline_median": 0.343103289604187,
+            "baseline_min": 0.3198632299900055,
+            "baseline_max": 0.3459954559803009,
+            "target": 0.3319180905818939,
+            "target_minus_baseline_median": -0.01118519902229309
+          },
+          "842": {
+            "baseline_median": 0.3819609135389328,
+            "baseline_min": 0.3566635251045227,
+            "baseline_max": 0.38511860370635986,
+            "target": 0.37022411823272705,
+            "target_minus_baseline_median": -0.01173679530620575
+          },
+          "900": {
+            "baseline_median": 0.37797778844833374,
+            "baseline_min": 0.35193681716918945,
+            "baseline_max": 0.381637305021286,
+            "target": 0.3648829758167267,
+            "target_minus_baseline_median": -0.013094812631607056
+          }
+        }
+      },
+      "limits": "Small pointed ground-instrument footprints, not full 200 m AOI or radar truth. Sparse independent dates and varying illumination. Nominal-channel samples have no spectral-response integration or uncertainty propagation. Descriptive support only, not a detector threshold acceptance test. Zenodo metadata says CC BY 4.0 while embedded files say CC BY-NC-ND; original NetCDFs retained locally, not republished."
+    }
+  },
+  "interpretation": "The independent ground samples show small point-reflectance differences across the fixed dates (largest absolute target-minus-four-sample-median difference 0.0130948 across the reported channels/directions). This strengthens the surface-reference selection beyond absence of a reported event. It is neither a pixelwise quiet AOI label nor radar validation. Do not compare these single-channel ground values directly with the detector mean-band threshold.",
+  "execution": {
+    "satellite_detector_executed": false,
+    "earth_engine_requests": 0,
+    "requested_runs_after_approval": 1,
+    "workflow": "Validation acceptance",
+    "inputs": {
+      "check": "imagery",
+      "case_id": "gobabeb-quiet-reference"
+    },
+    "publication": "artifact only; no deployment or results-branch write",
+    "review": "Every usable comparison needs human review; insufficient cases remain unscored. No new label has been adjudicated."
+  },
+  "offline_checks": {
+    "pytest": "62 passed",
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "git_diff_check": "passed",
+    "previous_case_values_unchanged": true,
+    "one_selected_site": true,
+    "grid_cells": 400,
+    "max_sites": 1,
+    "workflow_only_change": "One new manual case choice; all existing jobs, permissions and deployment behavior identical.",
+    "production_science_active_sites_and_schedule_unchanged": true
+  }
+}

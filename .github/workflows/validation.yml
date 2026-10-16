@@ -12,7 +12,7 @@ on:
       case_id:
         description: Frozen artifact-only imagery case
         type: choice
-        options: [park-fire-event, park-fire-pre-event, huoshenshan-event, huoshenshan-pre-event, huoshenshan-nearby]
+        options: [park-fire-event, park-fire-pre-event, huoshenshan-event, huoshenshan-pre-event, huoshenshan-nearby, gobabeb-quiet-reference]
         default: park-fire-event
 
 permissions:

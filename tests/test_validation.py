@@ -131,6 +131,7 @@ class TestNumericFixtureGraphs(ApiTestCase):
         ("huoshenshan-event", "2020-02-03", "huoshenshan-construction", 500),
         ("huoshenshan-pre-event", "2020-01-20", "huoshenshan-construction", 500),
         ("huoshenshan-nearby", "2020-02-03", "huoshenshan-nearby", 500),
+        ("gobabeb-quiet-reference", "2022-07-18", "gobabeb-hypernets", 200),
     ],
 )
 def test_frozen_case_runs_one_site_without_modifying_active_configuration(
