@@ -93,13 +93,22 @@ Frozen imagery cases are separate from active monitoring. Use
 `sentinel-monitor review-case --case park-fire-event` or
 `--case park-fire-pre-event`, or select `imagery` in the manual validation workflow.
 The one-case run uses production settings, saves an isolated report artifact and records
-its [independent source context](validation/cases.json). These cases still need live
-execution and review; the pre-event label is a candidate control.
+its [independent source context](validation/cases.json). Both cases have passed live execution and their original PNGs have been reviewed;
+the findings do not establish accuracy or an independent quiet control. See
+[validation status](docs/validation.md).
 
 `--review-previews` saves imagery for all usable comparisons, including detector-negative
 observations, and includes those observations in the review report. It is off by default,
 adds preview requests and upgrades older cached records when requested. It does not change
 detection rules; insufficient data remains insufficient data.
+
+## Human review
+
+Isolated validation reports include aligned baseline/target/overlay controls and
+browser-local reviewer observations with JSON export. Every usable acquisition can
+be reviewed, including zero-flag results. Refreshed records get separate reviews;
+notes do not change detector outputs. Export a copy to keep or share the review.
+See [the review workflow, existing implementations and imagery limits](docs/human-review.md).
 
 ## History and errors
 
