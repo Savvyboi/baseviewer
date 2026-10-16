@@ -26,7 +26,7 @@ sentinel-monitor = "sentinel_monitor.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-sentinel_monitor = ["templates/*.html"]
+sentinel_monitor = ["templates/*.html", "templates/*.js"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

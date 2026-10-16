@@ -1,0 +1,127 @@
+{
+  "recorded_date": "2026-10-16",
+  "timezone": "Europe/Helsinki",
+  "selection_stage": "before any detector output for these three cases",
+  "case_manifest_sha256": "a176ee2474c7c747e2da1598b509733eff2dc15311d7be5d77a5ee6e8ce4bb8d",
+  "locator": {
+    "source": "https://www.openstreetmap.org/api/0.6/way/766315840/full",
+    "way_id": 766315840,
+    "version": 9,
+    "timestamp": "2024-01-14T03:43:25Z",
+    "response_sha256": "e72c8f68716968886a1d6f98e6c8f1bd305b1e604e194c18817e579c4d1a0bb5",
+    "bounds_lat_lon": [
+      30.5288628,
+      114.080418,
+      30.5315954,
+      114.0847707
+    ],
+    "midpoint_lat_lon": [
+      30.5302291,
+      114.0825944
+    ],
+    "role": "location geometry only; not a 2020 construction footprint or quiet label"
+  },
+  "source_references": [
+    {
+      "url": "https://en.nhc.gov.cn/2020-02/03/c_76130.htm",
+      "supports": "January 23, 2020 groundbreaking and February 2 delivery of the emergency public-health hospital."
+    },
+    {
+      "url": "https://english.cscec.com/CompanyNews/CorporateNews/202002/3018196.html",
+      "supports": "Contractor report published January 28 documents construction underway on January 27."
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/766315840",
+      "supports": "Hospital footprint location, using way version 9 from January 14, 2024; geometry locator, not dated construction or quiet ground truth."
+    }
+  ],
+  "cases": {
+    "huoshenshan-event": {
+      "review_status": "unreviewed",
+      "references": [
+        {
+          "url": "https://en.nhc.gov.cn/2020-02/03/c_76130.htm",
+          "supports": "January 23, 2020 groundbreaking and February 2 delivery of the emergency public-health hospital."
+        },
+        {
+          "url": "https://english.cscec.com/CompanyNews/CorporateNews/202002/3018196.html",
+          "supports": "Contractor report published January 28 documents construction underway on January 27."
+        },
+        {
+          "url": "https://www.openstreetmap.org/way/766315840",
+          "supports": "Hospital footprint location, using way version 9 from January 14, 2024; geometry locator, not dated construction or quiet ground truth."
+        }
+      ],
+      "label": "Documented rapid hospital construction; surface-change candidate requiring imagery review",
+      "site": {
+        "id": "huoshenshan-construction",
+        "name": "Huoshenshan hospital construction (validation)",
+        "latitude": 30.5302291,
+        "longitude": 114.0825944,
+        "size_m": 500
+      },
+      "end_date": "2020-02-03",
+      "selection_basis": "500 m square at the midpoint of OSM way 766315840 version 9 bounds, frozen before detector output. Target Jan 27-Feb 3 brackets documented ongoing construction and delivery. The rolling Dec 30-Jan 27 baseline includes Jan 23-26 initial work; it is not a pure pre-construction baseline."
+    },
+    "huoshenshan-pre-event": {
+      "review_status": "unreviewed",
+      "references": [
+        {
+          "url": "https://en.nhc.gov.cn/2020-02/03/c_76130.htm",
+          "supports": "January 23, 2020 groundbreaking and February 2 delivery of the emergency public-health hospital."
+        },
+        {
+          "url": "https://english.cscec.com/CompanyNews/CorporateNews/202002/3018196.html",
+          "supports": "Contractor report published January 28 documents construction underway on January 27."
+        },
+        {
+          "url": "https://www.openstreetmap.org/way/766315840",
+          "supports": "Hospital footprint location, using way version 9 from January 14, 2024; geometry locator, not dated construction or quiet ground truth."
+        }
+      ],
+      "label": "Pre-construction comparison candidate; quiet conditions not established",
+      "site": {
+        "id": "huoshenshan-construction",
+        "name": "Huoshenshan hospital construction (validation)",
+        "latitude": 30.5302291,
+        "longitude": 114.0825944,
+        "size_m": 500
+      },
+      "end_date": "2020-01-20",
+      "selection_basis": "Same frozen square, with target Jan 13-Jan 20 ending before documented Jan 23 groundbreaking. Other surface, weather and vegetation changes remain possible."
+    },
+    "huoshenshan-nearby": {
+      "review_status": "unreviewed",
+      "references": [
+        {
+          "url": "https://en.nhc.gov.cn/2020-02/03/c_76130.htm",
+          "supports": "January 23, 2020 groundbreaking and February 2 delivery of the emergency public-health hospital."
+        },
+        {
+          "url": "https://english.cscec.com/CompanyNews/CorporateNews/202002/3018196.html",
+          "supports": "Contractor report published January 28 documents construction underway on January 27."
+        },
+        {
+          "url": "https://www.openstreetmap.org/way/766315840",
+          "supports": "Hospital footprint location, using way version 9 from January 14, 2024; geometry locator, not dated construction or quiet ground truth."
+        }
+      ],
+      "label": "Nearby comparison candidate; quiet conditions not established",
+      "site": {
+        "id": "huoshenshan-nearby",
+        "name": "Huoshenshan nearby comparison (validation)",
+        "latitude": 30.5302291,
+        "longitude": 114.0925944,
+        "size_m": 500
+      },
+      "end_date": "2020-02-03",
+      "selection_basis": "Same 500 m width and event windows, shifted exactly 0.01 degrees longitude east (about 960 m) from the hospital reference. Fixed geometric comparison before detector output; land cover and quiet conditions require imagery review."
+    }
+  },
+  "limits": [
+    "500 m AOIs are provisional surface-change candidates, not per-pixel labels.",
+    "Event baseline includes initial construction days Jan 23-26.",
+    "Nearby comparison uses a geometric offset; quiet conditions and comparable land cover are unverified.",
+    "Historical public-health construction validation only; no individual or vehicle tracking."
+  ]
+}

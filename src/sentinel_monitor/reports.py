@@ -49,10 +49,19 @@ def build_site(results: Path, output: Path, mode: str):
     template = env.from_string(
         files("sentinel_monitor").joinpath("templates/index.html").read_text(encoding="utf-8")
     )
+    review_workbench = any(
+        r.get("validation_case") and r.get("review_previews_requested") for r in records
+    )
+    if review_workbench:
+        (output / "review.js").write_text(
+            files("sentinel_monitor").joinpath("templates/review.js").read_text(encoding="utf-8"),
+            encoding="utf-8",
+        )
     html = template.render(
         records=records,
         latest=list(latest.values()),
         mode=mode,
+        review_workbench=review_workbench,
         review_mode=any(r.get("review_previews_requested") for r in records),
     )
     (output / "index.html").write_text(html, encoding="utf-8")

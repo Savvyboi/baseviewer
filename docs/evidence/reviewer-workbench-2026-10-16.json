@@ -1,0 +1,172 @@
+{
+  "recorded_date": "2026-10-16",
+  "timezone": "Europe/Helsinki",
+  "kind": "reviewer UI acceptance, not detector or object-recognition validation",
+  "base_commit": "170332e0af40e178a72f5fce4ea1bdc1401f0d7f",
+  "source_files": [
+    {
+      "path": "src/sentinel_monitor/reports.py",
+      "sha256": "002092efa678e6241abaa817ebde9dd87a09328af9336fbba82cb147ed359db1"
+    },
+    {
+      "path": "src/sentinel_monitor/templates/index.html",
+      "sha256": "ba206947dae4253db18e6c0a9e42689cf9752d4899154e10c42b9d8de8ac4788"
+    },
+    {
+      "path": "src/sentinel_monitor/templates/review.js",
+      "sha256": "2fce08d2a62b334e85d2b682612f356c7d7ee3fafcf83d69334ee08bde2df946"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "26eafc9e5048a5200ce64b23f387d5d9e56bbfd3331c08d43b65023fa466fada"
+    }
+  ],
+  "browser_checks": {
+    "browser": "headless Chrome",
+    "desktop": {
+      "width": 1280,
+      "content": 1280
+    },
+    "mobile": {
+      "width": 390,
+      "content": 390
+    },
+    "passed": [
+      "aligned keyboard/button image switching",
+      "review survives reload",
+      "JSON export includes exact record identity and notes",
+      "source detector result remains unchanged",
+      "case isolation",
+      "refreshed-record isolation",
+      "routine reports have no workbench",
+      "blocked browser storage warns and still exports",
+      "JavaScript-disabled original previews remain available",
+      "no browser errors",
+      "desktop/mobile layout fits"
+    ]
+  },
+  "offline_checks": {
+    "pytest": "58 passed",
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "git_diff_check": "passed"
+  },
+  "screenshots_visually_inspected": [
+    {
+      "path": "docs/evidence/reviewer-workbench-2026-10-16/desktop.png",
+      "sha256": "e456fc0ee671e66894092cffffdc77dd38e5780f0958ffe88ea383d826323a98"
+    },
+    {
+      "path": "docs/evidence/reviewer-workbench-2026-10-16/mobile.png",
+      "sha256": "b57afa9541af6893ae4620bc1f596a7d5c1f99fe74c2fe0946c760f76b7111eb"
+    }
+  ],
+  "source_records_unchanged": true,
+  "source_pngs_hash_matched_and_http_verified": [
+    {
+      "case_id": "park-fire-event",
+      "comparison_id": "349d9d5ee826baddb31343c3",
+      "kind": "before",
+      "sha256": "0cd74de739ad6ca4351d23a2df12fe72625c36b26c5639e3455f571237e2dd11"
+    },
+    {
+      "case_id": "park-fire-event",
+      "comparison_id": "349d9d5ee826baddb31343c3",
+      "kind": "after",
+      "sha256": "c3c99baa523dd45fc337c98dfe81888e3cbea7687f7077fcbf0d8d8c625abe29"
+    },
+    {
+      "case_id": "park-fire-event",
+      "comparison_id": "349d9d5ee826baddb31343c3",
+      "kind": "overlay",
+      "sha256": "c3c99baa523dd45fc337c98dfe81888e3cbea7687f7077fcbf0d8d8c625abe29"
+    },
+    {
+      "case_id": "park-fire-event",
+      "comparison_id": "7164b43ecfd490262dcc76ad",
+      "kind": "before",
+      "sha256": "0cd74de739ad6ca4351d23a2df12fe72625c36b26c5639e3455f571237e2dd11"
+    },
+    {
+      "case_id": "park-fire-event",
+      "comparison_id": "7164b43ecfd490262dcc76ad",
+      "kind": "after",
+      "sha256": "a9dea7b0f3bc9f0769ff438b32f68dbf8b002f5af82823c7b82337e784453b42"
+    },
+    {
+      "case_id": "park-fire-event",
+      "comparison_id": "7164b43ecfd490262dcc76ad",
+      "kind": "overlay",
+      "sha256": "a9dea7b0f3bc9f0769ff438b32f68dbf8b002f5af82823c7b82337e784453b42"
+    },
+    {
+      "case_id": "park-fire-pre-event",
+      "comparison_id": "0c40a43ee8516db782feae0e",
+      "kind": "before",
+      "sha256": "83511f144d35b0b19439fcb2a226323b39e713ab8d951b7ad2688ff7dbafa7e6"
+    },
+    {
+      "case_id": "park-fire-pre-event",
+      "comparison_id": "0c40a43ee8516db782feae0e",
+      "kind": "after",
+      "sha256": "20fb54edce4bc526f12b657a677f6478f611ae0746171c2c6ccbb973cf0422b2"
+    },
+    {
+      "case_id": "park-fire-pre-event",
+      "comparison_id": "0c40a43ee8516db782feae0e",
+      "kind": "overlay",
+      "sha256": "20fb54edce4bc526f12b657a677f6478f611ae0746171c2c6ccbb973cf0422b2"
+    }
+  ],
+  "science_configuration_workflows_unchanged": [
+    {
+      "path": "settings.yaml",
+      "git_blob": "3d098613ce6bcf2ae7484823177209acb9013ca0"
+    },
+    {
+      "path": "sites.yaml",
+      "git_blob": "0b0976e9f5fb76dbe90c96ed86c203e72ffcd6ef"
+    },
+    {
+      "path": "src/sentinel_monitor/earth.py",
+      "git_blob": "e04da0e623812a57bca4974e000d4288c7f7c6b2"
+    },
+    {
+      "path": "src/sentinel_monitor/cli.py",
+      "git_blob": "222efc062ed8695364785245bec2bf871b010d29"
+    },
+    {
+      "path": "src/sentinel_monitor/config.py",
+      "git_blob": "9085646621411e025cfdbbb7e1e1891ee8587ea3"
+    },
+    {
+      "path": "src/sentinel_monitor/decisions.py",
+      "git_blob": "1cb835e30527180156e6c05d43fd31707c082423"
+    },
+    {
+      "path": "validation/cases.json",
+      "git_blob": "66b408706f61ef29ee8822dacb4648e116422bd6"
+    },
+    {
+      "path": ".github/workflows/monitor.yml",
+      "git_blob": "dbd14884a1a93a70d7b0b2a40791d784e7113150"
+    },
+    {
+      "path": ".github/workflows/validation.yml",
+      "git_blob": "a0613724503232f6b5caaa0b19c90f4d2184cf2e"
+    }
+  ],
+  "package": {
+    "wheel_filename": "sentinel_ground_monitor-0.1.0-py3-none-any.whl",
+    "sha256": "a60b7d529fc0b4e6ed7f180dcc8a90551a8af30983ca9ae12c074bd82cbe7c64",
+    "review_js_included": true,
+    "build_note": "Local environment lacked setuptools for a no-isolation build; standard isolated pip wheel build succeeded."
+  },
+  "scope": {
+    "deployed": false,
+    "earth_engine_requests_added": 0,
+    "review_notes_scope": "browser-local; exact report record identity; export only open report",
+    "test_notes": "QA ONLY notes used in temporary browser contexts; not ground-truth labels or changes to analysis records.",
+    "limits": "No construction, ship, aircraft or vehicle detection accuracy claim. No new active locations or scheduling change."
+  }
+}
