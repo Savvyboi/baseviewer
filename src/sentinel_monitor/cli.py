@@ -1,4 +1,4 @@
-"""Commands: validate, run, build and benchmark."""
+"""Commands for configuration, analysis, publication and validation."""
 
 import argparse
 import json
@@ -29,7 +29,11 @@ def parser():
     run.add_argument(
         "--demo", action="store_true", help="Use synthetic fixtures; no Earth Engine calls"
     )
-    run.add_argument("--demo-scenario", choices=["change", "quiet", "cloudy"], default="change")
+    run.add_argument(
+        "--demo-scenario",
+        choices=["change", "quiet", "cloudy", "sensor-error", "preview-error"],
+        default="change",
+    )
     run.add_argument(
         "--radar-diagnostics",
         action="store_true",
@@ -49,6 +53,11 @@ def parser():
     benchmark.add_argument("--measured-sites", type=int, default=20)
     benchmark.add_argument("--target-sites", type=int, default=200)
     benchmark.add_argument("--monthly-runs", type=int, default=5)
+    live = commands.add_parser(
+        "validate-live", help="Run tiny synthetic raster checks on EE servers"
+    )
+    live.add_argument("--project", default=os.environ.get("EE_PROJECT_ID"), required=False)
+    live.add_argument("--output", type=Path, default=Path("results-validation/numeric-checks.json"))
     return root
 
 
@@ -197,6 +206,25 @@ def main(argv=None):
             )
         elif args.command == "build":
             build_site(args.results, args.output, "demo" if args.demo else "live")
+        elif args.command == "validate-live":
+            from .earth import initialize
+            from .validation import live_checks
+
+            if not args.project:
+                raise ValueError("Set EE_PROJECT_ID or --project for live numeric validation")
+            initialize(args.project)
+            result = live_checks()
+            save_json(args.output, result)
+            print(
+                json.dumps(
+                    {
+                        "passed": result["passed"],
+                        "checks": len(result["checks"]),
+                        "output": str(args.output),
+                    }
+                )
+            )
+            return 0 if result["passed"] else 2
         elif args.command == "benchmark":
             import math
 

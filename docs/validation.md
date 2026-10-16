@@ -4,7 +4,7 @@ Recorded 16 October 2026 (Europe/Helsinki).
 
 ## Verified
 
-- 46 offline checks pass, including UTC windows, metric grids, sensor/orbit isolation, coverage rules, saved history, error diagnostics, reduction limits, optional radar diagnostics and controlled HTTP publication bundles.
+- 52 offline checks pass, including UTC windows, metric grids, sensor/orbit isolation, coverage rules, saved history, error diagnostics, reduction limits, optional radar diagnostics, validation fixture construction and controlled HTTP publication bundles.
 - The [initial one-site live run](https://github.com/Savvyboi/baseviewer/actions/runs/38824576055) passed for Engels air base, with exclusive end date `2026-10-12` and publishing disabled.
 - Workload Identity Federation and the monitoring service account performed server-side comparisons and created PNG previews after the thumbnail-creation permission was granted.
 - The [first Pages deployment](https://github.com/Savvyboi/baseviewer/actions/runs/38825866484) passed. The [public prototype](https://savvyboi.github.io/baseviewer/) and all three PNG previews plus both JSON links returned HTTP 200. Publication reused the completed live record without requesting an analysis refresh.
@@ -27,7 +27,7 @@ Before, after and overlay PNGs for all five radar comparisons were visually revi
 
 Optical results across the four weeks comprise three candidates (approximately 3,902 m² on September 20, 6,004 m² on September 23 and 1,601 m² on September 27), two usable comparisons without threshold crossings, and nine insufficient-data comparisons. The September 20 candidate's RGB previews were visually reviewed; much of the tile looks similar, with a small qualifying patch. This is not independent confirmation of change. A detector-negative comparison is not sufficient evidence to label a whole week quiet.
 
-**Unresolved:** saved radar previews display VV only, although either VV or VH can trigger a candidate. They cannot establish the sign, magnitude or contributing polarization of the broad response. They also cannot distinguish environmental variation, baseline instability and processing artefacts. The baseline has only two daily observations, so baseline variability needs explicit inspection before considering thresholds. Earth Engine documents its [Sentinel-1 preprocessing and heterogeneous collection](https://developers.google.com/earth-engine/guides/sentinel1); matching orbit/pass alone does not establish scientific accuracy.
+Radar previews display VV only, although either VV or VH can trigger a candidate. Live diagnostics now establish signed shifts and polarization support; the imagery and diagnostics still cannot distinguish environmental variation from processing artefacts or establish a cause. The baseline contains only two daily observations. Earth Engine documents its [Sentinel-1 preprocessing and heterogeneous collection](https://developers.google.com/earth-engine/guides/sentinel1); matching orbit/pass alone does not establish scientific accuracy.
 
 ## Optional radar diagnostics
 
@@ -37,7 +37,21 @@ The diagnostic JSON records VV and VH separately: baseline and target backscatte
 
 The flag is off by default, is available as a manual workflow input and adds compute when selected. It does not change thresholds, masks, statuses or science keys. Requesting diagnostics upgrades an older completed record instead of silently reusing one without diagnostics. Diagnostic request failures retain usable detections, surface a partial error and are retried by a later run. Synthetic mode rejects this flag.
 
-**Live execution pending:** the new diagnostic expressions have offline graph coverage, with mocked reducer values. Local Google ADC is unavailable, and GitHub federation is restricted to main. Run the diagnostic code after its PR is merged, initially with publishing disabled. These historical runs executed the existing main implementation; none contains the new diagnostic measurements. Do not infer numerical diagnostic results from the PNGs.
+**Live execution verified:** after PR #5 merged, all four reviewed weeks passed with diagnostics enabled and publishing disabled on main at `6168b3ab03ca9ed1838af669fd3daf43c5a7875a`. Deployment was skipped in each run: [October 12](https://github.com/Savvyboi/baseviewer/actions/runs/38829562558), [September 21](https://github.com/Savvyboi/baseviewer/actions/runs/38829697283), [September 28](https://github.com/Savvyboi/baseviewer/actions/runs/38829818257), [October 5](https://github.com/Savvyboi/baseviewer/actions/runs/38829949827).
+
+The [diagnostic evidence](evidence/radar-diagnostics-2026-10-16.json) pins results commit `8714435fea8b875f960d396f0b43d79f7545e22c`, including complete per-band distributions and run metadata. All 19 previous comparison statuses, coverage values, changed-cell counts, areas and source lists remained identical; all 24 PNG SHA-256 hashes also matched. Four distinct site/window records remain. Diagnostic counts match common valid cell counts.
+
+| Radar date | Orbit | Median VV delta | Median VH delta | Raw either-band threshold support | Baseline range >3 dB, VV / VH |
+| --- | --- | --- | --- | --- | --- |
+| 2026-09-14 | 152 | +2.31 dB | +3.31 dB | 67.1% | 14.9% / 23.8% |
+| 2026-09-19 | 50 | −2.19 dB | −2.94 dB | 64.1% | 49.9% / 66.2% |
+| 2026-09-26 | 152 | −0.81 dB | −0.94 dB | 23.6% | 39.9% / 53.2% |
+| 2026-10-01 | 50 | −2.69 dB | −3.56 dB | 72.4% | 57.5% / 70.7% |
+| 2026-10-08 | 152 | −4.07 dB | −5.94 dB | 84.3% | 23.8% / 32.3% |
+
+Signed delta is target minus the existing power-median baseline, expressed in dB after the production speckle averaging. Fractions use common valid cells before patch filtering, so raw threshold support can exceed the final flagged-cell fraction. On October 8, 65.2% of valid VV cells and 77.7% of valid VH cells decreased by more than 3 dB; 59.4% crossed the absolute threshold in both bands. The widespread response is therefore not attributable solely to an unseen VH band. The positive September 14 shift and later negative shifts demonstrate variability across this sample, without identifying its cause.
+
+Several baselines themselves have extensive >3 dB ranges between their two dates (up to 70.7% of valid VH cells in the October 1 comparison). That makes independent quiet/control-area review essential. These measurements characterize the starting detector; they do not establish ground-truth change, justify a new threshold or validate detection accuracy.
 
 ## Controlled failure acceptance
 
@@ -49,7 +63,17 @@ The flag is off by default, is available as a manual workflow input and adds com
 - HTML, latest/history JSON and every referenced PNG remain accessible and consistent with those outcomes.
 - Failed records retry without `--refresh`; successful recovery replaces the matching record, preserves the earlier week and is subsequently cached.
 
-These checks use mocked Earth Engine responses and synthetic test PNGs. They verify local publication bundles and exit code 2 for partial failures. The optional diagnostic table and failure messages were also visually checked in Chrome at 1280 px and 390 px widths; neither layout overflowed the page. A controlled failed analysis through GitHub's Pages artifact/deploy jobs remains pending; no synthetic failure was published over the live report.
+These checks use mocked Earth Engine responses and synthetic test PNGs. They verify local publication bundles and exit code 2 for partial failures. The optional diagnostic table and failure messages were also visually checked in Chrome at 1280 px and 390 px widths; neither layout overflowed the page. PR acceptance now has an isolated workflow to exercise actual GitHub artifact and Pages-artifact packaging after controlled failures. Execution evidence for that workflow will be recorded after its PR checks run. A controlled failed analysis through the real Pages deploy job remains pending; no synthetic failure was published over the live report.
+
+## Live numeric validation harness
+
+`sentinel-monitor validate-live --project baseviewer-511722` evaluates 12 tiny, constant-raster cases on Earth Engine through the production comparison method. Each sensor checks unchanged inputs, a nine-cell square, a single cell that must be removed, a nine-cell diagonal requiring eight-neighbour connectivity, a wholly masked target and only one valid baseline day per pixel despite two metadata dates. The radar unchanged/patch cases also check known signed means, band identities, valid counts and polarization threshold fractions.
+
+The 100 m fixture is 100 cells, with explicit masks and no satellite imagery or preview requests. Output records expected/observed results, individual failures, a unique workload tag and UTC request bounds. A failed check returns exit code 2 and retains the evidence file. This is a server numeric acceptance check, not a quiet/known-change imagery example, preprocessing validation or a compute benchmark.
+
+The new **Validation acceptance** workflow runs synthetic sensor/preview failure packaging on PRs, with no Google authentication or deployment permissions. Both reports carry the demo banner. Its manual `failure-artifacts` option deliberately ends failed after uploading evidence; the PR version succeeds only when the expected CLI failure and error report are observed. Artifact names are separate from the production Pages artifact. The manual `numeric` option runs only on main using the existing Google federation.
+
+**Numeric server execution remains pending merge.** Offline tests verify fixture graph construction and success/failure evidence handling; they do not substitute for executing these 12 checks. The production monitoring workflow, active site list, thresholds and scheduling gate are unchanged.
 
 ## Independent examples and quiet controls
 
@@ -76,4 +100,4 @@ Extrapolate to five monthly runs only after measuring the representative sample.
 
 `sites.yaml` still contains only Engels, `max_sites: 1` is unchanged and `MONITOR_ENABLED` was verified unset. Scheduled monitoring and expansion remain disabled. Historical validation saved records to the results branch with publishing off; the reviewed October 12 prototype remains public.
 
-Before any rollout: execute the new diagnostics on live imagery, resolve or characterize the broad response using independent quiet/change controls, complete the representative EECU review, and exercise the failed-analysis Pages deployment path. Do not tune to this single site or treat the reference agent plan as approval to enable scheduling or expand the site list.
+Before any rollout: pass the live numeric checks, resolve or characterize the broad response using independent quiet/change controls, complete the representative EECU review, and exercise the failed-analysis Pages deployment path. Live per-band diagnostic execution is complete; those remaining gates are not. Do not tune to this single site or treat the reference agent plan as approval to enable scheduling or expand the site list.

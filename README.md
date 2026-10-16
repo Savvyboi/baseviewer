@@ -74,7 +74,20 @@ For an investigation run, add `--radar-diagnostics` (or enable the corresponding
 workflow input). This optional extra reduction saves signed VV/VH distributions, baseline
 variability and polarization-specific threshold fractions on common valid cells. It does
 not change detection rules and is off by default. Requesting it recomputes older cached
-records without diagnostics. The new diagnostics still need live server validation.
+records without diagnostics. The diagnostics passed live execution on all four reviewed weeks; the signed results and
+baseline variability are recorded in the validation notes.
+
+For controlled failures, `--demo-scenario sensor-error` and
+`--demo-scenario preview-error` create labelled synthetic reports and return exit code 2.
+The **Validation acceptance** workflow packages these reports as ordinary and Pages
+artifacts on PRs, with no deployment job. A manual `failure-artifacts` run deliberately
+ends failed after saving its evidence.
+
+`sentinel-monitor validate-live --project PROJECT_ID` runs 12 small constant-raster
+checks through the production comparison method on Earth Engine, writes expected/observed
+JSON under `results-validation/`, and returns nonzero if a check fails. The workflow's
+manual `numeric` option can run it on main with the existing federation. This new numeric
+harness still needs its first server run; it does not establish real-imagery accuracy.
 
 ## History and errors
 
