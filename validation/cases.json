@@ -1,6 +1,6 @@
 {
   "frozen_on": "2026-10-16",
-  "selection_note": "Reference coordinate and windows selected from independent event documentation before inspecting detector output. Labels remain provisional at pixel/AOI scale.",
+  "selection_note": "Coordinates and windows selected from independent event or stable-surface references before inspecting detector output. Labels remain provisional at pixel/AOI scale.",
   "cases": {
     "park-fire-event": {
       "label": "Documented fire event; AOI change candidate requiring imagery review",
@@ -124,6 +124,29 @@
       },
       "end_date": "2020-02-03",
       "selection_basis": "Same 500 m width and event windows, shifted exactly 0.01 degrees longitude east (about 960 m) from the hospital reference. Fixed geometric comparison before detector output; land cover and quiet conditions require imagery review."
+    },
+    "gobabeb-quiet-reference": {
+      "label": "Published stable-surface reference; full AOI and radar quiet conditions require review",
+      "review_status": "unreviewed",
+      "site": {
+        "id": "gobabeb-hypernets",
+        "name": "Gobabeb HYPERNETS stable-surface reference (validation)",
+        "latitude": -23.60153,
+        "longitude": 15.12589,
+        "size_m": 200
+      },
+      "end_date": "2022-07-18",
+      "selection_basis": "200 m square centred on the GHNA instrument coordinates in De Vis et al. (2024) Section 2.1.1, using the same cutout width as Section 2.2.4. Select the earliest accepted Sentinel-2 matchup in Table 1 whose preceding rolling baseline starts after the first listed good Sentinel-2 matchup (June 8): July 13, 2022, in target July 11-18 and baseline June 13-July 11. Fixed before any detector result, without searching for a negative satellite output. Published surface stability and independently selected ground samples support a quiet-reference candidate; they do not certify every AOI cell, SAR stability, or equivalence to urban construction/transport land cover.",
+      "references": [
+        {
+          "url": "https://www.frontiersin.org/journals/remote-sensing/articles/10.3389/frsen.2024.1323998/full",
+          "supports": "GHNA instrument coordinates, stable gravel-plain surface, 200 m satellite cutout method, deployment from May 2022 and accepted July 13 Sentinel-2 / ground-instrument matchup. GHNA is distinct from the nearby GONA RadCalNet station."
+        },
+        {
+          "url": "https://doi.org/10.5281/zenodo.8039303",
+          "supports": "Version 1.0.0 independent ground-reflectance sample files. Five fixed sequences on June 22/28/30, July 10 and July 13 were checksum-verified; all quality-valid common five-degree directions and excluded flags are retained in selection evidence."
+        }
+      ]
     }
   }
 }
