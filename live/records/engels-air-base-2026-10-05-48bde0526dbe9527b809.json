@@ -2,6 +2,7 @@
   "schema_version": 1,
   "analysis_version": "0.1.0",
   "analysis_key": "48bde0526dbe9527b809",
+  "radar_diagnostics_requested": true,
   "site": {
     "id": "engels-air-base",
     "name": "Engels air base",
@@ -34,7 +35,7 @@
     "target_end": "2026-10-05"
   },
   "mode": "live",
-  "generated_at": "2026-10-16T00:15:19.131889+00:00",
+  "generated_at": "2026-10-16T00:32:13.082200+00:00",
   "settings": {
     "analysis_version": "0.1.0",
     "earth_engine_project": "baseviewer-511722",
@@ -55,7 +56,7 @@
     "request_attempts": 3,
     "preview_pixels": 400
   },
-  "elapsed_seconds": 9.51,
+  "elapsed_seconds": 9.814,
   "comparisons": [
     {
       "id": "bcb6885fb0885c537a971d84",
@@ -233,6 +234,80 @@
       "status": "possible_change",
       "valid_coverage": 0.913375,
       "changed_area_m2": 2616034.5797424316,
+      "radar_diagnostics": {
+        "scope": "common valid cells, before connected-patch filtering",
+        "threshold_db": 3.0,
+        "polarizations": {
+          "VV": {
+            "baseline_db": {
+              "count": 36535,
+              "mean_db": -13.195553774663423,
+              "p05_db": -20.19685329393923,
+              "median_db": -12.938547266616073,
+              "p95_db": -8.816397044368264
+            },
+            "target_db": {
+              "count": 36535,
+              "mean_db": -15.890820151844272,
+              "p05_db": -21.56316432989711,
+              "median_db": -15.811660194815286,
+              "p95_db": -10.437076487197132
+            },
+            "signed_delta_db": {
+              "count": 36535,
+              "mean_db": -2.6952663771810177,
+              "p05_db": -5.811769751148659,
+              "median_db": -2.685538345551833,
+              "p95_db": 0.5601228580235437
+            },
+            "baseline_range_db": {
+              "count": 36535,
+              "mean_db": 3.5143496310909534,
+              "p05_db": 0.4676975695975274,
+              "median_db": 3.4073717133917993,
+              "p95_db": 6.9657056269563125
+            },
+            "baseline_range_exceedance_fraction": 0.5752292322430546,
+            "positive_fraction": 0.0017243738880525522,
+            "negative_fraction": 0.4466675790338032
+          },
+          "VH": {
+            "baseline_db": {
+              "count": 36535,
+              "mean_db": -19.00382709085275,
+              "p05_db": -25.557161617854383,
+              "median_db": -18.56268733257744,
+              "p95_db": -14.810840535000215
+            },
+            "target_db": {
+              "count": 36535,
+              "mean_db": -22.501987885095062,
+              "p05_db": -27.938134293725838,
+              "median_db": -22.687847294993738,
+              "p95_db": -16.688404988659514
+            },
+            "signed_delta_db": {
+              "count": 36535,
+              "mean_db": -3.4981607942418598,
+              "p05_db": -7.687900810613499,
+              "median_db": -3.5610381733285528,
+              "p95_db": 0.6870296206290932
+            },
+            "baseline_range_db": {
+              "count": 36535,
+              "mean_db": 4.655574262158415,
+              "p05_db": 0.6879211140750855,
+              "median_db": 4.434896303281848,
+              "p95_db": 9.312751467984093
+            },
+            "baseline_range_exceedance_fraction": 0.7065553578760093,
+            "positive_fraction": 0.005638428903790885,
+            "negative_fraction": 0.5831668263309155
+          }
+        },
+        "either_fraction": 0.7244012590666484,
+        "both_fraction": 0.31279594908991376
+      },
       "changed_cells": 26144,
       "previews": {
         "before": "assets/4f96a8379b56bce33f6d751b/before.png",
