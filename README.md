@@ -63,6 +63,19 @@ Overlapping tiles or radar slices from the same UTC acquisition day are mosaicke
 
 Reported areas are the spatial union of qualifying comparisons per sensor, avoiding double counting across acquisitions. Overlap is spatial support from both sensors during the week; it does not assert simultaneous observations. Each candidate includes actual acquisition times, baseline acquisition days, source IDs, thresholds, coverage and analysis version. Baseline previews are explicitly labeled composites and use the same stretch as their target previews.
 
+## Validation diagnostics
+
+Three additional historical weeks at Engels have passed with publishing disabled. Radar
+candidates recur across all four reviewed weeks, covering about 20–84% of common valid
+cells per acquisition. These results do not establish quiet controls or detection accuracy.
+See [the evidence and remaining acceptance gates](docs/validation.md).
+
+For an investigation run, add `--radar-diagnostics` (or enable the corresponding manual
+workflow input). This optional extra reduction saves signed VV/VH distributions, baseline
+variability and polarization-specific threshold fractions on common valid cells. It does
+not change detection rules and is off by default. Requesting it recomputes older cached
+records without diagnostics. The new diagnostics still need live server validation.
+
 ## History and errors
 
 Live and synthetic data are separated under `results/live` and `results/demo`. Each site/window/science configuration has a deterministic record key. Detection IDs also include sensor and source acquisitions. Repeating a completed run reuses the saved record. Changing scientific settings changes the key; changing concurrency or preview settings does not.

@@ -22,6 +22,10 @@ on:
         description: Recompute the selected week for late-ingested imagery
         type: boolean
         default: false
+      radar_diagnostics:
+        description: Measure signed VV/VH shifts and baseline variability (extra compute)
+        type: boolean
+        default: false
       publish:
         description: Deploy the generated site to GitHub Pages
         type: boolean
@@ -75,6 +79,7 @@ jobs:
       END_DATE: ${{ inputs.end_date }}
       SITE_ID: ${{ inputs.site_id }}
       REFRESH: ${{ inputs.refresh || false }}
+      RADAR_DIAGNOSTICS: ${{ inputs.radar_diagnostics || false }}
       WIF_PROVIDER: ${{ vars.WIF_PROVIDER }}
       EE_SERVICE_ACCOUNT: ${{ vars.EE_SERVICE_ACCOUNT }}
     steps:
@@ -122,6 +127,7 @@ jobs:
           if [[ -n "$END_DATE" ]]; then args+=(--end-date "$END_DATE"); fi
           if [[ -n "$SITE_ID" ]]; then args+=(--site-id "$SITE_ID"); fi
           if [[ "$REFRESH" == true ]]; then args+=(--refresh); fi
+          if [[ "$RADAR_DIAGNOSTICS" == true ]]; then args+=(--radar-diagnostics); fi
           set +e
           sentinel-monitor run "${args[@]}"
           status=$?
