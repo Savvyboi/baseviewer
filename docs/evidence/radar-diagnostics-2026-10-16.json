@@ -1,0 +1,613 @@
+{
+  "recorded_date": "2026-10-16",
+  "timezone": "Europe/Helsinki",
+  "implementation_commit": "6168b3ab03ca9ed1838af669fd3daf43c5a7875a",
+  "results_commit": "8714435fea8b875f960d396f0b43d79f7545e22c",
+  "previous_evidence": "engels-2026-10-16.json",
+  "unchanged_comparisons": 19,
+  "unchanged_png_sha256_count": 24,
+  "distinct_records": 4,
+  "publish": false,
+  "weeks": [
+    {
+      "record_path": "live/records/engels-air-base-2026-09-21-2fb4a221ea8796fe5695.json",
+      "analysis_key": "2fb4a221ea8796fe5695",
+      "workflow": {
+        "id": 38829697283,
+        "html_url": "https://github.com/Savvyboi/baseviewer/actions/runs/38829697283",
+        "head_sha": "6168b3ab03ca9ed1838af669fd3daf43c5a7875a",
+        "created_at": "2026-10-16T00:28:44Z",
+        "updated_at": "2026-10-16T00:29:49Z",
+        "status": "completed",
+        "conclusion": "success",
+        "week": "2026-09-21",
+        "jobs": [
+          {
+            "name": "checks",
+            "conclusion": "success"
+          },
+          {
+            "name": "monitor",
+            "conclusion": "success"
+          },
+          {
+            "name": "deploy",
+            "conclusion": "skipped"
+          }
+        ]
+      },
+      "radar_comparisons": [
+        {
+          "id": "e7b81273e5bbc71199378971",
+          "acquisition_date": "2026-09-14",
+          "radar_group": {
+            "relative_orbit": 152,
+            "pass": "DESCENDING"
+          },
+          "source_ids": [
+            "S1D_IW_GRDH_1SDV_20260914T030516_20260914T030541_004568_008812_1B25"
+          ],
+          "baseline_source_ids": [
+            "S1D_IW_GRDH_1SDV_20260821T030515_20260821T030540_004218_007BD9_15B3",
+            "S1D_IW_GRDH_1SDV_20260902T030515_20260902T030540_004393_0081F7_D95E"
+          ],
+          "baseline_acquisition_dates": [
+            "2026-08-21",
+            "2026-09-02"
+          ],
+          "valid_coverage": 0.944575,
+          "changed_cells": 24943,
+          "changed_area_m2": 2495860.164100647,
+          "radar_diagnostics": {
+            "scope": "common valid cells, before connected-patch filtering",
+            "threshold_db": 3.0,
+            "polarizations": {
+              "VV": {
+                "baseline_db": {
+                  "count": 37783,
+                  "mean_db": -14.913186849030723,
+                  "p05_db": -20.071473418359734,
+                  "median_db": -15.44030439283488,
+                  "p95_db": -9.686913534987044
+                },
+                "target_db": {
+                  "count": 37783,
+                  "mean_db": -12.686276879016582,
+                  "p05_db": -20.317332831981464,
+                  "median_db": -12.311818588273141,
+                  "p95_db": -7.936518597895339
+                },
+                "signed_delta_db": {
+                  "count": 37783,
+                  "mean_db": 2.226909970014085,
+                  "p05_db": -1.4327978961329069,
+                  "median_db": 2.311771534654965,
+                  "p95_db": 5.691529706837656
+                },
+                "baseline_range_db": {
+                  "count": 37783,
+                  "mean_db": 1.6746837904516423,
+                  "p05_db": 0.1880490014945127,
+                  "median_db": 1.4367691341606927,
+                  "p95_db": 4.185062227807749
+                },
+                "baseline_range_exceedance_fraction": 0.1490088134875473,
+                "positive_fraction": 0.37294550459201226,
+                "negative_fraction": 0.014027472672895218
+              },
+              "VH": {
+                "baseline_db": {
+                  "count": 37783,
+                  "mean_db": -21.179542661972203,
+                  "p05_db": -25.93552897856413,
+                  "median_db": -21.566396042487728,
+                  "p95_db": -16.190621835034364
+                },
+                "target_db": {
+                  "count": 37783,
+                  "mean_db": -18.039639211393258,
+                  "p05_db": -25.558972213980297,
+                  "median_db": -17.434802936562225,
+                  "p95_db": -13.564069126340327
+                },
+                "signed_delta_db": {
+                  "count": 37783,
+                  "mean_db": 3.1399034505788848,
+                  "p05_db": -1.191158913226086,
+                  "median_db": 3.3126887743417313,
+                  "p95_db": 6.937638028724447
+                },
+                "baseline_range_db": {
+                  "count": 37783,
+                  "mean_db": 2.0420265614167272,
+                  "p05_db": 0.1564866357095321,
+                  "median_db": 1.6558691094069766,
+                  "p95_db": 5.343487405817474
+                },
+                "baseline_range_exceedance_fraction": 0.2381229653547892,
+                "positive_fraction": 0.5449011460180504,
+                "negative_fraction": 0.015218484503612736
+              }
+            },
+            "either_fraction": 0.6714660032289654,
+            "both_fraction": 0.2756266045576053
+          }
+        },
+        {
+          "id": "c15ccd624afc841f95002d86",
+          "acquisition_date": "2026-09-19",
+          "radar_group": {
+            "relative_orbit": 50,
+            "pass": "DESCENDING"
+          },
+          "source_ids": [
+            "S1D_IW_GRDH_1SDV_20260919T031326_20260919T031351_004641_008A8E_AE79"
+          ],
+          "baseline_source_ids": [
+            "S1D_IW_GRDH_1SDV_20260826T031325_20260826T031350_004291_007E6A_159F",
+            "S1D_IW_GRDH_1SDV_20260907T031326_20260907T031351_004466_008485_BB84"
+          ],
+          "baseline_acquisition_dates": [
+            "2026-08-26",
+            "2026-09-07"
+          ],
+          "valid_coverage": 0.91125,
+          "changed_cells": 22974,
+          "changed_area_m2": 2298836.4986343384,
+          "radar_diagnostics": {
+            "scope": "common valid cells, before connected-patch filtering",
+            "threshold_db": 3.0,
+            "polarizations": {
+              "VV": {
+                "baseline_db": {
+                  "count": 36450,
+                  "mean_db": -13.015445739470248,
+                  "p05_db": -19.94087624205818,
+                  "median_db": -12.813239313356853,
+                  "p95_db": -8.566788584575319
+                },
+                "target_db": {
+                  "count": 36450,
+                  "mean_db": -15.29228419528199,
+                  "p05_db": -21.310962560247756,
+                  "median_db": -15.186577959389076,
+                  "p95_db": -10.062435646239715
+                },
+                "signed_delta_db": {
+                  "count": 36450,
+                  "mean_db": -2.276838455811592,
+                  "p05_db": -5.44143021210099,
+                  "median_db": -2.1874479202328825,
+                  "p95_db": 0.6879974196655765
+                },
+                "baseline_range_db": {
+                  "count": 36450,
+                  "mean_db": 3.1570972002766946,
+                  "p05_db": 0.3415168686487008,
+                  "median_db": 2.969188949310622,
+                  "p95_db": 6.652538809780489
+                },
+                "baseline_range_exceedance_fraction": 0.4985185185185185,
+                "positive_fraction": 0.004060356652949245,
+                "negative_fraction": 0.34224965706447186
+              },
+              "VH": {
+                "baseline_db": {
+                  "count": 36450,
+                  "mean_db": -18.901737490234822,
+                  "p05_db": -25.44014718024293,
+                  "median_db": -18.56457969443669,
+                  "p95_db": -14.568465603340755
+                },
+                "target_db": {
+                  "count": 36450,
+                  "mean_db": -21.981123877482997,
+                  "p05_db": -27.686287518619157,
+                  "median_db": -22.06389836946519,
+                  "p95_db": -16.31067609981558
+                },
+                "signed_delta_db": {
+                  "count": 36450,
+                  "mean_db": -3.079386387248107,
+                  "p05_db": -7.191275166814639,
+                  "median_db": -2.9360550679254236,
+                  "p95_db": 0.6855728826261858
+                },
+                "baseline_range_db": {
+                  "count": 36450,
+                  "mean_db": 4.495884629853963,
+                  "p05_db": 0.5314391823073097,
+                  "median_db": 4.1572440192613405,
+                  "p95_db": 9.533107709569785
+                },
+                "baseline_range_exceedance_fraction": 0.6618930041152263,
+                "positive_fraction": 0.004526748971193415,
+                "negative_fraction": 0.4980246913580247
+              }
+            },
+            "either_fraction": 0.6406035665294925,
+            "both_fraction": 0.20825788751714677
+          }
+        }
+      ]
+    },
+    {
+      "record_path": "live/records/engels-air-base-2026-09-28-0bf345c524ec8d76e3ce.json",
+      "analysis_key": "0bf345c524ec8d76e3ce",
+      "workflow": {
+        "id": 38829818257,
+        "html_url": "https://github.com/Savvyboi/baseviewer/actions/runs/38829818257",
+        "head_sha": "6168b3ab03ca9ed1838af669fd3daf43c5a7875a",
+        "created_at": "2026-10-16T00:30:03Z",
+        "updated_at": "2026-10-16T00:31:09Z",
+        "status": "completed",
+        "conclusion": "success",
+        "week": "2026-09-28",
+        "jobs": [
+          {
+            "name": "checks",
+            "conclusion": "success"
+          },
+          {
+            "name": "monitor",
+            "conclusion": "success"
+          },
+          {
+            "name": "deploy",
+            "conclusion": "skipped"
+          }
+        ]
+      },
+      "radar_comparisons": [
+        {
+          "id": "0af98651ef27cffe0002c1cb",
+          "acquisition_date": "2026-09-26",
+          "radar_group": {
+            "relative_orbit": 152,
+            "pass": "DESCENDING"
+          },
+          "source_ids": [
+            "S1D_IW_GRDH_1SDV_20260926T030516_20260926T030541_004743_008E0F_9096"
+          ],
+          "baseline_source_ids": [
+            "S1D_IW_GRDH_1SDV_20260902T030515_20260902T030540_004393_0081F7_D95E",
+            "S1D_IW_GRDH_1SDV_20260914T030516_20260914T030541_004568_008812_1B25"
+          ],
+          "baseline_acquisition_dates": [
+            "2026-09-02",
+            "2026-09-14"
+          ],
+          "valid_coverage": 0.96445,
+          "changed_cells": 7594,
+          "changed_area_m2": 759875.0219726562,
+          "radar_diagnostics": {
+            "scope": "common valid cells, before connected-patch filtering",
+            "threshold_db": 3.0,
+            "polarizations": {
+              "VV": {
+                "baseline_db": {
+                  "count": 38578,
+                  "mean_db": -13.521430935044888,
+                  "p05_db": -19.559561684355703,
+                  "median_db": -13.562231471221068,
+                  "p95_db": -9.059503205662136
+                },
+                "target_db": {
+                  "count": 38578,
+                  "mean_db": -14.430991146551724,
+                  "p05_db": -20.935669804703114,
+                  "median_db": -14.318736543250735,
+                  "p95_db": -9.563142188167612
+                },
+                "signed_delta_db": {
+                  "count": 38578,
+                  "mean_db": -0.9095602115068245,
+                  "p05_db": -3.5590592461878465,
+                  "median_db": -0.8131470873350112,
+                  "p95_db": 1.5618427733255815
+                },
+                "baseline_range_db": {
+                  "count": 38578,
+                  "mean_db": 2.6962586446891432,
+                  "p05_db": 0.31410525433156156,
+                  "median_db": 2.4369089808651654,
+                  "p95_db": 5.811919539514482
+                },
+                "baseline_range_exceedance_fraction": 0.3993726994660169,
+                "positive_fraction": 0.0065062989268495,
+                "negative_fraction": 0.09583182124526933
+              },
+              "VH": {
+                "baseline_db": {
+                  "count": 38578,
+                  "mean_db": -19.09527370357094,
+                  "p05_db": -24.808837710651087,
+                  "median_db": -18.937365299464282,
+                  "p95_db": -14.938411899652692
+                },
+                "target_db": {
+                  "count": 38578,
+                  "mean_db": -20.058684521581966,
+                  "p05_db": -26.562070543414706,
+                  "median_db": -19.810781138375795,
+                  "p95_db": -15.063628548393144
+                },
+                "signed_delta_db": {
+                  "count": 38578,
+                  "mean_db": -0.9634108180111124,
+                  "p05_db": -4.182740311948996,
+                  "median_db": -0.9355585175220996,
+                  "p95_db": 2.0660396771978764
+                },
+                "baseline_range_db": {
+                  "count": 38578,
+                  "mean_db": 3.3660954691293288,
+                  "p05_db": 0.3418425107148951,
+                  "median_db": 3.1544599210531503,
+                  "p95_db": 7.096810797728918
+                },
+                "baseline_range_exceedance_fraction": 0.5319871429312043,
+                "positive_fraction": 0.017134117891025973,
+                "negative_fraction": 0.14046866089481053
+              }
+            },
+            "either_fraction": 0.23554875835968686,
+            "both_fraction": 0.024392140598268445
+          }
+        }
+      ]
+    },
+    {
+      "record_path": "live/records/engels-air-base-2026-10-05-48bde0526dbe9527b809.json",
+      "analysis_key": "48bde0526dbe9527b809",
+      "workflow": {
+        "id": 38829949827,
+        "html_url": "https://github.com/Savvyboi/baseviewer/actions/runs/38829949827",
+        "head_sha": "6168b3ab03ca9ed1838af669fd3daf43c5a7875a",
+        "created_at": "2026-10-16T00:31:21Z",
+        "updated_at": "2026-10-16T00:32:19Z",
+        "status": "completed",
+        "conclusion": "success",
+        "week": "2026-10-05",
+        "jobs": [
+          {
+            "name": "checks",
+            "conclusion": "success"
+          },
+          {
+            "name": "monitor",
+            "conclusion": "success"
+          },
+          {
+            "name": "deploy",
+            "conclusion": "skipped"
+          }
+        ]
+      },
+      "radar_comparisons": [
+        {
+          "id": "4f96a8379b56bce33f6d751b",
+          "acquisition_date": "2026-10-01",
+          "radar_group": {
+            "relative_orbit": 50,
+            "pass": "DESCENDING"
+          },
+          "source_ids": [
+            "S1D_IW_GRDH_1SDV_20261001T031326_20261001T031351_004816_0090A5_915A"
+          ],
+          "baseline_source_ids": [
+            "S1D_IW_GRDH_1SDV_20260907T031326_20260907T031351_004466_008485_BB84",
+            "S1D_IW_GRDH_1SDV_20260919T031326_20260919T031351_004641_008A8E_AE79"
+          ],
+          "baseline_acquisition_dates": [
+            "2026-09-07",
+            "2026-09-19"
+          ],
+          "valid_coverage": 0.913375,
+          "changed_cells": 26144,
+          "changed_area_m2": 2616034.5797424316,
+          "radar_diagnostics": {
+            "scope": "common valid cells, before connected-patch filtering",
+            "threshold_db": 3.0,
+            "polarizations": {
+              "VV": {
+                "baseline_db": {
+                  "count": 36535,
+                  "mean_db": -13.195553774663423,
+                  "p05_db": -20.19685329393923,
+                  "median_db": -12.938547266616073,
+                  "p95_db": -8.816397044368264
+                },
+                "target_db": {
+                  "count": 36535,
+                  "mean_db": -15.890820151844272,
+                  "p05_db": -21.56316432989711,
+                  "median_db": -15.811660194815286,
+                  "p95_db": -10.437076487197132
+                },
+                "signed_delta_db": {
+                  "count": 36535,
+                  "mean_db": -2.6952663771810177,
+                  "p05_db": -5.811769751148659,
+                  "median_db": -2.685538345551833,
+                  "p95_db": 0.5601228580235437
+                },
+                "baseline_range_db": {
+                  "count": 36535,
+                  "mean_db": 3.5143496310909534,
+                  "p05_db": 0.4676975695975274,
+                  "median_db": 3.4073717133917993,
+                  "p95_db": 6.9657056269563125
+                },
+                "baseline_range_exceedance_fraction": 0.5752292322430546,
+                "positive_fraction": 0.0017243738880525522,
+                "negative_fraction": 0.4466675790338032
+              },
+              "VH": {
+                "baseline_db": {
+                  "count": 36535,
+                  "mean_db": -19.00382709085275,
+                  "p05_db": -25.557161617854383,
+                  "median_db": -18.56268733257744,
+                  "p95_db": -14.810840535000215
+                },
+                "target_db": {
+                  "count": 36535,
+                  "mean_db": -22.501987885095062,
+                  "p05_db": -27.938134293725838,
+                  "median_db": -22.687847294993738,
+                  "p95_db": -16.688404988659514
+                },
+                "signed_delta_db": {
+                  "count": 36535,
+                  "mean_db": -3.4981607942418598,
+                  "p05_db": -7.687900810613499,
+                  "median_db": -3.5610381733285528,
+                  "p95_db": 0.6870296206290932
+                },
+                "baseline_range_db": {
+                  "count": 36535,
+                  "mean_db": 4.655574262158415,
+                  "p05_db": 0.6879211140750855,
+                  "median_db": 4.434896303281848,
+                  "p95_db": 9.312751467984093
+                },
+                "baseline_range_exceedance_fraction": 0.7065553578760093,
+                "positive_fraction": 0.005638428903790885,
+                "negative_fraction": 0.5831668263309155
+              }
+            },
+            "either_fraction": 0.7244012590666484,
+            "both_fraction": 0.31279594908991376
+          }
+        }
+      ]
+    },
+    {
+      "record_path": "live/records/engels-air-base-2026-10-12-0d938c6c2828198c1593.json",
+      "analysis_key": "0d938c6c2828198c1593",
+      "workflow": {
+        "id": 38829562558,
+        "html_url": "https://github.com/Savvyboi/baseviewer/actions/runs/38829562558",
+        "head_sha": "6168b3ab03ca9ed1838af669fd3daf43c5a7875a",
+        "created_at": "2026-10-16T00:27:16Z",
+        "updated_at": "2026-10-16T00:28:24Z",
+        "status": "completed",
+        "conclusion": "success",
+        "week": "2026-10-12",
+        "jobs": [
+          {
+            "name": "checks",
+            "conclusion": "success"
+          },
+          {
+            "name": "monitor",
+            "conclusion": "success"
+          },
+          {
+            "name": "deploy",
+            "conclusion": "skipped"
+          }
+        ]
+      },
+      "radar_comparisons": [
+        {
+          "id": "5ec9b7b32fe91574920b482d",
+          "acquisition_date": "2026-10-08",
+          "radar_group": {
+            "relative_orbit": 152,
+            "pass": "DESCENDING"
+          },
+          "source_ids": [
+            "S1D_IW_GRDH_1SDV_20261008T030516_20261008T030541_004918_009438_4B82"
+          ],
+          "baseline_source_ids": [
+            "S1D_IW_GRDH_1SDV_20260914T030516_20260914T030541_004568_008812_1B25",
+            "S1D_IW_GRDH_1SDV_20260926T030516_20260926T030541_004743_008E0F_9096"
+          ],
+          "baseline_acquisition_dates": [
+            "2026-09-14",
+            "2026-09-26"
+          ],
+          "valid_coverage": 0.88505,
+          "changed_cells": 29671,
+          "changed_area_m2": 2968955.4444885254,
+          "radar_diagnostics": {
+            "scope": "common valid cells, before connected-patch filtering",
+            "threshold_db": 3.0,
+            "polarizations": {
+              "VV": {
+                "baseline_db": {
+                  "count": 35402,
+                  "mean_db": -13.249473631811428,
+                  "p05_db": -20.18258931937956,
+                  "median_db": -13.059991784901518,
+                  "p95_db": -8.81555264069358
+                },
+                "target_db": {
+                  "count": 35402,
+                  "mean_db": -17.160944044010215,
+                  "p05_db": -22.560137640424404,
+                  "median_db": -17.18653256617063,
+                  "p95_db": -11.06707429829641
+                },
+                "signed_delta_db": {
+                  "count": 35402,
+                  "mean_db": -3.9114704121987587,
+                  "p05_db": -7.6842001731838465,
+                  "median_db": -4.0653489832947525,
+                  "p95_db": 0.058890727263374465
+                },
+                "baseline_range_db": {
+                  "count": 35402,
+                  "mean_db": 2.033870325363757,
+                  "p05_db": 0.15561281219051465,
+                  "median_db": 1.781504788518741,
+                  "p95_db": 4.7199292283002485
+                },
+                "baseline_range_exceedance_fraction": 0.23803739901700469,
+                "positive_fraction": 0.004208801762612282,
+                "negative_fraction": 0.6521382972713407
+              },
+              "VH": {
+                "baseline_db": {
+                  "count": 35402,
+                  "mean_db": -18.680885361978437,
+                  "p05_db": -25.435584234077265,
+                  "median_db": -18.314645647068563,
+                  "p95_db": -14.437018494492465
+                },
+                "target_db": {
+                  "count": 35402,
+                  "mean_db": -24.50341388145102,
+                  "p05_db": -29.436454054674726,
+                  "median_db": -25.187382788260187,
+                  "p95_db": -17.435805532520742
+                },
+                "signed_delta_db": {
+                  "count": 35402,
+                  "mean_db": -5.822528519473141,
+                  "p05_db": -11.310622399613342,
+                  "median_db": -5.939590834536079,
+                  "p95_db": -0.19125269544511117
+                },
+                "baseline_range_db": {
+                  "count": 35402,
+                  "mean_db": 2.381721330544263,
+                  "p05_db": 0.21911590442723267,
+                  "median_db": 2.0942993761204147,
+                  "p95_db": 5.467588538866392
+                },
+                "baseline_range_exceedance_fraction": 0.3231738319868934,
+                "positive_fraction": 0.0036721089203999775,
+                "negative_fraction": 0.7770182475566352
+              }
+            },
+            "either_fraction": 0.8427489972317949,
+            "both_fraction": 0.5942884582791933
+          }
+        }
+      ]
+    }
+  ]
+}

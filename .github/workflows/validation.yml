@@ -1,0 +1,117 @@
+name: Validation acceptance
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      check:
+        description: Numeric EE checks or controlled failure artifacts
+        type: choice
+        options: [numeric, failure-artifacts]
+        default: numeric
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validation-${{ github.ref }}-${{ inputs.check || 'failure-artifacts' }}
+  cancel-in-progress: false
+
+jobs:
+  numeric:
+    if: github.event_name == 'workflow_dispatch' && inputs.check == 'numeric' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      EE_PROJECT_ID: ${{ vars.EE_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.lock
+      - run: python -m pip install -r requirements.lock && python -m pip install --no-deps -e .
+      - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.EE_SERVICE_ACCOUNT }}
+          project_id: ${{ vars.EE_PROJECT_ID }}
+          create_credentials_file: true
+      - run: sentinel-monitor validate-live --output validation-artifacts/numeric-checks.json
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        if: always()
+        with:
+          name: numeric-validation
+          path: validation-artifacts/numeric-checks.json
+          if-no-files-found: error
+
+  failure-artifacts:
+    if: github.event_name == 'pull_request' || inputs.check == 'failure-artifacts'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: [sensor-error, preview-error]
+    env:
+      SCENARIO: ${{ matrix.scenario }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.lock
+      - run: python -m pip install -r requirements.lock && python -m pip install --no-deps -e .
+      - name: Build a report with a controlled partial failure
+        id: analysis
+        continue-on-error: true
+        shell: bash
+        run: |
+          set +e
+          sentinel-monitor run --demo --demo-scenario "$SCENARIO" --end-date 2026-10-12 --results results-acceptance --output site-acceptance
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit "$code"
+      - name: Verify the expected failure was reported
+        env:
+          ACTUAL_EXIT: ${{ steps.analysis.outputs.exit_code }}
+          ACTUAL_OUTCOME: ${{ steps.analysis.outcome }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          assert os.environ["ACTUAL_EXIT"] == "2"
+          assert os.environ["ACTUAL_OUTCOME"] == "failure"
+          latest = json.loads(Path("site-acceptance/latest.json").read_text())
+          assert len(latest) == 1 and latest[0]["mode"] == "demo"
+          assert latest[0]["has_errors"] and latest[0]["status"] == "possible_change"
+          assert "DEMO — SYNTHETIC DATA" in Path("site-acceptance/index.html").read_text()
+          PY
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        if: always() && steps.analysis.outputs.exit_code == '2'
+        with:
+          name: failure-report-${{ matrix.scenario }}
+          path: |
+            site-acceptance/
+            results-acceptance/run-summary.json
+          if-no-files-found: error
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
+        if: always() && steps.analysis.outputs.exit_code == '2'
+        with:
+          name: failure-pages-${{ matrix.scenario }}
+          path: site-acceptance/
+          retention-days: 7
+      - name: Surface the controlled failure after artifact upload
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "::error::Expected acceptance fixture failure; review the saved artifacts."
+          exit 1

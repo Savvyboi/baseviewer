@@ -31,7 +31,7 @@ def analyze_demo(site, settings, period, key, assets: Path, scenario: str):
     side = site.size_m // 10
     edge = max(0, side // 2 - 1)
     patch = {(x, y) for x in range(edge, edge + 3) for y in range(edge, edge + 3)}
-    candidates = patch if scenario == "change" else set()
+    candidates = patch if scenario in {"change", "sensor-error", "preview-error"} else set()
     retained = patch_cells(candidates, settings.min_patch_pixels)
     valid = 0 if scenario == "cloudy" else side * side
     status, coverage = comparison_status(
@@ -66,7 +66,9 @@ def analyze_demo(site, settings, period, key, assets: Path, scenario: str):
         }
         if status == "insufficient_data":
             comparison["reason"] = "Synthetic missing/cloudy observation"
-        if status == "possible_change":
+        preview_failed = scenario == "preview-error" and sensor == "optical"
+        sensor_failed = scenario == "sensor-error" and sensor == "radar"
+        if status == "possible_change" and not preview_failed and not sensor_failed:
             folder = assets / identity
             folder.mkdir(parents=True, exist_ok=True)
             before = Image.new("RGB", (side, side), "#607b4d" if sensor == "optical" else "#626262")
@@ -88,10 +90,37 @@ def analyze_demo(site, settings, period, key, assets: Path, scenario: str):
             comparison["previews"] = previews
         comparisons.append(comparison)
     area = float(len(retained) * 100) if valid else None
+    errors = []
+    areas = {"optical_m2": area, "radar_m2": area, "overlap_m2": area}
+    if scenario == "sensor-error":
+        comparison = comparisons[1]
+        comparison.pop("previews", None)
+        comparison.update(
+            status="error",
+            valid_coverage=0,
+            changed_area_m2=0,
+            changed_cells=0,
+            reason="Controlled synthetic radar failure",
+        )
+        errors.append(
+            {
+                "sensor": "radar",
+                "error": "SyntheticError",
+                "message": "Controlled synthetic radar failure",
+            }
+        )
+        areas.update(radar_m2=None, overlap_m2=None)
+    elif scenario == "preview-error":
+        comparison = comparisons[0]
+        comparison.pop("previews", None)
+        comparison.update(
+            preview_error="SyntheticError",
+            preview_error_message="Controlled synthetic preview failure",
+        )
     return {
         "comparisons": comparisons,
-        "errors": [],
-        "changed_area": {"optical_m2": area, "radar_m2": area, "overlap_m2": area},
+        "errors": errors,
+        "changed_area": areas,
         "newest_observation": f"{acquisition}T10:00:00Z",
         "workload_tag": None,
         "demo_scenario": scenario,
