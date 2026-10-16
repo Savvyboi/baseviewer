@@ -1,0 +1,65 @@
+{
+  "recorded_date": "2026-10-16",
+  "timezone": "Europe/Helsinki",
+  "run_id": 38830785030,
+  "url": "https://github.com/Savvyboi/baseviewer/actions/runs/38830785030",
+  "implementation_commit": "edc73215289943e9dbe6b61a4c01fb318bb5943d",
+  "conclusion": "success",
+  "deployed": false,
+  "jobs": [
+    {
+      "name": "failure-artifacts (preview-error)",
+      "conclusion": "success"
+    },
+    {
+      "name": "failure-artifacts (sensor-error)",
+      "conclusion": "success"
+    },
+    {
+      "name": "numeric",
+      "conclusion": "skipped"
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "failure-pages-sensor-error",
+      "id": 12017445278,
+      "zip_sha256": "a5b3940f096e0251d5a767a8e71e9cab3b70c17bd27185f984cd2f6e48934f66",
+      "tar_sha256": "419972fdc65d520bcbd2d6be3ea3b8f7646f197df0e5c0f4ce51b96f2771dbf4",
+      "verified_pngs": 3,
+      "mode": "demo",
+      "status": "possible_change",
+      "has_errors": true
+    },
+    {
+      "name": "failure-pages-preview-error",
+      "id": 12017360639,
+      "zip_sha256": "997fa8c09168a70f6d9efe08fa33b42224c27973b9a0f368c9a696fa45c915eb",
+      "tar_sha256": "84055ec64c377edac5b56352fa38447bc184a795d8174f8db9ac7c59121e7b9d",
+      "verified_pngs": 3,
+      "mode": "demo",
+      "status": "possible_change",
+      "has_errors": true
+    },
+    {
+      "name": "failure-report-sensor-error",
+      "id": 12017320815,
+      "zip_sha256": "a73185569f3a7f1ca190bc576fd1c3c5269565fd563ee95eca4b133e4cc1da84",
+      "tar_sha256": null,
+      "verified_pngs": 3,
+      "mode": "demo",
+      "status": "possible_change",
+      "has_errors": true
+    },
+    {
+      "name": "failure-report-preview-error",
+      "id": 12017257031,
+      "zip_sha256": "7e604426dc88194bdc69a919c825a203e11914317c6239382d3ae662956ce86d",
+      "tar_sha256": null,
+      "verified_pngs": 3,
+      "mode": "demo",
+      "status": "possible_change",
+      "has_errors": true
+    }
+  ]
+}

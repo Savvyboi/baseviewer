@@ -63,7 +63,7 @@ Several baselines themselves have extensive >3 dB ranges between their two dates
 - HTML, latest/history JSON and every referenced PNG remain accessible and consistent with those outcomes.
 - Failed records retry without `--refresh`; successful recovery replaces the matching record, preserves the earlier week and is subsequently cached.
 
-These checks use mocked Earth Engine responses and synthetic test PNGs. They verify local publication bundles and exit code 2 for partial failures. The optional diagnostic table and failure messages were also visually checked in Chrome at 1280 px and 390 px widths; neither layout overflowed the page. PR acceptance now has an isolated workflow to exercise actual GitHub artifact and Pages-artifact packaging after controlled failures. Execution evidence for that workflow will be recorded after its PR checks run. A controlled failed analysis through the real Pages deploy job remains pending; no synthetic failure was published over the live report.
+These checks use mocked Earth Engine responses and synthetic test PNGs. They verify local publication bundles and exit code 2 for partial failures. The optional diagnostic table and failure messages were also visually checked in Chrome at 1280 px and 390 px widths; neither layout overflowed the page. The isolated [GitHub acceptance run](https://github.com/Savvyboi/baseviewer/actions/runs/38830785030) passed both sensor-error and preview-error jobs on PR #6. Each observed CLI exit code 2 and a failed analysis step, verified the labelled demo/error record, then uploaded both an ordinary report and a Pages tar artifact. All four artifacts were downloaded and inspected: HTML and JSON retained the demo label, candidate status and error details; each contained all three referenced valid 400 x 400 PNGs (12 verified packaged copies total). [Artifact IDs, hashes and job outcomes](evidence/failure-artifacts-2026-10-16.json) are saved with the source commit. No deployment ran. A controlled failed analysis through the real Pages deploy job remains pending; no synthetic failure was published over the live report.
 
 ## Live numeric validation harness
 
@@ -73,7 +73,7 @@ The 100 m fixture is 100 cells, with explicit masks and no satellite imagery or 
 
 The new **Validation acceptance** workflow runs synthetic sensor/preview failure packaging on PRs, with no Google authentication or deployment permissions. Both reports carry the demo banner. Its manual `failure-artifacts` option deliberately ends failed after uploading evidence; the PR version succeeds only when the expected CLI failure and error report are observed. Artifact names are separate from the production Pages artifact. The manual `numeric` option runs only on main using the existing Google federation.
 
-**Numeric server execution remains pending merge.** Offline tests verify fixture graph construction and success/failure evidence handling; they do not substitute for executing these 12 checks. The production monitoring workflow, active site list, thresholds and scheduling gate are unchanged.
+**Numeric server execution remains pending merge of PR #6.** Offline tests verify fixture graph construction and success/failure evidence handling; they do not substitute for executing these 12 checks. The production monitoring workflow, active site list, thresholds and scheduling gate are unchanged.
 
 ## Independent examples and quiet controls
 
@@ -100,4 +100,4 @@ Extrapolate to five monthly runs only after measuring the representative sample.
 
 `sites.yaml` still contains only Engels, `max_sites: 1` is unchanged and `MONITOR_ENABLED` was verified unset. Scheduled monitoring and expansion remain disabled. Historical validation saved records to the results branch with publishing off; the reviewed October 12 prototype remains public.
 
-Before any rollout: pass the live numeric checks, resolve or characterize the broad response using independent quiet/change controls, complete the representative EECU review, and exercise the failed-analysis Pages deployment path. Live per-band diagnostic execution is complete; those remaining gates are not. Do not tune to this single site or treat the reference agent plan as approval to enable scheduling or expand the site list.
+Before any rollout: pass the live numeric checks, resolve or characterize the broad response using independent quiet/change controls, complete the representative EECU review, and exercise the failed-analysis Pages deployment path. Live per-band diagnostic execution and controlled Pages-artifact packaging are complete; those remaining gates are not. Do not tune to this single site or treat the reference agent plan as approval to enable scheduling or expand the site list.
