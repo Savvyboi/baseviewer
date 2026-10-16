@@ -77,10 +77,18 @@ def initialize(project: str):
 
 class EarthEngineAnalyzer:
     def __init__(
-        self, site: Site, settings: Settings, period: dict, analysis_key: str, assets: Path
+        self,
+        site: Site,
+        settings: Settings,
+        period: dict,
+        analysis_key: str,
+        assets: Path,
+        *,
+        radar_diagnostics: bool = False,
     ):
         self.site, self.settings, self.period = site, settings, period
         self.key, self.assets = analysis_key, assets
+        self.include_radar_diagnostics = radar_diagnostics
         self.grid = site.grid()
         self.aoi = ee.Geometry.Rectangle(self.grid["bounds"], proj=self.grid["crs"], geodesic=False)
         self.projection = ee.Projection(self.grid["crs"], self.grid["transform"])
@@ -95,15 +103,15 @@ class EarthEngineAnalyzer:
     def on_grid(self, image):
         return image.reproject(crs=self.projection)
 
-    def reduce(self, image):
+    def reduce(self, image, *, reducer=None, band_count=4):
         return image.reduceRegion(
-            reducer=ee.Reducer.sum(),
+            reducer=ee.Reducer.sum() if reducer is None else reducer,
             geometry=self.aoi,
             crs=self.grid["crs"],
             crsTransform=self.grid["transform"],
-            # Earth Engine's limit counts input band-pixels: optical summaries
-            # have four bands; radar and sensor-overlap summaries have three.
-            maxPixels=(self.grid["cells"] + 100) * 4,
+            # Bound input band-pixels without coarsening the fixed analysis grid.
+            # Ordinary summaries use up to four bands; diagnostics declare their count.
+            maxPixels=(self.grid["cells"] + 100) * band_count,
             tileScale=2,
         )
 
@@ -305,6 +313,8 @@ class EarthEngineAnalyzer:
                     self.settings.min_valid_coverage,
                 )
                 entry.update(status=status, valid_coverage=coverage)
+                if sensor == "radar" and self.include_radar_diagnostics and coverage > 0:
+                    self.radar_diagnostics(entry, before, after, common, baseline_collection)
                 if sensor == "optical":
                     entry["cloud_screening"] = (
                         "reduced: SCL fallback in baseline or target"
@@ -338,6 +348,76 @@ class EarthEngineAnalyzer:
                 logging.error(
                     "%s/%s/%s %s failed: %s", self.site.id, sensor, day, stage, details["message"]
                 )
+
+    def radar_diagnostics(self, entry, before, after, common, baseline_collection):
+        """Describe signed shifts on common cells; never alter the detection mask."""
+        delta = after.subtract(before)
+        # The range of independently mosaicked daily observations diagnoses baseline
+        # variability; it is not an uncertainty estimate or a cause attribution.
+        baseline_db = baseline_collection.select(RADAR).map(
+            lambda image: image.log10().multiply(10)
+        )
+        spread = baseline_db.max().subtract(baseline_db.min())
+        threshold = self.settings.radar_threshold_db
+        positive, negative = delta.gt(threshold), delta.lt(-threshold)
+        exceeded = positive.Or(negative)
+        image = (
+            before.rename(["before_VV", "before_VH"])
+            .addBands(after.rename(["after_VV", "after_VH"]))
+            .addBands(delta.rename(["delta_VV", "delta_VH"]))
+            .addBands(spread.rename(["range_VV", "range_VH"]))
+            .addBands(spread.gt(threshold).rename(["unstable_VV", "unstable_VH"]))
+            .addBands(positive.rename(["positive_VV", "positive_VH"]))
+            .addBands(negative.rename(["negative_VV", "negative_VH"]))
+            .addBands(exceeded.reduce(ee.Reducer.max()).rename("either"))
+            .addBands(exceeded.reduce(ee.Reducer.min()).rename("both"))
+            .updateMask(common)
+        )
+        reducer = (
+            ee.Reducer.count()
+            .combine(ee.Reducer.mean(), sharedInputs=True)
+            .combine(ee.Reducer.percentile([5, 50, 95]), sharedInputs=True)
+        )
+        try:
+            stats = self.request(
+                lambda: self.reduce(image, reducer=reducer, band_count=16).getInfo()
+            )
+
+            def distribution(prefix):
+                return {
+                    label: stats.get(f"{prefix}_{suffix}")
+                    for label, suffix in [
+                        ("count", "count"),
+                        ("mean_db", "mean"),
+                        ("p05_db", "p5"),
+                        ("median_db", "p50"),
+                        ("p95_db", "p95"),
+                    ]
+                }
+
+            entry["radar_diagnostics"] = {
+                "scope": "common valid cells, before connected-patch filtering",
+                "threshold_db": threshold,
+                "polarizations": {
+                    band: {
+                        "baseline_db": distribution(f"before_{band}"),
+                        "target_db": distribution(f"after_{band}"),
+                        "signed_delta_db": distribution(f"delta_{band}"),
+                        "baseline_range_db": distribution(f"range_{band}"),
+                        "baseline_range_exceedance_fraction": stats.get(f"unstable_{band}_mean"),
+                        "positive_fraction": stats.get(f"positive_{band}_mean"),
+                        "negative_fraction": stats.get(f"negative_{band}_mean"),
+                    }
+                    for band in RADAR
+                },
+                "either_fraction": stats.get("either_mean"),
+                "both_fraction": stats.get("both_mean"),
+            }
+        except Exception as exc:
+            details = error_details(exc)
+            entry["radar_diagnostics_error"] = details["message"]
+            self.errors.append({"sensor": "radar", "stage": "diagnostics", **details})
+            logging.error("%s/radar diagnostics failed: %s", self.site.id, details["message"])
 
     def sensor(self, sensor):
         raw = (

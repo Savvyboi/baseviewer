@@ -256,6 +256,85 @@ class TestEarthEngineGraphs(ApiTestCase):
         assert "crsTransform" in graph
         assert result["changed_area"]["overlap_m2"] == 900
 
+    def test_optional_radar_diagnostics_use_signed_common_cell_distributions(self):
+        analyzer = self.analyzer(Path("unused"))
+        analyzer.include_radar_diagnostics = True
+        analyzer.metadata = lambda collection: self.sources("radar")
+        self.statistics.update(
+            {
+                "delta_VV_count": 40000,
+                "delta_VV_mean": -4.1,
+                "delta_VV_p5": -6.0,
+                "delta_VV_p50": -4.0,
+                "delta_VV_p95": -2.0,
+                "positive_VV_mean": 0.01,
+                "negative_VV_mean": 0.8,
+                "unstable_VV_mean": 0.7,
+                "either_mean": 0.85,
+                "both_mean": 0.2,
+            }
+        )
+        analyzer.sensor("radar")
+        entry = analyzer.comparisons[0]
+        assert entry["status"] == "possible_change"
+        assert entry["changed_cells"] == 9  # Core patch-filtered result is preserved.
+        diagnostic = entry["radar_diagnostics"]
+        vv = diagnostic["polarizations"]["VV"]
+        assert vv["signed_delta_db"]["count"] == 40000
+        assert vv["signed_delta_db"]["median_db"] == -4
+        assert vv["negative_fraction"] == 0.8
+        assert vv["baseline_range_exceedance_fraction"] == 0.7
+        assert diagnostic["either_fraction"] == 0.85
+        assert diagnostic["both_fraction"] == 0.2
+        graph = self.graphs[-1]
+        for operation in [
+            "Image.subtract",
+            "Image.updateMask",
+            "Reducer.percentile",
+            "Reducer.count",
+            "Reducer.mean",
+            "reduce.min",
+            "reduce.max",
+        ]:
+            assert operation in graph
+        assert '"maxPixels": {"constantValue": 641600}' in graph
+        assert "crsTransform" in graph
+
+    def test_diagnostic_failure_keeps_detection_and_marks_partial_error(self):
+        analyzer = self.analyzer(Path("unused"))
+        analyzer.include_radar_diagnostics = True
+        analyzer.metadata = lambda collection: self.sources("radar")
+        calls = []
+
+        def compute(obj):
+            calls.append(obj)
+            if len(calls) == 2:
+                raise ee.EEException("Diagnostic reduction failed")
+            return self.statistics
+
+        ee.data.computeValue = compute
+        analyzer.sensor("radar")
+        entry = analyzer.comparisons[0]
+        assert entry["status"] == "possible_change"
+        assert entry["changed_cells"] == 9
+        assert "radar" in analyzer.masks
+        assert entry["radar_diagnostics_error"] == "Diagnostic reduction failed"
+        assert analyzer.errors[0]["stage"] == "diagnostics"
+
+    def test_diagnostics_are_off_by_default_and_skip_empty_common_mask(self):
+        analyzer = self.analyzer(Path("unused"))
+        analyzer.metadata = lambda collection: self.sources("radar")
+        analyzer.sensor("radar")
+        assert len(self.graphs) == 1
+        assert "radar_diagnostics" not in analyzer.comparisons[0]
+        analyzer = self.analyzer(Path("unused"))
+        analyzer.include_radar_diagnostics = True
+        analyzer.metadata = lambda collection: self.sources("radar")
+        self.statistics["valid_cells"] = 0
+        analyzer.radar_diagnostics = lambda *args: pytest.fail("No stats for an empty mask")
+        analyzer.sensor("radar")
+        assert analyzer.comparisons[0]["status"] == "insufficient_data"
+
     def test_orbit_mismatch_has_no_computation_or_negative_detection(self):
         analyzer = self.analyzer(Path("unused"))
         analyzer.metadata = lambda collection: self.sources("radar", mismatch=True)
