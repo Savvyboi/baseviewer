@@ -1,0 +1,48 @@
+{
+  "frozen_on": "2026-10-16",
+  "selection_note": "Reference coordinate and windows selected from independent event documentation before inspecting detector output. Labels remain provisional at pixel/AOI scale.",
+  "cases": {
+    "park-fire-event": {
+      "label": "Documented fire event; AOI change candidate requiring imagery review",
+      "review_status": "unreviewed",
+      "site": {
+        "id": "park-fire-reference",
+        "name": "Park Fire reference area (validation)",
+        "latitude": 39.7789,
+        "longitude": -121.76168,
+        "size_m": 1000
+      },
+      "end_date": "2024-07-29",
+      "selection_basis": "A 1 km square at CAL FIRE's published incident reference point. The fire began July 24, within the target week. This does not label every cell as burned.",
+      "references": [
+        {
+          "url": "https://www.fire.ca.gov/incidents/2024/7/24/park-fire/",
+          "supports": "Incident start July 24, 2024 and reference coordinate [39.7789, -121.76168]."
+        },
+        {
+          "url": "https://www.usgs.gov/media/images/landsat-images-park-fire-july-2024",
+          "supports": "Independent Landsat observations on July 26 and July 27 show the regional fire and burn scar."
+        }
+      ]
+    },
+    "park-fire-pre-event": {
+      "label": "Pre-event control candidate; quiet conditions not established",
+      "review_status": "unreviewed",
+      "site": {
+        "id": "park-fire-reference",
+        "name": "Park Fire reference area (validation)",
+        "latitude": 39.7789,
+        "longitude": -121.76168,
+        "size_m": 1000
+      },
+      "end_date": "2024-07-22",
+      "selection_basis": "Same square as the event case, ending before the documented July 24 start. Other ground, weather and vegetation changes still require review.",
+      "references": [
+        {
+          "url": "https://www.fire.ca.gov/incidents/2024/7/24/park-fire/",
+          "supports": "The target window ends before the documented incident start. This alone is not evidence that all imagery is unchanged."
+        }
+      ]
+    }
+  }
+}

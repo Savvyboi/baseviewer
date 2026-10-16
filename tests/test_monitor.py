@@ -362,6 +362,24 @@ class TestEarthEngineGraphs(ApiTestCase):
         analyzer.sensor("optical")
         assert analyzer.comparisons[0]["status"] == "no_change_detected"
 
+    def test_review_previews_include_usable_negatives_but_skip_insufficient_data(self):
+        analyzer = self.analyzer(Path("unused"))
+        analyzer.include_review_previews = True
+        analyzer.metadata = lambda collection: self.sources("optical")
+        self.statistics["changed_cells"] = 0
+        self.statistics["area"] = 0
+        with patch.object(analyzer, "previews", return_value={"before": "fixture.png"}) as preview:
+            analyzer.sensor("optical")
+        assert analyzer.comparisons[0]["status"] == "no_change_detected"
+        assert analyzer.comparisons[0]["previews"]["before"] == "fixture.png"
+        assert preview.call_count == 1
+        self.statistics["valid_cells"] = 100
+        analyzer.comparisons.clear()
+        with patch.object(analyzer, "previews") as preview:
+            analyzer.sensor("optical")
+        assert analyzer.comparisons[0]["status"] == "insufficient_data"
+        preview.assert_not_called()
+
     def test_overlapping_granules_are_one_baseline_observation(self):
         analyzer = self.analyzer(Path("unused"))
         sources = self.sources("optical")

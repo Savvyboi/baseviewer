@@ -85,10 +85,12 @@ class EarthEngineAnalyzer:
         assets: Path,
         *,
         radar_diagnostics: bool = False,
+        review_previews: bool = False,
     ):
         self.site, self.settings, self.period = site, settings, period
         self.key, self.assets = analysis_key, assets
         self.include_radar_diagnostics = radar_diagnostics
+        self.include_review_previews = review_previews
         self.grid = site.grid()
         self.aoi = ee.Geometry.Rectangle(self.grid["bounds"], proj=self.grid["crs"], geodesic=False)
         self.projection = ee.Projection(self.grid["crs"], self.grid["transform"])
@@ -327,7 +329,7 @@ class EarthEngineAnalyzer:
                 entry["changed_area_m2"] = stats.get("area") or 0.0
                 entry["changed_cells"] = stats.get("changed_cells") or 0
                 self.masks[sensor] = self.masks.get(sensor, self.on_grid(ee.Image(0))).Or(changed)
-                if status == "possible_change":
+                if status == "possible_change" or self.include_review_previews:
                     try:
                         entry["previews"] = self.previews(
                             entry["id"], sensor, before, after, changed

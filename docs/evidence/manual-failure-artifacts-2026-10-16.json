@@ -1,0 +1,167 @@
+{
+  "recorded_date": "2026-10-16",
+  "timezone": "Europe/Helsinki",
+  "run_id": 38831934553,
+  "url": "https://github.com/Savvyboi/baseviewer/actions/runs/38831934553",
+  "implementation_commit": "18fdc7e5ba822ce5c28d10b2db08a044f39ef2cf",
+  "conclusion": "failure",
+  "expected_failure": true,
+  "deployed": false,
+  "jobs": [
+    {
+      "name": "failure-artifacts (preview-error)",
+      "conclusion": "failure",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pip install -r requirements.lock && python -m pip install --no-deps -e .",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build a report with a controlled partial failure",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify the expected failure was reported",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9",
+          "conclusion": "success"
+        },
+        {
+          "name": "Surface the controlled failure after artifact upload",
+          "conclusion": "failure"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "failure-artifacts (sensor-error)",
+      "conclusion": "failure",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pip install -r requirements.lock && python -m pip install --no-deps -e .",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build a report with a controlled partial failure",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify the expected failure was reported",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9",
+          "conclusion": "success"
+        },
+        {
+          "name": "Surface the controlled failure after artifact upload",
+          "conclusion": "failure"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "numeric",
+      "conclusion": "skipped",
+      "steps": []
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "failure-report-sensor-error",
+      "id": 12017590848,
+      "zip_sha256": "2739adff09cc1c7fd9c591d4c9e9940c72914954e38ce9d9ece67294fe4b54b6",
+      "tar_sha256": null,
+      "verified_pngs": 3,
+      "mode": "demo",
+      "status": "possible_change",
+      "has_errors": true
+    },
+    {
+      "name": "failure-report-preview-error",
+      "id": 12017337689,
+      "zip_sha256": "b82e2b9e873f823aec07e48cc0e0fcc72e2d69bc3217b7a1d069ecacc5a2f537",
+      "tar_sha256": null,
+      "verified_pngs": 3,
+      "mode": "demo",
+      "status": "possible_change",
+      "has_errors": true
+    },
+    {
+      "name": "failure-pages-preview-error",
+      "id": 12017054780,
+      "zip_sha256": "1982f937096ac306f5acaa74e78ef14d6973acce8e8dc832daf6899eff0531fa",
+      "tar_sha256": "7a67c9e0ce2d7db50c4f5c85aa65093c65489a7b834e960d6f927c11258cea63",
+      "verified_pngs": 3,
+      "mode": "demo",
+      "status": "possible_change",
+      "has_errors": true
+    },
+    {
+      "name": "failure-pages-sensor-error",
+      "id": 12016694838,
+      "zip_sha256": "ba2af655b06aca25ca6317ffa2e43bed848f7368f9e03646ef308e892531b1fd",
+      "tar_sha256": "f8a5bf737b3ee72bee0b3f45c759807589fb3b90852cfa3f50bd797e9f9f7954",
+      "verified_pngs": 3,
+      "mode": "demo",
+      "status": "possible_change",
+      "has_errors": true
+    }
+  ]
+}
