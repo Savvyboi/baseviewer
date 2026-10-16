@@ -2,7 +2,7 @@
   "recorded_date": "2026-10-16",
   "timezone": "Europe/Helsinki",
   "selection_stage": "before any detector output for these three cases",
-  "case_manifest_sha256": "a176ee2474c7c747e2da1598b509733eff2dc15311d7be5d77a5ee6e8ce4bb8d",
+  "case_manifest_sha256": "de4dbc5b5b58f2ba73670111c371b7b7489a7838cd3aba5bf644ffbbcc92bfcd",
   "locator": {
     "source": "https://www.openstreetmap.org/api/0.6/way/766315840/full",
     "way_id": 766315840,
@@ -123,5 +123,9 @@
     "Event baseline includes initial construction days Jan 23-26.",
     "Nearby comparison uses a geometric offset; quiet conditions and comparable land cover are unverified.",
     "Historical public-health construction validation only; no individual or vehicle tracking."
-  ]
+  ],
+  "pre_commit_crlf_manifest_sha256": "a176ee2474c7c747e2da1598b509733eff2dc15311d7be5d77a5ee6e8ce4bb8d",
+  "manifest_source_commit": "b84eca845595f4c0e3a0a76595a71173e2601a1e",
+  "manifest_git_blob": "710398a8b81a2bbceac2c545a0aa520b1d20c173",
+  "hash_correction": "The original selection entry hashed the Windows CRLF working file before Git normalized it to LF. Both hashes are retained. The corrected manifest hash identifies the immutable committed LF bytes used by the live workflow. Replacing only LF with CRLF reproduces the original hash; all selected case values match the committed source exactly. No AOI, window, label or settings changed."
 }
