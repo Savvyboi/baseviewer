@@ -49,7 +49,12 @@ def build_site(results: Path, output: Path, mode: str):
     template = env.from_string(
         files("sentinel_monitor").joinpath("templates/index.html").read_text(encoding="utf-8")
     )
-    html = template.render(records=records, latest=list(latest.values()), mode=mode)
+    html = template.render(
+        records=records,
+        latest=list(latest.values()),
+        mode=mode,
+        review_mode=any(r.get("review_previews_requested") for r in records),
+    )
     (output / "index.html").write_text(html, encoding="utf-8")
     (output / ".nojekyll").touch()
     return len(records)

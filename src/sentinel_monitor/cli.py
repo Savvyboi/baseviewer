@@ -39,6 +39,11 @@ def parser():
         action="store_true",
         help="Measure signed VV/VH shifts and baseline variability; extra EE computation",
     )
+    run.add_argument(
+        "--review-previews",
+        action="store_true",
+        help="Save before/after/overlay previews for every usable comparison; extra EE requests",
+    )
     run.add_argument("--results", type=Path, default=Path("results"))
     run.add_argument("--output", type=Path, default=Path("site"))
     run.add_argument(
@@ -58,13 +63,20 @@ def parser():
     )
     live.add_argument("--project", default=os.environ.get("EE_PROJECT_ID"), required=False)
     live.add_argument("--output", type=Path, default=Path("results-validation/numeric-checks.json"))
+    review = commands.add_parser("review-case", help="Run a frozen imagery-validation case")
+    review.add_argument("--case", required=True)
+    review.add_argument("--case-file", type=Path, default=Path("validation/cases.json"))
+    review.add_argument("--settings", type=Path, default=Path("settings.yaml"))
+    review.add_argument("--project", default=os.environ.get("EE_PROJECT_ID"))
+    review.add_argument("--results", type=Path, default=Path("results-imagery-review"))
+    review.add_argument("--output", type=Path, default=Path("site-imagery-review"))
     return root
 
 
 def run(args):
     mode = "demo" if args.demo else "live"
-    if args.demo and args.radar_diagnostics:
-        raise ValueError("Radar diagnostics require live imagery")
+    if args.demo and (args.radar_diagnostics or args.review_previews):
+        raise ValueError("Imagery review options require live imagery")
     sites, settings = load_config(args.sites, args.settings)
     if args.site_id:
         unknown = set(args.site_id) - {s.id for s in sites}
@@ -87,6 +99,7 @@ def run(args):
             existing = json.loads(path.read_text(encoding="utf-8"))
             if (
                 (not args.radar_diagnostics or existing.get("radar_diagnostics_requested"))
+                and (not args.review_previews or existing.get("review_previews_requested"))
                 and not existing["errors"]
                 and not any(c.get("preview_error") for c in existing["comparisons"])
             ):
@@ -118,12 +131,14 @@ def run(args):
                 key,
                 args.results / mode / "assets",
                 radar_diagnostics=args.radar_diagnostics,
+                review_previews=args.review_previews,
             ).analyze()
         record = {
             "schema_version": 1,
             "analysis_version": settings.analysis_version,
             "analysis_key": key,
             "radar_diagnostics_requested": args.radar_diagnostics and not args.demo,
+            "review_previews_requested": args.review_previews and not args.demo,
             "site": asdict(site),
             "grid": site.grid(),
             "windows": period,
@@ -206,6 +221,10 @@ def main(argv=None):
             )
         elif args.command == "build":
             build_site(args.results, args.output, "demo" if args.demo else "live")
+        elif args.command == "review-case":
+            from .validation import review_case
+
+            return review_case(args)
         elif args.command == "validate-live":
             from .earth import initialize
             from .validation import live_checks

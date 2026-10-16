@@ -208,3 +208,64 @@ def test_diagnostic_details_render_signed_values_and_missing_statistics(tmp_path
     assert "80.0%" in html
     assert "unavailable" in html
     assert "None dB" not in html
+
+
+def test_review_previews_upgrade_cache_and_render_usable_negative_observations(tmp_path):
+    assert invoke(tmp_path, outcome()) == (0, 1)
+    assert "Imagery review observations" not in (tmp_path / "site/index.html").read_text(
+        encoding="utf-8"
+    )
+    first = read_records(tmp_path / "results", "live")[0]
+    assert invoke(tmp_path, outcome(), extra=["--review-previews"]) == (0, 1)
+    upgraded = read_records(tmp_path / "results", "live")[0]
+    assert upgraded["analysis_key"] == first["analysis_key"]
+    assert upgraded["review_previews_requested"] is True
+    html = (tmp_path / "site/index.html").read_text(encoding="utf-8")
+    assert "Imagery review observations" in html
+    assert "They do not establish a quiet control" in html
+    assert "No change detected" in html
+    assert invoke(tmp_path, outcome(), extra=["--review-previews"]) == (0, 0)
+
+
+def test_case_runner_attaches_frozen_context_without_duplicate_records(tmp_path):
+    result = outcome()
+    result["comparisons"][0].update(
+        acquisition_date="2024-07-20",
+        acquisition_times=["2024-07-20T00:00:00+00:00"],
+        baseline_acquisition_dates=["2024-06-20", "2024-07-02"],
+    )
+    result["newest_observation"] = "2024-07-20T00:00:00+00:00"
+    with (
+        patch("sentinel_monitor.earth.initialize"),
+        patch.object(EarthEngineAnalyzer, "__init__", return_value=None),
+        patch.object(EarthEngineAnalyzer, "analyze", return_value=result),
+    ):
+        code = main(
+            [
+                "review-case",
+                "--case",
+                "park-fire-pre-event",
+                "--case-file",
+                str(ROOT / "validation/cases.json"),
+                "--settings",
+                str(ROOT / "settings.yaml"),
+                "--results",
+                str(tmp_path / "results"),
+                "--output",
+                str(tmp_path / "site"),
+            ]
+        )
+    assert code == 0
+    records = read_records(tmp_path / "results/park-fire-pre-event", "live")
+    assert len(records) == 1
+    record = records[0]
+    assert record["site"]["id"] == "park-fire-reference"
+    assert record["windows"]["target_end"] == "2024-07-22"
+    assert record["validation_case"]["review_status"] == "unreviewed"
+    assert record["review_previews_requested"] is True
+    output = tmp_path / "site/park-fire-pre-event"
+    html = (output / "index.html").read_text(encoding="utf-8")
+    assert "quiet conditions not established" in html
+    assert 'href="validation-case.json"' in html
+    assert "No change detected" in html
+    assert (output / "validation-case.json").exists()

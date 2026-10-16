@@ -1,0 +1,634 @@
+{
+  "recorded_date": "2026-10-16",
+  "timezone": "Europe/Helsinki",
+  "workflow": {
+    "id": 38831920252,
+    "html_url": "https://github.com/Savvyboi/baseviewer/actions/runs/38831920252",
+    "head_sha": "18fdc7e5ba822ce5c28d10b2db08a044f39ef2cf",
+    "conclusion": "success"
+  },
+  "artifact": {
+    "id": 12017875468,
+    "name": "numeric-validation",
+    "zip_sha256": "bb27443d02a347137549fa9834b41031f99bfb1545aa8849da112cedf9409ef3",
+    "json_sha256": "19ff106543548aba74221eab40916e477a2d74ca90abaa79ed4c763fe5a94c7a"
+  },
+  "result": {
+    "kind": "synthetic live Earth Engine numeric validation",
+    "note": "Constant rasters exercise production comparisons; not imagery accuracy or EECU usage.",
+    "workload_tag": "sentinel-numeric-992b46725b124a99",
+    "started_at": "2026-10-16T00:52:29.828316+00:00",
+    "completed_at": "2026-10-16T00:52:34.834240+00:00",
+    "grid": {
+      "crs": "EPSG:32631",
+      "transform": [
+        10,
+        0,
+        499950,
+        0,
+        -10,
+        50
+      ],
+      "bounds": [
+        499950,
+        -50,
+        500050,
+        50
+      ],
+      "cells": 100
+    },
+    "passed": true,
+    "checks": [
+      {
+        "sensor": "optical",
+        "case": "unchanged",
+        "passed": true,
+        "expected": {
+          "status": "no_change_detected",
+          "valid_coverage": 1.0,
+          "changed_cells": 0
+        },
+        "observed": {
+          "id": "152bd2e32cf968e73b1a1c46",
+          "sensor": "optical",
+          "acquisition_date": "2024-02-03",
+          "acquisition_times": [
+            "2024-02-03T00:00:00+00:00"
+          ],
+          "source_ids": [
+            "constant-fixture:2024-02-03"
+          ],
+          "baseline_source_ids": [
+            "constant-fixture:2024-01-08",
+            "constant-fixture:2024-01-20"
+          ],
+          "baseline_acquisition_dates": [
+            "2024-01-08",
+            "2024-01-20"
+          ],
+          "baseline_observations": 2,
+          "radar_group": null,
+          "status": "no_change_detected",
+          "valid_coverage": 1.0,
+          "changed_area_m2": 0.0,
+          "cloud_screening": "SCL and Cloud Score+",
+          "changed_cells": 0
+        },
+        "errors": []
+      },
+      {
+        "sensor": "optical",
+        "case": "nine_cell_patch",
+        "passed": true,
+        "expected": {
+          "status": "possible_change",
+          "valid_coverage": 1.0,
+          "changed_cells": 9
+        },
+        "observed": {
+          "id": "c7ba53d87100038ba76a9e43",
+          "sensor": "optical",
+          "acquisition_date": "2024-02-03",
+          "acquisition_times": [
+            "2024-02-03T00:00:00+00:00"
+          ],
+          "source_ids": [
+            "constant-fixture:2024-02-03"
+          ],
+          "baseline_source_ids": [
+            "constant-fixture:2024-01-08",
+            "constant-fixture:2024-01-20"
+          ],
+          "baseline_acquisition_dates": [
+            "2024-01-08",
+            "2024-01-20"
+          ],
+          "baseline_observations": 2,
+          "radar_group": null,
+          "status": "possible_change",
+          "valid_coverage": 1.0,
+          "changed_area_m2": 900.7204284667969,
+          "cloud_screening": "SCL and Cloud Score+",
+          "changed_cells": 9,
+          "previews": {}
+        },
+        "errors": []
+      },
+      {
+        "sensor": "optical",
+        "case": "one_cell_patch",
+        "passed": true,
+        "expected": {
+          "status": "no_change_detected",
+          "valid_coverage": 1.0,
+          "changed_cells": 0
+        },
+        "observed": {
+          "id": "98060c833f4d0fdeddc2fdc5",
+          "sensor": "optical",
+          "acquisition_date": "2024-02-03",
+          "acquisition_times": [
+            "2024-02-03T00:00:00+00:00"
+          ],
+          "source_ids": [
+            "constant-fixture:2024-02-03"
+          ],
+          "baseline_source_ids": [
+            "constant-fixture:2024-01-08",
+            "constant-fixture:2024-01-20"
+          ],
+          "baseline_acquisition_dates": [
+            "2024-01-08",
+            "2024-01-20"
+          ],
+          "baseline_observations": 2,
+          "radar_group": null,
+          "status": "no_change_detected",
+          "valid_coverage": 1.0,
+          "changed_area_m2": 0.0,
+          "cloud_screening": "SCL and Cloud Score+",
+          "changed_cells": 0
+        },
+        "errors": []
+      },
+      {
+        "sensor": "optical",
+        "case": "diagonal_patch",
+        "passed": true,
+        "expected": {
+          "status": "possible_change",
+          "valid_coverage": 1.0,
+          "changed_cells": 9
+        },
+        "observed": {
+          "id": "5443778e7a0facb752d04ac5",
+          "sensor": "optical",
+          "acquisition_date": "2024-02-03",
+          "acquisition_times": [
+            "2024-02-03T00:00:00+00:00"
+          ],
+          "source_ids": [
+            "constant-fixture:2024-02-03"
+          ],
+          "baseline_source_ids": [
+            "constant-fixture:2024-01-08",
+            "constant-fixture:2024-01-20"
+          ],
+          "baseline_acquisition_dates": [
+            "2024-01-08",
+            "2024-01-20"
+          ],
+          "baseline_observations": 2,
+          "radar_group": null,
+          "status": "possible_change",
+          "valid_coverage": 1.0,
+          "changed_area_m2": 900.7204284667969,
+          "cloud_screening": "SCL and Cloud Score+",
+          "changed_cells": 9,
+          "previews": {}
+        },
+        "errors": []
+      },
+      {
+        "sensor": "optical",
+        "case": "missing_target",
+        "passed": true,
+        "expected": {
+          "status": "insufficient_data",
+          "valid_coverage": 0.0,
+          "changed_cells": 0
+        },
+        "observed": {
+          "id": "1ac2e1c489d685ffaac9fd87",
+          "sensor": "optical",
+          "acquisition_date": "2024-02-03",
+          "acquisition_times": [
+            "2024-02-03T00:00:00+00:00"
+          ],
+          "source_ids": [
+            "constant-fixture:2024-02-03"
+          ],
+          "baseline_source_ids": [
+            "constant-fixture:2024-01-08",
+            "constant-fixture:2024-01-20"
+          ],
+          "baseline_acquisition_dates": [
+            "2024-01-08",
+            "2024-01-20"
+          ],
+          "baseline_observations": 2,
+          "radar_group": null,
+          "status": "insufficient_data",
+          "valid_coverage": 0.0,
+          "changed_area_m2": 0.0,
+          "cloud_screening": "SCL and Cloud Score+",
+          "reason": "Common valid coverage is below the configured minimum"
+        },
+        "errors": []
+      },
+      {
+        "sensor": "optical",
+        "case": "one_valid_baseline",
+        "passed": true,
+        "expected": {
+          "status": "insufficient_data",
+          "valid_coverage": 0.0,
+          "changed_cells": 0
+        },
+        "observed": {
+          "id": "ed447d3f3042b7599446acb0",
+          "sensor": "optical",
+          "acquisition_date": "2024-02-03",
+          "acquisition_times": [
+            "2024-02-03T00:00:00+00:00"
+          ],
+          "source_ids": [
+            "constant-fixture:2024-02-03"
+          ],
+          "baseline_source_ids": [
+            "constant-fixture:2024-01-08",
+            "constant-fixture:2024-01-20"
+          ],
+          "baseline_acquisition_dates": [
+            "2024-01-08",
+            "2024-01-20"
+          ],
+          "baseline_observations": 2,
+          "radar_group": null,
+          "status": "insufficient_data",
+          "valid_coverage": 0.0,
+          "changed_area_m2": 0.0,
+          "cloud_screening": "SCL and Cloud Score+",
+          "reason": "Common valid coverage is below the configured minimum"
+        },
+        "errors": []
+      },
+      {
+        "sensor": "radar",
+        "case": "unchanged",
+        "passed": true,
+        "expected": {
+          "status": "no_change_detected",
+          "valid_coverage": 1.0,
+          "changed_cells": 0
+        },
+        "observed": {
+          "id": "74ec4309fc4f2010abb248c6",
+          "sensor": "radar",
+          "acquisition_date": "2024-02-03",
+          "acquisition_times": [
+            "2024-02-03T00:00:00+00:00"
+          ],
+          "source_ids": [
+            "constant-fixture:2024-02-03"
+          ],
+          "baseline_source_ids": [
+            "constant-fixture:2024-01-08",
+            "constant-fixture:2024-01-20"
+          ],
+          "baseline_acquisition_dates": [
+            "2024-01-08",
+            "2024-01-20"
+          ],
+          "baseline_observations": 2,
+          "radar_group": null,
+          "status": "no_change_detected",
+          "valid_coverage": 1.0,
+          "changed_area_m2": 0.0,
+          "radar_diagnostics": {
+            "scope": "common valid cells, before connected-patch filtering",
+            "threshold_db": 3.0,
+            "polarizations": {
+              "VV": {
+                "baseline_db": {
+                  "count": 100,
+                  "mean_db": -10,
+                  "p05_db": -10,
+                  "median_db": -10,
+                  "p95_db": -10
+                },
+                "target_db": {
+                  "count": 100,
+                  "mean_db": -10,
+                  "p05_db": -10,
+                  "median_db": -10,
+                  "p95_db": -10
+                },
+                "signed_delta_db": {
+                  "count": 100,
+                  "mean_db": 0,
+                  "p05_db": 0,
+                  "median_db": 0,
+                  "p95_db": 0
+                },
+                "baseline_range_db": {
+                  "count": 100,
+                  "mean_db": 0,
+                  "p05_db": 0,
+                  "median_db": 0,
+                  "p95_db": 0
+                },
+                "baseline_range_exceedance_fraction": 0,
+                "positive_fraction": 0,
+                "negative_fraction": 0
+              },
+              "VH": {
+                "baseline_db": {
+                  "count": 100,
+                  "mean_db": -20,
+                  "p05_db": -20,
+                  "median_db": -20,
+                  "p95_db": -20
+                },
+                "target_db": {
+                  "count": 100,
+                  "mean_db": -20,
+                  "p05_db": -20,
+                  "median_db": -20,
+                  "p95_db": -20
+                },
+                "signed_delta_db": {
+                  "count": 100,
+                  "mean_db": 0,
+                  "p05_db": 0,
+                  "median_db": 0,
+                  "p95_db": 0
+                },
+                "baseline_range_db": {
+                  "count": 100,
+                  "mean_db": 0,
+                  "p05_db": 0,
+                  "median_db": 0,
+                  "p95_db": 0
+                },
+                "baseline_range_exceedance_fraction": 0,
+                "positive_fraction": 0,
+                "negative_fraction": 0
+              }
+            },
+            "either_fraction": 0,
+            "both_fraction": 0
+          },
+          "changed_cells": 0
+        },
+        "errors": []
+      },
+      {
+        "sensor": "radar",
+        "case": "nine_cell_patch",
+        "passed": true,
+        "expected": {
+          "status": "possible_change",
+          "valid_coverage": 1.0,
+          "changed_cells": 9
+        },
+        "observed": {
+          "id": "60883f6b3e9946c085ebbad9",
+          "sensor": "radar",
+          "acquisition_date": "2024-02-03",
+          "acquisition_times": [
+            "2024-02-03T00:00:00+00:00"
+          ],
+          "source_ids": [
+            "constant-fixture:2024-02-03"
+          ],
+          "baseline_source_ids": [
+            "constant-fixture:2024-01-08",
+            "constant-fixture:2024-01-20"
+          ],
+          "baseline_acquisition_dates": [
+            "2024-01-08",
+            "2024-01-20"
+          ],
+          "baseline_observations": 2,
+          "radar_group": null,
+          "status": "possible_change",
+          "valid_coverage": 1.0,
+          "changed_area_m2": 900.7204284667969,
+          "radar_diagnostics": {
+            "scope": "common valid cells, before connected-patch filtering",
+            "threshold_db": 3.0,
+            "polarizations": {
+              "VV": {
+                "baseline_db": {
+                  "count": 100,
+                  "mean_db": -10,
+                  "p05_db": -10,
+                  "median_db": -10,
+                  "p95_db": -10
+                },
+                "target_db": {
+                  "count": 100,
+                  "mean_db": -9.46,
+                  "p05_db": -10,
+                  "median_db": -10,
+                  "p95_db": -3.9999999999999996
+                },
+                "signed_delta_db": {
+                  "count": 100,
+                  "mean_db": 0.54,
+                  "p05_db": 0,
+                  "median_db": 0,
+                  "p95_db": 6
+                },
+                "baseline_range_db": {
+                  "count": 100,
+                  "mean_db": 0,
+                  "p05_db": 0,
+                  "median_db": 0,
+                  "p95_db": 0
+                },
+                "baseline_range_exceedance_fraction": 0,
+                "positive_fraction": 0.09,
+                "negative_fraction": 0
+              },
+              "VH": {
+                "baseline_db": {
+                  "count": 100,
+                  "mean_db": -20,
+                  "p05_db": -20,
+                  "median_db": -20,
+                  "p95_db": -20
+                },
+                "target_db": {
+                  "count": 100,
+                  "mean_db": -20,
+                  "p05_db": -20,
+                  "median_db": -20,
+                  "p95_db": -20
+                },
+                "signed_delta_db": {
+                  "count": 100,
+                  "mean_db": 0,
+                  "p05_db": 0,
+                  "median_db": 0,
+                  "p95_db": 0
+                },
+                "baseline_range_db": {
+                  "count": 100,
+                  "mean_db": 0,
+                  "p05_db": 0,
+                  "median_db": 0,
+                  "p95_db": 0
+                },
+                "baseline_range_exceedance_fraction": 0,
+                "positive_fraction": 0,
+                "negative_fraction": 0
+              }
+            },
+            "either_fraction": 0.09,
+            "both_fraction": 0
+          },
+          "changed_cells": 9,
+          "previews": {}
+        },
+        "errors": []
+      },
+      {
+        "sensor": "radar",
+        "case": "one_cell_patch",
+        "passed": true,
+        "expected": {
+          "status": "no_change_detected",
+          "valid_coverage": 1.0,
+          "changed_cells": 0
+        },
+        "observed": {
+          "id": "df6af70c9f4a060472e0398d",
+          "sensor": "radar",
+          "acquisition_date": "2024-02-03",
+          "acquisition_times": [
+            "2024-02-03T00:00:00+00:00"
+          ],
+          "source_ids": [
+            "constant-fixture:2024-02-03"
+          ],
+          "baseline_source_ids": [
+            "constant-fixture:2024-01-08",
+            "constant-fixture:2024-01-20"
+          ],
+          "baseline_acquisition_dates": [
+            "2024-01-08",
+            "2024-01-20"
+          ],
+          "baseline_observations": 2,
+          "radar_group": null,
+          "status": "no_change_detected",
+          "valid_coverage": 1.0,
+          "changed_area_m2": 0.0,
+          "changed_cells": 0
+        },
+        "errors": []
+      },
+      {
+        "sensor": "radar",
+        "case": "diagonal_patch",
+        "passed": true,
+        "expected": {
+          "status": "possible_change",
+          "valid_coverage": 1.0,
+          "changed_cells": 9
+        },
+        "observed": {
+          "id": "c251573a6d77d5f0182ad30d",
+          "sensor": "radar",
+          "acquisition_date": "2024-02-03",
+          "acquisition_times": [
+            "2024-02-03T00:00:00+00:00"
+          ],
+          "source_ids": [
+            "constant-fixture:2024-02-03"
+          ],
+          "baseline_source_ids": [
+            "constant-fixture:2024-01-08",
+            "constant-fixture:2024-01-20"
+          ],
+          "baseline_acquisition_dates": [
+            "2024-01-08",
+            "2024-01-20"
+          ],
+          "baseline_observations": 2,
+          "radar_group": null,
+          "status": "possible_change",
+          "valid_coverage": 1.0,
+          "changed_area_m2": 900.7204284667969,
+          "changed_cells": 9,
+          "previews": {}
+        },
+        "errors": []
+      },
+      {
+        "sensor": "radar",
+        "case": "missing_target",
+        "passed": true,
+        "expected": {
+          "status": "insufficient_data",
+          "valid_coverage": 0.0,
+          "changed_cells": 0
+        },
+        "observed": {
+          "id": "f10fa7d54ddcac7dd1cf5cff",
+          "sensor": "radar",
+          "acquisition_date": "2024-02-03",
+          "acquisition_times": [
+            "2024-02-03T00:00:00+00:00"
+          ],
+          "source_ids": [
+            "constant-fixture:2024-02-03"
+          ],
+          "baseline_source_ids": [
+            "constant-fixture:2024-01-08",
+            "constant-fixture:2024-01-20"
+          ],
+          "baseline_acquisition_dates": [
+            "2024-01-08",
+            "2024-01-20"
+          ],
+          "baseline_observations": 2,
+          "radar_group": null,
+          "status": "insufficient_data",
+          "valid_coverage": 0.0,
+          "changed_area_m2": 0.0,
+          "reason": "Common valid coverage is below the configured minimum"
+        },
+        "errors": []
+      },
+      {
+        "sensor": "radar",
+        "case": "one_valid_baseline",
+        "passed": true,
+        "expected": {
+          "status": "insufficient_data",
+          "valid_coverage": 0.0,
+          "changed_cells": 0
+        },
+        "observed": {
+          "id": "a568a2bbedfcf386ccaf3026",
+          "sensor": "radar",
+          "acquisition_date": "2024-02-03",
+          "acquisition_times": [
+            "2024-02-03T00:00:00+00:00"
+          ],
+          "source_ids": [
+            "constant-fixture:2024-02-03"
+          ],
+          "baseline_source_ids": [
+            "constant-fixture:2024-01-08",
+            "constant-fixture:2024-01-20"
+          ],
+          "baseline_acquisition_dates": [
+            "2024-01-08",
+            "2024-01-20"
+          ],
+          "baseline_observations": 2,
+          "radar_group": null,
+          "status": "insufficient_data",
+          "valid_coverage": 0.0,
+          "changed_area_m2": 0.0,
+          "reason": "Common valid coverage is below the configured minimum"
+        },
+        "errors": []
+      }
+    ]
+  }
+}

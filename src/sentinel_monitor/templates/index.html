@@ -25,6 +25,7 @@
 <article class="card" data-status="{{ r.status }}">
 <span class="badge {{ r.status }}">{{ r.status | replace('_', ' ') }}</span>
 <h3>{{ r.site.name }}</h3>
+{% if r.validation_case %}<p class="banner">Validation case: {{ r.validation_case.label }}. Review status: {{ r.validation_case.review_status }}. <a href="validation-case.json">Frozen inputs and independent references</a>.</p>{% endif %}
 <p class="muted">{{ '%.5f' | format(r.site.latitude) }}, {{ '%.5f' | format(r.site.longitude) }} · {{ r.site.size_m }} m square</p>
 <p><small>Target week: {{ r.windows.target_start }} → {{ r.windows.target_end }} (exclusive, UTC)</small></p>
 <p><small>Usable sensors: {{ r.usable_sensors | join(', ') or 'none' }}<br>Newest available observation: {{ r.newest_observation or 'none in analysis window' }}</small></p>
@@ -34,10 +35,11 @@
 </article>
 {% else %}<p class="empty">No saved checks yet. Run the monitor to create a report.</p>{% endfor %}
 </div>
-<h2>Candidate observations</h2>
+<h2>{{ 'Imagery review observations' if review_mode else 'Candidate observations' }}</h2>
+{% if review_mode %}<p class="muted">Review previews include usable comparisons without threshold crossings. They do not establish a quiet control.</p>{% endif %}
 {% set count = namespace(value=0) %}
-{% for r in records %}{% for c in r.comparisons if c.status == 'possible_change' %}{% set count.value = count.value + 1 %}
-<article class="report"><span class="badge possible_change">Possible ground change · {{ c.sensor }}</span><h3>{{ r.site.name }} · {{ c.acquisition_date }}</h3>
+{% for r in records %}{% for c in r.comparisons if c.status == 'possible_change' or (r.review_previews_requested and c.status == 'no_change_detected') %}{% set count.value = count.value + 1 %}
+<article class="report"><span class="badge {{ c.status }}">{{ "Possible ground change" if c.status == "possible_change" else "No change detected" }} · {{ c.sensor }}</span><h3>{{ r.site.name }} · {{ c.acquisition_date }}</h3>
 <p>{{ '%.0f' | format(c.changed_area_m2) }} m² flagged · {{ '%.1f' | format(c.valid_coverage * 100) }}% common valid coverage{% if c.changed_cells is defined and c.valid_coverage > 0 %} · {{ '%.1f' | format(100 * c.changed_cells / (r.grid.cells * c.valid_coverage)) }}% of valid cells flagged{% endif %}</p>
 {% if c.previews %}<div class="images">
 <figure><img src="{{ c.previews.before }}" alt="{{ r.site.name }} {{ c.sensor }} baseline composite" loading="lazy"><figcaption>Baseline median composite<br>{{ r.windows.baseline_start }} → {{ r.windows.baseline_end }} (exclusive)</figcaption></figure>
@@ -47,7 +49,7 @@
 <details><summary>Source dates and analysis details</summary><p>Analysis {{ r.analysis_version }} · optical mean absolute reflectance difference &gt; {{ r.settings.optical_threshold }} · radar VV or VH difference &gt; {{ r.settings.radar_threshold_db }} dB · patch ≥ {{ r.settings.min_patch_pixels }} cells at 10 m.</p><p>Baseline acquisition days: {{ c.baseline_acquisition_dates | join(', ') }}. {{ c.cloud_screening or '' }}</p>{% if c.radar_group %}<p>Relative orbit {{ c.radar_group.relative_orbit }} · {{ c.radar_group.pass }}. Compared only within this group.</p>{% endif %}{% if c.radar_diagnostics %}<p>Radar diagnostics use common valid cells before patch filtering. Signed delta is target minus baseline; positive values mean increased backscatter.</p><div class="table-wrap"><table><thead><tr><th>Polarization</th><th>Median signed delta</th><th>5th–95th percentile</th><th>Above +{{ c.radar_diagnostics.threshold_db }} dB</th><th>Below −{{ c.radar_diagnostics.threshold_db }} dB</th></tr></thead><tbody>{% for band, d in c.radar_diagnostics.polarizations.items() %}<tr><td>{{ band }}</td><td>{% if d.signed_delta_db.median_db is not none %}{{ '%.2f' | format(d.signed_delta_db.median_db) }} dB{% else %}unavailable{% endif %}</td><td>{% if d.signed_delta_db.p05_db is not none and d.signed_delta_db.p95_db is not none %}{{ '%.2f' | format(d.signed_delta_db.p05_db) }} to {{ '%.2f' | format(d.signed_delta_db.p95_db) }} dB{% else %}unavailable{% endif %}</td><td>{% if d.positive_fraction is not none %}{{ '%.1f' | format(100 * d.positive_fraction) }}%{% else %}unavailable{% endif %}</td><td>{% if d.negative_fraction is not none %}{{ '%.1f' | format(100 * d.negative_fraction) }}%{% else %}unavailable{% endif %}</td></tr>{% endfor %}</tbody></table></div>{% endif %}<p>Target sources:</p><ul class="sources">{% for source in c.source_ids %}<li><code>{{ source }}</code></li>{% endfor %}</ul><p>Baseline sources:</p><ul class="sources">{% for source in c.baseline_source_ids %}<li><code>{{ source }}</code></li>{% endfor %}</ul><p><small>Detection ID: {{ c.id }}</small></p></details>
 </article>
 {% endfor %}{% endfor %}
-{% if count.value == 0 %}<p class="empty">No saved candidate observations. Check each location's data status above.</p>{% endif %}
+{% if count.value == 0 %}<p class="empty">{{ 'No saved usable review observations.' if review_mode else 'No saved candidate observations.' }} Check each location's data status above.</p>{% endif %}
 <h2>Check history</h2><div class="table-wrap"><table><thead><tr><th>Location</th><th>Week ending (exclusive)</th><th>Status</th><th>Usable sensors</th><th>Comparisons</th></tr></thead><tbody>
 {% for r in records %}<tr><td>{{ r.site.name }}</td><td>{{ r.windows.target_end }}</td><td class="{{ r.status }}">{{ r.status | replace('_', ' ') }}</td><td>{{ r.usable_sensors | join(', ') or 'none' }}</td><td><details><summary>{{ r.comparisons | length }} observations{% if r.has_errors %} · errors{% endif %}</summary>{% for c in r.comparisons %}<p>{{ c.sensor }} · {{ c.acquisition_date }} · {{ c.status | replace('_', ' ') }} · {{ '%.1f' | format(c.valid_coverage * 100) }}% coverage{% if c.reason %}<br>{{ c.reason }}{% endif %}</p>{% endfor %}{% for e in r.errors %}<p class="error">{{ e.sensor }}: {{ e.message or e.error }}</p>{% endfor %}</details></td></tr>{% endfor %}
 </tbody></table></div>

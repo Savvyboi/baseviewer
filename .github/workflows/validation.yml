@@ -7,8 +7,13 @@ on:
       check:
         description: Numeric EE checks or controlled failure artifacts
         type: choice
-        options: [numeric, failure-artifacts]
+        options: [numeric, failure-artifacts, imagery]
         default: numeric
+      case_id:
+        description: Frozen artifact-only imagery case
+        type: choice
+        options: [park-fire-event, park-fire-pre-event]
+        default: park-fire-event
 
 permissions:
   contents: read
@@ -115,3 +120,39 @@ jobs:
         run: |
           echo "::error::Expected acceptance fixture failure; review the saved artifacts."
           exit 1
+
+  imagery:
+    if: github.event_name == 'workflow_dispatch' && inputs.check == 'imagery' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      EE_PROJECT_ID: ${{ vars.EE_PROJECT_ID }}
+      CASE_ID: ${{ inputs.case_id }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.lock
+      - run: python -m pip install -r requirements.lock && python -m pip install --no-deps -e .
+      - uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.EE_SERVICE_ACCOUNT }}
+          project_id: ${{ vars.EE_PROJECT_ID }}
+          create_credentials_file: true
+      - run: sentinel-monitor review-case --case "$CASE_ID"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        if: always()
+        with:
+          name: imagery-review-${{ inputs.case_id }}
+          path: |
+            site-imagery-review/
+            results-imagery-review/**/run-summary.json
+          if-no-files-found: error

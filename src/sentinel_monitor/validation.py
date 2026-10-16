@@ -154,3 +154,89 @@ def live_checks():
         "passed": all(check["passed"] for check in checks),
         "checks": checks,
     }
+
+
+def review_case(args):
+    """Keep frozen validation AOIs and history separate from active monitoring."""
+    import hashlib
+    import json
+    import re
+    from dataclasses import asdict
+
+    import yaml
+
+    from .cli import main
+    from .config import load_config
+    from .reports import build_site, read_records, save_json
+
+    if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,47}", args.case):
+        raise ValueError("Validation case IDs must be lowercase slugs")
+    raw = args.case_file.read_bytes()
+    manifest = json.loads(raw)
+    case = manifest["cases"].get(args.case)
+    if case is None:
+        raise ValueError(f"Unknown validation case: {args.case}")
+    site = Site(**case["site"])
+    period = windows(case["end_date"])
+    results, output = args.results / args.case, args.output / args.case
+    # Validate the one selected site and production settings before authentication.
+    results.mkdir(parents=True, exist_ok=True)
+    sites_file = results / "review-site.yaml"
+    sites_file.write_text(yaml.safe_dump({"sites": [asdict(site)]}), encoding="utf-8")
+    load_config(sites_file, args.settings)
+    arguments = [
+        "run",
+        "--sites",
+        str(sites_file),
+        "--settings",
+        str(args.settings),
+        "--end-date",
+        case["end_date"],
+        "--results",
+        str(results),
+        "--output",
+        str(output),
+        "--refresh",
+        "--radar-diagnostics",
+        "--review-previews",
+    ]
+    if args.project:
+        arguments += ["--project", args.project]
+    started = datetime.now(UTC).isoformat()
+    code = main(arguments)
+    save_json(
+        output / "validation-case.json",
+        {
+            "kind": "artifact-only imagery validation",
+            "case_id": args.case,
+            "case_manifest_sha256": hashlib.sha256(raw).hexdigest(),
+            "frozen_on": manifest["frozen_on"],
+            "case": case,
+            "windows": period,
+            "started_at": started,
+            "completed_at": datetime.now(UTC).isoformat(),
+            "exit_code": code,
+            "note": "Provisional labels require independent imagery review; no accuracy claim.",
+        },
+    )
+    if code in {0, 2}:
+        for record in read_records(results, "live"):
+            if record["site"] != asdict(site) or record["windows"] != period:
+                continue
+            record["validation_case"] = {
+                "id": args.case,
+                "label": case["label"],
+                "review_status": case["review_status"],
+            }
+            path = (
+                results
+                / "live"
+                / "records"
+                / (
+                    f"{record['site']['id']}-{record['windows']['target_end']}-"
+                    f"{record['analysis_key']}.json"
+                )
+            )
+            save_json(path, record)
+        build_site(results, output, "live")
+    return code

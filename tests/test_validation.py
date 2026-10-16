@@ -121,3 +121,57 @@ class TestNumericFixtureGraphs(ApiTestCase):
                     assert "Image.updateMask" in graph
                 assert len(items) == 3
                 assert analyzer.grid["cells"] == 100
+
+
+@pytest.mark.parametrize(
+    "case_id,end",
+    [
+        ("park-fire-event", "2024-07-29"),
+        ("park-fire-pre-event", "2024-07-22"),
+    ],
+)
+def test_frozen_case_runs_one_site_without_modifying_active_configuration(tmp_path, case_id, end):
+    from sentinel_monitor.cli import parser
+    from sentinel_monitor.validation import review_case
+
+    args = parser().parse_args(
+        [
+            "review-case",
+            "--case",
+            case_id,
+            "--case-file",
+            str(ROOT / "validation/cases.json"),
+            "--settings",
+            str(ROOT / "settings.yaml"),
+            "--results",
+            str(tmp_path / "results"),
+            "--output",
+            str(tmp_path / "site"),
+        ]
+    )
+    with patch("sentinel_monitor.cli.main", return_value=2) as invoke:
+        assert review_case(args) == 2
+    arguments = invoke.call_args.args[0]
+    assert "--review-previews" in arguments and "--radar-diagnostics" in arguments
+    assert "--refresh" in arguments and "--demo" not in arguments
+    assert arguments[arguments.index("--end-date") + 1] == end
+    import yaml
+
+    sites = yaml.safe_load(Path(arguments[arguments.index("--sites") + 1]).read_text())["sites"]
+    assert len(sites) == 1 and sites[0]["id"] == "park-fire-reference"
+    assert sites[0]["size_m"] == 1000
+    provenance = json.loads((tmp_path / "site" / case_id / "validation-case.json").read_text())
+    assert provenance["case"]["review_status"] == "unreviewed"
+    assert provenance["exit_code"] == 2
+    assert provenance["case_manifest_sha256"]
+    active = yaml.safe_load((ROOT / "sites.yaml").read_text())["sites"]
+    assert len(active) == 1 and active[0]["id"] == "engels-air-base"
+
+
+def test_case_ids_cannot_escape_the_selected_output_directory(tmp_path):
+    from sentinel_monitor.cli import parser
+    from sentinel_monitor.validation import review_case
+
+    args = parser().parse_args(["review-case", "--case", "../outside"])
+    with pytest.raises(ValueError, match="lowercase slugs"):
+        review_case(args)

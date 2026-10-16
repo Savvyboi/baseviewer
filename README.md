@@ -86,8 +86,20 @@ ends failed after saving its evidence.
 `sentinel-monitor validate-live --project PROJECT_ID` runs 12 small constant-raster
 checks through the production comparison method on Earth Engine, writes expected/observed
 JSON under `results-validation/`, and returns nonzero if a check fails. The workflow's
-manual `numeric` option can run it on main with the existing federation. This new numeric
-harness still needs its first server run; it does not establish real-imagery accuracy.
+manual `numeric` option can run it on main with the existing federation. All 12 numeric
+checks passed on Earth Engine; they do not establish real-imagery accuracy.
+
+Frozen imagery cases are separate from active monitoring. Use
+`sentinel-monitor review-case --case park-fire-event` or
+`--case park-fire-pre-event`, or select `imagery` in the manual validation workflow.
+The one-case run uses production settings, saves an isolated report artifact and records
+its [independent source context](validation/cases.json). These cases still need live
+execution and review; the pre-event label is a candidate control.
+
+`--review-previews` saves imagery for all usable comparisons, including detector-negative
+observations, and includes those observations in the review report. It is off by default,
+adds preview requests and upgrades older cached records when requested. It does not change
+detection rules; insufficient data remains insufficient data.
 
 ## History and errors
 
