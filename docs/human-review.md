@@ -31,6 +31,16 @@ Reviews are isolated by mode, case, site, science key, comparison ID and record-
 
 No additional imagery was requested for this UI change. The downloaded Park Fire records and PNGs were rebuilt locally; their measurements, source IDs and source preview files were preserved. This verifies the review workflow, not construction or vehicle-detection accuracy. Existing public publication and disabled scheduling remain unchanged.
 
+## Review queue
+
+Isolated review reports now list every usable acquisition in a queue, show how many have a reviewer observation, and offer **Next unreviewed** with keyboard focus on the next reviewer choice. **Only unreviewed in queue** hides completed queue rows while leaving the active image and note controls available. A note alone does not complete a review; choosing Unclear records that the acquisition was reviewed with uncertainty. Resetting the choice to Unreviewed returns it to the queue.
+
+Usable comparisons with missing preview paths remain **Awaiting previews** and incomplete. Insufficient-data comparisons stay in check history and are excluded from review totals. The queue includes usable detector-negative observations. Counts restore from the existing browser-local notes; they do not change detector statuses, frozen case labels or ground truth. Export retains its existing scope: complete-preview comparisons in the open report, including unreviewed entries.
+
+The three completed Huoshenshan artifact reports were combined locally using their unchanged records and nine original PNGs. The single report has three usable radar reviews and nine insufficient optical comparisons. Its frozen-reference JSON contains the original provenance for each case. [Pilot evidence PR #10](https://github.com/Savvyboi/baseviewer/pull/10) records the science findings separately. No additional imagery request was needed to make the saved pilot reviewable.
+
+All 61 offline tests and browser queue/workbench checks passed. Desktop and mobile queue screenshots were visually inspected. [Queue QA evidence](evidence/review-queue-2026-10-16.json) records the checks and source hashes; QA notes were confined to temporary browser contexts. Independent human adjudication and a verified quiet civilian example remain outstanding.
+
 ## Verified
 
 All 58 existing offline tests pass. Headless Chrome checks exercised keyboard/image switching, save/reload, export contents, cross-case and refreshed-record isolation, blocked-storage recovery and JavaScript-disabled previews. The 1280 px desktop and 390 px mobile layouts fit without horizontal overflow and their screenshots were visually inspected. An isolated wheel build contains the JavaScript asset. [QA evidence](evidence/reviewer-workbench-2026-10-16.json) records checks and source/screenshot hashes. QA notes are explicitly marked as test data and were not added to analysis records or used as labels.
