@@ -6,6 +6,64 @@
   ]);
   const reviews = new Map();
   const tools = document.querySelectorAll(".review-tools");
+  const queue = document.getElementById("review-queue");
+  const queueRows = [...document.querySelectorAll("[data-review-target]")];
+  const queueReviews = new Map();
+  const onlyUnreviewed = document.getElementById("only-unreviewed");
+  const nextButton = document.getElementById("next-unreviewed");
+  let activeTarget = null;
+  const updateQueue = () => {
+    if (!queue) return;
+    let reviewed = 0;
+    let awaiting = 0;
+    for (const row of queueRows) {
+      const entry = queueReviews.get(row.dataset.reviewTarget);
+      const complete = entry && entry.decision !== "unreviewed";
+      const ready = row.dataset.previewReady === "true";
+      reviewed += complete ? 1 : 0;
+      awaiting += ready ? 0 : 1;
+      row.querySelector(".queue-review-status").textContent = !ready ? "Awaiting previews"
+        : complete ? ({likely_visible_change: "Likely visible change",
+                       no_obvious_visible_change: "No obvious visible change",
+                       unclear: "Unclear / needs another look"})[entry.decision]
+        : "Unreviewed";
+      row.hidden = onlyUnreviewed.checked && complete;
+    }
+    const pending = queueRows.length - reviewed - awaiting;
+    document.getElementById("review-progress").textContent =
+      reviewed + " of " + queueRows.length + " usable observations reviewed · "
+      + pending + " unreviewed" + (awaiting ? " · " + awaiting + " awaiting previews" : "");
+    nextButton.disabled = pending === 0;
+    document.getElementById("review-queue-empty").hidden =
+      queueRows.some(row => !row.hidden);
+  };
+  const openObservation = target => {
+    const article = document.getElementById(target);
+    if (!article) return;
+    activeTarget = target;
+    const tool = article.querySelector(".review-tools");
+    if (tool) tool.open = true;
+    article.scrollIntoView({block: "start"});
+    (tool?.querySelector(".review-decision") || article).focus({preventScroll: true});
+  };
+  onlyUnreviewed?.addEventListener("change", updateQueue);
+  for (const row of queueRows) {
+    row.querySelector("a").addEventListener("click", event => {
+      event.preventDefault();
+      openObservation(row.dataset.reviewTarget);
+    });
+  }
+  nextButton?.addEventListener("click", () => {
+    const start = queueRows.findIndex(row => row.dataset.reviewTarget === activeTarget);
+    for (let offset = 1; offset <= queueRows.length; offset++) {
+      const row = queueRows[(start + offset) % queueRows.length];
+      if (row.dataset.previewReady === "true"
+          && queueReviews.get(row.dataset.reviewTarget)?.decision === "unreviewed") {
+        openObservation(row.dataset.reviewTarget);
+        break;
+      }
+    }
+  });
   for (const tool of tools) {
     const data = tool.dataset;
     const identity = {
@@ -39,10 +97,14 @@
     select.value = entry.decision;
     note.value = entry.note;
     reviews.set(key, entry);
+    queueReviews.set(tool.closest(".report").id, entry);
+    updateQueue();
     const save = () => {
       entry = {...identity, decision: select.value, note: note.value.slice(0, 2000),
                reviewed_at: new Date().toISOString()};
       reviews.set(key, entry);
+      queueReviews.set(tool.closest(".report").id, entry);
+      updateQueue();
       try {
         localStorage.setItem(key, JSON.stringify(entry));
         status.textContent = "Saved in this browser. Export a copy to keep or share it.";
@@ -50,6 +112,7 @@
         status.textContent = "Browser storage unavailable. Export now to keep these notes.";
       }
     };
+    tool.addEventListener("focusin", () => { activeTarget = tool.closest(".report").id; });
     select.addEventListener("change", save);
     note.addEventListener("input", save);
     const image = tool.querySelector(".review-stage img");
@@ -72,6 +135,8 @@
       label.textContent = "Preview could not load. Check the original image links above.";
     });
   }
+  updateQueue();
+  if (queue) queue.hidden = false;
   const exportButton = document.getElementById("export-reviews");
   exportButton?.addEventListener("click", () => {
     const output = document.getElementById("review-export-status");

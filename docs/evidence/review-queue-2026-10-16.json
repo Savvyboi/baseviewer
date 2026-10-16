@@ -1,0 +1,159 @@
+{
+  "recorded_date": "2026-10-16",
+  "timezone": "Europe/Helsinki",
+  "kind": "Human review queue UI acceptance; no detector accuracy acceptance",
+  "base_commit": "b84eca845595f4c0e3a0a76595a71173e2601a1e",
+  "browser_checks": {
+    "browser": "headless Chrome",
+    "desktop": {
+      "width": 1280,
+      "content": 1280
+    },
+    "mobile": {
+      "width": 390,
+      "content": 390
+    },
+    "passed": [
+      "all three construction cases in one queue; nine insufficient comparisons excluded",
+      "usable detector-negative observations are included",
+      "keyboard next opens observation and focuses reviewer choice",
+      "next wraps and skips reviewed observations; disables on completion",
+      "notes without a chosen observation stay unreviewed",
+      "pending-only queue leaves active image/note controls visible",
+      "saved observations restore progress; resetting to unreviewed reopens work",
+      "export keeps all three exact case identities, including unreviewed",
+      "missing previews remain incomplete and link to retained measurements",
+      "empty queue and routine reports work",
+      "blocked storage retains current-page progress and warns",
+      "JavaScript-disabled original imagery remains accessible",
+      "desktop and mobile queue fit; screenshots contain no QA reviews",
+      "no browser errors"
+    ]
+  },
+  "existing_workbench_regression_checks": {
+    "browser": "headless Chrome",
+    "desktop": {
+      "width": 1280,
+      "content": 1280
+    },
+    "mobile": {
+      "width": 390,
+      "content": 390
+    },
+    "passed": [
+      "aligned keyboard/button image switching",
+      "review survives reload",
+      "JSON export includes exact record identity and notes",
+      "source detector result remains unchanged",
+      "case isolation",
+      "refreshed-record isolation",
+      "routine reports have no workbench",
+      "blocked browser storage warns and still exports",
+      "JavaScript-disabled original previews remain available",
+      "no browser errors",
+      "desktop/mobile layout fits"
+    ]
+  },
+  "offline_checks": {
+    "pytest": "61 passed",
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "git_diff_check": "passed"
+  },
+  "screenshots_visually_inspected": [
+    {
+      "path": "docs/evidence/review-queue-2026-10-16/desktop.png",
+      "sha256": "b1a7ed017c256491b7f86c7c41a0e56242de80ef29488da61a7fd3d09de9e120"
+    },
+    {
+      "path": "docs/evidence/review-queue-2026-10-16/mobile.png",
+      "sha256": "031c33e322336032569cd996346a33410f5149e42febb6fcf8aced452385ce3e"
+    }
+  ],
+  "combined_report": {
+    "cases": [
+      "huoshenshan-event",
+      "huoshenshan-pre-event",
+      "huoshenshan-nearby"
+    ],
+    "usable_review_observations": 3,
+    "insufficient_observations_in_history": 9,
+    "original_pngs": 9,
+    "latest_and_history_match_source_records": true,
+    "source_evidence_pr": "https://github.com/Savvyboi/baseviewer/pull/10",
+    "local_zip_sha256": "3f47eddc3957856d59f46bd2ece399a18de72bc6e1ed9ed5c5bfeb19e0908298",
+    "source_files": [
+      {
+        "path": ".preview-output/imagery/huoshenshan-event/files/site-imagery-review/huoshenshan-event/latest.json",
+        "sha256": "8bd5145f91e6b92f5e73ac9a9e884a588fddb8ad8ff69a690b4795a8650690ac"
+      },
+      {
+        "path": ".preview-output/imagery/huoshenshan-event/files/site-imagery-review/huoshenshan-event/validation-case.json",
+        "sha256": "33f55a21b72ee2f14f76a51c0c838662b40eafb1acc96283d75d4e625e923867"
+      },
+      {
+        "path": ".preview-output/imagery/huoshenshan-event/files/site-imagery-review/huoshenshan-event/assets/99f444044cc05c0dc1d5f602/after.png",
+        "sha256": "c48ab520602bd95f6470ca8cca86ad9f1140a9ae41a37d231ee97f9c023b19c5"
+      },
+      {
+        "path": ".preview-output/imagery/huoshenshan-event/files/site-imagery-review/huoshenshan-event/assets/99f444044cc05c0dc1d5f602/before.png",
+        "sha256": "2aaeb852e40ea91884f682fad5121cf48b7cc88e561163b694a0dd6170ba93b7"
+      },
+      {
+        "path": ".preview-output/imagery/huoshenshan-event/files/site-imagery-review/huoshenshan-event/assets/99f444044cc05c0dc1d5f602/overlay.png",
+        "sha256": "557f3d06dc06886e2afbc7387d8b0989fff00f421a86866cf58fed5a8a09c67d"
+      },
+      {
+        "path": ".preview-output/imagery/huoshenshan-pre-event/files/site-imagery-review/huoshenshan-pre-event/latest.json",
+        "sha256": "8ea2b2192a54a0bd696ee9c5682c0998f3af743c30ba8a2c1c7eecc21f4f46bc"
+      },
+      {
+        "path": ".preview-output/imagery/huoshenshan-pre-event/files/site-imagery-review/huoshenshan-pre-event/validation-case.json",
+        "sha256": "731e22741c7eb747e5b2c24b98b93e513877907a7a55acad31f2b511d78cd6ee"
+      },
+      {
+        "path": ".preview-output/imagery/huoshenshan-pre-event/files/site-imagery-review/huoshenshan-pre-event/assets/cfbd2c170f94c5ad5a488226/after.png",
+        "sha256": "baea8736229ba6145674765941ceaaffa6ddaeeba9f49c6f3307f0dcbc57b575"
+      },
+      {
+        "path": ".preview-output/imagery/huoshenshan-pre-event/files/site-imagery-review/huoshenshan-pre-event/assets/cfbd2c170f94c5ad5a488226/before.png",
+        "sha256": "708370cd1d59d877d2dbfe669e1179b96b3acf8c5f4c1e2b1a343061c407ead2"
+      },
+      {
+        "path": ".preview-output/imagery/huoshenshan-pre-event/files/site-imagery-review/huoshenshan-pre-event/assets/cfbd2c170f94c5ad5a488226/overlay.png",
+        "sha256": "fbc592975c64d88740204012bd5ab075a2b0b8e8a6e40f4282dee99ba9d04d1b"
+      },
+      {
+        "path": ".preview-output/imagery/huoshenshan-nearby/files/site-imagery-review/huoshenshan-nearby/latest.json",
+        "sha256": "4dc0f42b186094106ba0678ba319c26d97a5f2bc8b89fdbff5573b2115b9876a"
+      },
+      {
+        "path": ".preview-output/imagery/huoshenshan-nearby/files/site-imagery-review/huoshenshan-nearby/validation-case.json",
+        "sha256": "42dcc5babc4f2dcde7b6f94da50b3882b59e559f2539994e3ba7032f1b5488d9"
+      },
+      {
+        "path": ".preview-output/imagery/huoshenshan-nearby/files/site-imagery-review/huoshenshan-nearby/assets/2defb2971bfc88141093145f/after.png",
+        "sha256": "1d1c2ccae578afb35fc78a7a2dd63d42814d571f3dd311a1cbe381f3cef43d50"
+      },
+      {
+        "path": ".preview-output/imagery/huoshenshan-nearby/files/site-imagery-review/huoshenshan-nearby/assets/2defb2971bfc88141093145f/before.png",
+        "sha256": "d84e0eeeec7677c922f254c1700cdd03cae943d5254d4f0e2f6f507c281f669f"
+      },
+      {
+        "path": ".preview-output/imagery/huoshenshan-nearby/files/site-imagery-review/huoshenshan-nearby/assets/2defb2971bfc88141093145f/overlay.png",
+        "sha256": "6ff2ae63a445fb268e6696a94d850bd06ba99ca02f67dff8fc1eabf473190d2c"
+      }
+    ],
+    "records_unchanged": true,
+    "original_pngs_unchanged": true,
+    "earth_engine_requests": 0
+  },
+  "scope": {
+    "earth_engine_requests": 0,
+    "deployment_or_scheduling_changes": false,
+    "review_scope": "Browser-local observations; no independent human adjudication was added by QA.",
+    "test_notes": "Temporary headless browser contexts only. The user report and screenshots have no prefilled QA reviews.",
+    "missing_preview_behavior": "Usable comparisons missing any preview path remain awaiting previews and cannot be marked complete in the queue; insufficient data are excluded.",
+    "export_scope": "Existing export schema includes all comparisons with complete previews, including unreviewed; unavailable-preview queue entries have no reviewer controls or export entry."
+  }
+}

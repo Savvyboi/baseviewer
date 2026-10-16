@@ -52,6 +52,22 @@ def build_site(results: Path, output: Path, mode: str):
     review_workbench = any(
         r.get("validation_case") and r.get("review_previews_requested") for r in records
     )
+    review_queue = []
+    for record_index, record in enumerate(records):
+        if not (record.get("validation_case") and record.get("review_previews_requested")):
+            continue
+        for comparison_index, comparison in enumerate(record["comparisons"]):
+            if comparison["status"] not in {"possible_change", "no_change_detected"}:
+                continue
+            previews = comparison.get("previews") or {}
+            review_queue.append(
+                {
+                    "record": record,
+                    "comparison": comparison,
+                    "target": f"observation-{record_index}-{comparison_index}",
+                    "ready": all(previews.get(view) for view in ("before", "after", "overlay")),
+                }
+            )
     if review_workbench:
         (output / "review.js").write_text(
             files("sentinel_monitor").joinpath("templates/review.js").read_text(encoding="utf-8"),
@@ -62,6 +78,7 @@ def build_site(results: Path, output: Path, mode: str):
         latest=list(latest.values()),
         mode=mode,
         review_workbench=review_workbench,
+        review_queue=review_queue,
         review_mode=any(r.get("review_previews_requested") for r in records),
     )
     (output / "index.html").write_text(html, encoding="utf-8")
