@@ -1,10 +1,10 @@
 {
   "mode": "live",
   "windows": {
-    "baseline_start": "2026-09-07",
-    "baseline_end": "2026-10-05",
-    "target_start": "2026-10-05",
-    "target_end": "2026-10-12"
+    "baseline_start": "2026-08-17",
+    "baseline_end": "2026-09-14",
+    "target_start": "2026-09-14",
+    "target_end": "2026-09-21"
   },
   "site_count": 1,
   "planned_area_m2": 4000000,
@@ -15,8 +15,8 @@
       "status": "possible_change",
       "errors": [],
       "preview_errors": [],
-      "workload_tag": "sentinel-0d938c6c2828198c1593",
-      "elapsed_seconds": 10.007
+      "workload_tag": "sentinel-2fb4a221ea8796fe5695",
+      "elapsed_seconds": 18.759
     }
   ]
 }
