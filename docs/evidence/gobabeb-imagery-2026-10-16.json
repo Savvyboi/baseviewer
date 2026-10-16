@@ -1,0 +1,601 @@
+{
+  "recorded_date": "2026-10-16",
+  "timezone": "Europe/Helsinki",
+  "source_commit": "3008c9b82b15020ee5eabd9dcb7b0333f52e4231",
+  "source_pr": "https://github.com/Savvyboi/baseviewer/pull/12",
+  "selection_evidence": "docs/evidence/gobabeb-selection-2026-10-16.json",
+  "workflow_and_artifact": {
+    "recorded_date": "2026-10-16",
+    "timezone": "Europe/Helsinki",
+    "case_id": "gobabeb-quiet-reference",
+    "dispatch": {
+      "case_id": "gobabeb-quiet-reference",
+      "dispatch_started_at": "2026-10-16T17:29:30.501090+00:00",
+      "dispatch_completed_at": "2026-10-16T17:29:33.425977+00:00",
+      "run_id": 38940083654
+    },
+    "workflow": {
+      "id": 38940083654,
+      "html_url": "https://github.com/Savvyboi/baseviewer/actions/runs/38940083654",
+      "head_sha": "3008c9b82b15020ee5eabd9dcb7b0333f52e4231",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-16T17:29:31Z"
+    },
+    "deployed": false,
+    "jobs": [
+      {
+        "name": "imagery",
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python -m pip install -r requirements.lock && python -m pip install --no-deps -e .",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run sentinel-monitor review-case --case \"$CASE_ID\"",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "name": "failure-artifacts",
+        "conclusion": "skipped",
+        "steps": []
+      },
+      {
+        "name": "numeric",
+        "conclusion": "skipped",
+        "steps": []
+      }
+    ],
+    "artifact": {
+      "id": 12063155981,
+      "name": "imagery-review-gobabeb-quiet-reference",
+      "zip_sha256": "6c923ab04e3614c2f39fccf6491653d66d40fe5ff1e2c1234302361414d3077b",
+      "github_digest": "sha256:6c923ab04e3614c2f39fccf6491653d66d40fe5ff1e2c1234302361414d3077b",
+      "files": [
+        {
+          "path": "site-imagery-review/gobabeb-quiet-reference/assets/cff90cd3d81e21a51d738061/after.png",
+          "bytes": 16142,
+          "sha256": "c94e91f6f685cc058c11a4725efcb20369aba86c530787056980bae6c0327156",
+          "image": {
+            "format": "PNG",
+            "size": [
+              400,
+              400
+            ]
+          }
+        },
+        {
+          "path": "site-imagery-review/gobabeb-quiet-reference/assets/cff90cd3d81e21a51d738061/before.png",
+          "bytes": 15473,
+          "sha256": "b466d65b3c53c40944bc2e2575434a3caed1e54bc859517d0bd6fd2954f50dec",
+          "image": {
+            "format": "PNG",
+            "size": [
+              400,
+              400
+            ]
+          }
+        },
+        {
+          "path": "site-imagery-review/gobabeb-quiet-reference/assets/cff90cd3d81e21a51d738061/overlay.png",
+          "bytes": 16142,
+          "sha256": "c94e91f6f685cc058c11a4725efcb20369aba86c530787056980bae6c0327156",
+          "image": {
+            "format": "PNG",
+            "size": [
+              400,
+              400
+            ]
+          }
+        },
+        {
+          "path": "site-imagery-review/gobabeb-quiet-reference/history.json",
+          "bytes": 3481,
+          "sha256": "18a4093d248ba421e48d717699794fe6bf11ddfc3fa9b64e12d78902b7907d40"
+        },
+        {
+          "path": "site-imagery-review/gobabeb-quiet-reference/index.html",
+          "bytes": 13294,
+          "sha256": "2c38d097c10858be42a997978c901bc5be4524a82ef4d29b9a5e80513b30e798"
+        },
+        {
+          "path": "site-imagery-review/gobabeb-quiet-reference/latest.json",
+          "bytes": 3481,
+          "sha256": "18a4093d248ba421e48d717699794fe6bf11ddfc3fa9b64e12d78902b7907d40"
+        },
+        {
+          "path": "site-imagery-review/gobabeb-quiet-reference/review.js",
+          "bytes": 7295,
+          "sha256": "2025a285b3740981391aa92911292049914c71fc3b446fe08467346398f0efd6"
+        },
+        {
+          "path": "site-imagery-review/gobabeb-quiet-reference/validation-case.json",
+          "bytes": 2406,
+          "sha256": "0c874624363ce1d768082c3f78d95b5045c92f35080fab4540d0b93d3a41e7c1"
+        },
+        {
+          "path": "results-imagery-review/gobabeb-quiet-reference/run-summary.json",
+          "bytes": 480,
+          "sha256": "f921f8e3c4b2b67f0d88b85a591bfec21ab3fdeee322f4b9f91c145ceb74dcde"
+        }
+      ]
+    }
+  },
+  "validation_context": {
+    "kind": "artifact-only imagery validation",
+    "case_id": "gobabeb-quiet-reference",
+    "case_manifest_sha256": "f40871b6ee1f718c9d9c809b97d42c5fcece25f77e09233cb77d7cccd94c0ac0",
+    "frozen_on": "2026-10-16",
+    "case": {
+      "label": "Published stable-surface reference; full AOI and radar quiet conditions require review",
+      "review_status": "unreviewed",
+      "site": {
+        "id": "gobabeb-hypernets",
+        "name": "Gobabeb HYPERNETS stable-surface reference (validation)",
+        "latitude": -23.60153,
+        "longitude": 15.12589,
+        "size_m": 200
+      },
+      "end_date": "2022-07-18",
+      "selection_basis": "200 m square centred on the GHNA instrument coordinates in De Vis et al. (2024) Section 2.1.1, using the same cutout width as Section 2.2.4. Select the earliest accepted Sentinel-2 matchup in Table 1 whose preceding rolling baseline starts after the first listed good Sentinel-2 matchup (June 8): July 13, 2022, in target July 11-18 and baseline June 13-July 11. Fixed before any detector result, without searching for a negative satellite output. Published surface stability and independently selected ground samples support a quiet-reference candidate; they do not certify every AOI cell, SAR stability, or equivalence to urban construction/transport land cover.",
+      "references": [
+        {
+          "url": "https://www.frontiersin.org/journals/remote-sensing/articles/10.3389/frsen.2024.1323998/full",
+          "supports": "GHNA instrument coordinates, stable gravel-plain surface, 200 m satellite cutout method, deployment from May 2022 and accepted July 13 Sentinel-2 / ground-instrument matchup. GHNA is distinct from the nearby GONA RadCalNet station."
+        },
+        {
+          "url": "https://doi.org/10.5281/zenodo.8039303",
+          "supports": "Version 1.0.0 independent ground-reflectance sample files. Five fixed sequences on June 22/28/30, July 10 and July 13 were checksum-verified; all quality-valid common five-degree directions and excluded flags are retained in selection evidence."
+        }
+      ]
+    },
+    "windows": {
+      "baseline_start": "2022-06-13",
+      "baseline_end": "2022-07-11",
+      "target_start": "2022-07-11",
+      "target_end": "2022-07-18"
+    },
+    "started_at": "2026-10-16T17:29:48.926026+00:00",
+    "completed_at": "2026-10-16T17:29:55.288732+00:00",
+    "exit_code": 0,
+    "note": "Provisional labels require independent imagery review; no accuracy claim."
+  },
+  "result": {
+    "schema_version": 1,
+    "analysis_version": "0.1.0",
+    "analysis_key": "be8931092c4c027d838c",
+    "radar_diagnostics_requested": true,
+    "review_previews_requested": true,
+    "site": {
+      "id": "gobabeb-hypernets",
+      "name": "Gobabeb HYPERNETS stable-surface reference (validation)",
+      "latitude": -23.60153,
+      "longitude": 15.12589,
+      "size_m": 200
+    },
+    "grid": {
+      "crs": "EPSG:32733",
+      "transform": [
+        10,
+        0,
+        512740,
+        0,
+        -10,
+        7389980
+      ],
+      "bounds": [
+        512740,
+        7389780,
+        512940,
+        7389980
+      ],
+      "cells": 400
+    },
+    "windows": {
+      "baseline_start": "2022-06-13",
+      "baseline_end": "2022-07-11",
+      "target_start": "2022-07-11",
+      "target_end": "2022-07-18"
+    },
+    "mode": "live",
+    "generated_at": "2026-10-16T17:29:55.255809+00:00",
+    "settings": {
+      "analysis_version": "0.1.0",
+      "earth_engine_project": "baseviewer-511722",
+      "optical_threshold": 0.1,
+      "radar_threshold_db": 3.0,
+      "cloud_score_min": 0.6,
+      "min_baseline_observations": 2,
+      "min_valid_coverage": 0.7,
+      "min_patch_pixels": 9,
+      "radar_speckle_radius_m": 10,
+      "radar_min_db": -35,
+      "radar_min_angle": 31,
+      "radar_max_angle": 45,
+      "terrain_max_slope_deg": 15,
+      "dem_collection": "COPERNICUS/DEM/GLO30_2024_1",
+      "max_sites": 1,
+      "max_images_per_sensor": 300,
+      "request_attempts": 3,
+      "preview_pixels": 400
+    },
+    "elapsed_seconds": 6.327,
+    "comparisons": [
+      {
+        "id": "cff90cd3d81e21a51d738061",
+        "sensor": "optical",
+        "acquisition_date": "2022-07-13",
+        "acquisition_times": [
+          "2022-07-13T09:17:23.328000+00:00"
+        ],
+        "source_ids": [
+          "20220713T084611_20220713T090750_T33KWP"
+        ],
+        "baseline_source_ids": [
+          "20220613T084611_20220613T090751_T33KWP",
+          "20220618T084559_20220618T091508_T33KWP",
+          "20220623T084611_20220623T090710_T33KWP",
+          "20220628T084609_20220628T091509_T33KWP",
+          "20220703T084611_20220703T091604_T33KWP",
+          "20220708T084609_20220708T091422_T33KWP"
+        ],
+        "baseline_acquisition_dates": [
+          "2022-06-13",
+          "2022-06-18",
+          "2022-06-23",
+          "2022-06-28",
+          "2022-07-03",
+          "2022-07-08"
+        ],
+        "baseline_observations": 6,
+        "radar_group": null,
+        "status": "no_change_detected",
+        "valid_coverage": 1.0,
+        "changed_area_m2": 0.0,
+        "cloud_screening": "SCL and Cloud Score+",
+        "changed_cells": 0,
+        "previews": {
+          "before": "assets/cff90cd3d81e21a51d738061/before.png",
+          "after": "assets/cff90cd3d81e21a51d738061/after.png",
+          "overlay": "assets/cff90cd3d81e21a51d738061/overlay.png"
+        }
+      }
+    ],
+    "errors": [],
+    "changed_area": {
+      "optical_m2": 0.0,
+      "radar_m2": null,
+      "overlap_m2": null
+    },
+    "newest_observation": "2022-07-13T09:17:23.328000+00:00",
+    "workload_tag": "sentinel-be8931092c4c027d838c",
+    "status": "no_change_detected",
+    "usable_sensors": [
+      "optical"
+    ],
+    "has_errors": false,
+    "validation_case": {
+      "id": "gobabeb-quiet-reference",
+      "label": "Published stable-surface reference; full AOI and radar quiet conditions require review",
+      "review_status": "unreviewed"
+    }
+  },
+  "comparisons": [
+    {
+      "id": "cff90cd3d81e21a51d738061",
+      "sensor": "optical",
+      "acquisition_date": "2022-07-13",
+      "status": "no_change_detected",
+      "valid_coverage": 1.0,
+      "changed_cells": 0,
+      "changed_area_m2": 0.0,
+      "reason": null,
+      "radar_group": null,
+      "baseline_acquisition_dates": [
+        "2022-06-13",
+        "2022-06-18",
+        "2022-06-23",
+        "2022-06-28",
+        "2022-07-03",
+        "2022-07-08"
+      ],
+      "cloud_screening": "SCL and Cloud Score+",
+      "common_valid_cells": 400,
+      "flagged_fraction_of_valid_cells": 0.0
+    }
+  ],
+  "original_images": [
+    {
+      "comparison_id": "cff90cd3d81e21a51d738061",
+      "sensor": "optical",
+      "date": "2022-07-13",
+      "kind": "before",
+      "path": "docs/evidence/gobabeb-2026-10-16/cff90cd3d81e21a51d738061/before.png",
+      "sha256": "b466d65b3c53c40944bc2e2575434a3caed1e54bc859517d0bd6fd2954f50dec"
+    },
+    {
+      "comparison_id": "cff90cd3d81e21a51d738061",
+      "sensor": "optical",
+      "date": "2022-07-13",
+      "kind": "after",
+      "path": "docs/evidence/gobabeb-2026-10-16/cff90cd3d81e21a51d738061/after.png",
+      "sha256": "c94e91f6f685cc058c11a4725efcb20369aba86c530787056980bae6c0327156"
+    },
+    {
+      "comparison_id": "cff90cd3d81e21a51d738061",
+      "sensor": "optical",
+      "date": "2022-07-13",
+      "kind": "overlay",
+      "path": "docs/evidence/gobabeb-2026-10-16/cff90cd3d81e21a51d738061/overlay.png",
+      "sha256": "c94e91f6f685cc058c11a4725efcb20369aba86c530787056980bae6c0327156"
+    }
+  ],
+  "all_report_references_resolved": true,
+  "source_record_and_original_images_preserved": true,
+  "review_state": "All original images inspected by Codex; independent human adjudication remains pending, and the frozen case label remains unreviewed.",
+  "contact_sheet": {
+    "path": "docs/evidence/gobabeb-2026-10-16/review-sheet.png",
+    "sha256": "d85106b1a955efeb85eb0f078c2f5f0d109273a405759cb042008f60d8a9610a",
+    "kind": "Labelled display of original PNGs; no new analysis.",
+    "visually_inspected": true
+  },
+  "visual_review": {
+    "reviewer": "Codex",
+    "method": "Inspected all three original 400 x 400 optical RGB PNGs; independent human adjudication remains pending.",
+    "observation": "Both baseline and target show broadly uniform pale tan/orange appearance with faint local tonal variation. No obvious broad transition is resolved at this display stretch. The overlay is byte-identical to the target, consistent with zero qualifying detector cells.",
+    "limitation": "The red display channel is at 255 in every pixel in both baseline and target; green/blue ranges are narrow. This limits texture/contrast review, and clipped detail cannot be recovered from these PNGs. No whole-AOI quiet label is established.",
+    "display_statistics": [
+      {
+        "kind": "before",
+        "channel_extrema": [
+          [
+            255,
+            255
+          ],
+          [
+            199,
+            211
+          ],
+          [
+            148,
+            158
+          ],
+          [
+            255,
+            255
+          ]
+        ],
+        "display_pixels": 160000,
+        "fully_opaque_pixels": 160000,
+        "red_channel_at_255_pixels": 160000,
+        "unique_rgb_values": 56
+      },
+      {
+        "kind": "after",
+        "channel_extrema": [
+          [
+            255,
+            255
+          ],
+          [
+            197,
+            209
+          ],
+          [
+            142,
+            157
+          ],
+          [
+            255,
+            255
+          ]
+        ],
+        "display_pixels": 160000,
+        "fully_opaque_pixels": 160000,
+        "red_channel_at_255_pixels": 160000,
+        "unique_rgb_values": 95
+      },
+      {
+        "kind": "overlay",
+        "channel_extrema": [
+          [
+            255,
+            255
+          ],
+          [
+            197,
+            209
+          ],
+          [
+            142,
+            157
+          ],
+          [
+            255,
+            255
+          ]
+        ],
+        "display_pixels": 160000,
+        "fully_opaque_pixels": 160000,
+        "red_channel_at_255_pixels": 160000,
+        "unique_rgb_values": 95
+      }
+    ],
+    "overlay_byte_identical_to_target": true,
+    "frozen_case_label_changed": false
+  },
+  "findings": {
+    "approved_live_runs": 1,
+    "executed_live_runs": 1,
+    "usable_optical_comparisons": 1,
+    "radar_comparisons_returned": 0,
+    "common_valid_optical_cells": 400,
+    "qualifying_optical_cells": 0,
+    "optical_coverage": 1.0,
+    "no_service_or_preview_errors": true,
+    "radar_changed_area": null,
+    "radar_reason_limit": "No radar comparison or diagnostic was returned. The saved artifact has no raw radar inventory to determine why no target was available under the current filters. Do not interpret the missing comparison or null area as zero radar change.",
+    "accuracy_acceptance": "The independently chosen reference yields a usable optical detector-negative observation. Ground-instrument footprints and a low-contrast, clipped RGB display do not certify every AOI cell. It does not establish radar discrimination, urban construction/transport false-positive rates or detection accuracy. No thresholds, masks, source dates, AOI or labels were changed to fit this result.",
+    "compute_limit": "Elapsed time 6.327 s is wall time, not measured EECU use."
+  },
+  "publication_preservation": {
+    "before": {
+      "observed_at": "2026-10-16T17:29:20.522309+00:00",
+      "base_url": "https://savvyboi.github.io/baseviewer/",
+      "files_sha256": {
+        "assets/5ec9b7b32fe91574920b482d/after.png": "e635312e52985c861eec724738ff059430aedc9bfc349da15e1cb41e38a02002",
+        "assets/5ec9b7b32fe91574920b482d/before.png": "5bf1df73bd90ca248b534a9a253d8c883b42c100f5213d6dcfe9e60ddd7ff97e",
+        "assets/5ec9b7b32fe91574920b482d/overlay.png": "afd4e962ef812fcd658906bd5c4b6e06a2fb809bd2ccce22e60a8ad1e1460a2e",
+        "history.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da",
+        "index.html": "b2acef24c563ed0adc84914f3fadc78a1338831039d912667c588c74282e8ea1",
+        "latest.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da"
+      },
+      "analysis_keys": [
+        "0d938c6c2828198c1593"
+      ],
+      "monitor_enabled": null,
+      "results_ref": "8714435fea8b875f960d396f0b43d79f7545e22c"
+    },
+    "after": {
+      "observed_at": "2026-10-16T17:33:24.065320+00:00",
+      "base_url": "https://savvyboi.github.io/baseviewer/",
+      "files_sha256": {
+        "assets/5ec9b7b32fe91574920b482d/after.png": "e635312e52985c861eec724738ff059430aedc9bfc349da15e1cb41e38a02002",
+        "assets/5ec9b7b32fe91574920b482d/before.png": "5bf1df73bd90ca248b534a9a253d8c883b42c100f5213d6dcfe9e60ddd7ff97e",
+        "assets/5ec9b7b32fe91574920b482d/overlay.png": "afd4e962ef812fcd658906bd5c4b6e06a2fb809bd2ccce22e60a8ad1e1460a2e",
+        "history.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da",
+        "index.html": "b2acef24c563ed0adc84914f3fadc78a1338831039d912667c588c74282e8ea1",
+        "latest.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da"
+      },
+      "analysis_keys": [
+        "0d938c6c2828198c1593"
+      ],
+      "monitor_enabled": null,
+      "results_ref": "8714435fea8b875f960d396f0b43d79f7545e22c"
+    },
+    "all_six_file_hashes_identical": true,
+    "results_ref_unchanged": true,
+    "monitor_enabled_unset": true
+  },
+  "combined_local_review": {
+    "records": 4,
+    "original_images": [
+      {
+        "case_id": "huoshenshan-event",
+        "relative": "assets/99f444044cc05c0dc1d5f602/after.png",
+        "sha256": "c48ab520602bd95f6470ca8cca86ad9f1140a9ae41a37d231ee97f9c023b19c5"
+      },
+      {
+        "case_id": "huoshenshan-event",
+        "relative": "assets/99f444044cc05c0dc1d5f602/before.png",
+        "sha256": "2aaeb852e40ea91884f682fad5121cf48b7cc88e561163b694a0dd6170ba93b7"
+      },
+      {
+        "case_id": "huoshenshan-event",
+        "relative": "assets/99f444044cc05c0dc1d5f602/overlay.png",
+        "sha256": "557f3d06dc06886e2afbc7387d8b0989fff00f421a86866cf58fed5a8a09c67d"
+      },
+      {
+        "case_id": "huoshenshan-pre-event",
+        "relative": "assets/cfbd2c170f94c5ad5a488226/after.png",
+        "sha256": "baea8736229ba6145674765941ceaaffa6ddaeeba9f49c6f3307f0dcbc57b575"
+      },
+      {
+        "case_id": "huoshenshan-pre-event",
+        "relative": "assets/cfbd2c170f94c5ad5a488226/before.png",
+        "sha256": "708370cd1d59d877d2dbfe669e1179b96b3acf8c5f4c1e2b1a343061c407ead2"
+      },
+      {
+        "case_id": "huoshenshan-pre-event",
+        "relative": "assets/cfbd2c170f94c5ad5a488226/overlay.png",
+        "sha256": "fbc592975c64d88740204012bd5ab075a2b0b8e8a6e40f4282dee99ba9d04d1b"
+      },
+      {
+        "case_id": "huoshenshan-nearby",
+        "relative": "assets/2defb2971bfc88141093145f/after.png",
+        "sha256": "1d1c2ccae578afb35fc78a7a2dd63d42814d571f3dd311a1cbe381f3cef43d50"
+      },
+      {
+        "case_id": "huoshenshan-nearby",
+        "relative": "assets/2defb2971bfc88141093145f/before.png",
+        "sha256": "d84e0eeeec7677c922f254c1700cdd03cae943d5254d4f0e2f6f507c281f669f"
+      },
+      {
+        "case_id": "huoshenshan-nearby",
+        "relative": "assets/2defb2971bfc88141093145f/overlay.png",
+        "sha256": "6ff2ae63a445fb268e6696a94d850bd06ba99ca02f67dff8fc1eabf473190d2c"
+      },
+      {
+        "case_id": "gobabeb-quiet-reference",
+        "relative": "assets/cff90cd3d81e21a51d738061/after.png",
+        "sha256": "c94e91f6f685cc058c11a4725efcb20369aba86c530787056980bae6c0327156"
+      },
+      {
+        "case_id": "gobabeb-quiet-reference",
+        "relative": "assets/cff90cd3d81e21a51d738061/before.png",
+        "sha256": "b466d65b3c53c40944bc2e2575434a3caed1e54bc859517d0bd6fd2954f50dec"
+      },
+      {
+        "case_id": "gobabeb-quiet-reference",
+        "relative": "assets/cff90cd3d81e21a51d738061/overlay.png",
+        "sha256": "c94e91f6f685cc058c11a4725efcb20369aba86c530787056980bae6c0327156"
+      }
+    ],
+    "original_pngs": 12,
+    "eligible_reviews": 4,
+    "insufficient_comparisons_in_history": 9,
+    "local_url": "http://127.0.0.1:49462/pilot/#review-queue",
+    "source_records_unchanged": true,
+    "browser_checks": {
+      "browser": "headless Chrome",
+      "passed": [
+        "four original civilian cases / four review entries",
+        "new optical comparison opens from queue",
+        "all twelve original PNG HTTP hashes match",
+        "all four exact review identities exported with unreviewed labels and empty notes",
+        "no browser errors"
+      ],
+      "prefilled_human_or_QA_labels": false
+    },
+    "labels": "Headless verification used fresh contexts without prefilling any human or QA observations."
+  }
+}
