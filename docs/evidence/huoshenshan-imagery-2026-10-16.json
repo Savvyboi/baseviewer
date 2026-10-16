@@ -1,0 +1,1887 @@
+{
+  "recorded_date": "2026-10-16",
+  "timezone": "Europe/Helsinki",
+  "source_commit": "b84eca845595f4c0e3a0a76595a71173e2601a1e",
+  "source_pr": {
+    "number": 9,
+    "url": "https://github.com/Savvyboi/baseviewer/pull/9",
+    "merged": true
+  },
+  "frozen_manifest_sha256": "de4dbc5b5b58f2ba73670111c371b7b7489a7838cd3aba5bf644ffbbcc92bfcd",
+  "selection_evidence": "docs/evidence/huoshenshan-selection-2026-10-16.json",
+  "reviewer": "Codex; image/metadata review, not independent human adjudication or per-pixel ground truth.",
+  "overview": {
+    "path": "docs/evidence/huoshenshan-2026-10-16/review-sheet.png",
+    "sha256": "7bd02d83685c69a3dd11dfd167b53b96033485f59a0a9a6b72710a32f60a8695",
+    "kind": "labelled contact sheet of retained original PNGs; not a new analysis"
+  },
+  "conclusion": {
+    "live_runs_passed": 3,
+    "comparisons": 12,
+    "original_pngs_verified_and_reviewed": 9,
+    "radar_candidates": 3,
+    "optical_insufficient_comparisons": 9,
+    "construction_candidate_surfaced": true,
+    "independent_quiet_control_established": false,
+    "detection_accuracy_established": false,
+    "finding": "The documented construction case flags a larger, more spatially connected radar response than the two comparison candidates, but all three trigger and every optical comparison is insufficient. This supports review-first candidate triage, not calibrated construction discrimination, vehicle detection, or a false-positive rate.",
+    "unchanged": "Thresholds, masks, AOIs, windows and original frozen labels were not changed to fit outputs. No extra live runs were dispatched."
+  },
+  "publication_preservation": {
+    "before": {
+      "observed_at": "2026-10-16T12:49:41.901944+00:00",
+      "base_url": "https://savvyboi.github.io/baseviewer/",
+      "files_sha256": {
+        "assets/5ec9b7b32fe91574920b482d/after.png": "e635312e52985c861eec724738ff059430aedc9bfc349da15e1cb41e38a02002",
+        "assets/5ec9b7b32fe91574920b482d/before.png": "5bf1df73bd90ca248b534a9a253d8c883b42c100f5213d6dcfe9e60ddd7ff97e",
+        "assets/5ec9b7b32fe91574920b482d/overlay.png": "afd4e962ef812fcd658906bd5c4b6e06a2fb809bd2ccce22e60a8ad1e1460a2e",
+        "history.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da",
+        "index.html": "b2acef24c563ed0adc84914f3fadc78a1338831039d912667c588c74282e8ea1",
+        "latest.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da"
+      },
+      "analysis_keys": [
+        "0d938c6c2828198c1593"
+      ],
+      "monitor_enabled": null,
+      "results_ref": "8714435fea8b875f960d396f0b43d79f7545e22c"
+    },
+    "after_observed_at": "2026-10-16T13:09:39.589797+00:00",
+    "after_files_sha256": {
+      "assets/5ec9b7b32fe91574920b482d/after.png": "e635312e52985c861eec724738ff059430aedc9bfc349da15e1cb41e38a02002",
+      "assets/5ec9b7b32fe91574920b482d/before.png": "5bf1df73bd90ca248b534a9a253d8c883b42c100f5213d6dcfe9e60ddd7ff97e",
+      "assets/5ec9b7b32fe91574920b482d/overlay.png": "afd4e962ef812fcd658906bd5c4b6e06a2fb809bd2ccce22e60a8ad1e1460a2e",
+      "history.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da",
+      "index.html": "b2acef24c563ed0adc84914f3fadc78a1338831039d912667c588c74282e8ea1",
+      "latest.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da"
+    },
+    "hashes_identical": true,
+    "after_monitor_enabled": null,
+    "after_results_ref": "8714435fea8b875f960d396f0b43d79f7545e22c"
+  },
+  "cases": [
+    {
+      "recorded_date": "2026-10-16",
+      "timezone": "Europe/Helsinki",
+      "case_id": "huoshenshan-event",
+      "dispatch": {
+        "case_id": "huoshenshan-event",
+        "dispatch_started_at": "2026-10-16T13:03:23.867146+00:00",
+        "dispatch_completed_at": "2026-10-16T13:03:26.564052+00:00",
+        "run_id": 38904946895
+      },
+      "workflow": {
+        "id": 38904946895,
+        "html_url": "https://github.com/Savvyboi/baseviewer/actions/runs/38904946895",
+        "head_sha": "b84eca845595f4c0e3a0a76595a71173e2601a1e",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-16T13:03:25Z"
+      },
+      "deployed": false,
+      "jobs": [
+        {
+          "name": "imagery",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install -r requirements.lock && python -m pip install --no-deps -e .",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run sentinel-monitor review-case --case \"$CASE_ID\"",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "failure-artifacts",
+          "conclusion": "skipped",
+          "steps": []
+        },
+        {
+          "name": "numeric",
+          "conclusion": "skipped",
+          "steps": []
+        }
+      ],
+      "artifact": {
+        "id": 12047815855,
+        "name": "imagery-review-huoshenshan-event",
+        "zip_sha256": "2e0a9e75012ef4de9f4762d9a22f77eedbb5e2539c85c06cb03a4fba60779d18",
+        "github_digest": "sha256:2e0a9e75012ef4de9f4762d9a22f77eedbb5e2539c85c06cb03a4fba60779d18",
+        "files": [
+          {
+            "path": "site-imagery-review/huoshenshan-event/assets/99f444044cc05c0dc1d5f602/before.png",
+            "bytes": 5252,
+            "sha256": "2aaeb852e40ea91884f682fad5121cf48b7cc88e561163b694a0dd6170ba93b7",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-event/assets/99f444044cc05c0dc1d5f602/after.png",
+            "bytes": 6891,
+            "sha256": "c48ab520602bd95f6470ca8cca86ad9f1140a9ae41a37d231ee97f9c023b19c5",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-event/assets/99f444044cc05c0dc1d5f602/overlay.png",
+            "bytes": 28378,
+            "sha256": "557f3d06dc06886e2afbc7387d8b0989fff00f421a86866cf58fed5a8a09c67d",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-event/history.json",
+            "bytes": 12760,
+            "sha256": "8bd5145f91e6b92f5e73ac9a9e884a588fddb8ad8ff69a690b4795a8650690ac"
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-event/index.html",
+            "bytes": 12326,
+            "sha256": "c42115dc71a737855ecbe1c296fc63d5be55250dccc3e0a44bec281ce6f9c9a5"
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-event/latest.json",
+            "bytes": 12760,
+            "sha256": "8bd5145f91e6b92f5e73ac9a9e884a588fddb8ad8ff69a690b4795a8650690ac"
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-event/review.js",
+            "bytes": 4325,
+            "sha256": "13a72efcd1e270cddccdafd6e1cfc24f5a225e9ee3c5a1423466da0709b29cd0"
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-event/validation-case.json",
+            "bytes": 1954,
+            "sha256": "33f55a21b72ee2f14f76a51c0c838662b40eafb1acc96283d75d4e625e923867"
+          },
+          {
+            "path": "results-imagery-review/huoshenshan-event/run-summary.json",
+            "bytes": 485,
+            "sha256": "59e6dccc95f610748696afe9b4588d0ee0ba040947ea64643f397daa7388e687"
+          }
+        ]
+      },
+      "validation_context": {
+        "kind": "artifact-only imagery validation",
+        "case_id": "huoshenshan-event",
+        "case_manifest_sha256": "de4dbc5b5b58f2ba73670111c371b7b7489a7838cd3aba5bf644ffbbcc92bfcd",
+        "frozen_on": "2026-10-16",
+        "case": {
+          "review_status": "unreviewed",
+          "references": [
+            {
+              "url": "https://en.nhc.gov.cn/2020-02/03/c_76130.htm",
+              "supports": "January 23, 2020 groundbreaking and February 2 delivery of the emergency public-health hospital."
+            },
+            {
+              "url": "https://english.cscec.com/CompanyNews/CorporateNews/202002/3018196.html",
+              "supports": "Contractor report published January 28 documents construction underway on January 27."
+            },
+            {
+              "url": "https://www.openstreetmap.org/way/766315840",
+              "supports": "Hospital footprint location, using way version 9 from January 14, 2024; geometry locator, not dated construction or quiet ground truth."
+            }
+          ],
+          "label": "Documented rapid hospital construction; surface-change candidate requiring imagery review",
+          "site": {
+            "id": "huoshenshan-construction",
+            "name": "Huoshenshan hospital construction (validation)",
+            "latitude": 30.5302291,
+            "longitude": 114.0825944,
+            "size_m": 500
+          },
+          "end_date": "2020-02-03",
+          "selection_basis": "500 m square at the midpoint of OSM way 766315840 version 9 bounds, frozen before detector output. Target Jan 27-Feb 3 brackets documented ongoing construction and delivery. The rolling Dec 30-Jan 27 baseline includes Jan 23-26 initial work; it is not a pure pre-construction baseline."
+        },
+        "windows": {
+          "baseline_start": "2019-12-30",
+          "baseline_end": "2020-01-27",
+          "target_start": "2020-01-27",
+          "target_end": "2020-02-03"
+        },
+        "started_at": "2026-10-16T13:03:44.668400+00:00",
+        "completed_at": "2026-10-16T13:03:51.793956+00:00",
+        "exit_code": 0,
+        "note": "Provisional labels require independent imagery review; no accuracy claim."
+      },
+      "result": {
+        "schema_version": 1,
+        "analysis_version": "0.1.0",
+        "analysis_key": "0781562f1659b46e7b76",
+        "radar_diagnostics_requested": true,
+        "review_previews_requested": true,
+        "site": {
+          "id": "huoshenshan-construction",
+          "name": "Huoshenshan hospital construction (validation)",
+          "latitude": 30.5302291,
+          "longitude": 114.0825944,
+          "size_m": 500
+        },
+        "grid": {
+          "crs": "EPSG:32650",
+          "transform": [
+            10,
+            0,
+            219820,
+            0,
+            -10,
+            3381410
+          ],
+          "bounds": [
+            219820,
+            3380910,
+            220320,
+            3381410
+          ],
+          "cells": 2500
+        },
+        "windows": {
+          "baseline_start": "2019-12-30",
+          "baseline_end": "2020-01-27",
+          "target_start": "2020-01-27",
+          "target_end": "2020-02-03"
+        },
+        "mode": "live",
+        "generated_at": "2026-10-16T13:03:51.751267+00:00",
+        "settings": {
+          "analysis_version": "0.1.0",
+          "earth_engine_project": "baseviewer-511722",
+          "optical_threshold": 0.1,
+          "radar_threshold_db": 3.0,
+          "cloud_score_min": 0.6,
+          "min_baseline_observations": 2,
+          "min_valid_coverage": 0.7,
+          "min_patch_pixels": 9,
+          "radar_speckle_radius_m": 10,
+          "radar_min_db": -35,
+          "radar_min_angle": 31,
+          "radar_max_angle": 45,
+          "terrain_max_slope_deg": 15,
+          "dem_collection": "COPERNICUS/DEM/GLO30_2024_1",
+          "max_sites": 1,
+          "max_images_per_sensor": 300,
+          "request_attempts": 3,
+          "preview_pixels": 400
+        },
+        "elapsed_seconds": 7.079,
+        "comparisons": [
+          {
+            "id": "6288d0bc87d254fbe9c73a0a",
+            "sensor": "optical",
+            "acquisition_date": "2020-01-30",
+            "acquisition_times": [
+              "2020-01-30T03:09:29.367000+00:00",
+              "2020-01-30T03:09:27.007000+00:00"
+            ],
+            "source_ids": [
+              "20200130T025941_20200130T030534_T49RGP",
+              "20200130T025941_20200130T030534_T50RKU"
+            ],
+            "baseline_source_ids": [
+              "20191231T030121_20191231T030617_T49RGP",
+              "20191231T030121_20191231T030617_T50RKU",
+              "20200103T031121_20200103T031723_T49RGP",
+              "20200103T031121_20200103T031723_T50RKU",
+              "20200105T030119_20200105T030910_T49RGP",
+              "20200105T030119_20200105T030910_T50RKU",
+              "20200108T031109_20200108T031713_T49RGP",
+              "20200108T031109_20200108T031713_T50RKU",
+              "20200110T030101_20200110T030652_T49RGP",
+              "20200110T030101_20200110T030652_T50RKU",
+              "20200113T031101_20200113T031530_T49RGP",
+              "20200113T031101_20200113T031530_T50RKU",
+              "20200115T030049_20200115T030323_T49RGP",
+              "20200115T030049_20200115T030323_T50RKU",
+              "20200118T031039_20200118T031312_T49RGP",
+              "20200118T031039_20200118T031312_T50RKU",
+              "20200120T030021_20200120T030612_T49RGP",
+              "20200120T030021_20200120T030612_T50RKU",
+              "20200123T031021_20200123T031617_T49RGP",
+              "20200123T031021_20200123T031617_T50RKU",
+              "20200125T030009_20200125T030322_T49RGP",
+              "20200125T030009_20200125T030322_T50RKU"
+            ],
+            "baseline_acquisition_dates": [
+              "2019-12-31",
+              "2020-01-03",
+              "2020-01-05",
+              "2020-01-08",
+              "2020-01-10",
+              "2020-01-13",
+              "2020-01-15",
+              "2020-01-18",
+              "2020-01-20",
+              "2020-01-23",
+              "2020-01-25"
+            ],
+            "baseline_observations": 11,
+            "radar_group": null,
+            "status": "insufficient_data",
+            "valid_coverage": 0.0336,
+            "changed_area_m2": 0.0,
+            "cloud_screening": "SCL and Cloud Score+",
+            "reason": "Common valid coverage is below the configured minimum"
+          },
+          {
+            "id": "e06ae2930944e3de81704dcb",
+            "sensor": "optical",
+            "acquisition_date": "2020-02-02",
+            "acquisition_times": [
+              "2020-02-02T03:19:24.867000+00:00",
+              "2020-02-02T03:19:21.607000+00:00"
+            ],
+            "source_ids": [
+              "20200202T030931_20200202T031533_T49RGP",
+              "20200202T030931_20200202T031533_T50RKU"
+            ],
+            "baseline_source_ids": [
+              "20191231T030121_20191231T030617_T49RGP",
+              "20191231T030121_20191231T030617_T50RKU",
+              "20200103T031121_20200103T031723_T49RGP",
+              "20200103T031121_20200103T031723_T50RKU",
+              "20200105T030119_20200105T030910_T49RGP",
+              "20200105T030119_20200105T030910_T50RKU",
+              "20200108T031109_20200108T031713_T49RGP",
+              "20200108T031109_20200108T031713_T50RKU",
+              "20200110T030101_20200110T030652_T49RGP",
+              "20200110T030101_20200110T030652_T50RKU",
+              "20200113T031101_20200113T031530_T49RGP",
+              "20200113T031101_20200113T031530_T50RKU",
+              "20200115T030049_20200115T030323_T49RGP",
+              "20200115T030049_20200115T030323_T50RKU",
+              "20200118T031039_20200118T031312_T49RGP",
+              "20200118T031039_20200118T031312_T50RKU",
+              "20200120T030021_20200120T030612_T49RGP",
+              "20200120T030021_20200120T030612_T50RKU",
+              "20200123T031021_20200123T031617_T49RGP",
+              "20200123T031021_20200123T031617_T50RKU",
+              "20200125T030009_20200125T030322_T49RGP",
+              "20200125T030009_20200125T030322_T50RKU"
+            ],
+            "baseline_acquisition_dates": [
+              "2019-12-31",
+              "2020-01-03",
+              "2020-01-05",
+              "2020-01-08",
+              "2020-01-10",
+              "2020-01-13",
+              "2020-01-15",
+              "2020-01-18",
+              "2020-01-20",
+              "2020-01-23",
+              "2020-01-25"
+            ],
+            "baseline_observations": 11,
+            "radar_group": null,
+            "status": "insufficient_data",
+            "valid_coverage": 0.0,
+            "changed_area_m2": 0.0,
+            "cloud_screening": "SCL and Cloud Score+",
+            "reason": "Common valid coverage is below the configured minimum"
+          },
+          {
+            "id": "67ff60860a461f41be3b6827",
+            "sensor": "optical",
+            "acquisition_date": "2020-01-28",
+            "acquisition_times": [
+              "2020-01-28T03:19:25.277000+00:00",
+              "2020-01-28T03:19:22.013000+00:00"
+            ],
+            "source_ids": [
+              "20200128T030959_20200128T031833_T49RGP",
+              "20200128T030959_20200128T031833_T50RKU"
+            ],
+            "baseline_source_ids": [
+              "20191231T030121_20191231T030617_T49RGP",
+              "20191231T030121_20191231T030617_T50RKU",
+              "20200103T031121_20200103T031723_T49RGP",
+              "20200103T031121_20200103T031723_T50RKU",
+              "20200105T030119_20200105T030910_T49RGP",
+              "20200105T030119_20200105T030910_T50RKU",
+              "20200108T031109_20200108T031713_T49RGP",
+              "20200108T031109_20200108T031713_T50RKU",
+              "20200110T030101_20200110T030652_T49RGP",
+              "20200110T030101_20200110T030652_T50RKU",
+              "20200113T031101_20200113T031530_T49RGP",
+              "20200113T031101_20200113T031530_T50RKU",
+              "20200115T030049_20200115T030323_T49RGP",
+              "20200115T030049_20200115T030323_T50RKU",
+              "20200118T031039_20200118T031312_T49RGP",
+              "20200118T031039_20200118T031312_T50RKU",
+              "20200120T030021_20200120T030612_T49RGP",
+              "20200120T030021_20200120T030612_T50RKU",
+              "20200123T031021_20200123T031617_T49RGP",
+              "20200123T031021_20200123T031617_T50RKU",
+              "20200125T030009_20200125T030322_T49RGP",
+              "20200125T030009_20200125T030322_T50RKU"
+            ],
+            "baseline_acquisition_dates": [
+              "2019-12-31",
+              "2020-01-03",
+              "2020-01-05",
+              "2020-01-08",
+              "2020-01-10",
+              "2020-01-13",
+              "2020-01-15",
+              "2020-01-18",
+              "2020-01-20",
+              "2020-01-23",
+              "2020-01-25"
+            ],
+            "baseline_observations": 11,
+            "radar_group": null,
+            "status": "insufficient_data",
+            "valid_coverage": 0.0032,
+            "changed_area_m2": 0.0,
+            "cloud_screening": "SCL and Cloud Score+",
+            "reason": "Common valid coverage is below the configured minimum"
+          },
+          {
+            "id": "99f444044cc05c0dc1d5f602",
+            "sensor": "radar",
+            "acquisition_date": "2020-01-27",
+            "acquisition_times": [
+              "2020-01-27T10:27:44+00:00"
+            ],
+            "source_ids": [
+              "S1A_IW_GRDH_1SDV_20200127T102744_20200127T102809_030985_038EEF_AF2E"
+            ],
+            "baseline_source_ids": [
+              "S1A_IW_GRDH_1SDV_20200103T102744_20200103T102809_030635_0382A8_32C9",
+              "S1A_IW_GRDH_1SDV_20200115T102744_20200115T102809_030810_0388C5_328C"
+            ],
+            "baseline_acquisition_dates": [
+              "2020-01-03",
+              "2020-01-15"
+            ],
+            "baseline_observations": 2,
+            "radar_group": {
+              "relative_orbit": 113,
+              "pass": "ASCENDING"
+            },
+            "status": "possible_change",
+            "valid_coverage": 0.992,
+            "changed_area_m2": 90297.5337677002,
+            "radar_diagnostics": {
+              "scope": "common valid cells, before connected-patch filtering",
+              "threshold_db": 3.0,
+              "polarizations": {
+                "VV": {
+                  "baseline_db": {
+                    "count": 2480,
+                    "mean_db": -9.453216562967889,
+                    "p05_db": -20.25854006994612,
+                    "median_db": -9.057559293853034,
+                    "p95_db": -3.2018006488794657
+                  },
+                  "target_db": {
+                    "count": 2480,
+                    "mean_db": -8.487962330335101,
+                    "p05_db": -21.119600115983243,
+                    "median_db": -7.630096851048962,
+                    "p95_db": -1.8738384517751143
+                  },
+                  "signed_delta_db": {
+                    "count": 2480,
+                    "mean_db": 0.9652542326327608,
+                    "p05_db": -2.8102705365578906,
+                    "median_db": 0.5657400983016323,
+                    "p95_db": 6.062883204957138
+                  },
+                  "baseline_range_db": {
+                    "count": 2480,
+                    "mean_db": 1.3481996126824098,
+                    "p05_db": 0.09435538834305784,
+                    "median_db": 1.0358402246039735,
+                    "p95_db": 3.4055394463115447
+                  },
+                  "baseline_range_exceedance_fraction": 0.07983870967741935,
+                  "positive_fraction": 0.21411290322580645,
+                  "negative_fraction": 0.03951612903225806
+                },
+                "VH": {
+                  "baseline_db": {
+                    "count": 2480,
+                    "mean_db": -16.04133573455297,
+                    "p05_db": -24.94176477819403,
+                    "median_db": -15.692285387226047,
+                    "p95_db": -10.05444314456828
+                  },
+                  "target_db": {
+                    "count": 2480,
+                    "mean_db": -15.301340556864451,
+                    "p05_db": -25.78602622811014,
+                    "median_db": -14.685047405962427,
+                    "p95_db": -9.687981870510326
+                  },
+                  "signed_delta_db": {
+                    "count": 2480,
+                    "mean_db": 0.7399951776885245,
+                    "p05_db": -3.1780075288383056,
+                    "median_db": 0.31742786245293336,
+                    "p95_db": 6.06429413385114
+                  },
+                  "baseline_range_db": {
+                    "count": 2480,
+                    "mean_db": 1.5455073934527315,
+                    "p05_db": 0.11003116117656497,
+                    "median_db": 1.2648915073472509,
+                    "p95_db": 3.887170390884143
+                  },
+                  "baseline_range_exceedance_fraction": 0.12903225806451613,
+                  "positive_fraction": 0.18467741935483872,
+                  "negative_fraction": 0.06733870967741935
+                }
+              },
+              "either_fraction": 0.3903225806451613,
+              "both_fraction": 0.1153225806451613
+            },
+            "changed_cells": 904,
+            "previews": {
+              "before": "assets/99f444044cc05c0dc1d5f602/before.png",
+              "after": "assets/99f444044cc05c0dc1d5f602/after.png",
+              "overlay": "assets/99f444044cc05c0dc1d5f602/overlay.png"
+            }
+          }
+        ],
+        "errors": [],
+        "changed_area": {
+          "optical_m2": null,
+          "radar_m2": 90297.5337677002,
+          "overlap_m2": null
+        },
+        "newest_observation": "2020-02-02T03:19:24.867000+00:00",
+        "workload_tag": "sentinel-0781562f1659b46e7b76",
+        "status": "possible_change",
+        "usable_sensors": [
+          "radar"
+        ],
+        "has_errors": false,
+        "validation_case": {
+          "id": "huoshenshan-event",
+          "label": "Documented rapid hospital construction; surface-change candidate requiring imagery review",
+          "review_status": "unreviewed"
+        }
+      },
+      "run_summary": {
+        "mode": "live",
+        "windows": {
+          "baseline_start": "2019-12-30",
+          "baseline_end": "2020-01-27",
+          "target_start": "2020-01-27",
+          "target_end": "2020-02-03"
+        },
+        "site_count": 1,
+        "planned_area_m2": 250000,
+        "has_errors": false,
+        "sites": [
+          {
+            "id": "huoshenshan-construction",
+            "status": "possible_change",
+            "errors": [],
+            "preview_errors": [],
+            "workload_tag": "sentinel-0781562f1659b46e7b76",
+            "elapsed_seconds": 7.079
+          }
+        ]
+      },
+      "visual_reviews": [
+        {
+          "comparison_id": "99f444044cc05c0dc1d5f602",
+          "acquisition_date": "2020-01-27",
+          "method": "Codex visual inspection of original before/after/overlay 400 x 400 VV display PNGs and saved diagnostics; independent human adjudication remains pending.",
+          "observation": "VV target has expanded bright returns in the upper-left/central-left compared with the baseline. The overlay contains larger connected regions in the northwest, centre and southwest plus other patches; the dark lower-right feature persists. This is a signal/appearance change at a documented construction location, not a resolved building, equipment or vehicle classification.",
+          "display_limit": "Radar previews display VV only; either VV or VH can trigger the orange mask. Display pixels oversample the fixed 10 m grid.",
+          "changed_fraction_of_common_valid_cells": 0.36451612903225805,
+          "images": [
+            {
+              "kind": "before",
+              "repository_path": "docs/evidence/huoshenshan-2026-10-16/huoshenshan-event/99f444044cc05c0dc1d5f602/before.png",
+              "sha256": "2aaeb852e40ea91884f682fad5121cf48b7cc88e561163b694a0dd6170ba93b7"
+            },
+            {
+              "kind": "after",
+              "repository_path": "docs/evidence/huoshenshan-2026-10-16/huoshenshan-event/99f444044cc05c0dc1d5f602/after.png",
+              "sha256": "c48ab520602bd95f6470ca8cca86ad9f1140a9ae41a37d231ee97f9c023b19c5"
+            },
+            {
+              "kind": "overlay",
+              "repository_path": "docs/evidence/huoshenshan-2026-10-16/huoshenshan-event/99f444044cc05c0dc1d5f602/overlay.png",
+              "sha256": "557f3d06dc06886e2afbc7387d8b0989fff00f421a86866cf58fed5a8a09c67d"
+            }
+          ]
+        }
+      ],
+      "all_local_report_references_resolved": true
+    },
+    {
+      "recorded_date": "2026-10-16",
+      "timezone": "Europe/Helsinki",
+      "case_id": "huoshenshan-pre-event",
+      "dispatch": {
+        "case_id": "huoshenshan-pre-event",
+        "dispatch_started_at": "2026-10-16T13:04:20.970301+00:00",
+        "dispatch_completed_at": "2026-10-16T13:04:24.048606+00:00",
+        "run_id": 38905067211
+      },
+      "workflow": {
+        "id": 38905067211,
+        "html_url": "https://github.com/Savvyboi/baseviewer/actions/runs/38905067211",
+        "head_sha": "b84eca845595f4c0e3a0a76595a71173e2601a1e",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-16T13:04:22Z"
+      },
+      "deployed": false,
+      "jobs": [
+        {
+          "name": "imagery",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install -r requirements.lock && python -m pip install --no-deps -e .",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run sentinel-monitor review-case --case \"$CASE_ID\"",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "numeric",
+          "conclusion": "skipped",
+          "steps": []
+        },
+        {
+          "name": "failure-artifacts",
+          "conclusion": "skipped",
+          "steps": []
+        }
+      ],
+      "artifact": {
+        "id": 12047681729,
+        "name": "imagery-review-huoshenshan-pre-event",
+        "zip_sha256": "7b124004d3dc5569b0fa73325374a1b6dd1e050e6a234b2cfa5df0c492f00096",
+        "github_digest": "sha256:7b124004d3dc5569b0fa73325374a1b6dd1e050e6a234b2cfa5df0c492f00096",
+        "files": [
+          {
+            "path": "site-imagery-review/huoshenshan-pre-event/assets/cfbd2c170f94c5ad5a488226/overlay.png",
+            "bytes": 26188,
+            "sha256": "fbc592975c64d88740204012bd5ab075a2b0b8e8a6e40f4282dee99ba9d04d1b",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-pre-event/history.json",
+            "bytes": 12754,
+            "sha256": "8ea2b2192a54a0bd696ee9c5682c0998f3af743c30ba8a2c1c7eecc21f4f46bc"
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-pre-event/assets/cfbd2c170f94c5ad5a488226/before.png",
+            "bytes": 6860,
+            "sha256": "708370cd1d59d877d2dbfe669e1179b96b3acf8c5f4c1e2b1a343061c407ead2",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-pre-event/assets/cfbd2c170f94c5ad5a488226/after.png",
+            "bytes": 6905,
+            "sha256": "baea8736229ba6145674765941ceaaffa6ddaeeba9f49c6f3307f0dcbc57b575",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-pre-event/index.html",
+            "bytes": 12311,
+            "sha256": "7b17d8fdafe7763b94875b83319f88e6186a441f8e8a7b04f9408bd9af901b46"
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-pre-event/latest.json",
+            "bytes": 12754,
+            "sha256": "8ea2b2192a54a0bd696ee9c5682c0998f3af743c30ba8a2c1c7eecc21f4f46bc"
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-pre-event/review.js",
+            "bytes": 4325,
+            "sha256": "13a72efcd1e270cddccdafd6e1cfc24f5a225e9ee3c5a1423466da0709b29cd0"
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-pre-event/validation-case.json",
+            "bytes": 1811,
+            "sha256": "731e22741c7eb747e5b2c24b98b93e513877907a7a55acad31f2b511d78cd6ee"
+          },
+          {
+            "path": "results-imagery-review/huoshenshan-pre-event/run-summary.json",
+            "bytes": 485,
+            "sha256": "ea152d2c9f89568239feaab800d6622febc0dc27f7b823b736bdcf8ab9451d6f"
+          }
+        ]
+      },
+      "validation_context": {
+        "kind": "artifact-only imagery validation",
+        "case_id": "huoshenshan-pre-event",
+        "case_manifest_sha256": "de4dbc5b5b58f2ba73670111c371b7b7489a7838cd3aba5bf644ffbbcc92bfcd",
+        "frozen_on": "2026-10-16",
+        "case": {
+          "review_status": "unreviewed",
+          "references": [
+            {
+              "url": "https://en.nhc.gov.cn/2020-02/03/c_76130.htm",
+              "supports": "January 23, 2020 groundbreaking and February 2 delivery of the emergency public-health hospital."
+            },
+            {
+              "url": "https://english.cscec.com/CompanyNews/CorporateNews/202002/3018196.html",
+              "supports": "Contractor report published January 28 documents construction underway on January 27."
+            },
+            {
+              "url": "https://www.openstreetmap.org/way/766315840",
+              "supports": "Hospital footprint location, using way version 9 from January 14, 2024; geometry locator, not dated construction or quiet ground truth."
+            }
+          ],
+          "label": "Pre-construction comparison candidate; quiet conditions not established",
+          "site": {
+            "id": "huoshenshan-construction",
+            "name": "Huoshenshan hospital construction (validation)",
+            "latitude": 30.5302291,
+            "longitude": 114.0825944,
+            "size_m": 500
+          },
+          "end_date": "2020-01-20",
+          "selection_basis": "Same frozen square, with target Jan 13-Jan 20 ending before documented Jan 23 groundbreaking. Other surface, weather and vegetation changes remain possible."
+        },
+        "windows": {
+          "baseline_start": "2019-12-16",
+          "baseline_end": "2020-01-13",
+          "target_start": "2020-01-13",
+          "target_end": "2020-01-20"
+        },
+        "started_at": "2026-10-16T13:04:44.872731+00:00",
+        "completed_at": "2026-10-16T13:04:53.645247+00:00",
+        "exit_code": 0,
+        "note": "Provisional labels require independent imagery review; no accuracy claim."
+      },
+      "result": {
+        "schema_version": 1,
+        "analysis_version": "0.1.0",
+        "analysis_key": "422e5a9930d21e002ca5",
+        "radar_diagnostics_requested": true,
+        "review_previews_requested": true,
+        "site": {
+          "id": "huoshenshan-construction",
+          "name": "Huoshenshan hospital construction (validation)",
+          "latitude": 30.5302291,
+          "longitude": 114.0825944,
+          "size_m": 500
+        },
+        "grid": {
+          "crs": "EPSG:32650",
+          "transform": [
+            10,
+            0,
+            219820,
+            0,
+            -10,
+            3381410
+          ],
+          "bounds": [
+            219820,
+            3380910,
+            220320,
+            3381410
+          ],
+          "cells": 2500
+        },
+        "windows": {
+          "baseline_start": "2019-12-16",
+          "baseline_end": "2020-01-13",
+          "target_start": "2020-01-13",
+          "target_end": "2020-01-20"
+        },
+        "mode": "live",
+        "generated_at": "2026-10-16T13:04:53.600954+00:00",
+        "settings": {
+          "analysis_version": "0.1.0",
+          "earth_engine_project": "baseviewer-511722",
+          "optical_threshold": 0.1,
+          "radar_threshold_db": 3.0,
+          "cloud_score_min": 0.6,
+          "min_baseline_observations": 2,
+          "min_valid_coverage": 0.7,
+          "min_patch_pixels": 9,
+          "radar_speckle_radius_m": 10,
+          "radar_min_db": -35,
+          "radar_min_angle": 31,
+          "radar_max_angle": 45,
+          "terrain_max_slope_deg": 15,
+          "dem_collection": "COPERNICUS/DEM/GLO30_2024_1",
+          "max_sites": 1,
+          "max_images_per_sensor": 300,
+          "request_attempts": 3,
+          "preview_pixels": 400
+        },
+        "elapsed_seconds": 8.725,
+        "comparisons": [
+          {
+            "id": "fb3ba4acad775520753dbdc1",
+            "sensor": "optical",
+            "acquisition_date": "2020-01-13",
+            "acquisition_times": [
+              "2020-01-13T03:19:27.013000+00:00",
+              "2020-01-13T03:19:23.753000+00:00"
+            ],
+            "source_ids": [
+              "20200113T031101_20200113T031530_T49RGP",
+              "20200113T031101_20200113T031530_T50RKU"
+            ],
+            "baseline_source_ids": [
+              "20191216T030119_20191216T030327_T49RGP",
+              "20191216T030119_20191216T030327_T50RKU",
+              "20191219T031129_20191219T031455_T49RGP",
+              "20191219T031129_20191219T031455_T50RKU",
+              "20191221T030121_20191221T030714_T49RGP",
+              "20191221T030121_20191221T030714_T50RKU",
+              "20191224T031131_20191224T031600_T49RGP",
+              "20191224T031131_20191224T031600_T50RKU",
+              "20191226T030129_20191226T030331_T49RGP",
+              "20191226T030129_20191226T030331_T50RKU",
+              "20191229T031129_20191229T031453_T49RGP",
+              "20191229T031129_20191229T031453_T50RKU",
+              "20191231T030121_20191231T030617_T49RGP",
+              "20191231T030121_20191231T030617_T50RKU",
+              "20200103T031121_20200103T031723_T49RGP",
+              "20200103T031121_20200103T031723_T50RKU",
+              "20200105T030119_20200105T030910_T49RGP",
+              "20200105T030119_20200105T030910_T50RKU",
+              "20200108T031109_20200108T031713_T49RGP",
+              "20200108T031109_20200108T031713_T50RKU",
+              "20200110T030101_20200110T030652_T49RGP",
+              "20200110T030101_20200110T030652_T50RKU"
+            ],
+            "baseline_acquisition_dates": [
+              "2019-12-16",
+              "2019-12-19",
+              "2019-12-21",
+              "2019-12-24",
+              "2019-12-26",
+              "2019-12-29",
+              "2019-12-31",
+              "2020-01-03",
+              "2020-01-05",
+              "2020-01-08",
+              "2020-01-10"
+            ],
+            "baseline_observations": 11,
+            "radar_group": null,
+            "status": "insufficient_data",
+            "valid_coverage": 0.016,
+            "changed_area_m2": 0.0,
+            "cloud_screening": "SCL and Cloud Score+",
+            "reason": "Common valid coverage is below the configured minimum"
+          },
+          {
+            "id": "ed8fa3b777e57561aff9047c",
+            "sensor": "optical",
+            "acquisition_date": "2020-01-15",
+            "acquisition_times": [
+              "2020-01-15T03:09:31.015000+00:00",
+              "2020-01-15T03:09:28.654000+00:00"
+            ],
+            "source_ids": [
+              "20200115T030049_20200115T030323_T49RGP",
+              "20200115T030049_20200115T030323_T50RKU"
+            ],
+            "baseline_source_ids": [
+              "20191216T030119_20191216T030327_T49RGP",
+              "20191216T030119_20191216T030327_T50RKU",
+              "20191219T031129_20191219T031455_T49RGP",
+              "20191219T031129_20191219T031455_T50RKU",
+              "20191221T030121_20191221T030714_T49RGP",
+              "20191221T030121_20191221T030714_T50RKU",
+              "20191224T031131_20191224T031600_T49RGP",
+              "20191224T031131_20191224T031600_T50RKU",
+              "20191226T030129_20191226T030331_T49RGP",
+              "20191226T030129_20191226T030331_T50RKU",
+              "20191229T031129_20191229T031453_T49RGP",
+              "20191229T031129_20191229T031453_T50RKU",
+              "20191231T030121_20191231T030617_T49RGP",
+              "20191231T030121_20191231T030617_T50RKU",
+              "20200103T031121_20200103T031723_T49RGP",
+              "20200103T031121_20200103T031723_T50RKU",
+              "20200105T030119_20200105T030910_T49RGP",
+              "20200105T030119_20200105T030910_T50RKU",
+              "20200108T031109_20200108T031713_T49RGP",
+              "20200108T031109_20200108T031713_T50RKU",
+              "20200110T030101_20200110T030652_T49RGP",
+              "20200110T030101_20200110T030652_T50RKU"
+            ],
+            "baseline_acquisition_dates": [
+              "2019-12-16",
+              "2019-12-19",
+              "2019-12-21",
+              "2019-12-24",
+              "2019-12-26",
+              "2019-12-29",
+              "2019-12-31",
+              "2020-01-03",
+              "2020-01-05",
+              "2020-01-08",
+              "2020-01-10"
+            ],
+            "baseline_observations": 11,
+            "radar_group": null,
+            "status": "insufficient_data",
+            "valid_coverage": 0.0,
+            "changed_area_m2": 0.0,
+            "cloud_screening": "SCL and Cloud Score+",
+            "reason": "Common valid coverage is below the configured minimum"
+          },
+          {
+            "id": "6d20c99e8037f522f0042271",
+            "sensor": "optical",
+            "acquisition_date": "2020-01-18",
+            "acquisition_times": [
+              "2020-01-18T03:19:26.643000+00:00",
+              "2020-01-18T03:19:23.377000+00:00"
+            ],
+            "source_ids": [
+              "20200118T031039_20200118T031312_T49RGP",
+              "20200118T031039_20200118T031312_T50RKU"
+            ],
+            "baseline_source_ids": [
+              "20191216T030119_20191216T030327_T49RGP",
+              "20191216T030119_20191216T030327_T50RKU",
+              "20191219T031129_20191219T031455_T49RGP",
+              "20191219T031129_20191219T031455_T50RKU",
+              "20191221T030121_20191221T030714_T49RGP",
+              "20191221T030121_20191221T030714_T50RKU",
+              "20191224T031131_20191224T031600_T49RGP",
+              "20191224T031131_20191224T031600_T50RKU",
+              "20191226T030129_20191226T030331_T49RGP",
+              "20191226T030129_20191226T030331_T50RKU",
+              "20191229T031129_20191229T031453_T49RGP",
+              "20191229T031129_20191229T031453_T50RKU",
+              "20191231T030121_20191231T030617_T49RGP",
+              "20191231T030121_20191231T030617_T50RKU",
+              "20200103T031121_20200103T031723_T49RGP",
+              "20200103T031121_20200103T031723_T50RKU",
+              "20200105T030119_20200105T030910_T49RGP",
+              "20200105T030119_20200105T030910_T50RKU",
+              "20200108T031109_20200108T031713_T49RGP",
+              "20200108T031109_20200108T031713_T50RKU",
+              "20200110T030101_20200110T030652_T49RGP",
+              "20200110T030101_20200110T030652_T50RKU"
+            ],
+            "baseline_acquisition_dates": [
+              "2019-12-16",
+              "2019-12-19",
+              "2019-12-21",
+              "2019-12-24",
+              "2019-12-26",
+              "2019-12-29",
+              "2019-12-31",
+              "2020-01-03",
+              "2020-01-05",
+              "2020-01-08",
+              "2020-01-10"
+            ],
+            "baseline_observations": 11,
+            "radar_group": null,
+            "status": "insufficient_data",
+            "valid_coverage": 0.0032,
+            "changed_area_m2": 0.0,
+            "cloud_screening": "SCL and Cloud Score+",
+            "reason": "Common valid coverage is below the configured minimum"
+          },
+          {
+            "id": "cfbd2c170f94c5ad5a488226",
+            "sensor": "radar",
+            "acquisition_date": "2020-01-15",
+            "acquisition_times": [
+              "2020-01-15T10:27:44+00:00"
+            ],
+            "source_ids": [
+              "S1A_IW_GRDH_1SDV_20200115T102744_20200115T102809_030810_0388C5_328C"
+            ],
+            "baseline_source_ids": [
+              "S1A_IW_GRDH_1SDV_20191222T102745_20191222T102810_030460_037C9E_02EE",
+              "S1A_IW_GRDH_1SDV_20200103T102744_20200103T102809_030635_0382A8_32C9"
+            ],
+            "baseline_acquisition_dates": [
+              "2019-12-22",
+              "2020-01-03"
+            ],
+            "baseline_observations": 2,
+            "radar_group": {
+              "relative_orbit": 113,
+              "pass": "ASCENDING"
+            },
+            "status": "possible_change",
+            "valid_coverage": 0.9884,
+            "changed_area_m2": 25970.561408996582,
+            "radar_diagnostics": {
+              "scope": "common valid cells, before connected-patch filtering",
+              "threshold_db": 3.0,
+              "polarizations": {
+                "VV": {
+                  "baseline_db": {
+                    "count": 2471,
+                    "mean_db": -9.609266511902465,
+                    "p05_db": -19.72172300428137,
+                    "median_db": -9.305520052501274,
+                    "p95_db": -3.6834024041323543
+                  },
+                  "target_db": {
+                    "count": 2471,
+                    "mean_db": -9.401435327093964,
+                    "p05_db": -20.385185335753278,
+                    "median_db": -8.890898993258173,
+                    "p95_db": -2.922390777769928
+                  },
+                  "signed_delta_db": {
+                    "count": 2471,
+                    "mean_db": 0.20783118480853066,
+                    "p05_db": -2.560018864315118,
+                    "median_db": 0.3174258943462514,
+                    "p95_db": 2.676086702550995
+                  },
+                  "baseline_range_db": {
+                    "count": 2471,
+                    "mean_db": 1.319673820975136,
+                    "p05_db": 0.11031116246468334,
+                    "median_db": 1.0747718706148655,
+                    "p95_db": 3.356872555732952
+                  },
+                  "baseline_range_exceedance_fraction": 0.07405908539053015,
+                  "positive_fraction": 0.03197086199919061,
+                  "negative_fraction": 0.031161473087818695
+                },
+                "VH": {
+                  "baseline_db": {
+                    "count": 2471,
+                    "mean_db": -16.00866010988653,
+                    "p05_db": -24.523015382197563,
+                    "median_db": -15.684708064530025,
+                    "p95_db": -10.191314006049664
+                  },
+                  "target_db": {
+                    "count": 2471,
+                    "mean_db": -16.19635457479724,
+                    "p05_db": -24.82128882094395,
+                    "median_db": -16.06833479382393,
+                    "p95_db": -9.697918187316603
+                  },
+                  "signed_delta_db": {
+                    "count": 2471,
+                    "mean_db": -0.18769446491064132,
+                    "p05_db": -3.08363233202335,
+                    "median_db": -0.09274403093785324,
+                    "p95_db": 2.5317964111023463
+                  },
+                  "baseline_range_db": {
+                    "count": 2471,
+                    "mean_db": 1.4668665147665076,
+                    "p05_db": 0.10818296177383262,
+                    "median_db": 1.2030632554242264,
+                    "p95_db": 3.732105348373526
+                  },
+                  "baseline_range_exceedance_fraction": 0.1048158640226629,
+                  "positive_fraction": 0.026305139619587213,
+                  "negative_fraction": 0.05787130716309186
+                }
+              },
+              "either_fraction": 0.14123836503439902,
+              "both_fraction": 0.006070416835289356
+            },
+            "changed_cells": 260,
+            "previews": {
+              "before": "assets/cfbd2c170f94c5ad5a488226/before.png",
+              "after": "assets/cfbd2c170f94c5ad5a488226/after.png",
+              "overlay": "assets/cfbd2c170f94c5ad5a488226/overlay.png"
+            }
+          }
+        ],
+        "errors": [],
+        "changed_area": {
+          "optical_m2": null,
+          "radar_m2": 25970.561408996582,
+          "overlap_m2": null
+        },
+        "newest_observation": "2020-01-18T03:19:26.643000+00:00",
+        "workload_tag": "sentinel-422e5a9930d21e002ca5",
+        "status": "possible_change",
+        "usable_sensors": [
+          "radar"
+        ],
+        "has_errors": false,
+        "validation_case": {
+          "id": "huoshenshan-pre-event",
+          "label": "Pre-construction comparison candidate; quiet conditions not established",
+          "review_status": "unreviewed"
+        }
+      },
+      "run_summary": {
+        "mode": "live",
+        "windows": {
+          "baseline_start": "2019-12-16",
+          "baseline_end": "2020-01-13",
+          "target_start": "2020-01-13",
+          "target_end": "2020-01-20"
+        },
+        "site_count": 1,
+        "planned_area_m2": 250000,
+        "has_errors": false,
+        "sites": [
+          {
+            "id": "huoshenshan-construction",
+            "status": "possible_change",
+            "errors": [],
+            "preview_errors": [],
+            "workload_tag": "sentinel-422e5a9930d21e002ca5",
+            "elapsed_seconds": 8.725
+          }
+        ]
+      },
+      "visual_reviews": [
+        {
+          "comparison_id": "cfbd2c170f94c5ad5a488226",
+          "acquisition_date": "2020-01-15",
+          "method": "Codex visual inspection of original before/after/overlay 400 x 400 VV display PNGs and saved diagnostics; independent human adjudication remains pending.",
+          "observation": "Gross VV spatial patterns broadly resemble the baseline, with local contrast differences. The overlay has smaller separated patches including the upper middle and right/lower boundaries. No obvious broad construction pattern is resolved; this does not establish absence of surface changes.",
+          "display_limit": "Radar previews display VV only; either VV or VH can trigger the orange mask. Display pixels oversample the fixed 10 m grid.",
+          "changed_fraction_of_common_valid_cells": 0.10522055847834885,
+          "images": [
+            {
+              "kind": "before",
+              "repository_path": "docs/evidence/huoshenshan-2026-10-16/huoshenshan-pre-event/cfbd2c170f94c5ad5a488226/before.png",
+              "sha256": "708370cd1d59d877d2dbfe669e1179b96b3acf8c5f4c1e2b1a343061c407ead2"
+            },
+            {
+              "kind": "after",
+              "repository_path": "docs/evidence/huoshenshan-2026-10-16/huoshenshan-pre-event/cfbd2c170f94c5ad5a488226/after.png",
+              "sha256": "baea8736229ba6145674765941ceaaffa6ddaeeba9f49c6f3307f0dcbc57b575"
+            },
+            {
+              "kind": "overlay",
+              "repository_path": "docs/evidence/huoshenshan-2026-10-16/huoshenshan-pre-event/cfbd2c170f94c5ad5a488226/overlay.png",
+              "sha256": "fbc592975c64d88740204012bd5ab075a2b0b8e8a6e40f4282dee99ba9d04d1b"
+            }
+          ]
+        }
+      ],
+      "all_local_report_references_resolved": true
+    },
+    {
+      "recorded_date": "2026-10-16",
+      "timezone": "Europe/Helsinki",
+      "case_id": "huoshenshan-nearby",
+      "dispatch": {
+        "case_id": "huoshenshan-nearby",
+        "dispatch_started_at": "2026-10-16T13:05:41.072629+00:00",
+        "dispatch_completed_at": "2026-10-16T13:05:43.628947+00:00",
+        "run_id": 38905236404
+      },
+      "workflow": {
+        "id": 38905236404,
+        "html_url": "https://github.com/Savvyboi/baseviewer/actions/runs/38905236404",
+        "head_sha": "b84eca845595f4c0e3a0a76595a71173e2601a1e",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-16T13:05:42Z"
+      },
+      "deployed": false,
+      "jobs": [
+        {
+          "name": "imagery",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run python -m pip install -r requirements.lock && python -m pip install --no-deps -e .",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run sentinel-monitor review-case --case \"$CASE_ID\"",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        },
+        {
+          "name": "numeric",
+          "conclusion": "skipped",
+          "steps": []
+        },
+        {
+          "name": "failure-artifacts",
+          "conclusion": "skipped",
+          "steps": []
+        }
+      ],
+      "artifact": {
+        "id": 12048171149,
+        "name": "imagery-review-huoshenshan-nearby",
+        "zip_sha256": "bd1dc1784513df6f0ecddad5c618e057901075577c5acae825ea76db1370f7a7",
+        "github_digest": "sha256:bd1dc1784513df6f0ecddad5c618e057901075577c5acae825ea76db1370f7a7",
+        "files": [
+          {
+            "path": "site-imagery-review/huoshenshan-nearby/assets/2defb2971bfc88141093145f/before.png",
+            "bytes": 5119,
+            "sha256": "d84e0eeeec7677c922f254c1700cdd03cae943d5254d4f0e2f6f507c281f669f",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-nearby/assets/2defb2971bfc88141093145f/overlay.png",
+            "bytes": 27538,
+            "sha256": "6ff2ae63a445fb268e6696a94d850bd06ba99ca02f67dff8fc1eabf473190d2c",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-nearby/assets/2defb2971bfc88141093145f/after.png",
+            "bytes": 6872,
+            "sha256": "1d1c2ccae578afb35fc78a7a2dd63d42814d571f3dd311a1cbe381f3cef43d50",
+            "image": {
+              "format": "PNG",
+              "size": [
+                400,
+                400
+              ]
+            }
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-nearby/history.json",
+            "bytes": 12747,
+            "sha256": "4dc0f42b186094106ba0678ba319c26d97a5f2bc8b89fdbff5573b2115b9876a"
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-nearby/index.html",
+            "bytes": 12274,
+            "sha256": "76b1f9979f70db628ca1ee3fe3d546ba54e0ce623fdfa8073793509f1b7b21d7"
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-nearby/latest.json",
+            "bytes": 12747,
+            "sha256": "4dc0f42b186094106ba0678ba319c26d97a5f2bc8b89fdbff5573b2115b9876a"
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-nearby/review.js",
+            "bytes": 4325,
+            "sha256": "13a72efcd1e270cddccdafd6e1cfc24f5a225e9ee3c5a1423466da0709b29cd0"
+          },
+          {
+            "path": "site-imagery-review/huoshenshan-nearby/validation-case.json",
+            "bytes": 1861,
+            "sha256": "42dcc5babc4f2dcde7b6f94da50b3882b59e559f2539994e3ba7032f1b5488d9"
+          },
+          {
+            "path": "results-imagery-review/huoshenshan-nearby/run-summary.json",
+            "bytes": 479,
+            "sha256": "a41927bd35da9a848ae20a635ed48afec32e6b7a9702f86ad9d6328b38af8f46"
+          }
+        ]
+      },
+      "validation_context": {
+        "kind": "artifact-only imagery validation",
+        "case_id": "huoshenshan-nearby",
+        "case_manifest_sha256": "de4dbc5b5b58f2ba73670111c371b7b7489a7838cd3aba5bf644ffbbcc92bfcd",
+        "frozen_on": "2026-10-16",
+        "case": {
+          "review_status": "unreviewed",
+          "references": [
+            {
+              "url": "https://en.nhc.gov.cn/2020-02/03/c_76130.htm",
+              "supports": "January 23, 2020 groundbreaking and February 2 delivery of the emergency public-health hospital."
+            },
+            {
+              "url": "https://english.cscec.com/CompanyNews/CorporateNews/202002/3018196.html",
+              "supports": "Contractor report published January 28 documents construction underway on January 27."
+            },
+            {
+              "url": "https://www.openstreetmap.org/way/766315840",
+              "supports": "Hospital footprint location, using way version 9 from January 14, 2024; geometry locator, not dated construction or quiet ground truth."
+            }
+          ],
+          "label": "Nearby comparison candidate; quiet conditions not established",
+          "site": {
+            "id": "huoshenshan-nearby",
+            "name": "Huoshenshan nearby comparison (validation)",
+            "latitude": 30.5302291,
+            "longitude": 114.0925944,
+            "size_m": 500
+          },
+          "end_date": "2020-02-03",
+          "selection_basis": "Same 500 m width and event windows, shifted exactly 0.01 degrees longitude east (about 960 m) from the hospital reference. Fixed geometric comparison before detector output; land cover and quiet conditions require imagery review."
+        },
+        "windows": {
+          "baseline_start": "2019-12-30",
+          "baseline_end": "2020-01-27",
+          "target_start": "2020-01-27",
+          "target_end": "2020-02-03"
+        },
+        "started_at": "2026-10-16T13:06:00.015369+00:00",
+        "completed_at": "2026-10-16T13:06:06.787773+00:00",
+        "exit_code": 0,
+        "note": "Provisional labels require independent imagery review; no accuracy claim."
+      },
+      "result": {
+        "schema_version": 1,
+        "analysis_version": "0.1.0",
+        "analysis_key": "74529b3319d65f876ce6",
+        "radar_diagnostics_requested": true,
+        "review_previews_requested": true,
+        "site": {
+          "id": "huoshenshan-nearby",
+          "name": "Huoshenshan nearby comparison (validation)",
+          "latitude": 30.5302291,
+          "longitude": 114.0925944,
+          "size_m": 500
+        },
+        "grid": {
+          "crs": "EPSG:32650",
+          "transform": [
+            10,
+            0,
+            220780,
+            0,
+            -10,
+            3381390
+          ],
+          "bounds": [
+            220780,
+            3380890,
+            221280,
+            3381390
+          ],
+          "cells": 2500
+        },
+        "windows": {
+          "baseline_start": "2019-12-30",
+          "baseline_end": "2020-01-27",
+          "target_start": "2020-01-27",
+          "target_end": "2020-02-03"
+        },
+        "mode": "live",
+        "generated_at": "2026-10-16T13:06:06.755892+00:00",
+        "settings": {
+          "analysis_version": "0.1.0",
+          "earth_engine_project": "baseviewer-511722",
+          "optical_threshold": 0.1,
+          "radar_threshold_db": 3.0,
+          "cloud_score_min": 0.6,
+          "min_baseline_observations": 2,
+          "min_valid_coverage": 0.7,
+          "min_patch_pixels": 9,
+          "radar_speckle_radius_m": 10,
+          "radar_min_db": -35,
+          "radar_min_angle": 31,
+          "radar_max_angle": 45,
+          "terrain_max_slope_deg": 15,
+          "dem_collection": "COPERNICUS/DEM/GLO30_2024_1",
+          "max_sites": 1,
+          "max_images_per_sensor": 300,
+          "request_attempts": 3,
+          "preview_pixels": 400
+        },
+        "elapsed_seconds": 6.738,
+        "comparisons": [
+          {
+            "id": "77277fba8f9ffd13c5621744",
+            "sensor": "optical",
+            "acquisition_date": "2020-01-30",
+            "acquisition_times": [
+              "2020-01-30T03:09:29.367000+00:00",
+              "2020-01-30T03:09:27.007000+00:00"
+            ],
+            "source_ids": [
+              "20200130T025941_20200130T030534_T49RGP",
+              "20200130T025941_20200130T030534_T50RKU"
+            ],
+            "baseline_source_ids": [
+              "20191231T030121_20191231T030617_T49RGP",
+              "20191231T030121_20191231T030617_T50RKU",
+              "20200103T031121_20200103T031723_T49RGP",
+              "20200103T031121_20200103T031723_T50RKU",
+              "20200105T030119_20200105T030910_T49RGP",
+              "20200105T030119_20200105T030910_T50RKU",
+              "20200108T031109_20200108T031713_T49RGP",
+              "20200108T031109_20200108T031713_T50RKU",
+              "20200110T030101_20200110T030652_T49RGP",
+              "20200110T030101_20200110T030652_T50RKU",
+              "20200113T031101_20200113T031530_T49RGP",
+              "20200113T031101_20200113T031530_T50RKU",
+              "20200115T030049_20200115T030323_T49RGP",
+              "20200115T030049_20200115T030323_T50RKU",
+              "20200118T031039_20200118T031312_T49RGP",
+              "20200118T031039_20200118T031312_T50RKU",
+              "20200120T030021_20200120T030612_T49RGP",
+              "20200120T030021_20200120T030612_T50RKU",
+              "20200123T031021_20200123T031617_T49RGP",
+              "20200123T031021_20200123T031617_T50RKU",
+              "20200125T030009_20200125T030322_T49RGP",
+              "20200125T030009_20200125T030322_T50RKU"
+            ],
+            "baseline_acquisition_dates": [
+              "2019-12-31",
+              "2020-01-03",
+              "2020-01-05",
+              "2020-01-08",
+              "2020-01-10",
+              "2020-01-13",
+              "2020-01-15",
+              "2020-01-18",
+              "2020-01-20",
+              "2020-01-23",
+              "2020-01-25"
+            ],
+            "baseline_observations": 11,
+            "radar_group": null,
+            "status": "insufficient_data",
+            "valid_coverage": 0.1788,
+            "changed_area_m2": 0.0,
+            "cloud_screening": "SCL and Cloud Score+",
+            "reason": "Common valid coverage is below the configured minimum"
+          },
+          {
+            "id": "6cbef1caef666162b43ba5e6",
+            "sensor": "optical",
+            "acquisition_date": "2020-02-02",
+            "acquisition_times": [
+              "2020-02-02T03:19:24.867000+00:00",
+              "2020-02-02T03:19:21.607000+00:00"
+            ],
+            "source_ids": [
+              "20200202T030931_20200202T031533_T49RGP",
+              "20200202T030931_20200202T031533_T50RKU"
+            ],
+            "baseline_source_ids": [
+              "20191231T030121_20191231T030617_T49RGP",
+              "20191231T030121_20191231T030617_T50RKU",
+              "20200103T031121_20200103T031723_T49RGP",
+              "20200103T031121_20200103T031723_T50RKU",
+              "20200105T030119_20200105T030910_T49RGP",
+              "20200105T030119_20200105T030910_T50RKU",
+              "20200108T031109_20200108T031713_T49RGP",
+              "20200108T031109_20200108T031713_T50RKU",
+              "20200110T030101_20200110T030652_T49RGP",
+              "20200110T030101_20200110T030652_T50RKU",
+              "20200113T031101_20200113T031530_T49RGP",
+              "20200113T031101_20200113T031530_T50RKU",
+              "20200115T030049_20200115T030323_T49RGP",
+              "20200115T030049_20200115T030323_T50RKU",
+              "20200118T031039_20200118T031312_T49RGP",
+              "20200118T031039_20200118T031312_T50RKU",
+              "20200120T030021_20200120T030612_T49RGP",
+              "20200120T030021_20200120T030612_T50RKU",
+              "20200123T031021_20200123T031617_T49RGP",
+              "20200123T031021_20200123T031617_T50RKU",
+              "20200125T030009_20200125T030322_T49RGP",
+              "20200125T030009_20200125T030322_T50RKU"
+            ],
+            "baseline_acquisition_dates": [
+              "2019-12-31",
+              "2020-01-03",
+              "2020-01-05",
+              "2020-01-08",
+              "2020-01-10",
+              "2020-01-13",
+              "2020-01-15",
+              "2020-01-18",
+              "2020-01-20",
+              "2020-01-23",
+              "2020-01-25"
+            ],
+            "baseline_observations": 11,
+            "radar_group": null,
+            "status": "insufficient_data",
+            "valid_coverage": 0.0,
+            "changed_area_m2": 0.0,
+            "cloud_screening": "SCL and Cloud Score+",
+            "reason": "Common valid coverage is below the configured minimum"
+          },
+          {
+            "id": "4f6cff4215af33e7f1043ff9",
+            "sensor": "optical",
+            "acquisition_date": "2020-01-28",
+            "acquisition_times": [
+              "2020-01-28T03:19:25.277000+00:00",
+              "2020-01-28T03:19:22.013000+00:00"
+            ],
+            "source_ids": [
+              "20200128T030959_20200128T031833_T49RGP",
+              "20200128T030959_20200128T031833_T50RKU"
+            ],
+            "baseline_source_ids": [
+              "20191231T030121_20191231T030617_T49RGP",
+              "20191231T030121_20191231T030617_T50RKU",
+              "20200103T031121_20200103T031723_T49RGP",
+              "20200103T031121_20200103T031723_T50RKU",
+              "20200105T030119_20200105T030910_T49RGP",
+              "20200105T030119_20200105T030910_T50RKU",
+              "20200108T031109_20200108T031713_T49RGP",
+              "20200108T031109_20200108T031713_T50RKU",
+              "20200110T030101_20200110T030652_T49RGP",
+              "20200110T030101_20200110T030652_T50RKU",
+              "20200113T031101_20200113T031530_T49RGP",
+              "20200113T031101_20200113T031530_T50RKU",
+              "20200115T030049_20200115T030323_T49RGP",
+              "20200115T030049_20200115T030323_T50RKU",
+              "20200118T031039_20200118T031312_T49RGP",
+              "20200118T031039_20200118T031312_T50RKU",
+              "20200120T030021_20200120T030612_T49RGP",
+              "20200120T030021_20200120T030612_T50RKU",
+              "20200123T031021_20200123T031617_T49RGP",
+              "20200123T031021_20200123T031617_T50RKU",
+              "20200125T030009_20200125T030322_T49RGP",
+              "20200125T030009_20200125T030322_T50RKU"
+            ],
+            "baseline_acquisition_dates": [
+              "2019-12-31",
+              "2020-01-03",
+              "2020-01-05",
+              "2020-01-08",
+              "2020-01-10",
+              "2020-01-13",
+              "2020-01-15",
+              "2020-01-18",
+              "2020-01-20",
+              "2020-01-23",
+              "2020-01-25"
+            ],
+            "baseline_observations": 11,
+            "radar_group": null,
+            "status": "insufficient_data",
+            "valid_coverage": 0.1124,
+            "changed_area_m2": 0.0,
+            "cloud_screening": "SCL and Cloud Score+",
+            "reason": "Common valid coverage is below the configured minimum"
+          },
+          {
+            "id": "2defb2971bfc88141093145f",
+            "sensor": "radar",
+            "acquisition_date": "2020-01-27",
+            "acquisition_times": [
+              "2020-01-27T10:27:44+00:00"
+            ],
+            "source_ids": [
+              "S1A_IW_GRDH_1SDV_20200127T102744_20200127T102809_030985_038EEF_AF2E"
+            ],
+            "baseline_source_ids": [
+              "S1A_IW_GRDH_1SDV_20200103T102744_20200103T102809_030635_0382A8_32C9",
+              "S1A_IW_GRDH_1SDV_20200115T102744_20200115T102809_030810_0388C5_328C"
+            ],
+            "baseline_acquisition_dates": [
+              "2020-01-03",
+              "2020-01-15"
+            ],
+            "baseline_observations": 2,
+            "radar_group": {
+              "relative_orbit": 113,
+              "pass": "ASCENDING"
+            },
+            "status": "possible_change",
+            "valid_coverage": 0.9924,
+            "changed_area_m2": 23773.385223388672,
+            "radar_diagnostics": {
+              "scope": "common valid cells, before connected-patch filtering",
+              "threshold_db": 3.0,
+              "polarizations": {
+                "VV": {
+                  "baseline_db": {
+                    "count": 2481,
+                    "mean_db": -10.837531555543324,
+                    "p05_db": -18.436438232558938,
+                    "median_db": -10.31096942323826,
+                    "p95_db": -6.324455409235532
+                  },
+                  "target_db": {
+                    "count": 2481,
+                    "mean_db": -10.844052012889485,
+                    "p05_db": -18.134676020829783,
+                    "median_db": -10.426652450058286,
+                    "p95_db": -6.318166461920199
+                  },
+                  "signed_delta_db": {
+                    "count": 2481,
+                    "mean_db": -0.006520457346139042,
+                    "p05_db": -2.6487267213224266,
+                    "median_db": -0.09029116217627493,
+                    "p95_db": 2.787429728307148
+                  },
+                  "baseline_range_db": {
+                    "count": 2481,
+                    "mean_db": 1.4329995812440544,
+                    "p05_db": 0.10816403493125337,
+                    "median_db": 1.2045942150872122,
+                    "p95_db": 3.4883080231044308
+                  },
+                  "baseline_range_exceedance_fraction": 0.09391374445787988,
+                  "positive_fraction": 0.041112454655380895,
+                  "negative_fraction": 0.032245062474808545
+                },
+                "VH": {
+                  "baseline_db": {
+                    "count": 2481,
+                    "mean_db": -17.426698635062923,
+                    "p05_db": -24.308592063391178,
+                    "median_db": -16.935995288845945,
+                    "p95_db": -14.055902905968825
+                  },
+                  "target_db": {
+                    "count": 2481,
+                    "mean_db": -18.123747728234967,
+                    "p05_db": -24.778361512303707,
+                    "median_db": -17.563595536065954,
+                    "p95_db": -14.3053380307315
+                  },
+                  "signed_delta_db": {
+                    "count": 2481,
+                    "mean_db": -0.6970490931720577,
+                    "p05_db": -3.5882408785408217,
+                    "median_db": -0.5968678824894984,
+                    "p95_db": 1.912963655861023
+                  },
+                  "baseline_range_db": {
+                    "count": 2481,
+                    "mean_db": 1.5944441785844385,
+                    "p05_db": 0.10700419387573862,
+                    "median_db": 1.3592419965214586,
+                    "p95_db": 3.7988399813792255
+                  },
+                  "baseline_range_exceedance_fraction": 0.12817412333736397,
+                  "positive_fraction": 0.008464328899637243,
+                  "negative_fraction": 0.08504635227730754
+                }
+              },
+              "either_fraction": 0.15638855300282145,
+              "both_fraction": 0.010479645304312777
+            },
+            "changed_cells": 238,
+            "previews": {
+              "before": "assets/2defb2971bfc88141093145f/before.png",
+              "after": "assets/2defb2971bfc88141093145f/after.png",
+              "overlay": "assets/2defb2971bfc88141093145f/overlay.png"
+            }
+          }
+        ],
+        "errors": [],
+        "changed_area": {
+          "optical_m2": null,
+          "radar_m2": 23773.385223388672,
+          "overlap_m2": null
+        },
+        "newest_observation": "2020-02-02T03:19:24.867000+00:00",
+        "workload_tag": "sentinel-74529b3319d65f876ce6",
+        "status": "possible_change",
+        "usable_sensors": [
+          "radar"
+        ],
+        "has_errors": false,
+        "validation_case": {
+          "id": "huoshenshan-nearby",
+          "label": "Nearby comparison candidate; quiet conditions not established",
+          "review_status": "unreviewed"
+        }
+      },
+      "run_summary": {
+        "mode": "live",
+        "windows": {
+          "baseline_start": "2019-12-30",
+          "baseline_end": "2020-01-27",
+          "target_start": "2020-01-27",
+          "target_end": "2020-02-03"
+        },
+        "site_count": 1,
+        "planned_area_m2": 250000,
+        "has_errors": false,
+        "sites": [
+          {
+            "id": "huoshenshan-nearby",
+            "status": "possible_change",
+            "errors": [],
+            "preview_errors": [],
+            "workload_tag": "sentinel-74529b3319d65f876ce6",
+            "elapsed_seconds": 6.738
+          }
+        ]
+      },
+      "visual_reviews": [
+        {
+          "comparison_id": "2defb2971bfc88141093145f",
+          "acquisition_date": "2020-01-27",
+          "method": "Codex visual inspection of original before/after/overlay 400 x 400 VV display PNGs and saved diagnostics; independent human adjudication remains pending.",
+          "observation": "Gross VV spatial patterns broadly resemble the baseline, including dark northern/right features. The overlay has scattered patches, especially along the right/east and lower portions. Land-cover comparability and quiet conditions are unverified.",
+          "display_limit": "Radar previews display VV only; either VV or VH can trigger the orange mask. Display pixels oversample the fixed 10 m grid.",
+          "changed_fraction_of_common_valid_cells": 0.09592906086255543,
+          "images": [
+            {
+              "kind": "before",
+              "repository_path": "docs/evidence/huoshenshan-2026-10-16/huoshenshan-nearby/2defb2971bfc88141093145f/before.png",
+              "sha256": "d84e0eeeec7677c922f254c1700cdd03cae943d5254d4f0e2f6f507c281f669f"
+            },
+            {
+              "kind": "after",
+              "repository_path": "docs/evidence/huoshenshan-2026-10-16/huoshenshan-nearby/2defb2971bfc88141093145f/after.png",
+              "sha256": "1d1c2ccae578afb35fc78a7a2dd63d42814d571f3dd311a1cbe381f3cef43d50"
+            },
+            {
+              "kind": "overlay",
+              "repository_path": "docs/evidence/huoshenshan-2026-10-16/huoshenshan-nearby/2defb2971bfc88141093145f/overlay.png",
+              "sha256": "6ff2ae63a445fb268e6696a94d850bd06ba99ca02f67dff8fc1eabf473190d2c"
+            }
+          ]
+        }
+      ],
+      "all_local_report_references_resolved": true
+    }
+  ]
+}
