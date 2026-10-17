@@ -77,6 +77,14 @@ not change detection rules and is off by default. Requesting it recomputes older
 records without diagnostics. The diagnostics passed live execution on all four reviewed weeks; the signed results and
 baseline variability are recorded in the validation notes.
 
+`--imagery-diagnostics` optionally retains pre-filter source counts/exclusions,
+orbit/baseline eligibility, comparison validity and pre-patch counts, plus optical
+reflectance/difference distributions and fixed-stretch endpoint support. It is also
+available on `review-case` and the isolated validation workflow, off by default.
+It adds computation and upgrades cached records without changing science keys or
+original previews. [Scope, bounds and the prepared next check](docs/imagery-diagnostics.md)
+are documented; real-source execution of this new option remains pending approval.
+
 For controlled failures, `--demo-scenario sensor-error` and
 `--demo-scenario preview-error` create labelled synthetic reports and return exit code 2.
 The **Validation acceptance** workflow packages these reports as ordinary and Pages

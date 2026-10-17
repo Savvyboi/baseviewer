@@ -16,6 +16,17 @@ from PIL import Image
 
 from .config import Settings, Site
 from .decisions import comparison_status, detection_id, radar_group
+from .diagnostics import (
+    OPTICAL_STRETCH,
+    RADAR_STRETCH,
+    SOURCE_EXAMPLE_LIMIT,
+    acquisition_key,
+    group_eligibility,
+    optical_summary,
+    optical_values,
+    radar_filters,
+    source_inventory,
+)
 
 OPTICAL = ["B2", "B3", "B4", "B8"]
 RADAR = ["VV", "VH"]
@@ -86,11 +97,14 @@ class EarthEngineAnalyzer:
         *,
         radar_diagnostics: bool = False,
         review_previews: bool = False,
+        imagery_diagnostics: bool = False,
     ):
         self.site, self.settings, self.period = site, settings, period
         self.key, self.assets = analysis_key, assets
         self.include_radar_diagnostics = radar_diagnostics
         self.include_review_previews = review_previews
+        self.include_imagery_diagnostics = imagery_diagnostics
+        self.source_diagnostics = {}
         self.grid = site.grid()
         self.aoi = ee.Geometry.Rectangle(self.grid["bounds"], proj=self.grid["crs"], geodesic=False)
         self.projection = ee.Projection(self.grid["crs"], self.grid["transform"])
@@ -210,10 +224,7 @@ class EarthEngineAnalyzer:
         # Mosaic granules/slices from the same datatake, but retain distinct acquisitions.
         groups = defaultdict(list)
         for item in items:
-            key = item.get("optical_datatake")
-            if not key and item.get("radar_datatake") is not None:
-                key = f"{item.get('platform')}-{item['radar_datatake']}"
-            groups[str(key or item["time"])].append(item)
+            groups[acquisition_key(item)].append(item)
         images = []
         for key, sources in sorted(groups.items()):
             indices = sorted(s["index"] for s in sources)
@@ -235,7 +246,7 @@ class EarthEngineAnalyzer:
                 ee.Reducer.min()
             )
             before = median if sensor == "optical" else median.log10().multiply(10)
-        for acquisition_key, items in sorted(target_groups.items()):
+        for target_key, items in sorted(target_groups.items()):
             day = min(s["day"] for s in items)
             sources = sorted(s["id"] for s in items)
             entry = {
@@ -260,13 +271,16 @@ class EarthEngineAnalyzer:
                     f"Fewer than {self.settings.min_baseline_observations} distinct baseline "
                     "acquisition days in this group"
                 )
+                if self.include_imagery_diagnostics:
+                    entry["imagery_diagnostics"] = {
+                        "schema_version": 1,
+                        "not_evaluated_reason": entry["reason"],
+                    }
                 continue
             stage = "prepare comparison"
             try:
                 target = self.on_grid(
-                    ee.Image(
-                        targets.filter(ee.Filter.eq("acquisition_key", acquisition_key)).first()
-                    )
+                    ee.Image(targets.filter(ee.Filter.eq("acquisition_key", target_key)).first())
                 )
                 after = target.select(bands)
                 if sensor == "radar":
@@ -315,6 +329,8 @@ class EarthEngineAnalyzer:
                     self.settings.min_valid_coverage,
                 )
                 entry.update(status=status, valid_coverage=coverage)
+                if self.include_imagery_diagnostics:
+                    self.comparison_diagnostics(entry, before, after, counts, common, raw, stats)
                 if sensor == "radar" and self.include_radar_diagnostics and coverage > 0:
                     self.radar_diagnostics(entry, before, after, common, baseline_collection)
                 if sensor == "optical":
@@ -421,12 +437,98 @@ class EarthEngineAnalyzer:
             self.errors.append({"sensor": "radar", "stage": "diagnostics", **details})
             logging.error("%s/radar diagnostics failed: %s", self.site.id, details["message"])
 
+    def diagnostic_error(self, destination, sensor, stage, exc):
+        details = error_details(exc)
+        destination["error"] = details
+        self.errors.append({"sensor": sensor, "stage": stage, **details})
+        logging.error("%s/%s %s failed: %s", self.site.id, sensor, stage, details["message"])
+
+    def comparison_diagnostics(self, entry, before, after, counts, common, raw, stats):
+        diagnostic = {
+            "schema_version": 1,
+            "scope": "fixed analysis grid; threshold/patch counts on common valid subset",
+            "grid_cells": self.grid["cells"],
+            "common_valid_cells": stats.get("valid_cells") or 0,
+            "patch_cells": stats.get("changed_cells") or 0,
+            "minimum_baseline_days_per_cell": self.settings.min_baseline_observations,
+            "minimum_valid_coverage": self.settings.min_valid_coverage,
+            "minimum_patch_cells": self.settings.min_patch_pixels,
+            "threshold": (
+                self.settings.optical_threshold
+                if entry["sensor"] == "optical"
+                else self.settings.radar_threshold_db
+            ),
+            "threshold_units": "reflectance" if entry["sensor"] == "optical" else "dB",
+        }
+        entry["imagery_diagnostics"] = diagnostic
+        try:
+            target_valid = after.mask().reduce(ee.Reducer.min())
+            baseline_valid = counts.gte(self.settings.min_baseline_observations).And(
+                before.mask().reduce(ee.Reducer.min())
+            )
+            masks = (
+                self.on_grid(target_valid)
+                .unmask(0)
+                .clip(self.aoi)
+                .rename("target_valid_cells")
+                .addBands(
+                    self.on_grid(baseline_valid)
+                    .unmask(0)
+                    .clip(self.aoi)
+                    .rename("baseline_eligible_cells")
+                )
+                .addBands(raw.unmask(0).clip(self.aoi).rename("threshold_cells"))
+            )
+            measured = {"masks": self.reduce(masks, band_count=3)}
+            if entry["sensor"] == "optical" and diagnostic["common_valid_cells"] > 0:
+                reducer = (
+                    ee.Reducer.count()
+                    .combine(ee.Reducer.mean(), sharedInputs=True)
+                    .combine(ee.Reducer.minMax(), sharedInputs=True)
+                    .combine(ee.Reducer.percentile([5, 50, 95]), sharedInputs=True)
+                )
+                measured["optical"] = self.reduce(
+                    optical_values(before, after, common, OPTICAL), reducer=reducer, band_count=21
+                )
+            values = self.request(lambda: ee.Dictionary(measured).getInfo())
+            diagnostic.update(
+                {
+                    name: values["masks"].get(name) or 0
+                    for name in ("target_valid_cells", "baseline_eligible_cells", "threshold_cells")
+                }
+            )
+            if "optical" in values:
+                diagnostic["optical"] = optical_summary(values["optical"], OPTICAL)
+            elif entry["sensor"] == "optical":
+                diagnostic["optical_unavailable_reason"] = "No common valid cells"
+        except Exception as exc:
+            self.diagnostic_error(
+                diagnostic, entry["sensor"], "imagery comparison diagnostics", exc
+            )
+
     def sensor(self, sensor):
         raw = (
             ee.ImageCollection(S2 if sensor == "optical" else S1)
             .filterBounds(self.aoi)
             .filterDate(self.period["baseline_start"], self.period["target_end"])
         )
+        if self.include_imagery_diagnostics:
+            diagnostic = {
+                "schema_version": 1,
+                "collection": S2 if sensor == "optical" else S1,
+                "scope": (
+                    "AOI-intersecting granules; cumulative metadata filters, before pixel masks"
+                ),
+                "exclusion_example_limit": SOURCE_EXAMPLE_LIMIT,
+                "eligible_metadata_complete": False,
+            }
+            self.source_diagnostics[sensor] = diagnostic
+            try:
+                diagnostic["windows"] = self.request(
+                    lambda: source_inventory(raw, sensor, self.period).getInfo()
+                )
+            except Exception as exc:
+                self.diagnostic_error(diagnostic, sensor, "imagery source diagnostics", exc)
         if sensor == "optical":
             raw = raw.select([*OPTICAL, "SCL"])
             clouds = (
@@ -437,12 +539,9 @@ class EarthEngineAnalyzer:
             )
             prepared = raw.linkCollection(clouds, ["cs_cdf"]).map(self.optical)
         else:
-            raw = (
-                raw.filter(ee.Filter.eq("instrumentMode", "IW"))
-                .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VV"))
-                .filter(ee.Filter.listContains("transmitterReceiverPolarisation", "VH"))
-                .select([*RADAR, "angle"])
-            )
+            for _, condition in radar_filters():
+                raw = raw.filter(condition)
+            raw = raw.select([*RADAR, "angle"])
             terrain = self.terrain()
             prepared = raw.map(lambda image: self.radar(image, terrain))
         items = self.metadata(raw)
@@ -451,6 +550,14 @@ class EarthEngineAnalyzer:
         for item in items:
             key = radar_group(item) if sensor == "radar" else None
             groups[key].append(item)
+        if self.include_imagery_diagnostics:
+            self.source_diagnostics[sensor].update(
+                eligible_metadata_complete=True,
+                eligible_source_count=len(items),
+                groups=group_eligibility(
+                    groups, self.period["target_start"], self.settings.min_baseline_observations
+                ),
+            )
         for group, sources in groups.items():
             baseline = [s for s in sources if s["day"] < self.period["target_start"]]
             target = [s for s in sources if s["day"] >= self.period["target_start"]]
@@ -461,11 +568,7 @@ class EarthEngineAnalyzer:
     def previews(self, identity, sensor, before, after, changed):
         folder = self.assets / identity
         folder.mkdir(parents=True, exist_ok=True)
-        stretch = (
-            {"bands": ["B4", "B3", "B2"], "min": 0, "max": 0.3, "gamma": 1.2}
-            if sensor == "optical"
-            else {"bands": ["VV"], "min": -25, "max": 0}
-        )
+        stretch = OPTICAL_STRETCH if sensor == "optical" else RADAR_STRETCH
         images = {"before": before.visualize(**stretch), "after": after.visualize(**stretch)}
         images["overlay"] = images["after"].blend(
             changed.selfMask().visualize(palette=["ff653b"], min=0, max=1)
@@ -545,4 +648,9 @@ class EarthEngineAnalyzer:
                 else None
             ),
             "workload_tag": f"sentinel-{self.key}",
+            **(
+                {"source_diagnostics": self.source_diagnostics}
+                if self.include_imagery_diagnostics
+                else {}
+            ),
         }
