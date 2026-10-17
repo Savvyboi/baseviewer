@@ -132,6 +132,8 @@ class TestNumericFixtureGraphs(ApiTestCase):
         ("huoshenshan-pre-event", "2020-01-20", "huoshenshan-construction", 500),
         ("huoshenshan-nearby", "2020-02-03", "huoshenshan-nearby", 500),
         ("gobabeb-quiet-reference", "2022-07-18", "gobabeb-hypernets", 200),
+        ("salzbachtal-demolition", "2021-11-13", "salzbachtal-bridge", 500),
+        ("salzbachtal-pre-demolition", "2021-10-30", "salzbachtal-bridge", 500),
     ],
 )
 def test_frozen_case_runs_one_site_without_modifying_active_configuration(
@@ -170,6 +172,9 @@ def test_frozen_case_runs_one_site_without_modifying_active_configuration(
     assert provenance["case"]["review_status"] == "unreviewed"
     assert provenance["exit_code"] == 2
     assert provenance["case_manifest_sha256"]
+    assert provenance["frozen_on"] == (
+        "2026-10-17" if case_id.startswith("salzbachtal-") else "2026-10-16"
+    )
     active = yaml.safe_load((ROOT / "sites.yaml").read_text())["sites"]
     assert len(active) == 1 and active[0]["id"] == "engels-air-base"
 
@@ -181,3 +186,28 @@ def test_case_ids_cannot_escape_the_selected_output_directory(tmp_path):
     args = parser().parse_args(["review-case", "--case", "../outside"])
     with pytest.raises(ValueError, match="lowercase slugs"):
         review_case(args)
+
+
+@pytest.mark.parametrize(
+    "times,expected",
+    [
+        (["2021-11-06T10:59:00Z"], "before"),
+        (["2021-11-06T12:01:00+01:00"], "after"),
+        (["2021-11-06T10:59:00Z", "2021-11-06T11:01:00Z"], "straddling"),
+        (["2021-11-06T11:00:00Z"], "unknown"),
+        ([], "unknown"),
+        (["2021-11-06T10:59:00", "bad"], "unknown"),
+        (["2021-11-06T11:01:00Z", None], "unknown"),
+    ],
+)
+def test_acquisition_event_timing_is_approximate_and_never_changes_science(times, expected):
+    from sentinel_monitor.validation import acquisition_timing
+
+    comparison = {"acquisition_times": times, "status": "possible_change", "changed_cells": 9}
+    original = copy.deepcopy(comparison)
+    timing = acquisition_timing(comparison, {"event_time_utc": "2021-11-06T11:00:00Z"})
+    assert comparison == original
+    assert timing["classification"] == expected
+    assert timing["post_event_timing_supported"] == (expected == "after")
+    assert timing["source_acquisition_times"] == times
+    assert "exposure intervals unavailable" in timing["timestamp_scope"]

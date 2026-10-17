@@ -147,6 +147,92 @@
           "supports": "Version 1.0.0 independent ground-reflectance sample files. Five fixed sequences on June 22/28/30, July 10 and July 13 were checksum-verified; all quality-valid common five-degree directions and excluded flags are retained in selection evidence."
         }
       ]
+    },
+    "salzbachtal-demolition": {
+      "frozen_on": "2026-10-17",
+      "review_status": "unreviewed",
+      "quiet_ground_truth": false,
+      "event_time_utc": "2021-11-06T11:00:00Z",
+      "event_time_uncertainty": "Contractor says around noon local; this approximate UTC reference annotates timing only and does not change production date filters.",
+      "site": {
+        "id": "salzbachtal-bridge",
+        "name": "Salzbachtal bridge demolition (validation)",
+        "latitude": 50.0522688,
+        "longitude": 8.25507195,
+        "size_m": 500
+      },
+      "references": [
+        {
+          "url": "https://www.autobahn.de/planen-bauen/projekt/neubau-salzbachtalbruecke",
+          "supports": "Operator lists dated July 2 intact/closed bridge, November 6 demolition and November 16 cleanup galleries in 2021; preparatory work began May 2017. Gallery images were not independently inspected."
+        },
+        {
+          "url": "https://www.reisch-sprengtechnik.de/referenz_sprengung-salzbachtalbruecke-wiesbaden.html",
+          "supports": "Demolition contractor confirms both approximately 310 m bridge spans were demolished November 6, 2021 around noon local (approximately 11:00 UTC)."
+        },
+        {
+          "url": "https://www.presseportal.de/blaulicht/pm/43562/5059986",
+          "supports": "October 29, 2021 joint authority statement explicitly dates new construction-site photographs to October 27 and documents closures and the forthcoming November 6 demolition."
+        },
+        {
+          "url": "https://rp-darmstadt.hessen.de/sites/rp-darmstadt.hessen.de/files/2022-07/rp-journal-arbeitsschutz-umwelt_2022-07.pdf",
+          "supports": "July 2022 environmental authority report, printed pages 8-10, documents protective works and before/after wastewater assets; asset persistence does not establish unchanged surfaces or whole-AOI quietness."
+        },
+        {
+          "url": "https://www.openstreetmap.org/way/499938151",
+          "supports": "Modern rebuilt south bridge footprint version 19; locator only, not the surveyed 2021 demolition footprint."
+        },
+        {
+          "url": "https://www.openstreetmap.org/way/1229149143",
+          "supports": "Modern rebuilt north bridge footprint version 6; the union of these two footprints fixes the AOI center before detector output."
+        }
+      ],
+      "label": "Documented civilian bridge demolition; change candidate requiring imagery review",
+      "end_date": "2021-11-13",
+      "selection_basis": "500 m square centered on the union-bound midpoint of OSM bridge footprints 499938151 v19 and 1229149143 v6 (modern geometry used only as locator). Target [2021-11-06, 2021-11-13) contains the independently documented November 6 demolition; baseline [2021-10-09, 2021-11-06) ends before the event day. Any event-day acquisition would need a timing annotation, not silent removal. Public metadata inventory finds no November 6 acquisitions. Preparatory works may affect the baseline; target includes staging/cleanup, not demolition alone. Frozen before detector output."
+    },
+    "salzbachtal-pre-demolition": {
+      "frozen_on": "2026-10-17",
+      "review_status": "unreviewed",
+      "quiet_ground_truth": false,
+      "event_time_utc": "2021-11-06T11:00:00Z",
+      "event_time_uncertainty": "Contractor says around noon local; this approximate UTC reference annotates timing only and does not change production date filters.",
+      "site": {
+        "id": "salzbachtal-bridge",
+        "name": "Salzbachtal bridge demolition (validation)",
+        "latitude": 50.0522688,
+        "longitude": 8.25507195,
+        "size_m": 500
+      },
+      "references": [
+        {
+          "url": "https://www.autobahn.de/planen-bauen/projekt/neubau-salzbachtalbruecke",
+          "supports": "Operator lists dated July 2 intact/closed bridge, November 6 demolition and November 16 cleanup galleries in 2021; preparatory work began May 2017. Gallery images were not independently inspected."
+        },
+        {
+          "url": "https://www.reisch-sprengtechnik.de/referenz_sprengung-salzbachtalbruecke-wiesbaden.html",
+          "supports": "Demolition contractor confirms both approximately 310 m bridge spans were demolished November 6, 2021 around noon local (approximately 11:00 UTC)."
+        },
+        {
+          "url": "https://www.presseportal.de/blaulicht/pm/43562/5059986",
+          "supports": "October 29, 2021 joint authority statement explicitly dates new construction-site photographs to October 27 and documents closures and the forthcoming November 6 demolition."
+        },
+        {
+          "url": "https://rp-darmstadt.hessen.de/sites/rp-darmstadt.hessen.de/files/2022-07/rp-journal-arbeitsschutz-umwelt_2022-07.pdf",
+          "supports": "July 2022 environmental authority report, printed pages 8-10, documents protective works and before/after wastewater assets; asset persistence does not establish unchanged surfaces or whole-AOI quietness."
+        },
+        {
+          "url": "https://www.openstreetmap.org/way/499938151",
+          "supports": "Modern rebuilt south bridge footprint version 19; locator only, not the surveyed 2021 demolition footprint."
+        },
+        {
+          "url": "https://www.openstreetmap.org/way/1229149143",
+          "supports": "Modern rebuilt north bridge footprint version 6; the union of these two footprints fixes the AOI center before detector output."
+        }
+      ],
+      "label": "Same-AOI pre-demolition reference candidate; quiet ground truth unavailable",
+      "end_date": "2021-10-30",
+      "selection_basis": "Same frozen 500 m square. Target [2021-10-23, 2021-10-30) contains the authority-dated October 27 photographs; baseline [2021-09-25, 2021-10-23). This independently dated anchor supports bridge presence, not whole-AOI stability. Documented preparatory earthworks and protective interventions prevent a quiet label. Independent acquisition-bracketing evidence covering the entire AOI remains missing. Do not score detector responses here as false positives."
     }
   }
 }

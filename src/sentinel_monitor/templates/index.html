@@ -14,6 +14,10 @@
 </style>
 </head>
 <body>
+{% macro timing_context(c) -%}
+{% if c.event_timing %}<aside class="image-context display-limits event-timing"><strong>Acquisition timing: {{ c.event_timing.label }}</strong><p>Approximate event reference: {{ c.event_timing.reference_time_utc }} (UTC).</p><p>{{ c.event_timing.interpretation }}</p><p class="muted">{{ c.event_timing.reference_uncertainty }} {{ c.event_timing.timestamp_scope }}.</p><p>Actual retained target timestamps: {% for value in c.event_timing.source_acquisition_times %}<code>{{ value }}</code>{% if not loop.last %}, {% endif %}{% else %}unavailable{% endfor %}.</p></aside>{% endif %}
+{%- endmacro %}
+
 <header>
 <div class="eyebrow">Sentinel / Surface observations</div>
 <h1>Possible ground change</h1>
@@ -47,7 +51,7 @@
 <h3 id="review-queue-heading">Review queue</h3>
 <p id="review-progress" role="status"></p>
 <div class="toolbar"><button id="next-unreviewed" type="button">Next unreviewed</button><label><input id="only-unreviewed" type="checkbox"> Only unreviewed in queue</label></div>
-<ol>{% for item in review_queue %}<li data-review-target="{{ item.target }}" data-preview-ready="{{ 'true' if item.ready else 'false' }}"><a href="#{{ item.target }}">{{ item.record.site.name }} · {{ item.comparison.sensor }} · {{ item.comparison.acquisition_date }}</a><small>{{ item.record.validation_case.label }} · <span class="queue-review-status">{{ 'Unreviewed' if item.ready else 'Awaiting previews' }}</span></small></li>{% endfor %}</ol>
+<ol>{% for item in review_queue %}<li data-review-target="{{ item.target }}" data-preview-ready="{{ 'true' if item.ready else 'false' }}"><a href="#{{ item.target }}">{{ item.record.site.name }} · {{ item.comparison.sensor }} · {{ item.comparison.acquisition_date }}</a><small>{{ item.record.validation_case.label }}{% if item.comparison.event_timing %} · {{ item.comparison.event_timing.label }}{% endif %} · <span class="queue-review-status">{{ 'Unreviewed' if item.ready else 'Awaiting previews' }}</span></small></li>{% endfor %}</ol>
 <p id="review-queue-empty" class="muted" hidden>No unreviewed observations in this queue.</p>
 <p class="muted">Usable observations with missing previews stay incomplete. Insufficient-data comparisons are listed in check history.</p>
 </section>
@@ -56,6 +60,7 @@
 {% for r in records %}{% set record_index = loop.index0 %}{% for c in r.comparisons %}{% if c.status == 'possible_change' or (r.review_previews_requested and c.status == 'no_change_detected') %}{% set count.value = count.value + 1 %}
 <article class="report" id="observation-{{ record_index }}-{{ loop.index0 }}" tabindex="-1"><span class="badge {{ c.status }}">{{ "Possible ground change" if c.status == "possible_change" else "No change detected" }} · {{ c.sensor }}</span><h3>{{ r.site.name }} · {{ c.acquisition_date }}</h3>
 {% if r.validation_case %}<p class="muted">Case: {{ r.validation_case.label }}</p>{% endif %}
+{{ timing_context(c) }}
 {% set observation_id = 'observation-' ~ record_index ~ '-' ~ loop.index0 %}
 {% set info = review_image_info.get(observation_id) %}
 {% if info %}
@@ -93,7 +98,7 @@
 {% endif %}{% endfor %}{% endfor %}
 {% if count.value == 0 %}<p class="empty">{{ 'No saved usable review observations.' if review_mode else 'No saved candidate observations.' }} Check each location's data status above.</p>{% endif %}
 <h2>Check history</h2><div class="table-wrap"><table><thead><tr><th>Location</th><th>Week ending (exclusive)</th><th>Status</th><th>Usable sensors</th><th>Comparisons</th></tr></thead><tbody>
-{% for r in records %}<tr><td>{{ r.site.name }}</td><td>{{ r.windows.target_end }}</td><td class="{{ r.status }}">{{ r.status | replace('_', ' ') }}</td><td>{{ r.usable_sensors | join(', ') or 'none' }}</td><td><details><summary>{{ r.comparisons | length }} observations{% if r.has_errors %} · errors{% endif %}</summary>{% for c in r.comparisons %}<p>{{ c.sensor }} · {{ c.acquisition_date }} · {{ c.status | replace('_', ' ') }} · {{ '%.1f' | format(c.valid_coverage * 100) }}% coverage{% if c.reason %}<br>{{ c.reason }}{% endif %}</p>{% endfor %}{% for e in r.errors %}<p class="error">{{ e.sensor }}: {{ e.message or e.error }}</p>{% endfor %}</details></td></tr>{% endfor %}
+{% for r in records %}<tr><td>{{ r.site.name }}</td><td>{{ r.windows.target_end }}</td><td class="{{ r.status }}">{{ r.status | replace('_', ' ') }}</td><td>{{ r.usable_sensors | join(', ') or 'none' }}</td><td><details><summary>{{ r.comparisons | length }} observations{% if r.has_errors %} · errors{% endif %}</summary>{% for c in r.comparisons %}<p>{{ c.sensor }} · {{ c.acquisition_date }} · {{ c.status | replace('_', ' ') }} · {{ '%.1f' | format(c.valid_coverage * 100) }}% coverage{% if c.reason %}<br>{{ c.reason }}{% endif %}</p>{{ timing_context(c) }}{% endfor %}{% for e in r.errors %}<p class="error">{{ e.sensor }}: {{ e.message or e.error }}</p>{% endfor %}</details></td></tr>{% endfor %}
 </tbody></table></div>
 </main>
 <footer><p>Contains modified Copernicus Sentinel data. Radar sigma-zero backscatter is geometrically terrain corrected, without radiometric terrain flattening. A conservative DEM slope mask screens difficult terrain.</p><p>Terrain screening produced using Copernicus WorldDEM-30 © DLR e.V. 2010–2014 and © Airbus Defence and Space GmbH 2014–2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. The organisations in charge of the Copernicus programme by law or by delegation do not incur any liability for any use of the Copernicus WorldDEM-30.</p></footer>

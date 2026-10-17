@@ -262,3 +262,28 @@ server execution, causal explanation of absent
 Gobabeb radar, restored optical display detail and quiet/change radar discrimination
 remain unverified. The new live invocation and protected-main merge require specific
 approval; neither was performed as part of this preparation.
+
+## Prepared civilian radar comparison candidates
+
+Two 500 m Salzbachtal bridge cases are frozen before detector output: the documented
+November 6, 2021 demolition and an earlier reference candidate anchored by
+authority-dated October 27 photographs. [Selection and exact proposed live actions](civilian-radar-comparison.md)
+retain the inputs and evidence gap. ASF and Copernicus public metadata independently
+confirm 24 acquisitions across the union dates, with three event targets and four
+reference targets in matching production orbit/pass groups. Every group has four
+or five baseline days; all baselines mix A/B platforms, and no November 6 scene
+occurs. Exact IDs, footprints, queries and offline replay are retained.
+
+Public metadata does not verify Earth Engine ingestion or valid-cell coverage.
+Documented preparation/protective works prevent a quiet label for the earlier or
+adjacent cases. A bounded DLR calibration-source audit likewise supplies point-target
+stability rather than whole-AOI quietness. Quiet ground truth, independent human
+review and discrimination accuracy remain open. The two new manual case choices
+are artifact-only; no new live request, main merge or deployment was performed.
+
+All 105 offline tests and lint/format checks pass. Actual acquisition timestamps for
+both sensors now retain visible before/after/straddling/unknown context relative to
+the approximate event time, including insufficient comparisons. Synthetic desktop,
+mobile and no-JavaScript checks passed; [QA evidence](evidence/salzbachtal-qa-2026-10-17.json)
+records the checks. Timing annotations do not change sources, detector results or
+review identities.

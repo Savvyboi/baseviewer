@@ -64,3 +64,13 @@ All 58 existing offline tests pass. Headless Chrome checks exercised keyboard/im
 The rapid-construction pilot has now executed: its radar comparison flags 36.45% of valid cells versus 10.52% in the pre-construction comparison and 9.59% nearby. All three trigger, and optical data are insufficient throughout. See [the live review and limitations](validation.md#rapid-construction-pilot-results). This supplies a documented construction candidate for the review workflow, while a verified quiet civilian example remains the next science check. The Park Fire optical discrepancy, broad Engels radar responses and EECU/publication gates remain unresolved.
 
 The single approved [Gobabeb stable-surface reference run](validation.md#gobabeb-live-reference-result) passed, adding one usable optical observation with full common coverage and zero qualifying cells. Its location/dates were selected from published stability and independent ground measurements before detector output. No radar comparison was returned. The original RGB views are broadly similar but have a saturated red display channel, limiting fine visual review; full-AOI human adjudication remains pending. The local civilian pilot queue now has four review entries and twelve original PNGs across construction/comparison/reference cases. No frozen label was promoted or extra run requested.
+
+## Prepared radar reference candidates
+
+[Salzbachtal preparation](civilian-radar-comparison.md) adds two frozen, unreviewed
+500 m civilian bridge cases and independently checked public acquisition metadata.
+The pre-demolition case remains an unverified reference: preparation earthworks and
+the absence of full-AOI bracketing evidence prevent a quiet label. No detector output
+or human review was used to select these cases, and no live analysis or pilot rebuild
+was requested. Successful future imagery review would still need independent quiet
+evidence before either case could support false-positive or accuracy claims.

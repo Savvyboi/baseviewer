@@ -1,0 +1,106 @@
+{
+  "kind": "Offline and synthetic presentation verification only",
+  "verified_on": "2026-10-17",
+  "offline_tests": {
+    "command": "python -m pytest -q",
+    "passed": 105
+  },
+  "lint": {
+    "ruff_check": "passed",
+    "ruff_format_src_tests": "passed",
+    "git_diff_check": "passed"
+  },
+  "config_validation": "passed; active site count1,max_sites1",
+  "catalog_cli_saved_replay_match": true,
+  "public_raw_response_hashes_verified": true,
+  "prior_frozen_cases_semantically_unchanged": true,
+  "unchanged_file_sha256": {
+    "src/sentinel_monitor/earth.py": "f86fe6f69df0b77e49166c55f80639787282a0abb3536c9d253a25b4fd6d73dd",
+    "src/sentinel_monitor/diagnostics.py": "7276aacd566a4bda946f24c696ab55cc2d99428f0ba232cc465ce21f7cb55c8c",
+    "src/sentinel_monitor/decisions.py": "bc0ce9b02262d9f54f50405da9538811ac92476cace710814386d81c497020df",
+    "src/sentinel_monitor/templates/review.js": "debbf40254f7b85209c81ab414d580a0ed423674cccc6ecf442b98c842cbd0b3",
+    "sites.yaml": "2a00f1e93eeae82d5c83005c35edfbdb95b0400524f60bdcdaaa29529b6db42b",
+    "settings.yaml": "de700b513019f61db055d9fd10dc5b99eb832274dbcebe90f5cfeb63899642c6",
+    ".github/workflows/monitor.yml": "05ff9b0779088178f5ba817b754468c3a60628456fc46913001bfca69b96cdc2"
+  },
+  "browser": {
+    "kind": "Synthetic timing presentation QA only",
+    "checks": [
+      {
+        "name": "desktop",
+        "width": 1280,
+        "height": 1000,
+        "javaScriptEnabled": true,
+        "before": true,
+        "after": true,
+        "straddling": true,
+        "unknown": true,
+        "noOverflow": true,
+        "timingBlocks": 18,
+        "usableComparisons": 8,
+        "firstComparisonPNGsLoaded": true,
+        "pageErrors": 0,
+        "externalRequests": 0,
+        "networkWrites": 0
+      },
+      {
+        "name": "mobile",
+        "width": 390,
+        "height": 844,
+        "javaScriptEnabled": true,
+        "before": true,
+        "after": true,
+        "straddling": true,
+        "unknown": true,
+        "noOverflow": true,
+        "timingBlocks": 18,
+        "usableComparisons": 8,
+        "firstComparisonPNGsLoaded": true,
+        "pageErrors": 0,
+        "externalRequests": 0,
+        "networkWrites": 0
+      },
+      {
+        "name": "nojs",
+        "width": 1280,
+        "height": 1000,
+        "javaScriptEnabled": false,
+        "before": true,
+        "after": true,
+        "straddling": true,
+        "unknown": true,
+        "noOverflow": true,
+        "timingBlocks": 18,
+        "usableComparisons": 8,
+        "firstComparisonPNGsLoaded": true,
+        "pageErrors": 0,
+        "externalRequests": 0,
+        "networkWrites": 0
+      }
+    ]
+  },
+  "synthetic_screenshots_local_only": {
+    "desktop": {
+      "path": ".preview-output/timing-qa/desktop-timing.png",
+      "sha256": "f837315628c16dccf288763949ef7a22918d7443a8ac5e5baeb8d023a451b7dd"
+    },
+    "mobile": {
+      "path": ".preview-output/timing-qa/mobile-timing.png",
+      "sha256": "e1607649c5b4f02d574202e4744caabdc58ee36dfe86a558a0972cd6ca2515c7"
+    },
+    "nojs": {
+      "path": ".preview-output/timing-qa/nojs-timing.png",
+      "sha256": "88018150a4ff5bc568484c85a1222f0c652f299d17c3d395cda5de65ab40767c"
+    }
+  },
+  "visual_inspection": "Desktop and mobile timing warnings are legible with loaded synthetic thumbnails; no horizontal overflow.",
+  "private_reviews_accessed_or_included": false,
+  "live_ee_requests": 0,
+  "new_live_dispatches": 0,
+  "deployment": false,
+  "limitations": [
+    "Public catalogs do not establish EE ingestion or per-pixel coverage.",
+    "Synthetic timing QA does not adjudicate any real acquisition.",
+    "Whole-AOI independent quiet evidence remains unavailable."
+  ]
+}
