@@ -12,6 +12,7 @@ from pathlib import Path
 
 from .config import load_config, signature, windows
 from .decisions import location_status
+from .optical_review import cache_complete
 from .reports import build_site, save_json
 
 
@@ -49,6 +50,11 @@ def parser():
         action="store_true",
         help="Source eligibility, validity and pre-patch optical values; extra EE compute",
     )
+    run.add_argument(
+        "--optical-review-stretch",
+        action="store_true",
+        help="Additional shared optical range; needs --review-previews, extra EE requests",
+    )
     run.add_argument("--results", type=Path, default=Path("results"))
     run.add_argument("--output", type=Path, default=Path("site"))
     run.add_argument(
@@ -78,14 +84,48 @@ def parser():
         action="store_true",
         help="Request bounded source and comparison diagnostics; extra EE compute",
     )
+    review.add_argument(
+        "--optical-review-stretch",
+        action="store_true",
+        help="Additional paired optical previews with one shared RGB range; extra EE requests",
+    )
     review.add_argument("--results", type=Path, default=Path("results-imagery-review"))
     review.add_argument("--output", type=Path, default=Path("site-imagery-review"))
+    assessment = commands.add_parser(
+        "assess-reviews",
+        help="Assess exported appearance observations offline; private outputs only",
+    )
+    assessment.add_argument(
+        "--history", type=Path, required=True, help="Immutable original report history.json"
+    )
+    assessment.add_argument(
+        "--reviews", type=Path, required=True, help="Local schema-1 review export (never uploaded)"
+    )
+    assessment.add_argument(
+        "--private-workspace",
+        type=Path,
+        default=Path.cwd(),
+        help="Git checkout whose .preview-output/private-review-assessment "
+        "is ignored; outputs always go there",
+    )
+    assessment.add_argument(
+        "--asset-root",
+        type=Path,
+        help="Original local assets directory; default: history sibling assets",
+    )
     return root
 
 
 def run(args):
     mode = "demo" if args.demo else "live"
-    if args.demo and (args.radar_diagnostics or args.review_previews or args.imagery_diagnostics):
+    if args.optical_review_stretch and not args.review_previews:
+        raise ValueError("--optical-review-stretch requires --review-previews")
+    if args.demo and (
+        args.radar_diagnostics
+        or args.review_previews
+        or args.imagery_diagnostics
+        or args.optical_review_stretch
+    ):
         raise ValueError("Imagery review options require live imagery")
     sites, settings = load_config(args.sites, args.settings)
     if args.site_id:
@@ -111,8 +151,16 @@ def run(args):
                 (not args.radar_diagnostics or existing.get("radar_diagnostics_requested"))
                 and (not args.review_previews or existing.get("review_previews_requested"))
                 and (not args.imagery_diagnostics or existing.get("imagery_diagnostics_requested"))
+                and (
+                    not args.optical_review_stretch
+                    or cache_complete(existing, args.results / mode / "assets")
+                )
                 and not existing["errors"]
-                and not any(c.get("preview_error") for c in existing["comparisons"])
+                and not any(
+                    c.get("preview_error")
+                    or (c.get("optical_review") or {}).get("status") == "error"
+                    for c in existing["comparisons"]
+                )
             ):
                 logging.info("Reusing completed result for %s", site.id)
                 records.append(existing)
@@ -144,6 +192,7 @@ def run(args):
                 radar_diagnostics=args.radar_diagnostics,
                 review_previews=args.review_previews,
                 imagery_diagnostics=args.imagery_diagnostics,
+                optical_review_stretch=args.optical_review_stretch,
             ).analyze()
         record = {
             "schema_version": 1,
@@ -152,6 +201,7 @@ def run(args):
             "radar_diagnostics_requested": args.radar_diagnostics and not args.demo,
             "review_previews_requested": args.review_previews and not args.demo,
             "imagery_diagnostics_requested": args.imagery_diagnostics and not args.demo,
+            "optical_review_stretch_requested": args.optical_review_stretch and not args.demo,
             "site": asdict(site),
             "grid": site.grid(),
             "windows": period,
@@ -170,7 +220,11 @@ def run(args):
             }
         )
         record["has_errors"] = bool(
-            record["errors"] or any(c.get("preview_error") for c in record["comparisons"])
+            record["errors"]
+            or any(
+                c.get("preview_error") or (c.get("optical_review") or {}).get("status") == "error"
+                for c in record["comparisons"]
+            )
         )
         has_errors |= record["has_errors"]
         save_json(path, record)
@@ -200,6 +254,11 @@ def run(args):
                         for c in r["comparisons"]
                         if c.get("preview_error")
                     ],
+                    "optical_review_errors": [
+                        {"id": c["id"], **c["optical_review"]["error"]}
+                        for c in r["comparisons"]
+                        if (c.get("optical_review") or {}).get("status") == "error"
+                    ],
                     "workload_tag": r["workload_tag"],
                     "elapsed_seconds": r["elapsed_seconds"],
                 }
@@ -214,6 +273,19 @@ def run(args):
 def main(argv=None):
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
     args = parser().parse_args(argv)
+    if args.command == "assess-reviews":
+        # Keep all input values, hashes and derived aggregates out of terminal/CI logs.
+        from .assessment import write_assessment
+
+        try:
+            write_assessment(args.history, args.reviews, args.private_workspace, args.asset_root)
+        except Exception:
+            logging.error(
+                "Private assessment failed. Check the local inputs and ignored destination."
+            )
+            return 1
+        print("Private assessment saved under .preview-output/private-review-assessment.")
+        return 0
     try:
         if args.command == "validate":
             sites, settings = load_config(args.sites, args.settings)

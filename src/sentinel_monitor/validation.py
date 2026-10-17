@@ -246,6 +246,8 @@ def review_case(args):
         "--radar-diagnostics",
         "--review-previews",
     ]
+    if args.optical_review_stretch:
+        arguments.append("--optical-review-stretch")
     if args.imagery_diagnostics:
         arguments.append("--imagery-diagnostics")
     if args.project:
@@ -258,6 +260,7 @@ def review_case(args):
             "kind": "artifact-only imagery validation",
             "case_id": args.case,
             "imagery_diagnostics_requested": args.imagery_diagnostics,
+            "optical_review_stretch_requested": args.optical_review_stretch,
             "case_manifest_sha256": hashlib.sha256(raw).hexdigest(),
             "frozen_on": case.get("frozen_on", manifest["frozen_on"]),
             "case": case,
