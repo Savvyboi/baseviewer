@@ -152,9 +152,12 @@
         const title = button.dataset.view === "before" ? "Baseline median composite"
           : button.dataset.view === "after" ? "Target observation · " + data.date
           : "Orange qualifying patches · " + data.date;
-        image.alt = title;
+        const rendering = button.dataset.rendering || (tool.querySelector("[data-rendering]")
+          ? "Fixed original range" : "");
+        const description = title + (rendering ? " · " + rendering : "");
+        image.alt = description;
         image.src = button.dataset.src;
-        label.textContent = title + ". Checkerboard: missing display data.";
+        label.textContent = description + ". Checkerboard: missing display data.";
       });
     }
     image.addEventListener("error", () => {
