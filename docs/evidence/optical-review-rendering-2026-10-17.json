@@ -87,5 +87,6 @@
     "percentile tails may clip; pair brightness is not comparable across cases",
     "10 m source/grid unchanged; no object/count or detector accuracy claim",
     "one separately approved artifact-only live check remains proposed, not dispatched"
-  ]
+  ],
+  "integration_base_commit": "22821f0"
 }

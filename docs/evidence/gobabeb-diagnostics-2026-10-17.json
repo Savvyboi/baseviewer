@@ -1,0 +1,639 @@
+{
+  "recorded_date": "2026-10-17",
+  "timezone": "Europe/Helsinki",
+  "kind": "single approved artifact-only imagery diagnostics verification",
+  "source_commit": "30f4c79d174e51db08a7fd4d9bc553d359f72e5c",
+  "implementation_pr": "https://github.com/Savvyboi/baseviewer/pull/16",
+  "workflow": {
+    "id": 39046789742,
+    "html_url": "https://github.com/Savvyboi/baseviewer/actions/runs/39046789742",
+    "head_sha": "30f4c79d174e51db08a7fd4d9bc553d359f72e5c",
+    "status": "completed",
+    "conclusion": "success",
+    "created_at": "2026-10-17T15:50:11Z"
+  },
+  "dispatch": {
+    "source_commit": "30f4c79d174e51db08a7fd4d9bc553d359f72e5c",
+    "inputs": {
+      "check": "imagery",
+      "case_id": "gobabeb-quiet-reference",
+      "imagery_diagnostics": true
+    },
+    "dispatch_intent_at": "2026-10-17T15:50:11.709701+00:00",
+    "dispatch_completed_at": "2026-10-17T15:50:13.127081+00:00",
+    "run_id": 39046789742
+  },
+  "jobs": [
+    {
+      "name": "imagery",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m pip install -r requirements.lock && python -m pip install --no-deps -e .",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run args=(--case \"$CASE_ID\")",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "numeric",
+      "conclusion": "skipped",
+      "steps": []
+    },
+    {
+      "name": "failure-artifacts",
+      "conclusion": "skipped",
+      "steps": []
+    }
+  ],
+  "artifact": {
+    "id": 12105903294,
+    "name": "imagery-review-gobabeb-quiet-reference",
+    "zip_sha256": "96ca13e9e847ddbf84385eac31f17c96847290ea4a7cde7173b19978efa59b87",
+    "github_digest": "sha256:96ca13e9e847ddbf84385eac31f17c96847290ea4a7cde7173b19978efa59b87",
+    "files": [
+      {
+        "path": "site-imagery-review/gobabeb-quiet-reference/assets/cff90cd3d81e21a51d738061/after.png",
+        "bytes": 16142,
+        "sha256": "c94e91f6f685cc058c11a4725efcb20369aba86c530787056980bae6c0327156"
+      },
+      {
+        "path": "site-imagery-review/gobabeb-quiet-reference/assets/cff90cd3d81e21a51d738061/before.png",
+        "bytes": 15473,
+        "sha256": "b466d65b3c53c40944bc2e2575434a3caed1e54bc859517d0bd6fd2954f50dec"
+      },
+      {
+        "path": "site-imagery-review/gobabeb-quiet-reference/assets/cff90cd3d81e21a51d738061/overlay.png",
+        "bytes": 16142,
+        "sha256": "c94e91f6f685cc058c11a4725efcb20369aba86c530787056980bae6c0327156"
+      },
+      {
+        "path": "site-imagery-review/gobabeb-quiet-reference/history.json",
+        "bytes": 11391,
+        "sha256": "5000b757adfd1ea7c0bb9193348cfa0d85e03d2aac8cf95c069d2b089625251f"
+      },
+      {
+        "path": "site-imagery-review/gobabeb-quiet-reference/index.html",
+        "bytes": 15117,
+        "sha256": "a039b017330a2c77cfad47f2083eae5452b033ad1a35a683f85f8ab9c94a418a"
+      },
+      {
+        "path": "site-imagery-review/gobabeb-quiet-reference/latest.json",
+        "bytes": 11391,
+        "sha256": "5000b757adfd1ea7c0bb9193348cfa0d85e03d2aac8cf95c069d2b089625251f"
+      },
+      {
+        "path": "site-imagery-review/gobabeb-quiet-reference/review.js",
+        "bytes": 11324,
+        "sha256": "debbf40254f7b85209c81ab414d580a0ed423674cccc6ecf442b98c842cbd0b3"
+      },
+      {
+        "path": "site-imagery-review/gobabeb-quiet-reference/validation-case.json",
+        "bytes": 2447,
+        "sha256": "2bab32c7307b8ba9097f647aca6a3a4e6a3f052ec20739e303edc521bd7fecd9"
+      },
+      {
+        "path": "results-imagery-review/gobabeb-quiet-reference/run-summary.json",
+        "bytes": 480,
+        "sha256": "a60c13eb667c9dfdd02b8a023815ac1f922a3a792f98e856fbaa13b377018f7a"
+      }
+    ]
+  },
+  "validation_case": {
+    "kind": "artifact-only imagery validation",
+    "case_id": "gobabeb-quiet-reference",
+    "imagery_diagnostics_requested": true,
+    "case_manifest_sha256": "f40871b6ee1f718c9d9c809b97d42c5fcece25f77e09233cb77d7cccd94c0ac0",
+    "frozen_on": "2026-10-16",
+    "case": {
+      "label": "Published stable-surface reference; full AOI and radar quiet conditions require review",
+      "review_status": "unreviewed",
+      "site": {
+        "id": "gobabeb-hypernets",
+        "name": "Gobabeb HYPERNETS stable-surface reference (validation)",
+        "latitude": -23.60153,
+        "longitude": 15.12589,
+        "size_m": 200
+      },
+      "end_date": "2022-07-18",
+      "selection_basis": "200 m square centred on the GHNA instrument coordinates in De Vis et al. (2024) Section 2.1.1, using the same cutout width as Section 2.2.4. Select the earliest accepted Sentinel-2 matchup in Table 1 whose preceding rolling baseline starts after the first listed good Sentinel-2 matchup (June 8): July 13, 2022, in target July 11-18 and baseline June 13-July 11. Fixed before any detector result, without searching for a negative satellite output. Published surface stability and independently selected ground samples support a quiet-reference candidate; they do not certify every AOI cell, SAR stability, or equivalence to urban construction/transport land cover.",
+      "references": [
+        {
+          "url": "https://www.frontiersin.org/journals/remote-sensing/articles/10.3389/frsen.2024.1323998/full",
+          "supports": "GHNA instrument coordinates, stable gravel-plain surface, 200 m satellite cutout method, deployment from May 2022 and accepted July 13 Sentinel-2 / ground-instrument matchup. GHNA is distinct from the nearby GONA RadCalNet station."
+        },
+        {
+          "url": "https://doi.org/10.5281/zenodo.8039303",
+          "supports": "Version 1.0.0 independent ground-reflectance sample files. Five fixed sequences on June 22/28/30, July 10 and July 13 were checksum-verified; all quality-valid common five-degree directions and excluded flags are retained in selection evidence."
+        }
+      ]
+    },
+    "windows": {
+      "baseline_start": "2022-06-13",
+      "baseline_end": "2022-07-11",
+      "target_start": "2022-07-11",
+      "target_end": "2022-07-18"
+    },
+    "started_at": "2026-10-17T15:50:26.399360+00:00",
+    "completed_at": "2026-10-17T15:50:32.137880+00:00",
+    "exit_code": 0,
+    "note": "Provisional labels require independent imagery review; no accuracy claim."
+  },
+  "source_record": {
+    "schema_version": 1,
+    "analysis_version": "0.1.0",
+    "analysis_key": "be8931092c4c027d838c",
+    "radar_diagnostics_requested": true,
+    "review_previews_requested": true,
+    "imagery_diagnostics_requested": true,
+    "site": {
+      "id": "gobabeb-hypernets",
+      "name": "Gobabeb HYPERNETS stable-surface reference (validation)",
+      "latitude": -23.60153,
+      "longitude": 15.12589,
+      "size_m": 200
+    },
+    "grid": {
+      "crs": "EPSG:32733",
+      "transform": [
+        10,
+        0,
+        512740,
+        0,
+        -10,
+        7389980
+      ],
+      "bounds": [
+        512740,
+        7389780,
+        512940,
+        7389980
+      ],
+      "cells": 400
+    },
+    "windows": {
+      "baseline_start": "2022-06-13",
+      "baseline_end": "2022-07-11",
+      "target_start": "2022-07-11",
+      "target_end": "2022-07-18"
+    },
+    "mode": "live",
+    "generated_at": "2026-10-17T15:50:32.100303+00:00",
+    "settings": {
+      "analysis_version": "0.1.0",
+      "earth_engine_project": "baseviewer-511722",
+      "optical_threshold": 0.1,
+      "radar_threshold_db": 3.0,
+      "cloud_score_min": 0.6,
+      "min_baseline_observations": 2,
+      "min_valid_coverage": 0.7,
+      "min_patch_pixels": 9,
+      "radar_speckle_radius_m": 10,
+      "radar_min_db": -35,
+      "radar_min_angle": 31,
+      "radar_max_angle": 45,
+      "terrain_max_slope_deg": 15,
+      "dem_collection": "COPERNICUS/DEM/GLO30_2024_1",
+      "max_sites": 1,
+      "max_images_per_sensor": 300,
+      "request_attempts": 3,
+      "preview_pixels": 400
+    },
+    "elapsed_seconds": 5.699,
+    "comparisons": [
+      {
+        "id": "cff90cd3d81e21a51d738061",
+        "sensor": "optical",
+        "acquisition_date": "2022-07-13",
+        "acquisition_times": [
+          "2022-07-13T09:17:23.328000+00:00"
+        ],
+        "source_ids": [
+          "20220713T084611_20220713T090750_T33KWP"
+        ],
+        "baseline_source_ids": [
+          "20220613T084611_20220613T090751_T33KWP",
+          "20220618T084559_20220618T091508_T33KWP",
+          "20220623T084611_20220623T090710_T33KWP",
+          "20220628T084609_20220628T091509_T33KWP",
+          "20220703T084611_20220703T091604_T33KWP",
+          "20220708T084609_20220708T091422_T33KWP"
+        ],
+        "baseline_acquisition_dates": [
+          "2022-06-13",
+          "2022-06-18",
+          "2022-06-23",
+          "2022-06-28",
+          "2022-07-03",
+          "2022-07-08"
+        ],
+        "baseline_observations": 6,
+        "radar_group": null,
+        "status": "no_change_detected",
+        "valid_coverage": 1.0,
+        "changed_area_m2": 0.0,
+        "imagery_diagnostics": {
+          "schema_version": 1,
+          "scope": "fixed analysis grid; threshold/patch counts on common valid subset",
+          "grid_cells": 400,
+          "common_valid_cells": 400,
+          "patch_cells": 0,
+          "minimum_baseline_days_per_cell": 2,
+          "minimum_valid_coverage": 0.7,
+          "minimum_patch_cells": 9,
+          "threshold": 0.1,
+          "threshold_units": "reflectance",
+          "target_valid_cells": 400,
+          "baseline_eligible_cells": 400,
+          "threshold_cells": 0,
+          "optical": {
+            "scope": "prepared reflectance on common valid cells; not unmasked source radiometry",
+            "units": "reflectance",
+            "baseline": {
+              "B2": {
+                "count": 400,
+                "mean": 0.16160600000000003,
+                "min": 0.1563,
+                "max": 0.16910000000000003,
+                "p05": 0.15789999999999998,
+                "median": 0.1614,
+                "p95": 0.16625
+              },
+              "B3": {
+                "count": 400,
+                "mean": 0.2307150000000004,
+                "min": 0.2228,
+                "max": 0.2394,
+                "p05": 0.22660000000000002,
+                "median": 0.23050000000000004,
+                "p95": 0.23635
+              },
+              "B4": {
+                "count": 400,
+                "mean": 0.33071250000000013,
+                "min": 0.3226,
+                "max": 0.33940000000000003,
+                "p05": 0.327,
+                "median": 0.3304,
+                "p95": 0.33530000000000004
+              },
+              "B8": {
+                "count": 400,
+                "mean": 0.3734784999999999,
+                "min": 0.3638,
+                "max": 0.3826,
+                "p05": 0.36860000000000004,
+                "median": 0.3734000000000001,
+                "p95": 0.37870000000000004
+              }
+            },
+            "target": {
+              "B2": {
+                "count": 400,
+                "mean": 0.15759249999999986,
+                "min": 0.1492,
+                "max": 0.16720000000000002,
+                "p05": 0.15280000000000002,
+                "median": 0.1575,
+                "p95": 0.1626
+              },
+              "B3": {
+                "count": 400,
+                "mean": 0.22756450000000011,
+                "min": 0.21980000000000002,
+                "max": 0.2364,
+                "p05": 0.22250000000000003,
+                "median": 0.22719999999999996,
+                "p95": 0.233
+              },
+              "B4": {
+                "count": 400,
+                "mean": 0.3294590000000002,
+                "min": 0.322,
+                "max": 0.3392,
+                "p05": 0.3244,
+                "median": 0.32920000000000005,
+                "p95": 0.33480000000000004
+              },
+              "B8": {
+                "count": 400,
+                "mean": 0.37350599999999984,
+                "min": 0.364,
+                "max": 0.38520000000000004,
+                "p05": 0.368,
+                "median": 0.3731999999999999,
+                "p95": 0.3788
+              }
+            },
+            "mean_absolute_difference": {
+              "count": 400,
+              "mean": 0.0029471250000000023,
+              "min": 0.000675000000000002,
+              "max": 0.0060250000000000095,
+              "p05": 0.0014749999999999971,
+              "median": 0.002875000000000008,
+              "p95": 0.004712500000000003
+            },
+            "display_stretch": {
+              "bands": [
+                "B4",
+                "B3",
+                "B2"
+              ],
+              "min": 0,
+              "max": 0.3,
+              "gamma": 1.2
+            },
+            "display_endpoint_fractions": {
+              "before": {
+                "B4": {
+                  "at_or_below_min": 0,
+                  "at_or_above_max": 1
+                },
+                "B3": {
+                  "at_or_below_min": 0,
+                  "at_or_above_max": 0
+                },
+                "B2": {
+                  "at_or_below_min": 0,
+                  "at_or_above_max": 0
+                }
+              },
+              "after": {
+                "B4": {
+                  "at_or_below_min": 0,
+                  "at_or_above_max": 1
+                },
+                "B3": {
+                  "at_or_below_min": 0,
+                  "at_or_above_max": 0
+                },
+                "B2": {
+                  "at_or_below_min": 0,
+                  "at_or_above_max": 0
+                }
+              }
+            }
+          }
+        },
+        "cloud_screening": "SCL and Cloud Score+",
+        "changed_cells": 0,
+        "previews": {
+          "before": "assets/cff90cd3d81e21a51d738061/before.png",
+          "after": "assets/cff90cd3d81e21a51d738061/after.png",
+          "overlay": "assets/cff90cd3d81e21a51d738061/overlay.png"
+        }
+      }
+    ],
+    "errors": [],
+    "changed_area": {
+      "optical_m2": 0.0,
+      "radar_m2": null,
+      "overlap_m2": null
+    },
+    "newest_observation": "2022-07-13T09:17:23.328000+00:00",
+    "workload_tag": "sentinel-be8931092c4c027d838c",
+    "source_diagnostics": {
+      "optical": {
+        "schema_version": 1,
+        "collection": "COPERNICUS/S2_SR_HARMONIZED",
+        "scope": "AOI-intersecting granules; cumulative metadata filters, before pixel masks",
+        "exclusion_example_limit": 10,
+        "eligible_metadata_complete": true,
+        "windows": {
+          "baseline": {
+            "exclusions": {},
+            "stage_counts": {
+              "intersecting": 6
+            }
+          },
+          "target": {
+            "exclusions": {},
+            "stage_counts": {
+              "intersecting": 1
+            }
+          }
+        },
+        "eligible_source_count": 7,
+        "groups": [
+          {
+            "radar_group": null,
+            "baseline_source_ids": [
+              "20220613T084611_20220613T090751_T33KWP",
+              "20220618T084559_20220618T091508_T33KWP",
+              "20220623T084611_20220623T090710_T33KWP",
+              "20220628T084609_20220628T091509_T33KWP",
+              "20220703T084611_20220703T091604_T33KWP",
+              "20220708T084609_20220708T091422_T33KWP"
+            ],
+            "target_source_ids": [
+              "20220713T084611_20220713T090750_T33KWP"
+            ],
+            "baseline_acquisition_dates": [
+              "2022-06-13",
+              "2022-06-18",
+              "2022-06-23",
+              "2022-06-28",
+              "2022-07-03",
+              "2022-07-08"
+            ],
+            "target_acquisitions": 1,
+            "eligibility": "metadata_eligible"
+          }
+        ]
+      },
+      "radar": {
+        "schema_version": 1,
+        "collection": "COPERNICUS/S1_GRD",
+        "scope": "AOI-intersecting granules; cumulative metadata filters, before pixel masks",
+        "exclusion_example_limit": 10,
+        "eligible_metadata_complete": true,
+        "windows": {
+          "baseline": {
+            "exclusions": {
+              "IW": {
+                "count": 0,
+                "examples": [],
+                "examples_truncated": 0
+              },
+              "VH": {
+                "count": 0,
+                "examples": [],
+                "examples_truncated": 0
+              },
+              "VV": {
+                "count": 0,
+                "examples": [],
+                "examples_truncated": 0
+              }
+            },
+            "stage_counts": {
+              "IW": 0,
+              "VH": 0,
+              "VV": 0,
+              "intersecting": 0
+            }
+          },
+          "target": {
+            "exclusions": {
+              "IW": {
+                "count": 0,
+                "examples": [],
+                "examples_truncated": 0
+              },
+              "VH": {
+                "count": 0,
+                "examples": [],
+                "examples_truncated": 0
+              },
+              "VV": {
+                "count": 0,
+                "examples": [],
+                "examples_truncated": 0
+              }
+            },
+            "stage_counts": {
+              "IW": 0,
+              "VH": 0,
+              "VV": 0,
+              "intersecting": 0
+            }
+          }
+        },
+        "eligible_source_count": 0,
+        "groups": []
+      }
+    },
+    "status": "no_change_detected",
+    "usable_sensors": [
+      "optical"
+    ],
+    "has_errors": false,
+    "validation_case": {
+      "id": "gobabeb-quiet-reference",
+      "label": "Published stable-surface reference; full AOI and radar quiet conditions require review",
+      "review_status": "unreviewed"
+    }
+  },
+  "comparison_with_original_run": {
+    "run_id": 38940083654,
+    "manifest_sha256_unchanged": true,
+    "analysis_key_settings_AOI_windows_unchanged": true,
+    "comparison_identical_except_added_imagery_diagnostics": true,
+    "original_PNGs_byte_identical": [
+      {
+        "view": "before",
+        "retained_path": "docs/evidence/gobabeb-2026-10-16/cff90cd3d81e21a51d738061/before.png",
+        "sha256": "b466d65b3c53c40944bc2e2575434a3caed1e54bc859517d0bd6fd2954f50dec",
+        "bytes": 15473
+      },
+      {
+        "view": "after",
+        "retained_path": "docs/evidence/gobabeb-2026-10-16/cff90cd3d81e21a51d738061/after.png",
+        "sha256": "c94e91f6f685cc058c11a4725efcb20369aba86c530787056980bae6c0327156",
+        "bytes": 16142
+      },
+      {
+        "view": "overlay",
+        "retained_path": "docs/evidence/gobabeb-2026-10-16/cff90cd3d81e21a51d738061/overlay.png",
+        "sha256": "c94e91f6f685cc058c11a4725efcb20369aba86c530787056980bae6c0327156",
+        "bytes": 16142
+      }
+    ],
+    "existing_pilot_not_rebuilt": true
+  },
+  "findings": {
+    "radar": "No COPERNICUS/S1_GRD granules intersect the fixed AOI in either frozen window before IW/VV/VH filtering. No source was excluded by those filters; no radar negative or radar quiet label is established.",
+    "optical": "400/400 common valid cells; no pre-patch threshold crossings or patch survivors. Four-band mean absolute difference maximum is 0.0060250000000000095 versus the unchanged strict >0.1 rule.",
+    "display": "All common-cell B4 reflectances exceed the fixed 0.3 display ceiling in both views; prepared B4 ranges are 0.3226-0.3394 baseline and 0.3220-0.3392 target. Clipping is in the fixed preview stretch, not a cap on measured reflectance.",
+    "limits": [
+      "Catalog availability is specific to this AOI, collection and date interval; it does not establish why acquisitions were absent.",
+      "No separate mask-rejection attribution or raw unmasked source radiometry was measured.",
+      "Optical display detail has not been restored; this is not a whole-AOI quiet label or an urban radar control.",
+      "Elapsed 5.699 seconds is wall time, not EECU consumption."
+    ]
+  },
+  "publication_checks": {
+    "before": {
+      "observed_at": "2026-10-17T15:50:10.201381+00:00",
+      "base_url": "https://savvyboi.github.io/baseviewer/",
+      "files_sha256": {
+        "assets/5ec9b7b32fe91574920b482d/after.png": "e635312e52985c861eec724738ff059430aedc9bfc349da15e1cb41e38a02002",
+        "assets/5ec9b7b32fe91574920b482d/before.png": "5bf1df73bd90ca248b534a9a253d8c883b42c100f5213d6dcfe9e60ddd7ff97e",
+        "assets/5ec9b7b32fe91574920b482d/overlay.png": "afd4e962ef812fcd658906bd5c4b6e06a2fb809bd2ccce22e60a8ad1e1460a2e",
+        "history.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da",
+        "index.html": "b2acef24c563ed0adc84914f3fadc78a1338831039d912667c588c74282e8ea1",
+        "latest.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da"
+      },
+      "analysis_keys": [
+        "0d938c6c2828198c1593"
+      ],
+      "monitor_enabled": null,
+      "results_ref": "8714435fea8b875f960d396f0b43d79f7545e22c"
+    },
+    "after": {
+      "observed_at": "2026-10-17T15:51:17.010545+00:00",
+      "base_url": "https://savvyboi.github.io/baseviewer/",
+      "files_sha256": {
+        "assets/5ec9b7b32fe91574920b482d/after.png": "e635312e52985c861eec724738ff059430aedc9bfc349da15e1cb41e38a02002",
+        "assets/5ec9b7b32fe91574920b482d/before.png": "5bf1df73bd90ca248b534a9a253d8c883b42c100f5213d6dcfe9e60ddd7ff97e",
+        "assets/5ec9b7b32fe91574920b482d/overlay.png": "afd4e962ef812fcd658906bd5c4b6e06a2fb809bd2ccce22e60a8ad1e1460a2e",
+        "history.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da",
+        "index.html": "b2acef24c563ed0adc84914f3fadc78a1338831039d912667c588c74282e8ea1",
+        "latest.json": "a02be7f568b98ef59545c5d561860c432a58c620ffa134b070082b48b699c8da"
+      },
+      "analysis_keys": [
+        "0d938c6c2828198c1593"
+      ],
+      "monitor_enabled": null,
+      "results_ref": "8714435fea8b875f960d396f0b43d79f7545e22c"
+    },
+    "all_six_files_byte_identical": true,
+    "results_ref_unchanged": true,
+    "MONITOR_ENABLED_unset": true
+  },
+  "next_preparation": [
+    "Implement an optional shared optical review stretch across baseline and target, preserving original PNGs and detection rules; verify offline before requesting live render validation.",
+    "Select a civilian radar reference/change pair using independent dated evidence and freeze AOIs/windows before detector output. Check source/orbit/baseline eligibility before accuracy assessment.",
+    "Keep new live runs, protected-main merges, deployment and monitoring expansion behind their existing approval boundaries."
+  ]
+}
