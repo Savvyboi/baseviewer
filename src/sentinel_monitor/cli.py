@@ -80,6 +80,28 @@ def parser():
     )
     review.add_argument("--results", type=Path, default=Path("results-imagery-review"))
     review.add_argument("--output", type=Path, default=Path("site-imagery-review"))
+    assessment = commands.add_parser(
+        "assess-reviews",
+        help="Assess exported appearance observations offline; private outputs only",
+    )
+    assessment.add_argument(
+        "--history", type=Path, required=True, help="Immutable original report history.json"
+    )
+    assessment.add_argument(
+        "--reviews", type=Path, required=True, help="Local schema-1 review export (never uploaded)"
+    )
+    assessment.add_argument(
+        "--private-workspace",
+        type=Path,
+        default=Path.cwd(),
+        help="Git checkout whose .preview-output/private-review-assessment "
+        "is ignored; outputs always go there",
+    )
+    assessment.add_argument(
+        "--asset-root",
+        type=Path,
+        help="Original local assets directory; default: history sibling assets",
+    )
     return root
 
 
@@ -214,6 +236,19 @@ def run(args):
 def main(argv=None):
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
     args = parser().parse_args(argv)
+    if args.command == "assess-reviews":
+        # Keep all input values, hashes and derived aggregates out of terminal/CI logs.
+        from .assessment import write_assessment
+
+        try:
+            write_assessment(args.history, args.reviews, args.private_workspace, args.asset_root)
+        except Exception:
+            logging.error(
+                "Private assessment failed. Check the local inputs and ignored destination."
+            )
+            return 1
+        print("Private assessment saved under .preview-output/private-review-assessment.")
+        return 0
     try:
         if args.command == "validate":
             sites, settings = load_config(args.sites, args.settings)

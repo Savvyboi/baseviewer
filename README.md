@@ -117,6 +117,10 @@ browser-local reviewer observations with JSON export. Every usable acquisition c
 be reviewed, including zero-flag results. Refreshed records get separate reviews;
 notes do not change detector outputs. Export a copy to keep or share the review.
 See [the review workflow, existing implementations and imagery limits](docs/human-review.md).
+Use `sentinel-monitor assess-reviews` to assess a saved export against the original
+history entirely offline. Actual observations, derived summaries and provenance
+receipts stay in an ignored private directory; see the
+[private assessment methodology and evaluation gates](docs/private-review-assessment.md).
 
 ## History and errors
 
