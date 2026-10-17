@@ -1,9 +1,10 @@
 # Imagery source and comparison diagnostics
 
-Prepared 17 October 2026. Offline verification is complete; real-source execution of
-these new diagnostics has not been approved or performed.
+Implemented 17 October 2026. Offline verification and the single approved Gobabeb
+real-source check passed. [Live evidence](evidence/gobabeb-diagnostics-2026-10-17.json)
+retains the complete source record, provenance and publication checks.
 
-The existing Gobabeb artifact has no radar comparison and a clipped red display
+The original Gobabeb artifact has no radar comparison and a clipped red display
 channel. It cannot explain whether radar was absent from the catalog or excluded by
 source filters. Park Fire also has an optical appearance difference with no qualifying
 patch. These are separate unresolved scientific questions, not established detector
@@ -24,7 +25,7 @@ sentinel-monitor review-case --case gobabeb-quiet-reference --imagery-diagnostic
 ```
 
 This is a **new live analysis with extra compute**, not an offline reconstruction.
-The command is documented for preparation and was not executed for this change.
+It was executed exactly once after specific approval for PR #16 and this diagnostic run.
 A saved PNG cannot recover reflectance that its display stretch clipped.
 
 The result record's `source_diagnostics` contains:
@@ -94,19 +95,38 @@ zero common cells, diagnostic failures, cache upgrade/retry and JSON persistence
 These tests establish client construction and handling; they do not establish EE
 server execution, imagery accuracy, a radar quiet control or corrected display detail.
 
-The prepared next live check is exactly one Gobabeb diagnostic invocation with the
-existing frozen AOI/dates/settings and `imagery_diagnostics=true`. It addresses both
-the missing-radar inventory and bright-surface display question in the same small case.
-Before dispatch it needs approval for the new protected-main merge and new live analysis.
-Its artifact-only workflow has no Pages deployment or results-branch write.
+The [single approved Gobabeb run](https://github.com/Savvyboi/baseviewer/actions/runs/39046789742)
+passed on merged main at `30f4c79d174e51db08a7fd4d9bc553d359f72e5c` with unchanged
+frozen AOI/dates/settings. Both sensor source inventories and the optical comparison
+diagnostics completed without errors. The artifact digest matches the downloaded ZIP.
+The original science comparison and all three PNGs are identical to the prior run.
+The existing civilian pilot was preserved with its original record identities.
 
-After an approved run, retain source counts/exclusions and inspect actual eligibility
-before selecting a further radar reference. If no dual-polarization IW target survives,
-report that source-filter result; do not relax filters to make a negative. If sources
-survive, inspect orbit/baseline eligibility and validity before interpreting changes.
-Use optical distributions to assess endpoint clipping without fitting detector
-thresholds to this surface. A transport/construction radar control still requires
-independent evidence; this desert optical reference cannot establish one by itself.
+Radar has zero AOI-intersecting `COPERNICUS/S1_GRD` granules in both baseline and target
+windows, before IW/VV/VH filtering. No filter rejected any source. This identifies a
+catalog-availability gap for the exact collection/AOI/windows; it does not explain
+acquisition policy or establish any radar negative. Gobabeb cannot supply the missing
+radar quiet control for these dates.
+
+Optical has 400/400 target, baseline-eligible and common valid cells, zero raw threshold
+crossings and zero patch survivors. Mean absolute four-band difference ranges from
+0.000675 to 0.006025 (mean 0.002947125), below the unchanged strict >0.10 threshold.
+All red-band cells exceed the fixed 0.3 display ceiling in both views: baseline B4
+0.3226-0.3394 and target B4 0.3220-0.3392. This confirms clipping by the preview stretch;
+the measured reflectance is not capped at 0.3. It does not restore the lost display
+detail or independently certify every AOI cell as quiet.
+
+The public HTML, latest/history JSON and three public PNG hashes match before/after;
+the results ref is unchanged and `MONITOR_ENABLED` remains unset. Runtime 5.699 seconds
+is wall time, not EECU usage. No deployment or results-branch write occurred.
+
+The next useful increments are an optional optical review stretch shared across
+baseline/target (retaining originals and detector rules), then a civilian radar
+quiet/change pair selected from independent dated evidence with eligible matching
+sources. Freeze AOIs/windows before detector output, and evaluate validity before
+interpreting changes. Prepare code and offline verification first; new live runs or
+protected-main merges still need specific approval. No further run is prepared or
+approved by the completed Gobabeb invocation alone.
 
 API context: [Sentinel-1 metadata and filtering](https://developers.google.com/earth-engine/guides/sentinel1),
 [fixed-grid reductions](https://developers.google.com/earth-engine/apidocs/ee-image-reduceregion),
