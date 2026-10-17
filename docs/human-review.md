@@ -65,18 +65,12 @@ The rapid-construction pilot has now executed: its radar comparison flags 36.45%
 
 The single approved [Gobabeb stable-surface reference run](validation.md#gobabeb-live-reference-result) passed, adding one usable optical observation with full common coverage and zero qualifying cells. Its location/dates were selected from published stability and independent ground measurements before detector output. No radar comparison was returned. The original RGB views are broadly similar but have a saturated red display channel, limiting fine visual review; full-AOI human adjudication remains pending. The local civilian pilot queue now has four review entries and twelve original PNGs across construction/comparison/reference cases. No frozen label was promoted or extra run requested.
 
+## Prepared radar reference candidates
 
-## Optional shared optical review display
-
-An opt-in paired optical range now adds alternate baseline/target/overlay PNGs beside
-the fixed originals in isolated review reports. One scalar envelope of both dates’
-RGB band 5th/95th percentiles uses common valid cells, unchanged gamma 1.2 and the
-existing 10 m grid. Actual bounds, method/scope and fixed clipping support are saved;
-fixed and alternate PNG endpoint notices are measured separately. Missing/malformed
-statistics and partial render/storage failures preserve science and cause a retryable
-partial error. Fresh rendering records retain normal review-timestamp isolation.
-
-[Rendering policy, offline evidence and one-case live proposal](optical-review-rendering.md)
-explain access, cache upgrades and limitations. No new live render, protected-main
-write, deployment or schedule expansion was performed. Actual Gobabeb detail recovery
-remains unverified; synthetic QA is not human adjudication or imagery accuracy.
+[Salzbachtal preparation](civilian-radar-comparison.md) adds two frozen, unreviewed
+500 m civilian bridge cases and independently checked public acquisition metadata.
+The pre-demolition case remains an unverified reference: preparation earthworks and
+the absence of full-AOI bracketing evidence prevent a quiet label. No detector output
+or human review was used to select these cases, and no live analysis or pilot rebuild
+was requested. Successful future imagery review would still need independent quiet
+evidence before either case could support false-positive or accuracy claims.

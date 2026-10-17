@@ -269,3 +269,63 @@ def test_case_runner_attaches_frozen_context_without_duplicate_records(tmp_path)
     assert 'href="validation-case.json"' in html
     assert "No change detected" in html
     assert (output / "validation-case.json").exists()
+
+
+@pytest.mark.parametrize("sensor", ["optical", "radar"])
+@pytest.mark.parametrize(
+    "times,status,classification",
+    [
+        (["2021-11-06T09:00:00Z"], "possible_change", "before"),
+        (["2021-11-07T05:42:45Z"], "no_change_detected", "after"),
+        (["2021-11-06T10:00:00Z", "2021-11-06T12:00:00Z"], "possible_change", "straddling"),
+        ([], "possible_change", "unknown"),
+        ([], "insufficient_data", "unknown"),
+    ],
+)
+def test_case_timing_context_survives_json_and_static_report_for_both_sensors(
+    tmp_path, sensor, times, status, classification
+):
+    result = outcome(status)
+    comparison = result["comparisons"][0]
+    comparison.update(sensor=sensor, acquisition_date="2021-11-06", acquisition_times=times)
+    original = copy.deepcopy(comparison)
+    with (
+        patch("sentinel_monitor.earth.initialize"),
+        patch.object(EarthEngineAnalyzer, "__init__", return_value=None),
+        patch.object(EarthEngineAnalyzer, "analyze", return_value=result),
+    ):
+        assert (
+            main(
+                [
+                    "review-case",
+                    "--case",
+                    "salzbachtal-demolition",
+                    "--case-file",
+                    str(ROOT / "validation/cases.json"),
+                    "--settings",
+                    str(ROOT / "settings.yaml"),
+                    "--results",
+                    str(tmp_path / "results"),
+                    "--output",
+                    str(tmp_path / "site"),
+                ]
+            )
+            == 0
+        )
+    output = tmp_path / "site/salzbachtal-demolition"
+    history = json.loads((output / "history.json").read_text(encoding="utf-8"))
+    assert history[0]["validation_case"]["event_time_utc"] == "2021-11-06T11:00:00Z"
+    assert history[0]["validation_case"]["quiet_ground_truth"] is False
+    saved = history[0]["comparisons"][0]
+    timing = saved.pop("event_timing")
+    assert saved == original
+    assert timing["classification"] == classification
+    assert timing["source_acquisition_times"] == times
+    html = (output / "index.html").read_text(encoding="utf-8")
+    assert "Acquisition timing: " + timing["label"] in html
+    assert "Approximate event reference: 2021-11-06T11:00:00Z" in html
+    assert "exposure intervals unavailable" in html
+    if classification != "after":
+        assert "Do not interpret this acquisition as established post-event evidence" in html
+    for value in times:
+        assert value in html

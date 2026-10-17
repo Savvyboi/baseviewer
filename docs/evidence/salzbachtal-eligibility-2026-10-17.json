@@ -1,0 +1,312 @@
+{
+  "cases": {
+    "salzbachtal-demolition": {
+      "eligible_source_count": 17,
+      "excluded_source_ids": [],
+      "grid": {
+        "bounds": [
+          446420,
+          5544460,
+          446920,
+          5544960
+        ],
+        "cells": 2500,
+        "crs": "EPSG:32632",
+        "transform": [
+          10,
+          0,
+          446420,
+          0,
+          -10,
+          5544960
+        ]
+      },
+      "groups": [
+        {
+          "baseline_acquisition_dates": [
+            "2021-10-14",
+            "2021-10-20",
+            "2021-10-26",
+            "2021-11-01"
+          ],
+          "baseline_platforms": [
+            "A",
+            "B"
+          ],
+          "baseline_platforms_mixed": true,
+          "baseline_source_ids": [
+            "S1A_IW_GRDH_1SDV_20211014T054246_20211014T054311_040111_04BFE2_7F8C",
+            "S1A_IW_GRDH_1SDV_20211026T054246_20211026T054311_040286_04C5FF_F6CC",
+            "S1B_IW_GRDH_1SDV_20211020T054156_20211020T054221_029215_037C8D_24AF",
+            "S1B_IW_GRDH_1SDV_20211101T054155_20211101T054220_029390_0381E9_1879"
+          ],
+          "eligibility": "metadata_eligible",
+          "radar_group": {
+            "pass": "DESCENDING",
+            "relative_orbit": 139
+          },
+          "target_acquisitions": 1,
+          "target_platforms": [
+            "A"
+          ],
+          "target_source_ids": [
+            "S1A_IW_GRDH_1SDV_20211107T054245_20211107T054310_040461_04CC1C_587E"
+          ]
+        },
+        {
+          "baseline_acquisition_dates": [
+            "2021-10-11",
+            "2021-10-17",
+            "2021-10-23",
+            "2021-10-29",
+            "2021-11-04"
+          ],
+          "baseline_platforms": [
+            "A",
+            "B"
+          ],
+          "baseline_platforms_mixed": true,
+          "baseline_source_ids": [
+            "S1A_IW_GRDH_1SDV_20211017T171626_20211017T171651_040162_04C1B1_0F8F",
+            "S1A_IW_GRDH_1SDV_20211029T171626_20211029T171651_040337_04C7C4_C729",
+            "S1B_IW_GRDH_1SDV_20211011T171556_20211011T171621_029091_0378A9_50F2",
+            "S1B_IW_GRDH_1SDV_20211023T171557_20211023T171622_029266_037E15_72DB",
+            "S1B_IW_GRDH_1SDV_20211104T171556_20211104T171621_029441_038370_670F"
+          ],
+          "eligibility": "metadata_eligible",
+          "radar_group": {
+            "pass": "ASCENDING",
+            "relative_orbit": 15
+          },
+          "target_acquisitions": 1,
+          "target_platforms": [
+            "A"
+          ],
+          "target_source_ids": [
+            "S1A_IW_GRDH_1SDV_20211110T171626_20211110T171651_040512_04CDE4_59DA"
+          ]
+        },
+        {
+          "baseline_acquisition_dates": [
+            "2021-10-09",
+            "2021-10-15",
+            "2021-10-21",
+            "2021-10-27",
+            "2021-11-02"
+          ],
+          "baseline_platforms": [
+            "A",
+            "B"
+          ],
+          "baseline_platforms_mixed": true,
+          "baseline_source_ids": [
+            "S1A_IW_GRDH_1SDV_20211009T053423_20211009T053448_040038_04BD5B_C008",
+            "S1A_IW_GRDH_1SDV_20211021T053423_20211021T053448_040213_04C36F_CC03",
+            "S1A_IW_GRDH_1SDV_20211102T053423_20211102T053448_040388_04C988_8963",
+            "S1B_IW_GRDH_1SDV_20211015T053349_20211015T053414_029142_037A4A_D157",
+            "S1B_IW_GRDH_1SDV_20211027T053349_20211027T053414_029317_037FB9_BE9D"
+          ],
+          "eligibility": "metadata_eligible",
+          "radar_group": {
+            "pass": "DESCENDING",
+            "relative_orbit": 66
+          },
+          "target_acquisitions": 1,
+          "target_platforms": [
+            "B"
+          ],
+          "target_source_ids": [
+            "S1B_IW_GRDH_1SDV_20211108T053349_20211108T053414_029492_03850E_001A"
+          ]
+        }
+      ],
+      "intersecting_grd_products_in_case_dates": 17,
+      "quiet_ground_truth_established": false,
+      "target_timing_only": [
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211107T054245_20211107T054310_040461_04CC1C_587E",
+          "relative_to_approximate_event": "at_or_after",
+          "start_time": "2021-11-07T05:42:45Z"
+        },
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20211108T053349_20211108T053414_029492_03850E_001A",
+          "relative_to_approximate_event": "at_or_after",
+          "start_time": "2021-11-08T05:33:49Z"
+        },
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211110T171626_20211110T171651_040512_04CDE4_59DA",
+          "relative_to_approximate_event": "at_or_after",
+          "start_time": "2021-11-10T17:16:26Z"
+        }
+      ],
+      "windows": {
+        "baseline_end": "2021-11-06",
+        "baseline_start": "2021-10-09",
+        "target_end": "2021-11-13",
+        "target_start": "2021-11-06"
+      }
+    },
+    "salzbachtal-pre-demolition": {
+      "eligible_source_count": 18,
+      "excluded_source_ids": [],
+      "grid": {
+        "bounds": [
+          446420,
+          5544460,
+          446920,
+          5544960
+        ],
+        "cells": 2500,
+        "crs": "EPSG:32632",
+        "transform": [
+          10,
+          0,
+          446420,
+          0,
+          -10,
+          5544960
+        ]
+      },
+      "groups": [
+        {
+          "baseline_acquisition_dates": [
+            "2021-09-26",
+            "2021-10-02",
+            "2021-10-08",
+            "2021-10-14",
+            "2021-10-20"
+          ],
+          "baseline_platforms": [
+            "A",
+            "B"
+          ],
+          "baseline_platforms_mixed": true,
+          "baseline_source_ids": [
+            "S1A_IW_GRDH_1SDV_20211002T054246_20211002T054311_039936_04B9DC_8DEF",
+            "S1A_IW_GRDH_1SDV_20211014T054246_20211014T054311_040111_04BFE2_7F8C",
+            "S1B_IW_GRDH_1SDV_20210926T054155_20210926T054220_028865_0371DA_8141",
+            "S1B_IW_GRDH_1SDV_20211008T054155_20211008T054220_029040_037716_DA46",
+            "S1B_IW_GRDH_1SDV_20211020T054156_20211020T054221_029215_037C8D_24AF"
+          ],
+          "eligibility": "metadata_eligible",
+          "radar_group": {
+            "pass": "DESCENDING",
+            "relative_orbit": 139
+          },
+          "target_acquisitions": 1,
+          "target_platforms": [
+            "A"
+          ],
+          "target_source_ids": [
+            "S1A_IW_GRDH_1SDV_20211026T054246_20211026T054311_040286_04C5FF_F6CC"
+          ]
+        },
+        {
+          "baseline_acquisition_dates": [
+            "2021-09-29",
+            "2021-10-05",
+            "2021-10-11",
+            "2021-10-17"
+          ],
+          "baseline_platforms": [
+            "A",
+            "B"
+          ],
+          "baseline_platforms_mixed": true,
+          "baseline_source_ids": [
+            "S1A_IW_GRDH_1SDV_20211005T171626_20211005T171651_039987_04BBA4_2635",
+            "S1A_IW_GRDH_1SDV_20211017T171626_20211017T171651_040162_04C1B1_0F8F",
+            "S1B_IW_GRDH_1SDV_20210929T171556_20210929T171621_028916_03736D_8355",
+            "S1B_IW_GRDH_1SDV_20211011T171556_20211011T171621_029091_0378A9_50F2"
+          ],
+          "eligibility": "metadata_eligible",
+          "radar_group": {
+            "pass": "ASCENDING",
+            "relative_orbit": 15
+          },
+          "target_acquisitions": 2,
+          "target_platforms": [
+            "A",
+            "B"
+          ],
+          "target_source_ids": [
+            "S1A_IW_GRDH_1SDV_20211029T171626_20211029T171651_040337_04C7C4_C729",
+            "S1B_IW_GRDH_1SDV_20211023T171557_20211023T171622_029266_037E15_72DB"
+          ]
+        },
+        {
+          "baseline_acquisition_dates": [
+            "2021-09-27",
+            "2021-10-03",
+            "2021-10-09",
+            "2021-10-15",
+            "2021-10-21"
+          ],
+          "baseline_platforms": [
+            "A",
+            "B"
+          ],
+          "baseline_platforms_mixed": true,
+          "baseline_source_ids": [
+            "S1A_IW_GRDH_1SDV_20210927T053423_20210927T053448_039863_04B74D_2A48",
+            "S1A_IW_GRDH_1SDV_20211009T053423_20211009T053448_040038_04BD5B_C008",
+            "S1A_IW_GRDH_1SDV_20211021T053423_20211021T053448_040213_04C36F_CC03",
+            "S1B_IW_GRDH_1SDV_20211003T053350_20211003T053415_028967_0374ED_0BFC",
+            "S1B_IW_GRDH_1SDV_20211015T053349_20211015T053414_029142_037A4A_D157"
+          ],
+          "eligibility": "metadata_eligible",
+          "radar_group": {
+            "pass": "DESCENDING",
+            "relative_orbit": 66
+          },
+          "target_acquisitions": 1,
+          "target_platforms": [
+            "B"
+          ],
+          "target_source_ids": [
+            "S1B_IW_GRDH_1SDV_20211027T053349_20211027T053414_029317_037FB9_BE9D"
+          ]
+        }
+      ],
+      "intersecting_grd_products_in_case_dates": 18,
+      "quiet_ground_truth_established": false,
+      "target_timing_only": [
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20211023T171557_20211023T171622_029266_037E15_72DB",
+          "relative_to_approximate_event": "before",
+          "start_time": "2021-10-23T17:15:57Z"
+        },
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211026T054246_20211026T054311_040286_04C5FF_F6CC",
+          "relative_to_approximate_event": "before",
+          "start_time": "2021-10-26T05:42:46Z"
+        },
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20211027T053349_20211027T053414_029317_037FB9_BE9D",
+          "relative_to_approximate_event": "before",
+          "start_time": "2021-10-27T05:33:49Z"
+        },
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211029T171626_20211029T171651_040337_04C7C4_C729",
+          "relative_to_approximate_event": "before",
+          "start_time": "2021-10-29T17:16:26Z"
+        }
+      ],
+      "windows": {
+        "baseline_end": "2021-10-23",
+        "baseline_start": "2021-09-25",
+        "target_end": "2021-10-30",
+        "target_start": "2021-10-23"
+      }
+    }
+  },
+  "kind": "offline public GRD metadata eligibility replay",
+  "limitations": [
+    "Recorded spatial filtering is trusted; this replay does not query any catalog.",
+    "ASF original products and CDSE COG counterparts do not prove EE ingestion.",
+    "Metadata eligibility does not establish per-pixel mask coverage or quietness.",
+    "Event timing annotates targets only; it never removes a production-eligible source."
+  ],
+  "minimum_distinct_baseline_days": 2,
+  "schema_version": 1
+}

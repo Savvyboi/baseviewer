@@ -287,17 +287,27 @@ quiet/change pair are the next science preparation; further live analysis still
 requires specific approval. [Scope and next steps](imagery-diagnostics.md) retain the
 remaining limitations.
 
-## Optional shared optical review display
+## Prepared civilian radar comparison candidates
 
-An opt-in paired optical range now adds alternate baseline/target/overlay PNGs beside
-the fixed originals in isolated review reports. One scalar envelope of both dates’
-RGB band 5th/95th percentiles uses common valid cells, unchanged gamma 1.2 and the
-existing 10 m grid. Actual bounds, method/scope and fixed clipping support are saved;
-fixed and alternate PNG endpoint notices are measured separately. Missing/malformed
-statistics and partial render/storage failures preserve science and cause a retryable
-partial error. Fresh rendering records retain normal review-timestamp isolation.
+Two 500 m Salzbachtal bridge cases are frozen before detector output: the documented
+November 6, 2021 demolition and an earlier reference candidate anchored by
+authority-dated October 27 photographs. [Selection and exact proposed live actions](civilian-radar-comparison.md)
+retain the inputs and evidence gap. ASF and Copernicus public metadata independently
+confirm 24 acquisitions across the union dates, with three event targets and four
+reference targets in matching production orbit/pass groups. Every group has four
+or five baseline days; all baselines mix A/B platforms, and no November 6 scene
+occurs. Exact IDs, footprints, queries and offline replay are retained.
 
-[Rendering policy, offline evidence and one-case live proposal](optical-review-rendering.md)
-explain access, cache upgrades and limitations. No new live render, protected-main
-write, deployment or schedule expansion was performed. Actual Gobabeb detail recovery
-remains unverified; synthetic QA is not human adjudication or imagery accuracy.
+Public metadata does not verify Earth Engine ingestion or valid-cell coverage.
+Documented preparation/protective works prevent a quiet label for the earlier or
+adjacent cases. A bounded DLR calibration-source audit likewise supplies point-target
+stability rather than whole-AOI quietness. Quiet ground truth, independent human
+review and discrimination accuracy remain open. The two new manual case choices
+are artifact-only; no new live request, main merge or deployment was performed.
+
+All 105 offline tests and lint/format checks pass. Actual acquisition timestamps for
+both sensors now retain visible before/after/straddling/unknown context relative to
+the approximate event time, including insufficient comparisons. Synthetic desktop,
+mobile and no-JavaScript checks passed; [QA evidence](evidence/salzbachtal-qa-2026-10-17.json)
+records the checks. Timing annotations do not change sources, detector results or
+review identities.

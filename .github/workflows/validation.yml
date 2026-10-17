@@ -12,7 +12,7 @@ on:
       case_id:
         description: Frozen artifact-only imagery case
         type: choice
-        options: [park-fire-event, park-fire-pre-event, huoshenshan-event, huoshenshan-pre-event, huoshenshan-nearby, gobabeb-quiet-reference]
+        options: [park-fire-event, park-fire-pre-event, huoshenshan-event, huoshenshan-pre-event, huoshenshan-nearby, gobabeb-quiet-reference, salzbachtal-demolition, salzbachtal-pre-demolition]
         default: park-fire-event
       imagery_diagnostics:
         description: Source eligibility, validity and pre-patch optical values (extra compute)

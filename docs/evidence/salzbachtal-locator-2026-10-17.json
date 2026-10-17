@@ -1,0 +1,338 @@
+{
+  "retrieved_at": "2026-10-17T15:58:44.803657+00:00",
+  "attribution": "OpenStreetMap contributors; ODbL; https://www.openstreetmap.org/copyright",
+  "sources": [
+    {
+      "url": "https://api.openstreetmap.org/api/0.6/way/499938151/full.json",
+      "response_sha256": "21623167e070b100c37f1fe29c99eefdbc509c7921559610a8ec930b4ee32c72",
+      "elements": [
+        {
+          "type": "node",
+          "id": 27089722,
+          "version": 20,
+          "timestamp": "2025-08-02T06:14:35Z",
+          "lat": 50.0520266,
+          "lon": 8.2529048
+        },
+        {
+          "type": "node",
+          "id": 265603394,
+          "version": 17,
+          "timestamp": "2025-08-02T06:13:39Z",
+          "lat": 50.0523237,
+          "lon": 8.2572446
+        },
+        {
+          "type": "node",
+          "id": 4911167508,
+          "version": 6,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0521989,
+          "lon": 8.254785
+        },
+        {
+          "type": "node",
+          "id": 4911167509,
+          "version": 6,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0522407,
+          "lon": 8.2554451
+        },
+        {
+          "type": "node",
+          "id": 4911167510,
+          "version": 5,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0520413,
+          "lon": 8.2547943
+        },
+        {
+          "type": "node",
+          "id": 4911167511,
+          "version": 5,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0519968,
+          "lon": 8.2539605
+        },
+        {
+          "type": "node",
+          "id": 4911167512,
+          "version": 8,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0524017,
+          "lon": 8.2572272
+        },
+        {
+          "type": "node",
+          "id": 4911167513,
+          "version": 8,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0522456,
+          "lon": 8.2572721
+        },
+        {
+          "type": "node",
+          "id": 4911167514,
+          "version": 7,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0519557,
+          "lon": 8.2529147
+        },
+        {
+          "type": "node",
+          "id": 4911167515,
+          "version": 7,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.052105,
+          "lon": 8.2529003
+        },
+        {
+          "type": "node",
+          "id": 5106815451,
+          "version": 6,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0522039,
+          "lon": 8.256822
+        },
+        {
+          "type": "node",
+          "id": 11398718066,
+          "version": 7,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0523679,
+          "lon": 8.2572386
+        },
+        {
+          "type": "node",
+          "id": 11434339664,
+          "version": 2,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0521047,
+          "lon": 8.2557672
+        },
+        {
+          "type": "node",
+          "id": 12586026573,
+          "version": 1,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0521451,
+          "lon": 8.2562242
+        },
+        {
+          "type": "node",
+          "id": 12586026574,
+          "version": 1,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0521454,
+          "lon": 8.2539294
+        },
+        {
+          "type": "node",
+          "id": 12586026575,
+          "version": 1,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0523109,
+          "lon": 8.2562573
+        },
+        {
+          "type": "way",
+          "id": 499938151,
+          "version": 19,
+          "timestamp": "2025-10-02T18:57:20Z",
+          "nodes": [
+            4911167515,
+            27089722,
+            4911167514,
+            4911167511,
+            4911167510,
+            11434339664,
+            12586026573,
+            5106815451,
+            4911167513,
+            265603394,
+            11398718066,
+            4911167512,
+            12586026575,
+            4911167509,
+            4911167508,
+            12586026574,
+            4911167515
+          ],
+          "tags": {
+            "bridge": "viaduct",
+            "bridge:structure": "beam",
+            "description": "Südteil der neuen Salzbachtalbrücke",
+            "layer": "1",
+            "man_made": "bridge",
+            "name": "Salzbachtalbrücke",
+            "note": "Bitte die Brückenfläche nicht nach den Luftbildern anpassen, dort ist noch die alte Brücke zu sehen. Die neue Salzbachtalbrücke ist deutlich breiter!",
+            "wikidata": "Q23786642",
+            "wikimedia_commons": "Category:Salzbachtalbrücke",
+            "wikipedia": "de:Salzbachtalbrücke"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://api.openstreetmap.org/api/0.6/way/1229149143/full.json",
+      "response_sha256": "e8a1cf3e39751370877322397df11ae6f4bf938f98e419d02ab91b14d79a1970",
+      "elements": [
+        {
+          "type": "node",
+          "id": 6542760465,
+          "version": 4,
+          "timestamp": "2025-10-02T18:57:20Z",
+          "lat": 50.0525052,
+          "lon": 8.2572908
+        },
+        {
+          "type": "node",
+          "id": 11398864093,
+          "version": 4,
+          "timestamp": "2025-08-02T06:13:39Z",
+          "lat": 50.0521795,
+          "lon": 8.2528403
+        },
+        {
+          "type": "node",
+          "id": 11398864095,
+          "version": 2,
+          "timestamp": "2024-05-13T16:38:19Z",
+          "lat": 50.0522624,
+          "lon": 8.2528341
+        },
+        {
+          "type": "node",
+          "id": 11398864096,
+          "version": 3,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0521152,
+          "lon": 8.2528449
+        },
+        {
+          "type": "node",
+          "id": 11398864097,
+          "version": 3,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0521586,
+          "lon": 8.2539389
+        },
+        {
+          "type": "node",
+          "id": 11398864098,
+          "version": 3,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.052212,
+          "lon": 8.254835
+        },
+        {
+          "type": "node",
+          "id": 11398864099,
+          "version": 3,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0523647,
+          "lon": 8.2567165
+        },
+        {
+          "type": "node",
+          "id": 11398864100,
+          "version": 4,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0524244,
+          "lon": 8.2573098
+        },
+        {
+          "type": "node",
+          "id": 11398864101,
+          "version": 3,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0525819,
+          "lon": 8.2572708
+        },
+        {
+          "type": "node",
+          "id": 11398864102,
+          "version": 2,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0523779,
+          "lon": 8.2548318
+        },
+        {
+          "type": "node",
+          "id": 11398864103,
+          "version": 2,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0523191,
+          "lon": 8.2540016
+        },
+        {
+          "type": "node",
+          "id": 12436667872,
+          "version": 2,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0523085,
+          "lon": 8.256095
+        },
+        {
+          "type": "node",
+          "id": 12586026577,
+          "version": 1,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0522518,
+          "lon": 8.2554423
+        },
+        {
+          "type": "node",
+          "id": 12586026592,
+          "version": 1,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0524219,
+          "lon": 8.2554339
+        },
+        {
+          "type": "node",
+          "id": 12586026593,
+          "version": 1,
+          "timestamp": "2025-02-13T20:42:21Z",
+          "lat": 50.0524752,
+          "lon": 8.2561002
+        },
+        {
+          "type": "way",
+          "id": 1229149143,
+          "version": 6,
+          "timestamp": "2025-10-02T18:57:20Z",
+          "nodes": [
+            11398864095,
+            11398864093,
+            11398864096,
+            11398864097,
+            11398864098,
+            12586026577,
+            12436667872,
+            11398864099,
+            11398864100,
+            6542760465,
+            11398864101,
+            12586026593,
+            12586026592,
+            11398864102,
+            11398864103,
+            11398864095
+          ],
+          "tags": {
+            "bridge": "viaduct",
+            "bridge:structure": "beam",
+            "description": "Nordteil der neuen Salzbachtalbrücke",
+            "layer": "1",
+            "man_made": "bridge",
+            "name": "Salzbachtalbrücke",
+            "wikidata": "Q23786642",
+            "wikimedia_commons": "Category:Salzbachtalbrücke",
+            "wikipedia": "de:Salzbachtalbrücke"
+          }
+        }
+      ]
+    }
+  ]
+}

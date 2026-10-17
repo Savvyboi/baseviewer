@@ -1,0 +1,2359 @@
+{
+  "schema_version": 1,
+  "scope": "Public GRD product metadata; no EE request, imagery processing, raster download, detector output or review data",
+  "site": {
+    "id": "salzbachtal-demolition",
+    "name": "Salzbachtal demolition",
+    "latitude": 50.0522688,
+    "longitude": 8.25507195,
+    "size_m": 500
+  },
+  "grid": {
+    "crs": "EPSG:32632",
+    "transform": [
+      10,
+      0,
+      446420,
+      0,
+      -10,
+      5544960
+    ],
+    "bounds": [
+      446420,
+      5544460,
+      446920,
+      5544960
+    ],
+    "cells": 2500
+  },
+  "aoi_geojson": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          8.251595936119873,
+          50.0500159746376
+        ],
+        [
+          8.258579301006442,
+          50.05006079382927
+        ],
+        [
+          8.258510012911607,
+          50.05455740288966
+        ],
+        [
+          8.25152599555544,
+          50.05451257659826
+        ],
+        [
+          8.251595936119873,
+          50.0500159746376
+        ]
+      ]
+    ]
+  },
+  "aoi_wkt": "POLYGON((8.2515959361 50.0500159746,8.2585793010 50.0500607938,8.2585100129 50.0545574029,8.2515259956 50.0545125766,8.2515959361 50.0500159746))",
+  "union_start_inclusive": "2021-09-25T00:00:00Z",
+  "union_end_exclusive": "2021-11-13T00:00:00Z",
+  "providers": [
+    {
+      "provider": "asf",
+      "query_url": "https://api.daac.asf.alaska.edu/services/search/param?platform=Sentinel-1A%2CSentinel-1B&processingLevel=GRD_HD%2CGRD_MD%2CGRD_HS%2CGRD_MS%2CGRD_FD&start=2021-09-25T00%3A00%3A00Z&end=2021-11-13T00%3A00%3A00Z&intersectsWith=POLYGON%28%288.2515959361+50.0500159746%2C8.2585793010+50.0500607938%2C8.2585100129+50.0545574029%2C8.2515259956+50.0545125766%2C8.2515959361+50.0500159746%29%29&maxResults=200&output=geojson",
+      "parameters": {
+        "platform": "Sentinel-1A,Sentinel-1B",
+        "processingLevel": "GRD_HD,GRD_MD,GRD_HS,GRD_MS,GRD_FD",
+        "start": "2021-09-25T00:00:00Z",
+        "end": "2021-11-13T00:00:00Z",
+        "intersectsWith": "POLYGON((8.2515959361 50.0500159746,8.2585793010 50.0500607938,8.2585100129 50.0545574029,8.2515259956 50.0545125766,8.2515959361 50.0500159746))",
+        "maxResults": "200",
+        "output": "geojson"
+      },
+      "retrieved_start_utc": "2026-10-17T15:59:30.298093+00:00",
+      "retrieved_end_utc": "2026-10-17T15:59:31.630182+00:00",
+      "returned_count": 24,
+      "max_results": 200,
+      "limit_reached": false,
+      "next_link_present": false,
+      "raw_response_sha256": "1890d844c09d206b515b07b62ed95ea1a4ba47207aaf0bfc0936a2e1f2241786",
+      "raw_local_filename": "asf-union-response.json"
+    },
+    {
+      "provider": "cdse",
+      "query_url": "https://stac.dataspace.copernicus.eu/v1/search?collections=sentinel-1-grd&intersects=%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B8.251595936119873%2C50.0500159746376%5D%2C%5B8.258579301006442%2C50.05006079382927%5D%2C%5B8.258510012911607%2C50.05455740288966%5D%2C%5B8.25152599555544%2C50.05451257659826%5D%2C%5B8.251595936119873%2C50.0500159746376%5D%5D%5D%7D&datetime=2021-09-25T00%3A00%3A00Z%2F2021-11-13T00%3A00%3A00Z&limit=200",
+      "parameters": {
+        "collections": "sentinel-1-grd",
+        "intersects": "{\"type\":\"Polygon\",\"coordinates\":[[[8.251595936119873,50.0500159746376],[8.258579301006442,50.05006079382927],[8.258510012911607,50.05455740288966],[8.25152599555544,50.05451257659826],[8.251595936119873,50.0500159746376]]]}",
+        "datetime": "2021-09-25T00:00:00Z/2021-11-13T00:00:00Z",
+        "limit": "200"
+      },
+      "retrieved_start_utc": "2026-10-17T15:59:31.631191+00:00",
+      "retrieved_end_utc": "2026-10-17T15:59:32.013057+00:00",
+      "returned_count": 24,
+      "max_results": 200,
+      "limit_reached": false,
+      "next_link_present": false,
+      "raw_response_sha256": "60fd93294c1c82e84bb9d0dcdaec1df8413082c03123e2bce2fdc0853219e5d6",
+      "raw_local_filename": "cdse-union-response.json"
+    }
+  ],
+  "items": [
+    {
+      "product_id": "S1B_IW_GRDH_1SDV_20210926T054155_20210926T054220_028865_0371DA_8141",
+      "start_time": "2021-09-26T05:41:55Z",
+      "stop_time": "2021-09-26T05:42:20Z",
+      "relative_orbit": 139,
+      "pass": "DESCENDING",
+      "platform": "B",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 28865,
+      "datatake": 225754,
+      "datatake_hex": "0371DA",
+      "asf_file_id": "S1B_IW_GRDH_1SDV_20210926T054155_20210926T054220_028865_0371DA_8141-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              9.126209,
+              49.491299
+            ],
+            [
+              9.598256,
+              50.985775
+            ],
+            [
+              5.836686,
+              51.400547
+            ],
+            [
+              5.480798,
+              49.904434
+            ],
+            [
+              9.126209,
+              49.491299
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20210926T054155_20210926T054220_028865_0371DA_B23D_COG",
+          "start_time": "2021-09-26T05:41:55.595799Z",
+          "stop_time": "2021-09-26T05:42:20.593596Z",
+          "relative_orbit": 139,
+          "pass": "DESCENDING",
+          "platform": "B",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 28865,
+          "datatake": 225754,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  9.126209,
+                  49.491299
+                ],
+                [
+                  5.480798,
+                  49.904434
+                ],
+                [
+                  5.836686,
+                  51.400547
+                ],
+                [
+                  9.598256,
+                  50.985775
+                ],
+                [
+                  9.126209,
+                  49.491299
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20210927T053423_20210927T053448_039863_04B74D_2A48",
+      "start_time": "2021-09-27T05:34:23Z",
+      "stop_time": "2021-09-27T05:34:48Z",
+      "relative_orbit": 66,
+      "pass": "DESCENDING",
+      "platform": "A",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 39863,
+      "datatake": 309069,
+      "datatake_hex": "04B74D",
+      "asf_file_id": "S1A_IW_GRDH_1SDV_20210927T053423_20210927T053448_039863_04B74D_2A48-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              11.164328,
+              49.528553
+            ],
+            [
+              11.6411,
+              51.022465
+            ],
+            [
+              7.910807,
+              51.433266
+            ],
+            [
+              7.54941,
+              49.937557
+            ],
+            [
+              11.164328,
+              49.528553
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20210927T053423_20210927T053448_039863_04B74D_B3E0_COG",
+          "start_time": "2021-09-27T05:34:23.232951Z",
+          "stop_time": "2021-09-27T05:34:48.232215Z",
+          "relative_orbit": 66,
+          "pass": "DESCENDING",
+          "platform": "A",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 39863,
+          "datatake": 309069,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  11.164328,
+                  49.528553
+                ],
+                [
+                  7.54941,
+                  49.937557
+                ],
+                [
+                  7.910807,
+                  51.433266
+                ],
+                [
+                  11.6411,
+                  51.022465
+                ],
+                [
+                  11.164328,
+                  49.528553
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1B_IW_GRDH_1SDV_20210929T171556_20210929T171621_028916_03736D_8355",
+      "start_time": "2021-09-29T17:15:56Z",
+      "stop_time": "2021-09-29T17:16:21Z",
+      "relative_orbit": 15,
+      "pass": "ASCENDING",
+      "platform": "B",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 28916,
+      "datatake": 226157,
+      "datatake_hex": "03736D",
+      "asf_file_id": "S1B_IW_GRDH_1SDV_20210929T171556_20210929T171621_028916_03736D_8355-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              6.105092,
+              51.076965
+            ],
+            [
+              6.58797,
+              49.583672
+            ],
+            [
+              10.221308,
+              49.995022
+            ],
+            [
+              9.854653,
+              51.490334
+            ],
+            [
+              6.105092,
+              51.076965
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20210929T171556_20210929T171621_028916_03736D_2C04_COG",
+          "start_time": "2021-09-29T17:15:56.624451Z",
+          "stop_time": "2021-09-29T17:16:21.622917Z",
+          "relative_orbit": 15,
+          "pass": "ASCENDING",
+          "platform": "B",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 28916,
+          "datatake": 226157,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  6.105092,
+                  51.076965
+                ],
+                [
+                  9.854653,
+                  51.490334
+                ],
+                [
+                  10.221308,
+                  49.995022
+                ],
+                [
+                  6.58797,
+                  49.583672
+                ],
+                [
+                  6.105092,
+                  51.076965
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20211002T054246_20211002T054311_039936_04B9DC_8DEF",
+      "start_time": "2021-10-02T05:42:46Z",
+      "stop_time": "2021-10-02T05:43:11Z",
+      "relative_orbit": 139,
+      "pass": "DESCENDING",
+      "platform": "A",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 39936,
+      "datatake": 309724,
+      "datatake_hex": "04B9DC",
+      "asf_file_id": "S1A_IW_GRDH_1SDV_20211002T054246_20211002T054311_039936_04B9DC_8DEF-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              8.942477,
+              48.989651
+            ],
+            [
+              9.408565,
+              50.484482
+            ],
+            [
+              5.723557,
+              50.894272
+            ],
+            [
+              5.369298,
+              49.397999
+            ],
+            [
+              8.942477,
+              48.989651
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211002T054246_20211002T054311_039936_04B9DC_BC08_COG",
+          "start_time": "2021-10-02T05:42:46.078422Z",
+          "stop_time": "2021-10-02T05:43:11.076877Z",
+          "relative_orbit": 139,
+          "pass": "DESCENDING",
+          "platform": "A",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 39936,
+          "datatake": 309724,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  8.942477,
+                  48.989651
+                ],
+                [
+                  5.369298,
+                  49.397999
+                ],
+                [
+                  5.723557,
+                  50.894272
+                ],
+                [
+                  9.408565,
+                  50.484482
+                ],
+                [
+                  8.942477,
+                  48.989651
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1B_IW_GRDH_1SDV_20211003T053350_20211003T053415_028967_0374ED_0BFC",
+      "start_time": "2021-10-03T05:33:50Z",
+      "stop_time": "2021-10-03T05:34:15Z",
+      "relative_orbit": 66,
+      "pass": "DESCENDING",
+      "platform": "B",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 28967,
+      "datatake": 226541,
+      "datatake_hex": "0374ED",
+      "asf_file_id": "S1B_IW_GRDH_1SDV_20211003T053350_20211003T053415_028967_0374ED_0BFC-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              10.986318,
+              49.03672
+            ],
+            [
+              11.452113,
+              50.531502
+            ],
+            [
+              7.790426,
+              50.937943
+            ],
+            [
+              7.436022,
+              49.441719
+            ],
+            [
+              10.986318,
+              49.03672
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20211003T053350_20211003T053415_028967_0374ED_F431_COG",
+          "start_time": "2021-10-03T05:33:50.194219Z",
+          "stop_time": "2021-10-03T05:34:15.191855Z",
+          "relative_orbit": 66,
+          "pass": "DESCENDING",
+          "platform": "B",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 28967,
+          "datatake": 226541,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  10.986318,
+                  49.03672
+                ],
+                [
+                  7.436022,
+                  49.441719
+                ],
+                [
+                  7.790426,
+                  50.937943
+                ],
+                [
+                  11.452113,
+                  50.531502
+                ],
+                [
+                  10.986318,
+                  49.03672
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20211005T171626_20211005T171651_039987_04BBA4_2635",
+      "start_time": "2021-10-05T17:16:26Z",
+      "stop_time": "2021-10-05T17:16:51Z",
+      "relative_orbit": 15,
+      "pass": "ASCENDING",
+      "platform": "A",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 39987,
+      "datatake": 310180,
+      "datatake_hex": "04BBA4",
+      "asf_file_id": "S1A_IW_GRDH_1SDV_20211005T171626_20211005T171651_039987_04BBA4_2635-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              6.372979,
+              50.347958
+            ],
+            [
+              6.837326,
+              48.852886
+            ],
+            [
+              10.382154,
+              49.259384
+            ],
+            [
+              10.028295,
+              50.755863
+            ],
+            [
+              6.372979,
+              50.347958
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211005T171626_20211005T171651_039987_04BBA4_D961_COG",
+          "start_time": "2021-10-05T17:16:26.381407Z",
+          "stop_time": "2021-10-05T17:16:51.380223Z",
+          "relative_orbit": 15,
+          "pass": "ASCENDING",
+          "platform": "A",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 39987,
+          "datatake": 310180,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  6.372979,
+                  50.347958
+                ],
+                [
+                  10.028295,
+                  50.755863
+                ],
+                [
+                  10.382154,
+                  49.259384
+                ],
+                [
+                  6.837326,
+                  48.852886
+                ],
+                [
+                  6.372979,
+                  50.347958
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1B_IW_GRDH_1SDV_20211008T054155_20211008T054220_029040_037716_DA46",
+      "start_time": "2021-10-08T05:41:55Z",
+      "stop_time": "2021-10-08T05:42:20Z",
+      "relative_orbit": 139,
+      "pass": "DESCENDING",
+      "platform": "B",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 29040,
+      "datatake": 227094,
+      "datatake_hex": "037716",
+      "asf_file_id": "S1B_IW_GRDH_1SDV_20211008T054155_20211008T054220_029040_037716_DA46-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              9.126213,
+              49.491417
+            ],
+            [
+              9.598258,
+              50.985985
+            ],
+            [
+              5.83652,
+              51.400734
+            ],
+            [
+              5.480647,
+              49.904526
+            ],
+            [
+              9.126213,
+              49.491417
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20211008T054155_20211008T054220_029040_037716_C415_COG",
+          "start_time": "2021-10-08T05:41:55.712466Z",
+          "stop_time": "2021-10-08T05:42:20.711779Z",
+          "relative_orbit": 139,
+          "pass": "DESCENDING",
+          "platform": "B",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 29040,
+          "datatake": 227094,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  9.126213,
+                  49.491417
+                ],
+                [
+                  5.480647,
+                  49.904526
+                ],
+                [
+                  5.83652,
+                  51.400734
+                ],
+                [
+                  9.598258,
+                  50.985985
+                ],
+                [
+                  9.126213,
+                  49.491417
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20211009T053423_20211009T053448_040038_04BD5B_C008",
+      "start_time": "2021-10-09T05:34:23Z",
+      "stop_time": "2021-10-09T05:34:48Z",
+      "relative_orbit": 66,
+      "pass": "DESCENDING",
+      "platform": "A",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 40038,
+      "datatake": 310619,
+      "datatake_hex": "04BD5B",
+      "asf_file_id": "S1A_IW_GRDH_1SDV_20211009T053423_20211009T053448_040038_04BD5B_C008-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              11.164148,
+              49.528595
+            ],
+            [
+              11.640898,
+              51.022511
+            ],
+            [
+              7.91045,
+              51.433285
+            ],
+            [
+              7.549082,
+              49.937576
+            ],
+            [
+              11.164148,
+              49.528595
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211009T053423_20211009T053448_040038_04BD5B_146E_COG",
+          "start_time": "2021-10-09T05:34:23.374610Z",
+          "stop_time": "2021-10-09T05:34:48.373904Z",
+          "relative_orbit": 66,
+          "pass": "DESCENDING",
+          "platform": "A",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 40038,
+          "datatake": 310619,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  11.164148,
+                  49.528595
+                ],
+                [
+                  7.549082,
+                  49.937576
+                ],
+                [
+                  7.91045,
+                  51.433285
+                ],
+                [
+                  11.640898,
+                  51.022511
+                ],
+                [
+                  11.164148,
+                  49.528595
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1B_IW_GRDH_1SDV_20211011T171556_20211011T171621_029091_0378A9_50F2",
+      "start_time": "2021-10-11T17:15:56Z",
+      "stop_time": "2021-10-11T17:16:21Z",
+      "relative_orbit": 15,
+      "pass": "ASCENDING",
+      "platform": "B",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 29091,
+      "datatake": 227497,
+      "datatake_hex": "0378A9",
+      "asf_file_id": "S1B_IW_GRDH_1SDV_20211011T171556_20211011T171621_029091_0378A9_50F2-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              6.104734,
+              51.076859
+            ],
+            [
+              6.587622,
+              49.583565
+            ],
+            [
+              10.221088,
+              49.994938
+            ],
+            [
+              9.854428,
+              51.490246
+            ],
+            [
+              6.104734,
+              51.076859
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20211011T171556_20211011T171621_029091_0378A9_3256_COG",
+          "start_time": "2021-10-11T17:15:56.811813Z",
+          "stop_time": "2021-10-11T17:16:21.810356Z",
+          "relative_orbit": 15,
+          "pass": "ASCENDING",
+          "platform": "B",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 29091,
+          "datatake": 227497,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  6.104734,
+                  51.076859
+                ],
+                [
+                  9.854428,
+                  51.490246
+                ],
+                [
+                  10.221088,
+                  49.994938
+                ],
+                [
+                  6.587622,
+                  49.583565
+                ],
+                [
+                  6.104734,
+                  51.076859
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20211014T054246_20211014T054311_040111_04BFE2_7F8C",
+      "start_time": "2021-10-14T05:42:46Z",
+      "stop_time": "2021-10-14T05:43:11Z",
+      "relative_orbit": 139,
+      "pass": "DESCENDING",
+      "platform": "A",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 40111,
+      "datatake": 311266,
+      "datatake_hex": "04BFE2",
+      "asf_file_id": "S1A_IW_GRDH_1SDV_20211014T054246_20211014T054311_040111_04BFE2_7F8C-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              8.943446,
+              48.989689
+            ],
+            [
+              9.40961,
+              50.484509
+            ],
+            [
+              5.724471,
+              50.894356
+            ],
+            [
+              5.370136,
+              49.398087
+            ],
+            [
+              8.943446,
+              48.989689
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211014T054246_20211014T054311_040111_04BFE2_23B5_COG",
+          "start_time": "2021-10-14T05:42:46.115496Z",
+          "stop_time": "2021-10-14T05:43:11.114002Z",
+          "relative_orbit": 139,
+          "pass": "DESCENDING",
+          "platform": "A",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 40111,
+          "datatake": 311266,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  8.943446,
+                  48.989689
+                ],
+                [
+                  5.370136,
+                  49.398087
+                ],
+                [
+                  5.724471,
+                  50.894356
+                ],
+                [
+                  9.40961,
+                  50.484509
+                ],
+                [
+                  8.943446,
+                  48.989689
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1B_IW_GRDH_1SDV_20211015T053349_20211015T053414_029142_037A4A_D157",
+      "start_time": "2021-10-15T05:33:49Z",
+      "stop_time": "2021-10-15T05:34:14Z",
+      "relative_orbit": 66,
+      "pass": "DESCENDING",
+      "platform": "B",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 29142,
+      "datatake": 227914,
+      "datatake_hex": "037A4A",
+      "asf_file_id": "S1B_IW_GRDH_1SDV_20211015T053349_20211015T053414_029142_037A4A_D157-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              10.989276,
+              49.036739
+            ],
+            [
+              11.455158,
+              50.531609
+            ],
+            [
+              7.793194,
+              50.938133
+            ],
+            [
+              7.438719,
+              49.441822
+            ],
+            [
+              10.989276,
+              49.036739
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20211015T053349_20211015T053414_029142_037A4A_B032_COG",
+          "start_time": "2021-10-15T05:33:49.874782Z",
+          "stop_time": "2021-10-15T05:34:14.874042Z",
+          "relative_orbit": 66,
+          "pass": "DESCENDING",
+          "platform": "B",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 29142,
+          "datatake": 227914,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  10.989276,
+                  49.036739
+                ],
+                [
+                  7.438719,
+                  49.441822
+                ],
+                [
+                  7.793194,
+                  50.938133
+                ],
+                [
+                  11.455158,
+                  50.531609
+                ],
+                [
+                  10.989276,
+                  49.036739
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20211017T171626_20211017T171651_040162_04C1B1_0F8F",
+      "start_time": "2021-10-17T17:16:26Z",
+      "stop_time": "2021-10-17T17:16:51Z",
+      "relative_orbit": 15,
+      "pass": "ASCENDING",
+      "platform": "A",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 40162,
+      "datatake": 311729,
+      "datatake_hex": "04C1B1",
+      "asf_file_id": "S1A_IW_GRDH_1SDV_20211017T171626_20211017T171651_040162_04C1B1_0F8F-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              6.371686,
+              50.347801
+            ],
+            [
+              6.836048,
+              48.852825
+            ],
+            [
+              10.380998,
+              49.259377
+            ],
+            [
+              10.02712,
+              50.75576
+            ],
+            [
+              6.371686,
+              50.347801
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211017T171626_20211017T171651_040162_04C1B1_30D7_COG",
+          "start_time": "2021-10-17T17:16:26.557369Z",
+          "stop_time": "2021-10-17T17:16:51.554770Z",
+          "relative_orbit": 15,
+          "pass": "ASCENDING",
+          "platform": "A",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 40162,
+          "datatake": 311729,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  6.371686,
+                  50.347801
+                ],
+                [
+                  10.02712,
+                  50.75576
+                ],
+                [
+                  10.380998,
+                  49.259377
+                ],
+                [
+                  6.836048,
+                  48.852825
+                ],
+                [
+                  6.371686,
+                  50.347801
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1B_IW_GRDH_1SDV_20211020T054156_20211020T054221_029215_037C8D_24AF",
+      "start_time": "2021-10-20T05:41:56Z",
+      "stop_time": "2021-10-20T05:42:21Z",
+      "relative_orbit": 139,
+      "pass": "DESCENDING",
+      "platform": "B",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 29215,
+      "datatake": 228493,
+      "datatake_hex": "037C8D",
+      "asf_file_id": "S1B_IW_GRDH_1SDV_20211020T054156_20211020T054221_029215_037C8D_24AF-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              9.125443,
+              49.491524
+            ],
+            [
+              9.597466,
+              50.986
+            ],
+            [
+              5.835584,
+              51.400757
+            ],
+            [
+              5.479731,
+              49.90464
+            ],
+            [
+              9.125443,
+              49.491524
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20211020T054156_20211020T054221_029215_037C8D_715A_COG",
+          "start_time": "2021-10-20T05:41:56.022268Z",
+          "stop_time": "2021-10-20T05:42:21.020115Z",
+          "relative_orbit": 139,
+          "pass": "DESCENDING",
+          "platform": "B",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 29215,
+          "datatake": 228493,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  9.125443,
+                  49.491524
+                ],
+                [
+                  5.479731,
+                  49.90464
+                ],
+                [
+                  5.835584,
+                  51.400757
+                ],
+                [
+                  9.597466,
+                  50.986
+                ],
+                [
+                  9.125443,
+                  49.491524
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20211021T053423_20211021T053448_040213_04C36F_CC03",
+      "start_time": "2021-10-21T05:34:23Z",
+      "stop_time": "2021-10-21T05:34:48Z",
+      "relative_orbit": 66,
+      "pass": "DESCENDING",
+      "platform": "A",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 40213,
+      "datatake": 312175,
+      "datatake_hex": "04C36F",
+      "asf_file_id": "S1A_IW_GRDH_1SDV_20211021T053423_20211021T053448_040213_04C36F_CC03-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              11.163479,
+              49.528805
+            ],
+            [
+              11.640179,
+              51.022633
+            ],
+            [
+              7.909573,
+              51.433395
+            ],
+            [
+              7.548254,
+              49.937775
+            ],
+            [
+              11.163479,
+              49.528805
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211021T053423_20211021T053448_040213_04C36F_822C_COG",
+          "start_time": "2021-10-21T05:34:23.555247Z",
+          "stop_time": "2021-10-21T05:34:48.553072Z",
+          "relative_orbit": 66,
+          "pass": "DESCENDING",
+          "platform": "A",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 40213,
+          "datatake": 312175,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  11.163479,
+                  49.528805
+                ],
+                [
+                  7.548254,
+                  49.937775
+                ],
+                [
+                  7.909573,
+                  51.433395
+                ],
+                [
+                  11.640179,
+                  51.022633
+                ],
+                [
+                  11.163479,
+                  49.528805
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1B_IW_GRDH_1SDV_20211023T171557_20211023T171622_029266_037E15_72DB",
+      "start_time": "2021-10-23T17:15:57Z",
+      "stop_time": "2021-10-23T17:16:22Z",
+      "relative_orbit": 15,
+      "pass": "ASCENDING",
+      "platform": "B",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 29266,
+      "datatake": 228885,
+      "datatake_hex": "037E15",
+      "asf_file_id": "S1B_IW_GRDH_1SDV_20211023T171557_20211023T171622_029266_037E15_72DB-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              6.105201,
+              51.07682
+            ],
+            [
+              6.588037,
+              49.583523
+            ],
+            [
+              10.221651,
+              49.994858
+            ],
+            [
+              9.855047,
+              51.49017
+            ],
+            [
+              6.105201,
+              51.07682
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20211023T171557_20211023T171622_029266_037E15_D46E_COG",
+          "start_time": "2021-10-23T17:15:57.004467Z",
+          "stop_time": "2021-10-23T17:16:22.003097Z",
+          "relative_orbit": 15,
+          "pass": "ASCENDING",
+          "platform": "B",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 29266,
+          "datatake": 228885,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  6.105201,
+                  51.07682
+                ],
+                [
+                  9.855047,
+                  51.49017
+                ],
+                [
+                  10.221651,
+                  49.994858
+                ],
+                [
+                  6.588037,
+                  49.583523
+                ],
+                [
+                  6.105201,
+                  51.07682
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20211026T054246_20211026T054311_040286_04C5FF_F6CC",
+      "start_time": "2021-10-26T05:42:46Z",
+      "stop_time": "2021-10-26T05:43:11Z",
+      "relative_orbit": 139,
+      "pass": "DESCENDING",
+      "platform": "A",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 40286,
+      "datatake": 312831,
+      "datatake_hex": "04C5FF",
+      "asf_file_id": "S1A_IW_GRDH_1SDV_20211026T054246_20211026T054311_040286_04C5FF_F6CC-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              8.942361,
+              48.989761
+            ],
+            [
+              9.4085,
+              50.4846
+            ],
+            [
+              5.723343,
+              50.894413
+            ],
+            [
+              5.369039,
+              49.398125
+            ],
+            [
+              8.942361,
+              48.989761
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211026T054246_20211026T054311_040286_04C5FF_5D9F_COG",
+          "start_time": "2021-10-26T05:42:46.176942Z",
+          "stop_time": "2021-10-26T05:43:11.175776Z",
+          "relative_orbit": 139,
+          "pass": "DESCENDING",
+          "platform": "A",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 40286,
+          "datatake": 312831,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  8.942361,
+                  48.989761
+                ],
+                [
+                  5.369039,
+                  49.398125
+                ],
+                [
+                  5.723343,
+                  50.894413
+                ],
+                [
+                  9.4085,
+                  50.4846
+                ],
+                [
+                  8.942361,
+                  48.989761
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1B_IW_GRDH_1SDV_20211027T053349_20211027T053414_029317_037FB9_BE9D",
+      "start_time": "2021-10-27T05:33:49Z",
+      "stop_time": "2021-10-27T05:34:14Z",
+      "relative_orbit": 66,
+      "pass": "DESCENDING",
+      "platform": "B",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 29317,
+      "datatake": 229305,
+      "datatake_hex": "037FB9",
+      "asf_file_id": "S1B_IW_GRDH_1SDV_20211027T053349_20211027T053414_029317_037FB9_BE9D-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              10.988729,
+              49.036869
+            ],
+            [
+              11.454584,
+              50.531647
+            ],
+            [
+              7.792475,
+              50.938179
+            ],
+            [
+              7.438024,
+              49.441956
+            ],
+            [
+              10.988729,
+              49.036869
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20211027T053349_20211027T053414_029317_037FB9_AE35_COG",
+          "start_time": "2021-10-27T05:33:49.886533Z",
+          "stop_time": "2021-10-27T05:34:14.884351Z",
+          "relative_orbit": 66,
+          "pass": "DESCENDING",
+          "platform": "B",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 29317,
+          "datatake": 229305,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  10.988729,
+                  49.036869
+                ],
+                [
+                  7.438024,
+                  49.441956
+                ],
+                [
+                  7.792475,
+                  50.938179
+                ],
+                [
+                  11.454584,
+                  50.531647
+                ],
+                [
+                  10.988729,
+                  49.036869
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20211029T171626_20211029T171651_040337_04C7C4_C729",
+      "start_time": "2021-10-29T17:16:26Z",
+      "stop_time": "2021-10-29T17:16:51Z",
+      "relative_orbit": 15,
+      "pass": "ASCENDING",
+      "platform": "A",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 40337,
+      "datatake": 313284,
+      "datatake_hex": "04C7C4",
+      "asf_file_id": "S1A_IW_GRDH_1SDV_20211029T171626_20211029T171651_040337_04C7C4_C729-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              6.370363,
+              50.347725
+            ],
+            [
+              6.834808,
+              48.852669
+            ],
+            [
+              10.37987,
+              49.259281
+            ],
+            [
+              10.02592,
+              50.755753
+            ],
+            [
+              6.370363,
+              50.347725
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211029T171626_20211029T171651_040337_04C7C4_56B4_COG",
+          "start_time": "2021-10-29T17:16:26.403874Z",
+          "stop_time": "2021-10-29T17:16:51.402861Z",
+          "relative_orbit": 15,
+          "pass": "ASCENDING",
+          "platform": "A",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 40337,
+          "datatake": 313284,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  6.370363,
+                  50.347725
+                ],
+                [
+                  10.02592,
+                  50.755753
+                ],
+                [
+                  10.37987,
+                  49.259281
+                ],
+                [
+                  6.834808,
+                  48.852669
+                ],
+                [
+                  6.370363,
+                  50.347725
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1B_IW_GRDH_1SDV_20211101T054155_20211101T054220_029390_0381E9_1879",
+      "start_time": "2021-11-01T05:41:55Z",
+      "stop_time": "2021-11-01T05:42:20Z",
+      "relative_orbit": 139,
+      "pass": "DESCENDING",
+      "platform": "B",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 29390,
+      "datatake": 229865,
+      "datatake_hex": "0381E9",
+      "asf_file_id": "S1B_IW_GRDH_1SDV_20211101T054155_20211101T054220_029390_0381E9_1879-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              9.126526,
+              49.491505
+            ],
+            [
+              9.598601,
+              50.985973
+            ],
+            [
+              5.83659,
+              51.400795
+            ],
+            [
+              5.480687,
+              49.904682
+            ],
+            [
+              9.126526,
+              49.491505
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20211101T054155_20211101T054220_029390_0381E9_3CAA_COG",
+          "start_time": "2021-11-01T05:41:55.817970Z",
+          "stop_time": "2021-11-01T05:42:20.815858Z",
+          "relative_orbit": 139,
+          "pass": "DESCENDING",
+          "platform": "B",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 29390,
+          "datatake": 229865,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  9.126526,
+                  49.491505
+                ],
+                [
+                  5.480687,
+                  49.904682
+                ],
+                [
+                  5.83659,
+                  51.400795
+                ],
+                [
+                  9.598601,
+                  50.985973
+                ],
+                [
+                  9.126526,
+                  49.491505
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20211102T053423_20211102T053448_040388_04C988_8963",
+      "start_time": "2021-11-02T05:34:23Z",
+      "stop_time": "2021-11-02T05:34:48Z",
+      "relative_orbit": 66,
+      "pass": "DESCENDING",
+      "platform": "A",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 40388,
+      "datatake": 313736,
+      "datatake_hex": "04C988",
+      "asf_file_id": "S1A_IW_GRDH_1SDV_20211102T053423_20211102T053448_040388_04C988_8963-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              11.164475,
+              49.528778
+            ],
+            [
+              11.641251,
+              51.02269
+            ],
+            [
+              7.910503,
+              51.433491
+            ],
+            [
+              7.54912,
+              49.937782
+            ],
+            [
+              11.164475,
+              49.528778
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211102T053423_20211102T053448_040388_04C988_7876_COG",
+          "start_time": "2021-11-02T05:34:23.282991Z",
+          "stop_time": "2021-11-02T05:34:48.282363Z",
+          "relative_orbit": 66,
+          "pass": "DESCENDING",
+          "platform": "A",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 40388,
+          "datatake": 313736,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  11.164475,
+                  49.528778
+                ],
+                [
+                  7.54912,
+                  49.937782
+                ],
+                [
+                  7.910503,
+                  51.433491
+                ],
+                [
+                  11.641251,
+                  51.02269
+                ],
+                [
+                  11.164475,
+                  49.528778
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1B_IW_GRDH_1SDV_20211104T171556_20211104T171621_029441_038370_670F",
+      "start_time": "2021-11-04T17:15:56Z",
+      "stop_time": "2021-11-04T17:16:21Z",
+      "relative_orbit": 15,
+      "pass": "ASCENDING",
+      "platform": "B",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 29441,
+      "datatake": 230256,
+      "datatake_hex": "038370",
+      "asf_file_id": "S1B_IW_GRDH_1SDV_20211104T171556_20211104T171621_029441_038370_670F-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              6.106112,
+              51.076672
+            ],
+            [
+              6.588948,
+              49.583374
+            ],
+            [
+              10.222688,
+              49.99472
+            ],
+            [
+              9.856088,
+              51.490032
+            ],
+            [
+              6.106112,
+              51.076672
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20211104T171556_20211104T171621_029441_038370_9F3E_COG",
+          "start_time": "2021-11-04T17:15:56.684891Z",
+          "stop_time": "2021-11-04T17:16:21.683612Z",
+          "relative_orbit": 15,
+          "pass": "ASCENDING",
+          "platform": "B",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 29441,
+          "datatake": 230256,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  6.106112,
+                  51.076672
+                ],
+                [
+                  9.856088,
+                  51.490032
+                ],
+                [
+                  10.222688,
+                  49.99472
+                ],
+                [
+                  6.588948,
+                  49.583374
+                ],
+                [
+                  6.106112,
+                  51.076672
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20211107T054245_20211107T054310_040461_04CC1C_587E",
+      "start_time": "2021-11-07T05:42:45Z",
+      "stop_time": "2021-11-07T05:43:10Z",
+      "relative_orbit": 139,
+      "pass": "DESCENDING",
+      "platform": "A",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 40461,
+      "datatake": 314396,
+      "datatake_hex": "04CC1C",
+      "asf_file_id": "S1A_IW_GRDH_1SDV_20211107T054245_20211107T054310_040461_04CC1C_587E-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              8.942479,
+              48.989849
+            ],
+            [
+              9.408593,
+              50.484673
+            ],
+            [
+              5.723424,
+              50.894459
+            ],
+            [
+              5.369144,
+              49.398186
+            ],
+            [
+              8.942479,
+              48.989849
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211107T054245_20211107T054310_040461_04CC1C_6C94_COG",
+          "start_time": "2021-11-07T05:42:45.901191Z",
+          "stop_time": "2021-11-07T05:43:10.899720Z",
+          "relative_orbit": 139,
+          "pass": "DESCENDING",
+          "platform": "A",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 40461,
+          "datatake": 314396,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  8.942479,
+                  48.989849
+                ],
+                [
+                  5.369144,
+                  49.398186
+                ],
+                [
+                  5.723424,
+                  50.894459
+                ],
+                [
+                  9.408593,
+                  50.484673
+                ],
+                [
+                  8.942479,
+                  48.989849
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1B_IW_GRDH_1SDV_20211108T053349_20211108T053414_029492_03850E_001A",
+      "start_time": "2021-11-08T05:33:49Z",
+      "stop_time": "2021-11-08T05:34:14Z",
+      "relative_orbit": 66,
+      "pass": "DESCENDING",
+      "platform": "B",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 29492,
+      "datatake": 230670,
+      "datatake_hex": "03850E",
+      "asf_file_id": "S1B_IW_GRDH_1SDV_20211108T053349_20211108T053414_029492_03850E_001A-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              10.988751,
+              49.036934
+            ],
+            [
+              11.454591,
+              50.531712
+            ],
+            [
+              7.792471,
+              50.938221
+            ],
+            [
+              7.438037,
+              49.442001
+            ],
+            [
+              10.988751,
+              49.036934
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1B_IW_GRDH_1SDV_20211108T053349_20211108T053414_029492_03850E_3238_COG",
+          "start_time": "2021-11-08T05:33:49.615134Z",
+          "stop_time": "2021-11-08T05:34:14.612950Z",
+          "relative_orbit": 66,
+          "pass": "DESCENDING",
+          "platform": "B",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 29492,
+          "datatake": 230670,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  10.988751,
+                  49.036934
+                ],
+                [
+                  7.438037,
+                  49.442001
+                ],
+                [
+                  7.792471,
+                  50.938221
+                ],
+                [
+                  11.454591,
+                  50.531712
+                ],
+                [
+                  10.988751,
+                  49.036934
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20211110T171626_20211110T171651_040512_04CDE4_59DA",
+      "start_time": "2021-11-10T17:16:26Z",
+      "stop_time": "2021-11-10T17:16:51Z",
+      "relative_orbit": 15,
+      "pass": "ASCENDING",
+      "platform": "A",
+      "mode": "IW",
+      "polarizations": [
+        "VV",
+        "VH"
+      ],
+      "processing_level": "GRD_HD",
+      "absolute_orbit": 40512,
+      "datatake": 314852,
+      "datatake_hex": "04CDE4",
+      "asf_file_id": "S1A_IW_GRDH_1SDV_20211110T171626_20211110T171651_040512_04CDE4_59DA-GRD_HD",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              6.370241,
+              50.347618
+            ],
+            [
+              6.834679,
+              48.85265
+            ],
+            [
+              10.379736,
+              49.259285
+            ],
+            [
+              10.025784,
+              50.755665
+            ],
+            [
+              6.370241,
+              50.347618
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "grid_corners_inside_asf_footprint": true,
+      "cdse_counterparts": [
+        {
+          "product_id": "S1A_IW_GRDH_1SDV_20211110T171626_20211110T171651_040512_04CDE4_AE56_COG",
+          "start_time": "2021-11-10T17:16:26.086422Z",
+          "stop_time": "2021-11-10T17:16:51.083926Z",
+          "relative_orbit": 15,
+          "pass": "ASCENDING",
+          "platform": "A",
+          "mode": "IW",
+          "polarizations": [
+            "VV",
+            "VH"
+          ],
+          "absolute_orbit": 40512,
+          "datatake": 314852,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  6.370241,
+                  50.347618
+                ],
+                [
+                  10.025784,
+                  50.755665
+                ],
+                [
+                  10.379736,
+                  49.259285
+                ],
+                [
+                  6.834679,
+                  48.85265
+                ],
+                [
+                  6.370241,
+                  50.347618
+                ]
+              ]
+            ]
+          },
+          "grid_corners_inside_footprint": true
+        }
+      ],
+      "cdse_matching_metadata": true
+    }
+  ],
+  "cross_catalogue_match_rule": "Compare first 8 underscore-delimited Sentinel product fields: platform, mode, GRD resolution, product/polarization, acquisition start, acquisition stop, absolute orbit, hexadecimal datatake. CDSE COG counterparts have different trailing checksum/COG suffix and are not asserted byte-identical to ASF original GRD products.",
+  "checks": {
+    "asf_count": 24,
+    "cdse_count": 24,
+    "all_asf_items_have_cdse_counterparts": true,
+    "all_counterpart_orbit_pass_platform_mode_polarization_datatake_match": true,
+    "all_grid_corners_inside_asf_footprints": true,
+    "all_grid_corners_inside_cdse_footprints": true,
+    "event_day_acquisitions": []
+  },
+  "limitations": [
+    "Public ASF original GRD and CDSE COG counterparts independently corroborate acquisition metadata. Presence of these exact items in Earth Engine COPERNICUS/S1_GRD remains unverified.",
+    "Footprints enclose all four analysis-grid corners, which supports AOI catalog coverage; per-pixel validity under production masks and >=70% common valid coverage have not been measured.",
+    "Catalog providers use their own temporal query semantics; replay must apply explicit UTC start>=union_start and start<union_end and exact case date boundaries.",
+    "A/B platform mixing is retained because production radar grouping uses relative orbit/pass only.",
+    "No whole-AOI quiet label is supported by this metadata audit."
+  ],
+  "case_ids": [
+    "salzbachtal-demolition",
+    "salzbachtal-pre-demolition"
+  ],
+  "query": {
+    "start": "2021-09-25T00:00:00Z",
+    "end": "2021-11-13T00:00:00Z",
+    "grid": {
+      "crs": "EPSG:32632",
+      "transform": [
+        10,
+        0,
+        446420,
+        0,
+        -10,
+        5544960
+      ],
+      "bounds": [
+        446420,
+        5544460,
+        446920,
+        5544960
+      ],
+      "cells": 2500
+    },
+    "url": "https://api.daac.asf.alaska.edu/services/search/param?platform=Sentinel-1A%2CSentinel-1B&processingLevel=GRD_HD%2CGRD_MD%2CGRD_HS%2CGRD_MS%2CGRD_FD&start=2021-09-25T00%3A00%3A00Z&end=2021-11-13T00%3A00%3A00Z&intersectsWith=POLYGON%28%288.2515959361+50.0500159746%2C8.2585793010+50.0500607938%2C8.2585100129+50.0545574029%2C8.2515259956+50.0545125766%2C8.2515959361+50.0500159746%29%29&maxResults=200&output=geojson",
+    "truncated": false,
+    "spatial_filter": "Catalog intersection with transformed corners of the snapped production grid. All four corners additionally checked inside both providers product footprints; this is metadata coverage only.",
+    "product_scope": "Sentinel-1A/B GRD at ASF and sentinel-1-grd at CDSE; not an Earth Engine raw collection inventory."
+  },
+  "availability_status": "independently_verified_public_metadata; Earth Engine inventory and pixel validity unverified",
+  "identity_note": "ASF original GRD product IDs are retained exactly. CDSE COG products match acquisition identity through datatake (first eight filename fields), but trailing checksum differs. No claim of equal product bytes, equal processing or exact EE ingestion."
+}

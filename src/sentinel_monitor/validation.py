@@ -156,6 +156,52 @@ def live_checks():
     }
 
 
+def acquisition_timing(comparison, case):
+    """Annotate retained source start times; never alter detector results or source selection."""
+
+    def parsed(value):
+        try:
+            instant = datetime.fromisoformat(value.replace("Z", "+00:00"))
+            return instant.astimezone(UTC) if instant.tzinfo is not None else None
+        except (AttributeError, TypeError, ValueError):
+            return None
+
+    reference = parsed(case.get("event_time_utc"))
+    retained = comparison.get("acquisition_times")
+    retained = retained if isinstance(retained, list) else []
+    times = [parsed(value) for value in retained]
+    classification = "unknown"
+    if reference is not None and times and all(value is not None for value in times):
+        if max(times) < reference:
+            classification = "before"
+        elif min(times) > reference:
+            classification = "after"
+        elif min(times) < reference < max(times):
+            classification = "straddling"
+    labels = {
+        "before": "Before approximate event time",
+        "after": "After approximate event time",
+        "straddling": "Source timestamps straddle approximate event time",
+        "unknown": "Event timing unknown or at approximate reference time",
+    }
+    return {
+        "reference_time_utc": case.get("event_time_utc"),
+        "reference_uncertainty": case.get("event_time_uncertainty", "Approximate event time"),
+        "classification": classification,
+        "label": labels[classification],
+        "source_acquisition_times": retained,
+        "timestamp_scope": (
+            "Retained source acquisition start timestamps; exposure intervals unavailable"
+        ),
+        "post_event_timing_supported": classification == "after",
+        "interpretation": (
+            "Timing is after the approximate reference only; it does not establish event effects."
+            if classification == "after"
+            else "Do not interpret this acquisition as established post-event evidence."
+        ),
+    }
+
+
 def review_case(args):
     """Keep frozen validation AOIs and history separate from active monitoring."""
     import hashlib
@@ -216,7 +262,7 @@ def review_case(args):
             "imagery_diagnostics_requested": args.imagery_diagnostics,
             "optical_review_stretch_requested": args.optical_review_stretch,
             "case_manifest_sha256": hashlib.sha256(raw).hexdigest(),
-            "frozen_on": manifest["frozen_on"],
+            "frozen_on": case.get("frozen_on", manifest["frozen_on"]),
             "case": case,
             "windows": period,
             "started_at": started,
@@ -233,7 +279,15 @@ def review_case(args):
                 "id": args.case,
                 "label": case["label"],
                 "review_status": case["review_status"],
+                **{
+                    key: case[key]
+                    for key in ("event_time_utc", "event_time_uncertainty", "quiet_ground_truth")
+                    if key in case
+                },
             }
+            if case.get("event_time_utc"):
+                for comparison in record["comparisons"]:
+                    comparison["event_timing"] = acquisition_timing(comparison, case)
             path = (
                 results
                 / "live"

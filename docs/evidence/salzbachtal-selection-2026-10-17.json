@@ -1,0 +1,247 @@
+{
+  "kind": "Civilian radar candidate selection before detector output",
+  "frozen_on": "2026-10-17",
+  "timezone_for_windows": "UTC; start inclusive, end exclusive",
+  "base_commit": "30f4c79d174e51db08a7fd4d9bc553d359f72e5c",
+  "case_manifest": "validation/cases.json",
+  "case_manifest_sha256_lf": "c040dbaa22f348a5927b6bcd1200b9bcceac771c5f5eac535033fb9dc9265120",
+  "case_ids": [
+    "salzbachtal-demolition",
+    "salzbachtal-pre-demolition"
+  ],
+  "cases": {
+    "salzbachtal-demolition": {
+      "case": {
+        "frozen_on": "2026-10-17",
+        "review_status": "unreviewed",
+        "quiet_ground_truth": false,
+        "event_time_utc": "2021-11-06T11:00:00Z",
+        "event_time_uncertainty": "Contractor says around noon local; this approximate UTC reference annotates timing only and does not change production date filters.",
+        "site": {
+          "id": "salzbachtal-bridge",
+          "name": "Salzbachtal bridge demolition (validation)",
+          "latitude": 50.0522688,
+          "longitude": 8.25507195,
+          "size_m": 500
+        },
+        "references": [
+          {
+            "url": "https://www.autobahn.de/planen-bauen/projekt/neubau-salzbachtalbruecke",
+            "supports": "Operator lists dated July 2 intact/closed bridge, November 6 demolition and November 16 cleanup galleries in 2021; preparatory work began May 2017. Gallery images were not independently inspected."
+          },
+          {
+            "url": "https://www.reisch-sprengtechnik.de/referenz_sprengung-salzbachtalbruecke-wiesbaden.html",
+            "supports": "Demolition contractor confirms both approximately 310 m bridge spans were demolished November 6, 2021 around noon local (approximately 11:00 UTC)."
+          },
+          {
+            "url": "https://www.presseportal.de/blaulicht/pm/43562/5059986",
+            "supports": "October 29, 2021 joint authority statement explicitly dates new construction-site photographs to October 27 and documents closures and the forthcoming November 6 demolition."
+          },
+          {
+            "url": "https://rp-darmstadt.hessen.de/sites/rp-darmstadt.hessen.de/files/2022-07/rp-journal-arbeitsschutz-umwelt_2022-07.pdf",
+            "supports": "July 2022 environmental authority report, printed pages 8-10, documents protective works and before/after wastewater assets; asset persistence does not establish unchanged surfaces or whole-AOI quietness."
+          },
+          {
+            "url": "https://www.openstreetmap.org/way/499938151",
+            "supports": "Modern rebuilt south bridge footprint version 19; locator only, not the surveyed 2021 demolition footprint."
+          },
+          {
+            "url": "https://www.openstreetmap.org/way/1229149143",
+            "supports": "Modern rebuilt north bridge footprint version 6; the union of these two footprints fixes the AOI center before detector output."
+          }
+        ],
+        "label": "Documented civilian bridge demolition; change candidate requiring imagery review",
+        "end_date": "2021-11-13",
+        "selection_basis": "500 m square centered on the union-bound midpoint of OSM bridge footprints 499938151 v19 and 1229149143 v6 (modern geometry used only as locator). Target [2021-11-06, 2021-11-13) contains the independently documented November 6 demolition; baseline [2021-10-09, 2021-11-06) ends before the event day. Any event-day acquisition would need a timing annotation, not silent removal. Public metadata inventory finds no November 6 acquisitions. Preparatory works may affect the baseline; target includes staging/cleanup, not demolition alone. Frozen before detector output."
+      },
+      "windows": {
+        "baseline_start": "2021-10-09",
+        "baseline_end": "2021-11-06",
+        "target_start": "2021-11-06",
+        "target_end": "2021-11-13"
+      }
+    },
+    "salzbachtal-pre-demolition": {
+      "case": {
+        "frozen_on": "2026-10-17",
+        "review_status": "unreviewed",
+        "quiet_ground_truth": false,
+        "event_time_utc": "2021-11-06T11:00:00Z",
+        "event_time_uncertainty": "Contractor says around noon local; this approximate UTC reference annotates timing only and does not change production date filters.",
+        "site": {
+          "id": "salzbachtal-bridge",
+          "name": "Salzbachtal bridge demolition (validation)",
+          "latitude": 50.0522688,
+          "longitude": 8.25507195,
+          "size_m": 500
+        },
+        "references": [
+          {
+            "url": "https://www.autobahn.de/planen-bauen/projekt/neubau-salzbachtalbruecke",
+            "supports": "Operator lists dated July 2 intact/closed bridge, November 6 demolition and November 16 cleanup galleries in 2021; preparatory work began May 2017. Gallery images were not independently inspected."
+          },
+          {
+            "url": "https://www.reisch-sprengtechnik.de/referenz_sprengung-salzbachtalbruecke-wiesbaden.html",
+            "supports": "Demolition contractor confirms both approximately 310 m bridge spans were demolished November 6, 2021 around noon local (approximately 11:00 UTC)."
+          },
+          {
+            "url": "https://www.presseportal.de/blaulicht/pm/43562/5059986",
+            "supports": "October 29, 2021 joint authority statement explicitly dates new construction-site photographs to October 27 and documents closures and the forthcoming November 6 demolition."
+          },
+          {
+            "url": "https://rp-darmstadt.hessen.de/sites/rp-darmstadt.hessen.de/files/2022-07/rp-journal-arbeitsschutz-umwelt_2022-07.pdf",
+            "supports": "July 2022 environmental authority report, printed pages 8-10, documents protective works and before/after wastewater assets; asset persistence does not establish unchanged surfaces or whole-AOI quietness."
+          },
+          {
+            "url": "https://www.openstreetmap.org/way/499938151",
+            "supports": "Modern rebuilt south bridge footprint version 19; locator only, not the surveyed 2021 demolition footprint."
+          },
+          {
+            "url": "https://www.openstreetmap.org/way/1229149143",
+            "supports": "Modern rebuilt north bridge footprint version 6; the union of these two footprints fixes the AOI center before detector output."
+          }
+        ],
+        "label": "Same-AOI pre-demolition reference candidate; quiet ground truth unavailable",
+        "end_date": "2021-10-30",
+        "selection_basis": "Same frozen 500 m square. Target [2021-10-23, 2021-10-30) contains the authority-dated October 27 photographs; baseline [2021-09-25, 2021-10-23). This independently dated anchor supports bridge presence, not whole-AOI stability. Documented preparatory earthworks and protective interventions prevent a quiet label. Independent acquisition-bracketing evidence covering the entire AOI remains missing. Do not score detector responses here as false positives."
+      },
+      "windows": {
+        "baseline_start": "2021-09-25",
+        "baseline_end": "2021-10-23",
+        "target_start": "2021-10-23",
+        "target_end": "2021-10-30"
+      }
+    }
+  },
+  "settings": {
+    "analysis_version": "0.1.0",
+    "earth_engine_project": "baseviewer-511722",
+    "optical_threshold": 0.1,
+    "radar_threshold_db": 3.0,
+    "cloud_score_min": 0.6,
+    "min_baseline_observations": 2,
+    "min_valid_coverage": 0.7,
+    "min_patch_pixels": 9,
+    "radar_speckle_radius_m": 10,
+    "radar_min_db": -35,
+    "radar_min_angle": 31,
+    "radar_max_angle": 45,
+    "terrain_max_slope_deg": 15,
+    "dem_collection": "COPERNICUS/DEM/GLO30_2024_1",
+    "max_sites": 1,
+    "max_images_per_sensor": 300,
+    "request_attempts": 3,
+    "preview_pixels": 400
+  },
+  "settings_sha256_lf": "de700b513019f61db055d9fd10dc5b99eb832274dbcebe90f5cfeb63899642c6",
+  "active_sites_sha256_lf": "2a00f1e93eeae82d5c83005c35edfbdb95b0400524f60bdcdaaa29529b6db42b",
+  "public_catalog_snapshot": "validation/salzbachtal-s1-catalog.json",
+  "public_catalog_snapshot_sha256_lf": "cdd33a9286191e671f7ffc6093fa24c52dcc236d0225abe30d915fd48a940026",
+  "offline_replay": "docs/evidence/salzbachtal-eligibility-2026-10-17.json",
+  "offline_replay_sha256_lf": "e6002f99ea18299d7f37bdd0424bfa0a6c1515c1e19e150f0ce5101b6866dd6a",
+  "locator": "docs/evidence/salzbachtal-locator-2026-10-17.json",
+  "locator_sha256_lf": "d88382088e1536f4be5500c0dbaf2c29cd64729b8424a3c08e82b05955dd7742",
+  "availability": {
+    "independent_public_providers": [
+      "ASF original GRD",
+      "Copernicus Data Space STAC GRD COG counterparts"
+    ],
+    "query_interval_utc": [
+      "2021-09-25T00:00:00Z",
+      "2021-11-13T00:00:00Z"
+    ],
+    "products_per_provider": 24,
+    "query_limit_per_provider": 200,
+    "truncation_or_pagination_observed": false,
+    "all_four_grid_corners_inside_each_footprint": true,
+    "eligible_orbit_pass_window_groups": 6,
+    "event_target_acquisitions": 3,
+    "reference_target_acquisitions": 4,
+    "baseline_day_counts": [
+      4,
+      5
+    ],
+    "all_baselines_mix_sentinel_1_a_b": true,
+    "event_day_november_6_acquisitions": 0,
+    "exact_product_bytes_equivalent_between_providers": false,
+    "earth_engine_ingestion_verified": false,
+    "per_pixel_validity_verified": false,
+    "note": "Public availability is independently checked. Actual EE source inventory, valid pixels and comparison execution remain unverified."
+  },
+  "quiet_reference": {
+    "established": false,
+    "label_status": "unreviewed; reference candidate only",
+    "rejected_nearby_control": "Adjacent wastewater plant had documented protective works and operational interventions; asset survival is not unchanged surface truth.",
+    "additional_bounded_lead": {
+      "name": "DLR Sentinel-1 Kalibri calibration experiment",
+      "sources": [
+        "https://elib.dlr.de/198833/1/eusar2024_sraab_v10_uploaded.pdf",
+        "https://elib.dlr.de/115839/1/Schmidt-et-al_OPEN-ACCESS_2018-03-09_radiometric_accuracy_and_stability_of_sentinel1a_determined_using_point_targets.pdf"
+      ],
+      "result": "Not selected: point-target impulse-response stability and background removal do not establish an entire land AOI as quiet."
+    },
+    "missing_evidence": "Independent dated imagery/property evidence bracketing reference acquisitions over the full AOI and showing no material surface works during both intervals, or applicable distributed-target stability evidence with explicit AOI and dates.",
+    "cannot_establish": [
+      "quiet/change discrimination",
+      "false-positive rate",
+      "object identification/count accuracy",
+      "construction boundaries"
+    ]
+  },
+  "record_timing_context": {
+    "both_sensors": true,
+    "source": "Actual retained comparison acquisition_times; no date-only fallback",
+    "classes": [
+      "before",
+      "after",
+      "straddling",
+      "unknown"
+    ],
+    "scope": "Relative to approximate event time using source start timestamps; complete exposure intervals unavailable.",
+    "visible_in": [
+      "comparison card",
+      "review queue label",
+      "check history including insufficient comparisons"
+    ],
+    "science_or_sources_modified": false
+  },
+  "proposed_live_actions_not_executed": [
+    {
+      "workflow": "validation.yml",
+      "ref": "main",
+      "inputs": {
+        "check": "imagery",
+        "case_id": "salzbachtal-demolition",
+        "imagery_diagnostics": true
+      }
+    },
+    {
+      "workflow": "validation.yml",
+      "ref": "main",
+      "inputs": {
+        "check": "imagery",
+        "case_id": "salzbachtal-pre-demolition",
+        "imagery_diagnostics": true
+      }
+    }
+  ],
+  "approval_required_for": [
+    "new protected-main merge/write",
+    "two new serial live EE validation invocations on approved merged commit"
+  ],
+  "live_ee_requests": 0,
+  "detector_output_inspected": false,
+  "existing_cases_semantically_unchanged": true,
+  "scheduling_expansion": false,
+  "active_site_additions": false,
+  "publication": false,
+  "private_review_data_accessed_or_included": false,
+  "limitations": [
+    "Independent primary event evidence does not label every cell.",
+    "Modern OSM geometry is a locator only, not a surveyed 2021 footprint.",
+    "Event baselines may contain preparation; target includes staging/cleanup.",
+    "Public catalog product identities do not prove EE ingestion or per-pixel coverage.",
+    "A/B platforms mix under unchanged production grouping.",
+    "No certified quiet civilian reference has been established."
+  ]
+}
