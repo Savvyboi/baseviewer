@@ -1,0 +1,59 @@
+{
+  "kind": "offline imagery diagnostics implementation QA",
+  "prepared_on": "2026-10-17",
+  "timezone": "Europe/Helsinki",
+  "base_commit": "b9efa0439a527a3defc8dc50e3e26fc138639bef",
+  "data_used": "synthetic service responses and local Earth Engine expression graphs only",
+  "checks": {
+    "pytest": {
+      "passed": 75,
+      "command": ".venv/Scripts/pytest.exe -q"
+    },
+    "ruff_check": "passed",
+    "ruff_format": "passed",
+    "configuration_validation": "passed",
+    "ordinary_optical_comparison_graph_and_output_preserved": true,
+    "source_example_limit_per_stage_window": 10,
+    "source_groups_and_datatakes": "passed",
+    "empty_and_unmatched_radar": "passed",
+    "zero_common_and_insufficient_coverage": "passed",
+    "diagnostic_failure_preserves_detection_and_previews": "passed",
+    "cache_upgrade_retry_and_json_persistence": "passed",
+    "explicit_review_case_flag_and_demo_rejection": "passed",
+    "ordinary_radar_comparison_graph_and_output_preserved": true,
+    "synthetic_cli_report_build": "passed; isolated under ignored .preview-output",
+    "unchanged_frozen_inputs_and_previous_artifact_blobs": 18
+  },
+  "verification_limits": [
+    "Reducer responses are mocked; no new Earth Engine server computation was performed.",
+    "No actual source eligibility cause, radiometric distribution or detection accuracy is established.",
+    "No adaptive stretch, alternate preview or new quiet/change radar control was produced."
+  ],
+  "unchanged": {
+    "results_ref": "8714435fea8b875f960d396f0b43d79f7545e22c",
+    "MONITOR_ENABLED": null,
+    "production_settings_and_active_sites": true,
+    "frozen_case_manifest": true,
+    "monitor_workflow": true,
+    "previous_source_records_and_pngs": true
+  },
+  "implementation_sha256": {
+    ".github/workflows/validation.yml": "251526da1ef58546e6251447d8d3b5038ffdbc5882f9b13be3147b52f0897fa3",
+    "src/sentinel_monitor/cli.py": "29aa663d34094f63db4bc5d6d00eeaa8fce29cf1e4a8b1fdd2a4c86ee7cf4a09",
+    "src/sentinel_monitor/diagnostics.py": "7276aacd566a4bda946f24c696ab55cc2d99428f0ba232cc465ce21f7cb55c8c",
+    "src/sentinel_monitor/earth.py": "f86fe6f69df0b77e49166c55f80639787282a0abb3536c9d253a25b4fd6d73dd",
+    "src/sentinel_monitor/validation.py": "5894eac7009068ba0ce694fdacf8e65b5d91ad9cea56d30a09292fde8e0fb6e1",
+    "tests/test_imagery_diagnostics.py": "ec2c309afda5c1ca862002f2d2bc3c44b3259d120d7807f426358e027b04bbd7"
+  },
+  "prepared_next_action": {
+    "status": "not dispatched; specific approval required",
+    "workflow": "Validation acceptance",
+    "ref": "main",
+    "inputs": {
+      "check": "imagery",
+      "case_id": "gobabeb-quiet-reference",
+      "imagery_diagnostics": true
+    },
+    "scope": "one isolated diagnostic analysis, unchanged frozen case; no deployment/results write"
+  }
+}

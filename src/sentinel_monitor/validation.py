@@ -200,6 +200,8 @@ def review_case(args):
         "--radar-diagnostics",
         "--review-previews",
     ]
+    if args.imagery_diagnostics:
+        arguments.append("--imagery-diagnostics")
     if args.project:
         arguments += ["--project", args.project]
     started = datetime.now(UTC).isoformat()
@@ -209,6 +211,7 @@ def review_case(args):
         {
             "kind": "artifact-only imagery validation",
             "case_id": args.case,
+            "imagery_diagnostics_requested": args.imagery_diagnostics,
             "case_manifest_sha256": hashlib.sha256(raw).hexdigest(),
             "frozen_on": manifest["frozen_on"],
             "case": case,

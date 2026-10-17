@@ -44,6 +44,11 @@ def parser():
         action="store_true",
         help="Save before/after/overlay previews for every usable comparison; extra EE requests",
     )
+    run.add_argument(
+        "--imagery-diagnostics",
+        action="store_true",
+        help="Source eligibility, validity and pre-patch optical values; extra EE compute",
+    )
     run.add_argument("--results", type=Path, default=Path("results"))
     run.add_argument("--output", type=Path, default=Path("site"))
     run.add_argument(
@@ -68,6 +73,11 @@ def parser():
     review.add_argument("--case-file", type=Path, default=Path("validation/cases.json"))
     review.add_argument("--settings", type=Path, default=Path("settings.yaml"))
     review.add_argument("--project", default=os.environ.get("EE_PROJECT_ID"))
+    review.add_argument(
+        "--imagery-diagnostics",
+        action="store_true",
+        help="Request bounded source and comparison diagnostics; extra EE compute",
+    )
     review.add_argument("--results", type=Path, default=Path("results-imagery-review"))
     review.add_argument("--output", type=Path, default=Path("site-imagery-review"))
     return root
@@ -75,7 +85,7 @@ def parser():
 
 def run(args):
     mode = "demo" if args.demo else "live"
-    if args.demo and (args.radar_diagnostics or args.review_previews):
+    if args.demo and (args.radar_diagnostics or args.review_previews or args.imagery_diagnostics):
         raise ValueError("Imagery review options require live imagery")
     sites, settings = load_config(args.sites, args.settings)
     if args.site_id:
@@ -100,6 +110,7 @@ def run(args):
             if (
                 (not args.radar_diagnostics or existing.get("radar_diagnostics_requested"))
                 and (not args.review_previews or existing.get("review_previews_requested"))
+                and (not args.imagery_diagnostics or existing.get("imagery_diagnostics_requested"))
                 and not existing["errors"]
                 and not any(c.get("preview_error") for c in existing["comparisons"])
             ):
@@ -132,6 +143,7 @@ def run(args):
                 args.results / mode / "assets",
                 radar_diagnostics=args.radar_diagnostics,
                 review_previews=args.review_previews,
+                imagery_diagnostics=args.imagery_diagnostics,
             ).analyze()
         record = {
             "schema_version": 1,
@@ -139,6 +151,7 @@ def run(args):
             "analysis_key": key,
             "radar_diagnostics_requested": args.radar_diagnostics and not args.demo,
             "review_previews_requested": args.review_previews and not args.demo,
+            "imagery_diagnostics_requested": args.imagery_diagnostics and not args.demo,
             "site": asdict(site),
             "grid": site.grid(),
             "windows": period,

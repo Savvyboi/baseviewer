@@ -244,3 +244,21 @@ All 63 offline tests and the viewer/workbench browser checks passed, using synth
 Saved schema-1 observations can now be restored from a local JSON file into empty entries in the current isolated report. Existing choices, drafts and deliberate resets remain intact; exact record identity and original review timestamps are preserved. Invalid or duplicate files apply nothing, and stale/out-of-report records are skipped with a visible count. File reading and persistence happen in the browser without a network write. Storage failures keep exportable page state and display a warning.
 
 All 63 offline tests and browser restore/workbench checks passed using synthetic QA data. Keyboard file selection, non-overwrite behavior, refreshed-record exclusion, invalid/oversize files, note text handling, blocked storage and desktop/mobile layout were verified. [QA evidence](evidence/local-review-restore-2026-10-17.json) records the checks. Source history and images are unchanged; restoration does not promote observations into ground truth or alter detector measurements. No new Earth Engine request, live execution or publication was needed.
+
+## Source eligibility and optical comparison diagnostics
+
+The next science increment adds opt-in `--imagery-diagnostics`, with no detector tuning
+or new imagery request during preparation. It retains raw catalog/filter counts and
+bounded rejected-source examples, complete eligible orbit/baseline groups, combined
+pixel validity, pre-patch/patch counts and optical reflectance/difference/display-endpoint
+statistics on common cells. Missing and insufficient observations remain explicit;
+diagnostic failures preserve usable results and cause a retryable partial error.
+
+[Diagnostic scope and a single prepared Gobabeb investigation](imagery-diagnostics.md)
+explain the measurements, compute bounds and limitations. All 75 offline tests and
+lint/format checks pass; [QA evidence](evidence/imagery-diagnostics-2026-10-17.json) records
+the synthetic graph/handling checks and unchanged frozen inputs/artifact blobs. New EE
+server execution, causal explanation of absent
+Gobabeb radar, restored optical display detail and quiet/change radar discrimination
+remain unverified. The new live invocation and protected-main merge require specific
+approval; neither was performed as part of this preparation.
