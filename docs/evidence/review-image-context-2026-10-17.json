@@ -1,0 +1,79 @@
+{
+  "recorded_date": "2026-10-17",
+  "timezone": "Europe/Helsinki",
+  "kind": "Review image context and synthetic-note acceptance",
+  "browser_checks": {
+    "browser": "headless Chrome",
+    "desktop": {
+      "width": 1280,
+      "content": 1280
+    },
+    "mobile": {
+      "width": 390,
+      "content": 390
+    },
+    "passed": [
+      "synthetic QA observations restore exactly; unclear count shown explicitly",
+      "export retains synthetic QA decisions/notes/timestamps unchanged",
+      "optical/radar labels and 20x20 / 50x50 grids match original records",
+      "all radar source IDs confirm high-resolution IW GRD products",
+      "measured baseline/target red display limits shown on Gobabeb only",
+      "all twelve original PNGs and source history hashes unchanged",
+      "no frozen case label or detector result promoted by human reviews",
+      "metadata/notice/PNG links accessible without JavaScript",
+      "desktop/mobile fit with no horizontal overflow",
+      "no browser errors"
+    ],
+    "user_browser_storage_modified": false,
+    "observations": "synthetic QA ONLY; no user export read or published"
+  },
+  "existing_workbench_regression_checks": {
+    "browser": "headless Chrome",
+    "desktop": {
+      "width": 1280,
+      "content": 1280
+    },
+    "mobile": {
+      "width": 390,
+      "content": 390
+    },
+    "passed": [
+      "aligned keyboard/button image switching",
+      "review survives reload",
+      "JSON export includes exact record identity and notes",
+      "source detector result remains unchanged",
+      "case isolation",
+      "refreshed-record isolation",
+      "routine reports have no workbench",
+      "blocked browser storage warns and still exports",
+      "JavaScript-disabled original previews remain available",
+      "no browser errors",
+      "desktop/mobile layout fits"
+    ]
+  },
+  "offline_checks": {
+    "pytest": "63 passed",
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "git_diff_check": "passed"
+  },
+  "screenshots": [
+    {
+      "path": "docs/evidence/review-image-context-2026-10-17/desktop.png",
+      "sha256": "ef80bc89b17dda186b56391fd44369b6e074c82d3caaaa43a35b1c3e1c54c86b",
+      "visually_inspected": true
+    },
+    {
+      "path": "docs/evidence/review-image-context-2026-10-17/mobile.png",
+      "sha256": "b205ee071f6a7cc3b90e4e391f9414d067cdba312112d7c0d13d01c64d6c9f1f",
+      "visually_inspected": true
+    }
+  ],
+  "display_notice_method": "Inspect baseline/target PNGs only. A channel endpoint notice requires at least 95% of opaque pixels (alpha=255) at 0 or 255. RGB channels are separate; radar uses the VV grey channel. Ignore overlay colors, transparent pixels and unavailable files. This is a display heuristic, not an analysis threshold. Read only within output assets.",
+  "scope": {
+    "earth_engine_requests": 0,
+    "source_history_and_twelve_original_png_hashes_unchanged": true,
+    "science_settings_and_frozen_labels_unchanged": true,
+    "observations": "Synthetic QA ONLY in temporary browser contexts. No user-provided review export or its metadata is included."
+  }
+}

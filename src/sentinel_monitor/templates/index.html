@@ -10,6 +10,7 @@
 
 .review-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}.review-tools button,.review-tools select,#export-reviews,#next-unreviewed{font:inherit;background:#223333;color:var(--ink);border:1px solid var(--border);border-radius:5px;padding:8px 12px;cursor:pointer}.review-tools button[aria-pressed="true"]{border-color:var(--green);color:var(--green)}.review-tools label{display:block;margin:14px 0 6px}.review-tools textarea{display:block;width:100%;min-height:90px;resize:vertical;background:var(--bg);color:var(--ink);border:1px solid var(--border);border-radius:5px;padding:10px;font:inherit}.review-tools select{max-width:100%}.review-stage{max-width:600px;margin:14px 0}.review-stage img{background:repeating-conic-gradient(#334141 0% 25%,#192424 0% 50%) 50%/16px 16px}.review-tools :focus-visible,#export-reviews:focus-visible,.review-queue :focus-visible{outline:2px solid var(--green);outline-offset:3px}.review-tools output{display:block;font-size:13px;color:var(--muted)}
 .review-queue{border:1px solid var(--border);border-radius:10px;padding:18px;margin:20px 0}.review-queue h3{margin:0}.review-queue ol{padding-left:24px}.review-queue li{padding:10px 0;border-bottom:1px solid var(--border);overflow-wrap:anywhere}.review-queue li:last-child{border:0}.review-queue small{display:block}.review-queue button:disabled{opacity:.55;cursor:default}.review-queue .toolbar label{display:flex;align-items:center;gap:8px}.report:focus{outline:2px solid var(--green);outline-offset:3px}
+.image-context{border-left:3px solid var(--green);padding:4px 16px;margin:14px 0}.image-context p{margin:5px 0}.display-limits{border-left-color:var(--yellow)}.display-limits ul{padding-left:20px;margin:8px 0}.images a{display:inline-block;margin-top:5px}
 </style>
 </head>
 <body>
@@ -28,7 +29,7 @@
 <article class="card" data-status="{{ r.status }}">
 <span class="badge {{ r.status }}">{{ r.status | replace('_', ' ') }}</span>
 <h3>{{ r.site.name }}</h3>
-{% if r.validation_case %}<p class="banner">Validation case: {{ r.validation_case.label }}. Review status: {{ r.validation_case.review_status }}. <a href="validation-case.json">Frozen inputs and independent references</a>.</p>{% endif %}
+{% if r.validation_case %}<p class="banner">Validation case: {{ r.validation_case.label }}. Reference label status: {{ r.validation_case.review_status }}. <a href="validation-case.json">Frozen inputs and independent references</a>.</p>{% endif %}
 <p class="muted">{{ '%.5f' | format(r.site.latitude) }}, {{ '%.5f' | format(r.site.longitude) }} · {{ r.site.size_m }} m square</p>
 <p><small>Target week: {{ r.windows.target_start }} → {{ r.windows.target_end }} (exclusive, UTC)</small></p>
 <p><small>Usable sensors: {{ r.usable_sensors | join(', ') or 'none' }}<br>Newest available observation: {{ r.newest_observation or 'none in analysis window' }}</small></p>
@@ -55,11 +56,21 @@
 {% for r in records %}{% set record_index = loop.index0 %}{% for c in r.comparisons %}{% if c.status == 'possible_change' or (r.review_previews_requested and c.status == 'no_change_detected') %}{% set count.value = count.value + 1 %}
 <article class="report" id="observation-{{ record_index }}-{{ loop.index0 }}" tabindex="-1"><span class="badge {{ c.status }}">{{ "Possible ground change" if c.status == "possible_change" else "No change detected" }} · {{ c.sensor }}</span><h3>{{ r.site.name }} · {{ c.acquisition_date }}</h3>
 {% if r.validation_case %}<p class="muted">Case: {{ r.validation_case.label }}</p>{% endif %}
+{% set observation_id = 'observation-' ~ record_index ~ '-' ~ loop.index0 %}
+{% set info = review_image_info.get(observation_id) %}
+{% if info %}
+<div class="image-context">
+<p><strong>{{ 'Sentinel-1 radar · VV displayed' if c.sensor == 'radar' else 'Sentinel-2 optical · RGB displayed' }}</strong></p>
+<p>{{ r.site.size_m }} m square · {{ r.site.size_m // 10 }} × {{ r.site.size_m // 10 }} analysis cells · 10 m grid spacing{% if info.dimensions.after %} · {{ info.dimensions.after.width }} × {{ info.dimensions.after.height }} PNG{% endif %}</p>
+<p class="muted">{% if c.sensor == 'radar' %}Source IW GRD ground detail is approximately 20 × 22 m; radar processing also smooths the signal. <a href="https://sentiwiki.copernicus.eu/web/s1-products" target="_blank" rel="noopener">Source specifications</a>.{% else %}Source RGB bands have 10 m resolution. <a href="https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Data/S2L2A.html" target="_blank" rel="noopener">Source specifications</a>.{% endif %} Enlarging the PNG adds no ground detail.</p>
+</div>
+{% if info.limits %}<aside class="image-context display-limits"><strong>Display limits</strong><ul>{% for limit in info.limits %}<li>{{ limit.view }}: {{ limit.channel }} channel is at the display {{ limit.endpoint }} in {{ '%.1f' | format(100 * limit.fraction) }}% of opaque pixels.</li>{% endfor %}</ul><p>Detail may be lost at the display limits. Choose Unclear if the imagery cannot support a decision.</p></aside>{% endif %}
+{% endif %}
 <p>{{ '%.0f' | format(c.changed_area_m2) }} m² flagged · {{ '%.1f' | format(c.valid_coverage * 100) }}% common valid coverage{% if c.changed_cells is defined and c.valid_coverage > 0 %} · {{ '%.1f' | format(100 * c.changed_cells / (r.grid.cells * c.valid_coverage)) }}% of valid cells flagged{% endif %}</p>
 {% if c.previews %}<div class="images">
-<figure><img src="{{ c.previews.before }}" alt="{{ r.site.name }} {{ c.sensor }} baseline composite" loading="lazy"><figcaption>Baseline median composite<br>{{ r.windows.baseline_start }} → {{ r.windows.baseline_end }} (exclusive)</figcaption></figure>
-<figure><img src="{{ c.previews.after }}" alt="{{ r.site.name }} {{ c.sensor }} observation on {{ c.acquisition_date }}" loading="lazy"><figcaption>Target observation · {{ c.acquisition_date }}</figcaption></figure>
-<figure><img src="{{ c.previews.overlay }}" alt="Flagged connected patches shown in orange" loading="lazy"><figcaption>Orange: qualifying change patches<br>Matching before/after display stretch</figcaption></figure>
+<figure><img src="{{ c.previews.before }}" alt="{{ r.site.name }} {{ c.sensor }} baseline composite" loading="lazy"><figcaption>Baseline median composite<br>{{ r.windows.baseline_start }} → {{ r.windows.baseline_end }} (exclusive)<br><a href="{{ c.previews.before }}" target="_blank" rel="noopener">Open original PNG</a></figcaption></figure>
+<figure><img src="{{ c.previews.after }}" alt="{{ r.site.name }} {{ c.sensor }} observation on {{ c.acquisition_date }}" loading="lazy"><figcaption>Target observation · {{ c.acquisition_date }}<br><a href="{{ c.previews.after }}" target="_blank" rel="noopener">Open original PNG</a></figcaption></figure>
+<figure><img src="{{ c.previews.overlay }}" alt="Flagged connected patches shown in orange" loading="lazy"><figcaption>Orange: qualifying change patches<br>Matching before/after display stretch<br><a href="{{ c.previews.overlay }}" target="_blank" rel="noopener">Open original PNG</a></figcaption></figure>
 </div>
 {% if r.validation_case and r.review_previews_requested and c.previews.before and c.previews.after and c.previews.overlay %}
 <details class="review-tools" data-mode="{{ r.mode }}" data-analysis-key="{{ r.analysis_key }}" data-comparison-id="{{ c.id }}" data-case-id="{{ r.validation_case.id }}" data-site-id="{{ r.site.id }}" data-date="{{ c.acquisition_date }}" data-sensor="{{ c.sensor }}" data-generated-at="{{ r.generated_at }}">

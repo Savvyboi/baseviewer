@@ -13,7 +13,7 @@ from sentinel_monitor.config import Settings, Site, signature, windows
 from sentinel_monitor.decisions import comparison_status, detection_id, location_status
 from sentinel_monitor.demo import patch_cells
 from sentinel_monitor.earth import EarthEngineAnalyzer, error_details, retry
-from sentinel_monitor.reports import build_site, read_records
+from sentinel_monitor.reports import build_site, preview_display_info, read_records
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = Site("fields", "Fields", 48.1, 1.6)
@@ -521,3 +521,30 @@ class TestReductionPixelBudget(ApiTestCase):
         assert options["crsTransform"] == [10, 0, 583370, 0, -10, 5704960]
         assert "bestEffort" not in options
         assert "scale" not in options
+
+
+def test_display_limits_ignore_transparent_pixels_and_handle_missing_previews(tmp_path):
+    from PIL import Image
+
+    assets = tmp_path / "assets"
+    assets.mkdir()
+    path = assets / "before.png"
+    # Hidden white pixels must not produce a display-limit notice.
+    image = Image.new("RGBA", (10, 10), (255, 255, 255, 0))
+    image.putpixel((0, 0), (90, 110, 130, 255))
+    image.save(path)
+    comparison = {
+        "sensor": "optical",
+        "previews": {"before": "assets/before.png", "after": "assets/missing.png"},
+    }
+    original = path.read_bytes()
+    info = preview_display_info(tmp_path, comparison)
+    assert info["limits"] == []
+    assert info["dimensions"] == {"before": {"width": 10, "height": 10}}
+    assert path.read_bytes() == original
+    image.putpixel((0, 0), (255, 110, 130, 255))
+    image.save(path)
+    limits = preview_display_info(tmp_path, comparison)["limits"]
+    assert limits == [
+        {"view": "Baseline", "channel": "Red", "endpoint": "maximum", "fraction": 1.0}
+    ]

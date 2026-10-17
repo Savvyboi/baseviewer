@@ -6,6 +6,7 @@ from importlib.resources import files
 from pathlib import Path
 
 from jinja2 import Environment, select_autoescape
+from PIL import Image
 
 
 def save_json(path: Path, value):
@@ -27,6 +28,51 @@ def read_records(results: Path, mode: str):
     return sorted(
         records, key=lambda r: (r["windows"]["target_end"], r["generated_at"]), reverse=True
     )
+
+
+def preview_display_info(output: Path, comparison):
+    """Inspect local display PNGs only; keep science records and imagery unchanged."""
+    dimensions = {}
+    limits = []
+    channels = (
+        [(0, "VV grey")]
+        if comparison["sensor"] == "radar"
+        else list(enumerate(("Red", "Green", "Blue")))
+    )
+    asset_root = (output / "assets").resolve()
+    for view in ("before", "after"):
+        relative = (comparison.get("previews") or {}).get(view)
+        if not relative:
+            continue
+        path = (output / relative).resolve()
+        if not path.is_relative_to(asset_root):
+            continue
+        try:
+            with Image.open(path) as original:
+                dimensions[view] = {"width": original.width, "height": original.height}
+                rgba = original.convert("RGBA")
+            opaque = rgba.getchannel("A").point(lambda alpha: 255 if alpha == 255 else 0)
+            count = opaque.histogram()[255]
+            if not count:
+                continue
+            bands = rgba.split()
+            for index, name in channels:
+                histogram = bands[index].histogram(mask=opaque)
+                for value, endpoint in ((0, "minimum"), (255, "maximum")):
+                    fraction = histogram[value] / count
+                    if fraction >= 0.95:
+                        limits.append(
+                            {
+                                "view": "Baseline" if view == "before" else "Target",
+                                "channel": name,
+                                "endpoint": endpoint,
+                                "fraction": fraction,
+                            }
+                        )
+        except (OSError, ValueError):
+            # A missing/invalid preview must not prevent displaying retained measurements.
+            continue
+    return {"dimensions": dimensions, "limits": limits}
 
 
 def build_site(results: Path, output: Path, mode: str):
@@ -53,6 +99,7 @@ def build_site(results: Path, output: Path, mode: str):
         r.get("validation_case") and r.get("review_previews_requested") for r in records
     )
     review_queue = []
+    review_image_info = {}
     for record_index, record in enumerate(records):
         if not (record.get("validation_case") and record.get("review_previews_requested")):
             continue
@@ -60,11 +107,13 @@ def build_site(results: Path, output: Path, mode: str):
             if comparison["status"] not in {"possible_change", "no_change_detected"}:
                 continue
             previews = comparison.get("previews") or {}
+            target = f"observation-{record_index}-{comparison_index}"
+            review_image_info[target] = preview_display_info(output, comparison)
             review_queue.append(
                 {
                     "record": record,
                     "comparison": comparison,
-                    "target": f"observation-{record_index}-{comparison_index}",
+                    "target": target,
                     "ready": all(previews.get(view) for view in ("before", "after", "overlay")),
                 }
             )
@@ -79,6 +128,7 @@ def build_site(results: Path, output: Path, mode: str):
         mode=mode,
         review_workbench=review_workbench,
         review_queue=review_queue,
+        review_image_info=review_image_info,
         review_mode=any(r.get("review_previews_requested") for r in records),
     )
     (output / "index.html").write_text(html, encoding="utf-8")

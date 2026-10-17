@@ -16,11 +16,13 @@
     if (!queue) return;
     let reviewed = 0;
     let awaiting = 0;
+    let unclear = 0;
     for (const row of queueRows) {
       const entry = queueReviews.get(row.dataset.reviewTarget);
       const complete = entry && entry.decision !== "unreviewed";
       const ready = row.dataset.previewReady === "true";
       reviewed += complete ? 1 : 0;
+      unclear += entry?.decision === "unclear" ? 1 : 0;
       awaiting += ready ? 0 : 1;
       row.querySelector(".queue-review-status").textContent = !ready ? "Awaiting previews"
         : complete ? ({likely_visible_change: "Likely visible change",
@@ -32,7 +34,8 @@
     const pending = queueRows.length - reviewed - awaiting;
     document.getElementById("review-progress").textContent =
       reviewed + " of " + queueRows.length + " usable observations reviewed · "
-      + pending + " unreviewed" + (awaiting ? " · " + awaiting + " awaiting previews" : "");
+      + pending + " unreviewed" + (unclear ? " · " + unclear + " unclear" : "")
+      + (awaiting ? " · " + awaiting + " awaiting previews" : "");
     nextButton.disabled = pending === 0;
     document.getElementById("review-queue-empty").hidden =
       queueRows.some(row => !row.hidden);

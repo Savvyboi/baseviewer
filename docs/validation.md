@@ -1,6 +1,6 @@
 # Validation status
 
-Recorded 16 October 2026 (Europe/Helsinki).
+Updated 17 October 2026 (Europe/Helsinki).
 
 The published one-site prototype and its analysis/publication plumbing work. It remains an experimental detector: reliable ground-change discrimination, representative EECU consumption and the real failed-analysis deployment path are still unproven. The Park Fire review below adds a concrete optical appearance/detection discrepancy; it does not establish product readiness.
 
@@ -232,3 +232,9 @@ Codex inspected the [original baseline](evidence/gobabeb-2026-10-16/cff90cd3d81e
 **Finding:** the independently selected stable-surface reference adds one usable optical detector-negative observation to the civilian pilot. It supplies no radar control and does not establish a representative false-positive rate, construction/transport accuracy or boundaries. The clipped optical display also exposes a practical limit for human review of bright surfaces. No threshold, mask, date, AOI or frozen label was adjusted to fit this output, and no extra run was dispatched.
 
 The local pilot queue now combines the three construction radar comparisons and this optical comparison: four usable review entries, twelve original PNGs and nine insufficient optical comparisons retained in history. Records and PNGs are unchanged; Chrome checks confirmed all image hashes and export identities, with no prefilled reviews. Public HTML, latest/history JSON and three PNG hashes matched before/after the approved run. The results ref remains `8714435fea8b875f960d396f0b43d79f7545e22c`; monitoring remains disabled. The 6.327 s analysis duration is wall time, not EECU consumption. Full-AOI human review, radar quiet/change discrimination, representative compute and failed-publication acceptance remain open.
+
+## Review image information
+
+Isolated review reports now show sensor/polarization or RGB, tile/grid/PNG dimensions and the distinction between grid spacing and source resolution. Original PNG links and a measured display-endpoint notice make the bright Gobabeb limitation explicit. At least 95% of opaque PNG pixels at a channel endpoint triggers this display-only notice; it does not affect detection or reviewer decisions. The queue shows unclear observations separately within reviewed totals. Reference label status is named separately from browser-local reviewer observations.
+
+All 63 offline tests and the viewer/workbench browser checks passed, using synthetic QA observations in temporary browser contexts. Original source-history and all twelve PNG hashes are unchanged; desktop/mobile layouts were visually inspected and no-JavaScript access remains available. [QA evidence](evidence/review-image-context-2026-10-17.json) records the results. No additional Earth Engine request, live run, publication or scheduling change was introduced. This UI change does not calibrate construction/transport detection or establish ground truth.

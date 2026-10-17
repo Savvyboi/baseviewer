@@ -1,6 +1,6 @@
 # Human imagery review
 
-Recorded 16 October 2026 (Europe/Helsinki).
+Updated 17 October 2026 (Europe/Helsinki).
 
 The requested direction is construction and visible concentrations of larger vehicles, with every usable acquisition going through human review. The first useful product behavior is a small review queue with clear before/after imagery and a way to keep the reviewer's observations. Automated object identification and counts are not established capabilities. New validation work uses civilian construction and transport examples.
 
@@ -20,6 +20,14 @@ The inference from these sources is that a general change-review tool is the sim
 The [Sentinel-2 catalog](https://developers.google.com/earth-engine/datasets/catalog/COPERNICUS_S2_SR_HARMONIZED) documents 10 m pixels for the B2/B3/B4/B8 bands used here. The detector also requires at least nine connected cells, approximately 900 m². Resizing the preview does not add ground detail. Large surface alterations can be review candidates; detecting individual cars or identifying aircraft from this pipeline is not a supported claim. Whether a concentration of vehicles creates a usable signal needs civilian examples and human labels.
 
 The current optical mask retains SCL classes 4 and 5, so it excludes water and cannot be presented as a general ship detector. The 28-day rolling baseline can also absorb gradual construction. Neither the water mask nor the thresholds were changed to fit a desired result. These are product limitations to address with a small representative civilian pilot rather than a new training pipeline now.
+
+## Image information in the viewer
+
+Isolated review observations now identify **Sentinel-1 radar / VV** or **Sentinel-2 optical / RGB**, tile width, 10 m analysis-grid spacing, analysis-cell dimensions and the actual PNG dimensions. The three construction squares have 50 × 50 grid cells; Gobabeb has 20 × 20. Both are enlarged to 400 × 400 previews. The current radar source IDs are high-resolution IW GRD products: nominal source resolution is approximately 20 × 22 m at 10 m pixel spacing, before the additional production smoothing. [Copernicus product specifications](https://sentiwiki.copernicus.eu/web/s1-products) distinguish spacing from resolution. Each displayed image also has an **Open original PNG** link; increasing the display size adds no ground detail.
+
+Baseline/target previews are checked locally for display endpoints. A notice appears when at least 95% of opaque display pixels in a channel are at 0 or 255. It describes the PNG, not an analysis threshold or certainty about surface change. Gobabeb's red channel is at the maximum throughout both views; the orange overlay is excluded from this measurement. Transparent pixels do not contribute, and missing preview files do not block retained results. The notice advises Unclear when the display cannot support a decision; it does not change an existing reviewer choice.
+
+All 63 offline tests and the viewer/workbench browser checks passed. Temporary browser tests restored and re-exported synthetic QA observations, including notes and timestamps; the user's browser storage was not accessed. Unclear observations are counted explicitly within reviewed totals. Reference labels are named separately from browser-local reviewer observations. Original source-history and twelve PNG hashes matched. Metadata, display notices and PNG links work without JavaScript. Desktop/mobile screenshots were visually inspected. [QA evidence](evidence/review-image-context-2026-10-17.json) records the checks. No new live execution was needed.
 
 ## Implemented first pass
 
