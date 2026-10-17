@@ -27,6 +27,7 @@ from .diagnostics import (
     radar_filters,
     source_inventory,
 )
+from .optical_review import apply_range, review_metadata, review_values
 
 OPTICAL = ["B2", "B3", "B4", "B8"]
 RADAR = ["VV", "VH"]
@@ -98,11 +99,15 @@ class EarthEngineAnalyzer:
         radar_diagnostics: bool = False,
         review_previews: bool = False,
         imagery_diagnostics: bool = False,
+        optical_review_stretch: bool = False,
     ):
         self.site, self.settings, self.period = site, settings, period
         self.key, self.assets = analysis_key, assets
         self.include_radar_diagnostics = radar_diagnostics
         self.include_review_previews = review_previews
+        if optical_review_stretch and not review_previews:
+            raise ValueError("Optical review stretch requires review previews")
+        self.include_optical_review_stretch = optical_review_stretch
         self.include_imagery_diagnostics = imagery_diagnostics
         self.source_diagnostics = {}
         self.grid = site.grid()
@@ -266,11 +271,17 @@ class EarthEngineAnalyzer:
                 "changed_area_m2": 0.0,
             }
             self.comparisons.append(entry)
+            if sensor == "optical" and self.include_optical_review_stretch:
+                entry["optical_review"] = review_metadata(
+                    0, "Comparison has not produced usable common cells"
+                )
             if len(baseline_days) < self.settings.min_baseline_observations:
                 entry["reason"] = (
                     f"Fewer than {self.settings.min_baseline_observations} distinct baseline "
                     "acquisition days in this group"
                 )
+                if sensor == "optical" and self.include_optical_review_stretch:
+                    entry["optical_review"]["reason"] = entry["reason"]
                 if self.include_imagery_diagnostics:
                     entry["imagery_diagnostics"] = {
                         "schema_version": 1,
@@ -329,6 +340,13 @@ class EarthEngineAnalyzer:
                     self.settings.min_valid_coverage,
                 )
                 entry.update(status=status, valid_coverage=coverage)
+                if sensor == "optical" and self.include_optical_review_stretch:
+                    entry["optical_review"] = review_metadata(
+                        stats.get("valid_cells") or 0,
+                        "No common valid cells"
+                        if coverage == 0
+                        else "Insufficient common valid coverage",
+                    )
                 if self.include_imagery_diagnostics:
                     self.comparison_diagnostics(entry, before, after, counts, common, raw, stats)
                 if sensor == "radar" and self.include_radar_diagnostics and coverage > 0:
@@ -357,6 +375,8 @@ class EarthEngineAnalyzer:
                         logging.warning(
                             "Preview generation failed for %s: %s", entry["id"], details["message"]
                         )
+                if sensor == "optical" and self.include_optical_review_stretch:
+                    self.optical_review(entry, before, after, common, changed, stats)
             except Exception as exc:
                 details = error_details(exc)
                 entry.update(status="error", reason=f"{stage}: {details['message']}")
@@ -366,6 +386,44 @@ class EarthEngineAnalyzer:
                 logging.error(
                     "%s/%s/%s %s failed: %s", self.site.id, sensor, day, stage, details["message"]
                 )
+
+    def optical_review(self, entry, before, after, common, changed, summary):
+        """Display-only work; failures cannot change detector status or its error inputs."""
+        metadata = review_metadata(summary.get("valid_cells") or 0)
+        entry["optical_review"] = metadata
+        try:
+            reducer = (
+                ee.Reducer.count()
+                .combine(ee.Reducer.mean(), sharedInputs=True)
+                .combine(ee.Reducer.minMax(), sharedInputs=True)
+                .combine(ee.Reducer.percentile([5, 95]), sharedInputs=True)
+            )
+            stats = self.request(
+                lambda: self.reduce(
+                    review_values(before, after, common), reducer=reducer, band_count=18
+                ).getInfo()
+            )
+            apply_range(metadata, stats)
+            if metadata["status"] != "pending":
+                return
+            # Restrict both alternate views to exactly the cells used to set the range.
+            paths = self.previews(
+                entry["id"],
+                "optical",
+                before.updateMask(common),
+                after.updateMask(common),
+                changed.updateMask(common),
+                stretch=metadata["applied_stretch"],
+                variant="optical-review",
+            )
+            if not all(paths.get(view) for view in ("before", "after", "overlay")):
+                raise ValueError("Incomplete alternate preview triple")
+            metadata.update(status="complete", previews=paths)
+        except Exception as exc:
+            details = error_details(exc)
+            metadata.update(status="error", error=details)
+            metadata.pop("previews", None)
+            logging.warning("%s optical review preview failed: %s", entry["id"], details["message"])
 
     def radar_diagnostics(self, entry, before, after, common, baseline_collection):
         """Describe signed shifts on common cells; never alter the detection mask."""
@@ -565,15 +623,20 @@ class EarthEngineAnalyzer:
                 group_metadata = {"relative_orbit": group[0], "pass": group[1]} if group else None
                 self.compare(sensor, prepared, baseline, target, group_metadata)
 
-    def previews(self, identity, sensor, before, after, changed):
+    def previews(self, identity, sensor, before, after, changed, *, stretch=None, variant=None):
+        if variant not in (None, "optical-review"):
+            raise ValueError("Unknown preview variant")
         folder = self.assets / identity
+        if variant:
+            folder = folder / variant
         folder.mkdir(parents=True, exist_ok=True)
-        stretch = OPTICAL_STRETCH if sensor == "optical" else RADAR_STRETCH
+        stretch = stretch or (OPTICAL_STRETCH if sensor == "optical" else RADAR_STRETCH)
         images = {"before": before.visualize(**stretch), "after": after.visualize(**stretch)}
         images["overlay"] = images["after"].blend(
             changed.selfMask().visualize(palette=["ff653b"], min=0, max=1)
         )
         paths = {}
+        downloads = {}
         for name, image in images.items():
             params = {
                 "region": self.aoi,
@@ -598,8 +661,20 @@ class EarthEngineAnalyzer:
                 if check.format != "PNG":
                     raise ValueError("Expected a PNG preview")
                 check.verify()
-            destination.write_bytes(data)
-            paths[name] = f"assets/{identity}/{name}.png"
+            if variant:
+                downloads[destination] = data
+            else:
+                destination.write_bytes(data)
+            suffix = f"/{variant}" if variant else ""
+            paths[name] = f"assets/{identity}{suffix}/{name}.png"
+        # Do not advertise an alternate triple until all downloads validate and writes succeed.
+        for destination, data in downloads.items():
+            temp = destination.with_suffix(".png.tmp")
+            try:
+                temp.write_bytes(data)
+                temp.replace(destination)
+            finally:
+                temp.unlink(missing_ok=True)
         return paths
 
     def analyze(self):

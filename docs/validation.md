@@ -286,3 +286,18 @@ not EECU consumption. Shared optical review rendering and a defensible civilian 
 quiet/change pair are the next science preparation; further live analysis still
 requires specific approval. [Scope and next steps](imagery-diagnostics.md) retain the
 remaining limitations.
+
+## Optional shared optical review display
+
+An opt-in paired optical range now adds alternate baseline/target/overlay PNGs beside
+the fixed originals in isolated review reports. One scalar envelope of both dates’
+RGB band 5th/95th percentiles uses common valid cells, unchanged gamma 1.2 and the
+existing 10 m grid. Actual bounds, method/scope and fixed clipping support are saved;
+fixed and alternate PNG endpoint notices are measured separately. Missing/malformed
+statistics and partial render/storage failures preserve science and cause a retryable
+partial error. Fresh rendering records retain normal review-timestamp isolation.
+
+[Rendering policy, offline evidence and one-case live proposal](optical-review-rendering.md)
+explain access, cache upgrades and limitations. No new live render, protected-main
+write, deployment or schedule expansion was performed. Actual Gobabeb detail recovery
+remains unverified; synthetic QA is not human adjudication or imagery accuracy.

@@ -64,3 +64,19 @@ All 58 existing offline tests pass. Headless Chrome checks exercised keyboard/im
 The rapid-construction pilot has now executed: its radar comparison flags 36.45% of valid cells versus 10.52% in the pre-construction comparison and 9.59% nearby. All three trigger, and optical data are insufficient throughout. See [the live review and limitations](validation.md#rapid-construction-pilot-results). This supplies a documented construction candidate for the review workflow, while a verified quiet civilian example remains the next science check. The Park Fire optical discrepancy, broad Engels radar responses and EECU/publication gates remain unresolved.
 
 The single approved [Gobabeb stable-surface reference run](validation.md#gobabeb-live-reference-result) passed, adding one usable optical observation with full common coverage and zero qualifying cells. Its location/dates were selected from published stability and independent ground measurements before detector output. No radar comparison was returned. The original RGB views are broadly similar but have a saturated red display channel, limiting fine visual review; full-AOI human adjudication remains pending. The local civilian pilot queue now has four review entries and twelve original PNGs across construction/comparison/reference cases. No frozen label was promoted or extra run requested.
+
+
+## Optional shared optical review display
+
+An opt-in paired optical range now adds alternate baseline/target/overlay PNGs beside
+the fixed originals in isolated review reports. One scalar envelope of both dates’
+RGB band 5th/95th percentiles uses common valid cells, unchanged gamma 1.2 and the
+existing 10 m grid. Actual bounds, method/scope and fixed clipping support are saved;
+fixed and alternate PNG endpoint notices are measured separately. Missing/malformed
+statistics and partial render/storage failures preserve science and cause a retryable
+partial error. Fresh rendering records retain normal review-timestamp isolation.
+
+[Rendering policy, offline evidence and one-case live proposal](optical-review-rendering.md)
+explain access, cache upgrades and limitations. No new live render, protected-main
+write, deployment or schedule expansion was performed. Actual Gobabeb detail recovery
+remains unverified; synthetic QA is not human adjudication or imagery accuracy.

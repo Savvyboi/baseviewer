@@ -30,9 +30,10 @@ def read_records(results: Path, mode: str):
     )
 
 
-def preview_display_info(output: Path, comparison):
+def preview_display_info(output: Path, comparison, previews=None):
     """Inspect local display PNGs only; keep science records and imagery unchanged."""
     dimensions = {}
+    opaque_pixels = {}
     limits = []
     channels = (
         [(0, "VV grey")]
@@ -40,8 +41,10 @@ def preview_display_info(output: Path, comparison):
         else list(enumerate(("Red", "Green", "Blue")))
     )
     asset_root = (output / "assets").resolve()
+    if previews is None:
+        previews = comparison.get("previews") or {}
     for view in ("before", "after"):
-        relative = (comparison.get("previews") or {}).get(view)
+        relative = previews.get(view)
         if not relative:
             continue
         path = (output / relative).resolve()
@@ -53,6 +56,7 @@ def preview_display_info(output: Path, comparison):
                 rgba = original.convert("RGBA")
             opaque = rgba.getchannel("A").point(lambda alpha: 255 if alpha == 255 else 0)
             count = opaque.histogram()[255]
+            opaque_pixels[view] = count
             if not count:
                 continue
             bands = rgba.split()
@@ -72,7 +76,7 @@ def preview_display_info(output: Path, comparison):
         except (OSError, ValueError):
             # A missing/invalid preview must not prevent displaying retained measurements.
             continue
-    return {"dimensions": dimensions, "limits": limits}
+    return {"dimensions": dimensions, "limits": limits, "opaque_pixels": opaque_pixels}
 
 
 def build_site(results: Path, output: Path, mode: str):
@@ -109,6 +113,11 @@ def build_site(results: Path, output: Path, mode: str):
             previews = comparison.get("previews") or {}
             target = f"observation-{record_index}-{comparison_index}"
             review_image_info[target] = preview_display_info(output, comparison)
+            optical_review = comparison.get("optical_review") or {}
+            if optical_review.get("status") == "complete":
+                review_image_info[target]["alternate"] = preview_display_info(
+                    output, comparison, optical_review.get("previews") or {}
+                )
             review_queue.append(
                 {
                     "record": record,

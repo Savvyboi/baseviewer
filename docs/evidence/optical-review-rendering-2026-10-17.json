@@ -1,0 +1,92 @@
+{
+  "recorded_date": "2026-10-17",
+  "timezone": "Europe/Helsinki",
+  "kind": "offline optical rendering and synthetic browser QA only",
+  "base_commit": "30f4c79d174e51db08a7fd4d9bc553d359f72e5c",
+  "policy": {
+    "version": "optical-shared-v1",
+    "method": "shared_rgb_quantile_envelope",
+    "bands": [
+      "B4",
+      "B3",
+      "B2"
+    ],
+    "quantiles": [
+      5,
+      95
+    ],
+    "gamma": 1.2,
+    "synthetic_expected_bounds": {
+      "min": 0.05,
+      "max": 0.42
+    },
+    "scope": "six per-view RGB distributions of prepared reflectance on identical common cells",
+    "percentiles": "Earth Engine reducer defaults; envelope, not pooled percentile"
+  },
+  "offline": {
+    "pytest": "95 passed, 9 subtests passed",
+    "ruff_check": "passed",
+    "ruff_format_check": "16 files already formatted",
+    "git_diff_check": "passed",
+    "graph_checks": [
+      "ordinary summary graph, mask and fixed preview calls unchanged with option on",
+      "science key and comparison ID stable; fresh recomputation record timestamp",
+      "18-band fixed CRS/transform request, explicit band-pixel cap, no bestEffort",
+      "shared scalar bounds/gamma and identical alternate common-mask scope",
+      "radar graph unaffected; insufficient/zero common cells skip extra work"
+    ],
+    "failure_checks": [
+      "missing/nonfinite/count/order statistics retryable display errors",
+      "finite degenerate range terminal unavailable; authentic baseline-insufficient cache reuse",
+      "statistics/network/thumbnail/storage failure retains science and fixed paths",
+      "partial network and storage paths preserve synthetic original PNG bytes",
+      "display error keeps scientific location_status inputs unchanged, partial exit2 and retry",
+      "cache policy/schema/scope/stats/bounds/bands/gamma/path/PNG integrity",
+      "cache cannot substitute originals, another comparison or incomplete triple",
+      "fixed/shared endpoint scope separate; missing/invalid/transparent views never a negative endpoint check"
+    ],
+    "unchanged_tracked_inputs_rules_original_evidence": true
+  },
+  "browser": {
+    "kind": "synthetic browser QA only",
+    "passed": true,
+    "checks": [
+      "keyboard shared/fixed switch, six buttons, single pressed state, original links and stable eight-field identity",
+      "synthetic export/restore exact identity, notes and review timestamp; mobile fits 390px",
+      "no-JavaScript shared PNG access and metadata; network image failure visible, original review remains available",
+      "old record timestamp review stays isolated from newly rendered record"
+    ],
+    "console_errors": [],
+    "network_writes": [],
+    "desktop_viewport": [
+      1280,
+      1000
+    ],
+    "mobile_viewport": [
+      390,
+      844
+    ],
+    "visually_inspected": true,
+    "synthetic_contexts_only": true,
+    "screenshot_sha256": {
+      "optical-review-desktop.png": "6cb42b4aeafae0f08e1935b43d05d9839f6a8f18c09660fb71bf48dca4f73b9c",
+      "optical-review-mobile.png": "a7824c0717756607d4f6caa86233411172fb06db54d3ded2d8ae2afafa2ab451"
+    }
+  },
+  "privacy": {
+    "actual_human_reviews_accessed": false,
+    "actual_human_reviews_published": false,
+    "qa_observations": "synthetic only, retained in ignored local artifacts"
+  },
+  "live_requests": 0,
+  "protected_main_writes": 0,
+  "deployments": 0,
+  "limitations": [
+    "EE server execution of the new reduction/render graph unverified",
+    "no actual Gobabeb alternate rendered or recovered detail claimed",
+    "percentile tails may clip; pair brightness is not comparable across cases",
+    "10 m source/grid unchanged; no object/count or detector accuracy claim",
+    "one separately approved artifact-only live check remains proposed, not dispatched"
+  ],
+  "integration_base_commit": "22821f0"
+}
