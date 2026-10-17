@@ -35,9 +35,17 @@ Frozen validation reports now include a collapsible comparison viewer for each u
 
 The reviewer can choose **Likely visible change**, **No obvious visible change**, **Unclear**, or leave an observation **Unreviewed**, with a short note. These are reviewer observations, not verified labels or detector overrides. Notes stay in browser-local storage when available. JSON export includes every eligible comparison in the open report, its case, source-record timestamp, science key and comparison ID. It includes unreviewed records so missing reviews remain apparent. Storage failures are shown and the current notes can still be exported.
 
-Reviews are isolated by mode, case, site, science key, comparison ID and record-generation timestamp. A refreshed analysis starts a new review even if the science key and source acquisition are unchanged. The workbench appears only in isolated validation reports requesting review previews; routine monitoring reports retain their current behavior. There is no shared review service, automatic ground-truth promotion, import/merge flow or network write.
+Reviews are isolated by mode, case, site, science key, comparison ID and record-generation timestamp. A refreshed analysis starts a new review even if the science key and source acquisition are unchanged. The workbench appears only in isolated validation reports requesting review previews; routine monitoring reports retain their current behavior. There is no shared review service, automatic ground-truth promotion, overwrite/merge flow or network write.
 
 No additional imagery was requested for this UI change. The downloaded Park Fire records and PNGs were rebuilt locally; their measurements, source IDs and source preview files were preserved. This verifies the review workflow, not construction or vehicle-detection accuracy. Existing public publication and disabled scheduling remain unchanged.
+
+## Restore saved notes
+
+**Restore from JSON** reads a selected review export entirely in the browser. It fills only empty observations in the open report and preserves the exported note/decision/review timestamp. Existing choices, draft notes and deliberately reset observations are kept. This allows notes to be retained across browser sessions or restored on another device without a server upload or shared review service.
+
+Schema-1 files are validated before any entry is applied. Malformed JSON, invalid entries or duplicate identities reject the whole file. Files are limited to 2 MB and 5,000 entries. Matching uses all eight existing identity fields, including case, comparison and record-generation timestamp; stale or out-of-report observations are skipped and counted. A refreshed analysis therefore cannot silently inherit older reviews. Restoring does not change detector results, frozen labels or imagery. If browser storage is unavailable, the restored page state remains exportable with a warning.
+
+All 63 offline tests and the browser restore/workbench checks passed, with synthetic QA data only. Checks covered keyboard file selection, exact export/persistence, repeated restore, preservation of edits/drafts/resets, stale records, invalid files, blocked storage, note text handling and the absence of network writes. Desktop/mobile controls were visually inspected. [QA evidence](evidence/local-review-restore-2026-10-17.json) records the results. No imagery request or live run was needed.
 
 ## Review queue
 

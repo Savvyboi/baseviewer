@@ -1,0 +1,87 @@
+{
+  "recorded_date": "2026-10-17",
+  "timezone": "Europe/Helsinki",
+  "kind": "Browser-only saved-review restore acceptance",
+  "base_commit": "75e2dad43edc26edd13774095f8726528a33c7d9",
+  "browser_checks": {
+    "browser": "headless Chrome",
+    "desktop": {
+      "width": 1280,
+      "content": 1280
+    },
+    "mobile": {
+      "width": 390,
+      "content": 390
+    },
+    "passed": [
+      "keyboard restore button opens local file chooser",
+      "valid synthetic observations restore and export exact notes/timestamps/identities",
+      "restored notes survive reload and repeated restore is idempotent",
+      "current choices, edited drafts and deliberate resets are never overwritten",
+      "refreshed record identities are excluded with a visible count",
+      "malformed/schema/entry/duplicate/oversize files rejected before any write",
+      "note text is treated as data; no HTML execution",
+      "blocked browser storage warns and retains exportable page state",
+      "no network writes and source history unchanged",
+      "desktop/mobile controls fit; no browser errors"
+    ],
+    "test_data": "Synthetic QA ONLY. No user review export read, seeded, or published."
+  },
+  "existing_workbench_checks": {
+    "browser": "headless Chrome",
+    "desktop": {
+      "width": 1280,
+      "content": 1280
+    },
+    "mobile": {
+      "width": 390,
+      "content": 390
+    },
+    "passed": [
+      "aligned keyboard/button image switching",
+      "review survives reload",
+      "JSON export includes exact record identity and notes",
+      "source detector result remains unchanged",
+      "case isolation",
+      "refreshed-record isolation",
+      "routine reports have no workbench",
+      "blocked browser storage warns and still exports",
+      "JavaScript-disabled original previews remain available",
+      "no browser errors",
+      "desktop/mobile layout fits"
+    ]
+  },
+  "offline_checks": {
+    "pytest": "63 passed",
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "git_diff_check": "passed"
+  },
+  "screenshots": [
+    {
+      "path": "docs/evidence/local-review-restore-2026-10-17/desktop.png",
+      "sha256": "786e60e5cd25a9d8ab434eb5083666327ef4422fc74a5e24dbbba5b53549dd11",
+      "visually_inspected": true
+    },
+    {
+      "path": "docs/evidence/local-review-restore-2026-10-17/mobile.png",
+      "sha256": "baedb105cbd51eff0d156681bb9314cf1923018a52e2cd01d1d9f784b8a4d858",
+      "visually_inspected": true
+    }
+  ],
+  "restore_policy": {
+    "source": "User-selected local File read via File.text in the browser; no upload endpoint or network write.",
+    "format": "Schema 1 human imagery review observations, at most 2 MB / 5000 entries.",
+    "validation": "Validate the whole file first, including canonical eight-field identities, allowed decisions, note type/2000-character limit and nullable/parseable reviewed timestamps. Duplicate identities reject the entire file.",
+    "matching": "Only complete-preview comparisons in the current report; unmatched identities including refreshed generation timestamps are counted and skipped.",
+    "non_overwrite": "Only entries with decision unreviewed, empty note and null reviewed_at can be filled. Existing choices, drafts and deliberate resets remain untouched. Empty incoming defaults are skipped.",
+    "persistence": "Keep the original reviewed_at values. Browser storage failures retain exportable in-memory state with a visible warning.",
+    "science": "No detector status, source record, frozen label, science key or image changes."
+  },
+  "scope": {
+    "new_live_runs": 0,
+    "earth_engine_requests": 0,
+    "test_data": "Synthetic QA only. No private review export, notes, timestamps, receipt or summary is included in this evidence.",
+    "user_browser_storage_accessed": false
+  }
+}
