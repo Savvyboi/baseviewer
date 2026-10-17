@@ -4,7 +4,15 @@
   const decisions = new Set([
     "unreviewed", "likely_visible_change", "no_obvious_visible_change", "unclear"
   ]);
+  const identityFields = [
+    "mode", "case_id", "site_id", "analysis_key", "comparison_id",
+    "record_generated_at", "acquisition_date", "sensor"
+  ];
+  const reviewKey = source => "baseviewer-review-v1:" + JSON.stringify(
+    Object.fromEntries(identityFields.map(field => [field, source[field]]))
+  );
   const reviews = new Map();
+  const restorers = new Map();
   const tools = document.querySelectorAll(".review-tools");
   const queue = document.getElementById("review-queue");
   const queueRows = [...document.querySelectorAll("[data-review-target]")];
@@ -80,7 +88,7 @@
       sensor: data.sensor
     };
     // A refreshed record gets its own review, even if its science key is unchanged.
-    const key = "baseviewer-review-v1:" + JSON.stringify(identity);
+    const key = reviewKey(identity);
     const select = tool.querySelector(".review-decision");
     const note = tool.querySelector(".review-note");
     const status = tool.querySelector(".review-save-status");
@@ -102,19 +110,34 @@
     reviews.set(key, entry);
     queueReviews.set(tool.closest(".report").id, entry);
     updateQueue();
-    const save = () => {
-      entry = {...identity, decision: select.value, note: note.value.slice(0, 2000),
-               reviewed_at: new Date().toISOString()};
+    const persist = () => {
+      try {
+        localStorage.setItem(key, JSON.stringify(entry));
+        status.textContent = "Saved in this browser. Export a copy to keep it.";
+        return true;
+      } catch {
+        status.textContent = "Browser storage unavailable. Export now to keep these notes.";
+        return false;
+      }
+    };
+    const update = () => {
       reviews.set(key, entry);
       queueReviews.set(tool.closest(".report").id, entry);
       updateQueue();
-      try {
-        localStorage.setItem(key, JSON.stringify(entry));
-        status.textContent = "Saved in this browser. Export a copy to keep or share it.";
-      } catch {
-        status.textContent = "Browser storage unavailable. Export now to keep these notes.";
-      }
+      return persist();
     };
+    const save = () => {
+      entry = {...identity, decision: select.value, note: note.value.slice(0, 2000),
+               reviewed_at: new Date().toISOString()};
+      update();
+    };
+    restorers.set(key, incoming => {
+      entry = {...identity, decision: incoming.decision, note: incoming.note,
+               reviewed_at: incoming.reviewed_at};
+      select.value = entry.decision;
+      note.value = entry.note;
+      return update();
+    });
     tool.addEventListener("focusin", () => { activeTarget = tool.closest(".report").id; });
     select.addEventListener("change", save);
     note.addEventListener("input", save);
@@ -140,6 +163,84 @@
   }
   updateQueue();
   if (queue) queue.hidden = false;
+  const importButton = document.getElementById("import-reviews");
+  const importFile = document.getElementById("review-import-file");
+  let importing = false;
+  importButton?.addEventListener("click", () => importFile.click());
+  importFile?.addEventListener("change", async () => {
+    const file = importFile.files[0];
+    if (!file || importing) return;
+    const output = document.getElementById("review-import-status");
+    importing = true;
+    importButton.disabled = true;
+    output.textContent = "Reading review file in this browser…";
+    try {
+      if (file.size > 2 * 1024 * 1024) {
+        output.textContent = "File exceeds the 2 MB limit. No notes restored.";
+        return;
+      }
+      let payload;
+      try {
+        payload = JSON.parse(await file.text());
+      } catch {
+        output.textContent = "Could not read valid JSON. No notes restored.";
+        return;
+      }
+      if (payload?.schema_version !== 1
+          || payload.kind !== "human imagery review observations"
+          || !Array.isArray(payload.reviews) || payload.reviews.length > 5000) {
+        output.textContent = "Unsupported review export. No notes restored.";
+        return;
+      }
+      const incoming = new Map();
+      // Validate the entire file before applying any entry. Treat every value as data.
+      for (const entry of payload.reviews) {
+        if (!entry || !identityFields.every(field => typeof entry[field] === "string")
+            || !decisions.has(entry.decision) || typeof entry.note !== "string"
+            || entry.note.length > 2000
+            || !(entry.reviewed_at === null || (typeof entry.reviewed_at === "string"
+                 && Number.isFinite(Date.parse(entry.reviewed_at))))) {
+          output.textContent = "Invalid review entry. No notes restored.";
+          return;
+        }
+        const key = reviewKey(entry);
+        if (incoming.has(key)) {
+          output.textContent = "File contains duplicate review records. No notes restored.";
+          return;
+        }
+        incoming.set(key, entry);
+      }
+      let restored = 0;
+      let unchanged = 0;
+      let unmatched = 0;
+      let storageFailures = 0;
+      for (const [key, entry] of incoming) {
+        const current = reviews.get(key);
+        if (!current) {
+          unmatched++;
+          continue;
+        }
+        // Never replace an existing choice, a draft note, or a deliberate reset.
+        if (current.decision !== "unreviewed" || current.note !== ""
+            || current.reviewed_at !== null
+            || (entry.decision === "unreviewed" && entry.note === ""
+                && entry.reviewed_at === null)) {
+          unchanged++;
+          continue;
+        }
+        if (!restorers.get(key)(entry)) storageFailures++;
+        restored++;
+      }
+      output.textContent = restored + " restored · " + unchanged + " unchanged · "
+        + unmatched + " did not match this report."
+        + (storageFailures ? " Browser storage unavailable for " + storageFailures
+           + " records; export a copy to keep them." : "");
+    } finally {
+      importing = false;
+      importButton.disabled = false;
+      importFile.value = "";
+    }
+  });
   const exportButton = document.getElementById("export-reviews");
   exportButton?.addEventListener("click", () => {
     const output = document.getElementById("review-export-status");
