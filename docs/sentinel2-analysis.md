@@ -17,6 +17,10 @@ and the production workflow's default sensor scope are unchanged.
 
 New analysis records save `requested_sensors` as a canonical list: `["optical",
 "radar"]`, `["optical"]` or `["radar"]`. Legacy records with no field mean both.
+Only exact canonical lists are valid saved scope: explicit `null`, strings, reversed
+lists, duplicates and unknown/mixed sensors are invalid, not legacy. A malformed
+cache scope is recomputed with fresh provenance; record readers reject it. API calls
+may still omit scope or use `None` to select both.
 Run summaries save the invocation scope and each site's record scope; isolated
 `validation-case.json` also retains it. Missing comparison/area data for a requested
 sensor still means unavailable or failed analysis. An omitted sensor was intentionally
@@ -87,7 +91,7 @@ bundle built from retained Park Fire/Gobabeb imagery; this work does not duplica
 
 ## Offline verification
 
-All 236 offline tests and 9 subtests pass, including 34 new scope checks; Ruff lint
+All 266 offline tests and 9 subtests pass, including 64 new scope checks; Ruff lint
 and format checks pass. Synthetic tests cover frozen historical signatures, scope/cache separation, legacy
 both-cache reuse, fresh refresh identity, selected-sensor graph construction and
 null unavailable areas, source inventory/terrain exclusion, incompatible flags,

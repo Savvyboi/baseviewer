@@ -212,7 +212,7 @@ def review_case(args):
     import yaml
 
     from .cli import main
-    from .config import load_config, requested_sensors, signature, validate_sensor_options
+    from .config import load_config, record_requested_sensors, signature, validate_sensor_options
     from .reports import build_site, read_records, save_json
 
     sensors = validate_sensor_options(
@@ -287,7 +287,7 @@ def review_case(args):
                 record["site"] != asdict(site)
                 or record["windows"] != period
                 or record["analysis_key"] != key
-                or requested_sensors(record.get("requested_sensors")) != sensors
+                or record_requested_sensors(record) != sensors
             ):
                 continue
             record["validation_case"] = {

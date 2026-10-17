@@ -9,7 +9,14 @@ import pytest
 from ee.apitestcase import ApiTestCase
 
 from sentinel_monitor.cli import main, parser
-from sentinel_monitor.config import Settings, Site, requested_sensors, signature, windows
+from sentinel_monitor.config import (
+    Settings,
+    Site,
+    record_requested_sensors,
+    requested_sensors,
+    signature,
+    windows,
+)
 from sentinel_monitor.demo import analyze_demo
 from sentinel_monitor.earth import EarthEngineAnalyzer
 
@@ -391,3 +398,50 @@ def test_review_case_annotation_preserves_retained_other_scope_and_science_recor
     for path, original in retained.items():
         assert path.read_bytes() == original
     assert json.loads(current.read_text(encoding="utf-8"))["validation_case"]["id"] == case_id
+
+
+def test_record_scope_distinguishes_absent_legacy_field_from_api_none_default():
+    assert requested_sensors() == requested_sensors(None) == ["optical", "radar"]
+    assert record_requested_sensors({}) == ["optical", "radar"]
+    for scope in (["optical"], ["radar"], ["optical", "radar"]):
+        assert record_requested_sensors({"requested_sensors": scope}) == scope
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        None,
+        "both",
+        "optical",
+        [],
+        ["optical", "optical"],
+        {},
+        ["radar", "optical"],
+        ["optical", "thermal"],
+    ],
+)
+def test_explicit_malformed_record_scope_is_invalid(value):
+    with pytest.raises(ValueError):
+        record_requested_sensors({"requested_sensors": value})
+
+
+@pytest.mark.parametrize("scope", ["both", "optical", "radar"])
+@pytest.mark.parametrize(
+    "value",
+    [None, "both", [], ["optical", "optical"], {}, ["radar", "optical"], ["optical", "thermal"]],
+)
+def test_explicit_malformed_cache_scope_recomputes_instead_of_becoming_legacy(
+    tmp_path, scope, value
+):
+    assert main(demo_arguments(tmp_path, scope)) == 0
+    path = records(tmp_path)[0]
+    cached = json.loads(path.read_text(encoding="utf-8"))
+    cached["requested_sensors"] = value
+    cached["generated_at"] = "2000-01-01T00:00:00+00:00"
+    path.write_text(json.dumps(cached), encoding="utf-8")
+    with patch("sentinel_monitor.demo.analyze_demo", wraps=analyze_demo) as analyze:
+        assert main(demo_arguments(tmp_path, scope)) == 0
+    analyze.assert_called_once()
+    refreshed = json.loads(path.read_text(encoding="utf-8"))
+    assert refreshed["requested_sensors"] == requested_sensors(scope)
+    assert refreshed["generated_at"] != cached["generated_at"]

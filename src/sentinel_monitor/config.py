@@ -147,7 +147,7 @@ def windows(end_date: str | None = None):
 
 
 def requested_sensors(value=None):
-    """Canonical scope; absent provenance on legacy records means both sensors."""
+    """Canonical API scope; omitted/None selections default to both sensors."""
     if value is None or value == "both":
         return ["optical", "radar"]
     if isinstance(value, str):
@@ -157,6 +157,19 @@ def requested_sensors(value=None):
     if any(sensor not in ("optical", "radar") for sensor in value) or len(set(value)) != len(value):
         raise ValueError("Requested sensors must be unique optical/radar values")
     return [sensor for sensor in ("optical", "radar") if sensor in value]
+
+
+def record_requested_sensors(record):
+    """Only an absent record field is legacy BOTH; explicit malformed fields reject."""
+    if "requested_sensors" not in record:
+        return ["optical", "radar"]
+    value = record["requested_sensors"]
+    if not isinstance(value, list):
+        raise ValueError("Record requested_sensors must be a nonempty sensor list")
+    scope = requested_sensors(value)
+    if value != scope:
+        raise ValueError("Record requested_sensors must use canonical optical/radar order")
+    return scope
 
 
 def validate_sensor_options(sensors, *, radar_diagnostics=False, optical_review_stretch=False):

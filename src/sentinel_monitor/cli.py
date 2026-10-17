@@ -10,7 +10,13 @@ from dataclasses import asdict
 from datetime import UTC, datetime
 from pathlib import Path
 
-from .config import load_config, requested_sensors, signature, validate_sensor_options, windows
+from .config import (
+    load_config,
+    record_requested_sensors,
+    signature,
+    validate_sensor_options,
+    windows,
+)
 from .decisions import location_status
 from .optical_review import cache_complete
 from .reports import build_site, save_json
@@ -161,8 +167,13 @@ def run(args):
         path = args.results / mode / "records" / f"{site.id}-{period['target_end']}-{key}.json"
         if path.exists() and not args.refresh:
             existing = json.loads(path.read_text(encoding="utf-8"))
+            try:
+                existing_sensors = record_requested_sensors(existing)
+            except ValueError:
+                # Malformed provenance is not a completed cache hit. Recompute it.
+                existing_sensors = None
             if (
-                requested_sensors(existing.get("requested_sensors")) == sensors
+                existing_sensors == sensors
                 and (not args.radar_diagnostics or existing.get("radar_diagnostics_requested"))
                 and (not args.review_previews or existing.get("review_previews_requested"))
                 and (not args.imagery_diagnostics or existing.get("imagery_diagnostics_requested"))
@@ -267,7 +278,7 @@ def run(args):
             "sites": [
                 {
                     "id": r["site"]["id"],
-                    "requested_sensors": requested_sensors(r.get("requested_sensors")),
+                    "requested_sensors": record_requested_sensors(r),
                     "status": r["status"],
                     "errors": r["errors"],
                     "preview_errors": [
