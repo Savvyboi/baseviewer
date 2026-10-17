@@ -102,5 +102,7 @@
     "Public catalogs do not establish EE ingestion or per-pixel coverage.",
     "Synthetic timing QA does not adjudicate any real acquisition.",
     "Whole-AOI independent quiet evidence remains unavailable."
-  ]
+  ],
+  "integration_base_commit": "22821f029dc0beadc0122398715216745e9c9310",
+  "integration_note": "Merged current main evidence-only PR17 into isolated branch; preserved complete approved Gobabeb diagnostic section and appended candidate preparation. No detector or settings changes."
 }
