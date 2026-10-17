@@ -82,8 +82,9 @@ orbit/baseline eligibility, comparison validity and pre-patch counts, plus optic
 reflectance/difference distributions and fixed-stretch endpoint support. It is also
 available on `review-case` and the isolated validation workflow, off by default.
 It adds computation and upgrades cached records without changing science keys or
-original previews. [Scope, bounds and the prepared next check](docs/imagery-diagnostics.md)
-are documented; real-source execution of this new option remains pending approval.
+original previews. [Diagnostic scope and measured Gobabeb findings](docs/imagery-diagnostics.md)
+are documented. The first approved Gobabeb diagnostic run passed; it confirms a radar
+catalog gap and optical display clipping, without establishing a radar quiet control.
 
 For controlled failures, `--demo-scenario sensor-error` and
 `--demo-scenario preview-error` create labelled synthetic reports and return exit code 2.
