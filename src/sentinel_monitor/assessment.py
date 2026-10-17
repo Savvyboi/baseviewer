@@ -37,7 +37,9 @@ LIMITATIONS = [
     "Frozen reference labels remain separate and are never promoted by this assessment.",
     "The denominator is every science comparison in the supplied history, including "
     "insufficient data, errors and missing previews. An absent sensor has no comparison "
-    "and is reported separately; it is never a detector negative.",
+    "and is reported separately only when requested; it is never a detector negative. "
+    "Intentionally unrequested sensors are excluded from missing-sensor counts. "
+    "Legacy records without requested_sensors mean both sensors.",
     "Unclear is reviewed but inconclusive. Notes alone do not complete a review. "
     "Omitted eligible export entries remain unreviewed.",
     "Detector-by-appearance counts describe this retained set only. They are not accuracy, "
@@ -345,6 +347,8 @@ def validate_history(history, asset_root):
         cells, configured = _source_provenance(record)
         _require(isinstance(record.get("errors"), list))
         _require(type(record.get("review_previews_requested", False)) is bool)
+        requested = record.get("requested_sensors", ["optical", "radar"])
+        _require(requested in (["optical"], ["radar"], ["optical", "radar"]))
         sensors = set()
         for comparison in record["comparisons"]:
             _require(isinstance(comparison, dict))
@@ -355,6 +359,7 @@ def validate_history(history, asset_root):
                 "sensor": comparison.get("sensor"),
             }
             key = identity(entry)
+            _require(comparison["sensor"] in requested)
             _require(key not in rows and len(rows) < 100000)
             _require(isinstance(comparison.get("status"), str) and comparison["status"] in STATUSES)
             _science_comparison(comparison, record, cells, configured)
@@ -403,7 +408,9 @@ def validate_history(history, asset_root):
                 "errors": record.get("errors", []),
                 "reference_context": case,
                 "reference_truth": "not_established",
-                "absent_sensors": sorted({"optical", "radar"} - sensors),
+                "requested_sensors": requested,
+                "not_requested_sensors": sorted({"optical", "radar"} - set(requested)),
+                "absent_sensors": sorted(set(requested) - sensors),
                 "original_source_record": record,
             }
         )
@@ -579,7 +586,7 @@ def _render(result):
         + "</ul>"
         "<h2>All science comparisons</h2>"
         + "".join(cards)
-        + "<h2>Source records and absent sensors</h2><pre>"
+        + "<h2>Source records, requested gaps and unrequested sensors</h2><pre>"
         + records
         + "</pre>"
         "<h2>Excluded observations</h2><pre>" + exclusions + "</pre>"

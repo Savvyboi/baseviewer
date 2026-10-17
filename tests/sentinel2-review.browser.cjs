@@ -1,0 +1,104 @@
+/* Synthetic browser QA only. Run after tests/test_sentinel2_review.py OUTPUT_ROOT. */
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
+const http = require("node:http");
+const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
+const root = path.resolve(process.argv[2]);
+const types = {".html": "text/html", ".js": "application/javascript", ".json": "application/json", ".png": "image/png"};
+const server = http.createServer((req, res) => {
+  const file = path.resolve(root, "." + new URL(req.url, "http://localhost").pathname);
+  if (!file.startsWith(root + path.sep) || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
+    res.writeHead(404).end(); return;
+  }
+  res.setHeader("Content-Type", types[path.extname(file)] || "application/octet-stream");
+  fs.createReadStream(file).pipe(res);
+});
+let browser;
+(async () => {
+  await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
+  const base = `http://127.0.0.1:${server.address().port}`;
+  browser = await chromium.launch({headless: true, ...(process.env.CHROMIUM_EXECUTABLE ? {executablePath: process.env.CHROMIUM_EXECUTABLE} : {})});
+  const errors = [], writes = [];
+  const context = await browser.newContext({viewport: {width: 1280, height: 900}});
+  const watch = page => {
+    page.on("pageerror", error => errors.push(error.message));
+    page.on("request", request => { if (request.method() !== "GET") writes.push(request.method()); });
+  };
+  const page = await context.newPage(); watch(page);
+  const url = base + "/optical/report/index.html";
+  await page.goto(url);
+  await page.locator("#review-queue").waitFor({state: "visible"});
+  assert.match(await page.locator("#review-progress").innerText(), /0 of 3.*2 unreviewed.*1 awaiting previews/);
+  assert.equal(await page.locator(".review-tools").count(), 2);
+  await page.locator("#next-unreviewed").focus();
+  await page.keyboard.press("Enter");
+  assert.equal(await page.evaluate(() => document.activeElement.className), "review-decision");
+  const tool = page.locator(".review-tools").first();
+  await tool.locator(".review-decision").selectOption("unclear");
+  await tool.locator(".review-note").fill("SYNTHETIC QA ONLY <no truth claim>");
+  const download = async target => {
+    const event = target.waitForEvent("download");
+    await target.locator("#export-reviews").click();
+    const stream = await (await event).createReadStream();
+    const chunks = [];
+    for await (const chunk of stream) chunks.push(chunk);
+    return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  };
+  const exported = await download(page);
+  assert.equal(exported.reviews.length, 2);
+  assert.equal(exported.reviews[0].decision, "unclear");
+  assert.equal(exported.reviews[1].decision, "unreviewed");
+  const fields = ["mode", "case_id", "site_id", "analysis_key", "comparison_id", "record_generated_at", "acquisition_date", "sensor"];
+  for (const entry of exported.reviews) assert(fields.every(field => typeof entry[field] === "string"));
+  for (const name of ["before", "after", "overlay"]) await tool.locator(`[data-view="${name}"]`).click();
+  assert.deepEqual((await download(page)).reviews, exported.reviews);
+  await page.reload();
+  await page.locator("#review-queue").waitFor({state: "visible"});
+  assert.match(await page.locator("#review-progress").innerText(), /1 of 3.*1 unclear.*1 awaiting previews/);
+  await page.screenshot({path: path.join(root, "desktop.png"), fullPage: false});
+  const mobileContext = await browser.newContext({viewport: {width: 390, height: 844}});
+  const mobile = await mobileContext.newPage(); watch(mobile);
+  await mobile.goto(url);
+  const restore = async target => {
+    await target.locator("#review-import-file").setInputFiles({name: "synthetic-qa.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(exported))});
+    await target.waitForFunction(() => /restored/.test(document.getElementById("review-import-status").textContent));
+  };
+  await restore(mobile);
+  assert.match(await mobile.locator("#review-import-status").innerText(), /1 restored.*1 unchanged.*0 did not match/);
+  assert.deepEqual((await download(mobile)).reviews, exported.reviews);
+  await mobile.locator("#next-unreviewed").focus(); await mobile.keyboard.press("Enter");
+  assert.equal(await mobile.evaluate(() => document.activeElement.className), "review-decision");
+  await mobile.locator("#only-unreviewed").check();
+  assert.equal(await mobile.locator("[data-review-target]:visible").count(), 2);
+  assert(await mobile.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  await mobile.screenshot({path: path.join(root, "mobile.png"), fullPage: false});
+  await mobile.goto(base + "/refreshed/report/index.html");
+  await restore(mobile);
+  assert.match(await mobile.locator("#review-import-status").innerText(), /0 restored.*2 did not match/);
+  assert((await download(mobile)).reviews.every(entry => entry.decision === "unreviewed" && entry.note === ""));
+  await mobile.goto(base + "/legacy/report/index.html");
+  assert.match(await mobile.locator(".card").innerText(), /Requested sensor without returned comparisons: radar/);
+  const nojsContext = await browser.newContext({javaScriptEnabled: false, viewport: {width: 390, height: 844}});
+  const nojs = await nojsContext.newPage(); watch(nojs);
+  await nojs.goto(url);
+  assert.match(await nojs.locator("body").innerText(), /Radar not requested/);
+  assert.equal(await nojs.locator(".images img").count(), 7);
+  assert.equal(await nojs.getByText("Open original PNG", {exact: true}).count(), 7);
+  await nojs.locator(".table-wrap details summary").click();
+  assert.match(await nojs.locator("body").innerText(), /Synthetic cloud.mask coverage gap/);
+  assert.match(await nojs.locator("body").innerText(), /Enable JavaScript/);
+  assert(await nojs.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  const blockedContext = await browser.newContext();
+  await blockedContext.addInitScript(() => {
+    Object.defineProperty(window, "localStorage", {get() { throw new Error("SYNTHETIC blocked storage"); }});
+  });
+  const blocked = await blockedContext.newPage(); watch(blocked);
+  await blocked.goto(url); await restore(blocked);
+  assert.match(await blocked.locator("#review-import-status").innerText(), /Browser storage unavailable/);
+  assert.deepEqual((await download(blocked)).reviews, exported.reviews);
+  assert.deepEqual(errors, []); assert.deepEqual(writes, []);
+  fs.writeFileSync(path.join(root, "browser-qa.json"), JSON.stringify({synthetic_only: true, checks: ["desktop", "mobile", "keyboard", "no-JavaScript", "negative-in-queue", "missing-preview-incomplete", "optical-only-scope", "legacy-requested-gap", "eight-field-export", "same-record-view-switch", "restore-exact", "refresh-excludes-old-notes", "blocked-storage-export", "no-network-write"], passed: true}, null, 2));
+  console.log("Synthetic desktop/mobile/no-JS/export/restore browser QA passed.");
+  await browser.close();
+})().catch(error => {console.error(error); process.exitCode = 1;}).finally(async () => { if (browser) await browser.close(); server.close(); });
