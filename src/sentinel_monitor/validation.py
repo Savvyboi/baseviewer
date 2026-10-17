@@ -212,9 +212,14 @@ def review_case(args):
     import yaml
 
     from .cli import main
-    from .config import load_config
+    from .config import load_config, requested_sensors, signature, validate_sensor_options
     from .reports import build_site, read_records, save_json
 
+    sensors = validate_sensor_options(
+        getattr(args, "sensors", "both"),
+        radar_diagnostics=getattr(args, "radar_diagnostics", False),
+        optical_review_stretch=args.optical_review_stretch,
+    )
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,47}", args.case):
         raise ValueError("Validation case IDs must be lowercase slugs")
     raw = args.case_file.read_bytes()
@@ -229,7 +234,8 @@ def review_case(args):
     results.mkdir(parents=True, exist_ok=True)
     sites_file = results / "review-site.yaml"
     sites_file.write_text(yaml.safe_dump({"sites": [asdict(site)]}), encoding="utf-8")
-    load_config(sites_file, args.settings)
+    _, settings = load_config(sites_file, args.settings)
+    key = signature(site, settings, period, "live", sensors)
     arguments = [
         "run",
         "--sites",
@@ -243,9 +249,12 @@ def review_case(args):
         "--output",
         str(output),
         "--refresh",
-        "--radar-diagnostics",
+        "--sensors",
+        getattr(args, "sensors", "both"),
         "--review-previews",
     ]
+    if "radar" in sensors:
+        arguments.append("--radar-diagnostics")
     if args.optical_review_stretch:
         arguments.append("--optical-review-stretch")
     if args.imagery_diagnostics:
@@ -259,6 +268,7 @@ def review_case(args):
         {
             "kind": "artifact-only imagery validation",
             "case_id": args.case,
+            "requested_sensors": sensors,
             "imagery_diagnostics_requested": args.imagery_diagnostics,
             "optical_review_stretch_requested": args.optical_review_stretch,
             "case_manifest_sha256": hashlib.sha256(raw).hexdigest(),
@@ -273,7 +283,12 @@ def review_case(args):
     )
     if code in {0, 2}:
         for record in read_records(results, "live"):
-            if record["site"] != asdict(site) or record["windows"] != period:
+            if (
+                record["site"] != asdict(site)
+                or record["windows"] != period
+                or record["analysis_key"] != key
+                or requested_sensors(record.get("requested_sensors")) != sensors
+            ):
                 continue
             record["validation_case"] = {
                 "id": args.case,

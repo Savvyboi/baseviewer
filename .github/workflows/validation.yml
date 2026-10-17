@@ -14,6 +14,11 @@ on:
         type: choice
         options: [park-fire-event, park-fire-pre-event, huoshenshan-event, huoshenshan-pre-event, huoshenshan-nearby, gobabeb-quiet-reference, salzbachtal-demolition, salzbachtal-pre-demolition]
         default: park-fire-event
+      sensors:
+        description: Requested sensors for the imagery check
+        type: choice
+        options: [both, optical, radar]
+        default: both
       imagery_diagnostics:
         description: Source eligibility, validity and pre-patch optical values (extra compute)
         type: boolean
@@ -140,6 +145,7 @@ jobs:
     env:
       EE_PROJECT_ID: ${{ vars.EE_PROJECT_ID }}
       CASE_ID: ${{ inputs.case_id }}
+      SENSORS: ${{ inputs.sensors || 'both' }}
       IMAGERY_DIAGNOSTICS: ${{ inputs.imagery_diagnostics || false }}
       OPTICAL_REVIEW_STRETCH: ${{ inputs.optical_review_stretch || false }}
     steps:
@@ -160,7 +166,7 @@ jobs:
           create_credentials_file: true
       - shell: bash
         run: |
-          args=(--case "$CASE_ID")
+          args=(--case "$CASE_ID" --sensors "$SENSORS")
           if [[ "$IMAGERY_DIAGNOSTICS" == true ]]; then args+=(--imagery-diagnostics); fi
           if [[ "$OPTICAL_REVIEW_STRETCH" == true ]]; then args+=(--optical-review-stretch); fi
           sentinel-monitor review-case "${args[@]}"

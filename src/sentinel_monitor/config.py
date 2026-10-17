@@ -146,7 +146,29 @@ def windows(end_date: str | None = None):
     }
 
 
-def signature(site: Site, settings: Settings, period: dict, mode: str):
+def requested_sensors(value=None):
+    """Canonical scope; absent provenance on legacy records means both sensors."""
+    if value is None or value == "both":
+        return ["optical", "radar"]
+    if isinstance(value, str):
+        value = [value]
+    if not isinstance(value, (list, tuple)) or not value:
+        raise ValueError("Requested sensors must be optical, radar, or both")
+    if any(sensor not in ("optical", "radar") for sensor in value) or len(set(value)) != len(value):
+        raise ValueError("Requested sensors must be unique optical/radar values")
+    return [sensor for sensor in ("optical", "radar") if sensor in value]
+
+
+def validate_sensor_options(sensors, *, radar_diagnostics=False, optical_review_stretch=False):
+    scope = requested_sensors(sensors)
+    if radar_diagnostics and "radar" not in scope:
+        raise ValueError("--radar-diagnostics requires requested radar")
+    if optical_review_stretch and "optical" not in scope:
+        raise ValueError("--optical-review-stretch requires requested optical")
+    return scope
+
+
+def signature(site: Site, settings: Settings, period: dict, mode: str, requested_sensors=None):
     data = {
         "site": asdict(site),
         "settings": {
@@ -164,4 +186,8 @@ def signature(site: Site, settings: Settings, period: dict, mode: str):
         "windows": period,
         "mode": mode,
     }
+    scope = validate_sensor_options(requested_sensors)
+    # Preserve all historical BOTH keys while separating either single-sensor scope.
+    if scope != ["optical", "radar"]:
+        data["requested_sensors"] = scope
     return hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()[:20]
