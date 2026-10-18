@@ -299,7 +299,9 @@ def test_european_ports_profile_loads_with_bounded_site_selection(workflow, tmp_
     sites, settings = cli.load_config(ROOT / parsed.sites, ROOT / parsed.settings)
     from dataclasses import replace
 
-    _, active_settings = cli.load_config(ROOT / "sites.yaml", ROOT / "settings.yaml")
+    _, active_settings = cli.load_config(
+        ROOT / "tests" / "fixtures" / "sites.yaml", ROOT / "settings.yaml"
+    )
     assert settings == replace(active_settings, max_sites=3)
     assert len(sites) == 3
     assert len(sites) <= settings.max_sites

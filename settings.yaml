@@ -12,7 +12,8 @@ radar_max_angle: 45
 terrain_max_slope_deg: 15
 # Conservative terrain screening is not radiometric terrain flattening.
 dem_collection: COPERNICUS/DEM/GLO30_2024_1
-max_sites: 1
+# Maximum number of sites in the managed monitoring list.
+max_sites: 20
 max_images_per_sensor: 300
 request_attempts: 3
 preview_pixels: 400

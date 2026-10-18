@@ -113,7 +113,7 @@ def preview_available(image_root, relative):
     return True
 
 
-def build_site(results: Path, output: Path, mode: str):
+def build_site(results: Path, output: Path, mode: str, sites=None):
     records = read_records(results, mode)
     # Reject contradictory scope before touching a previously built report bundle.
     sensor_scopes = {id(record): sensor_scope(record) for record in records}
@@ -125,6 +125,17 @@ def build_site(results: Path, output: Path, mode: str):
     latest = {}
     for record in records:
         latest.setdefault(record["site"]["id"], record)
+    monitoring_sites = None
+    if sites is not None:
+        monitoring_sites = []
+        for site in sites:
+            record = latest.get(site.id)
+            current = record and all(
+                record["site"][key] == getattr(site, key)
+                for key in ("latitude", "longitude", "size_m")
+            )
+            monitoring_sites.append({"site": site, "record": record if current else None})
+        latest = {item["site"].id: item["record"] for item in monitoring_sites if item["record"]}
     assets = results / mode / "assets"
     if assets.exists():
         shutil.copytree(assets, output / "assets", dirs_exist_ok=True)
@@ -180,6 +191,7 @@ def build_site(results: Path, output: Path, mode: str):
             encoding="utf-8",
         )
     html = template.render(
+        monitoring_sites=monitoring_sites,
         records=records,
         latest=list(latest.values()),
         mode=mode,

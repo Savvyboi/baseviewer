@@ -289,7 +289,7 @@ def test_imagery_diagnostics_upgrade_cache_retry_failure_and_export(tmp_path):
     args = [
         "run",
         "--sites",
-        str(ROOT / "sites.yaml"),
+        str(ROOT / "tests" / "fixtures" / "sites.yaml"),
         "--settings",
         str(ROOT / "settings.yaml"),
         "--end-date",

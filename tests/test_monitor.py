@@ -118,7 +118,7 @@ def demo_run(results, output, *extra):
         [
             "run",
             "--sites",
-            str(ROOT / "sites.yaml"),
+            str(ROOT / "tests" / "fixtures" / "sites.yaml"),
             "--settings",
             str(ROOT / "settings.yaml"),
             "--results",
@@ -482,7 +482,7 @@ def test_live_failure_exports_diagnostic_summary_and_returns_nonzero(tmp_path):
             [
                 "run",
                 "--sites",
-                str(ROOT / "sites.yaml"),
+                str(ROOT / "tests" / "fixtures" / "sites.yaml"),
                 "--settings",
                 str(ROOT / "settings.yaml"),
                 "--end-date",

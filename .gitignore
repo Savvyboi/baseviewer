@@ -20,3 +20,6 @@ results-*/
 site-*/
 .preview-*/
 Sentinel-Monitor-Agent-Plan.md
+
+# Local GitHub publication bookkeeping; never credentials.
+*.github-sync.json

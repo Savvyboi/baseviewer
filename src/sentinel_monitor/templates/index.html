@@ -27,6 +27,15 @@
 </header>
 <main>
 <div class="toolbar"><label for="status-filter">Show locations</label><select id="status-filter"><option value="all">All statuses</option><option value="possible_change">Possible change</option><option value="no_change_detected">No change detected</option><option value="insufficient_data">Insufficient data</option><option value="error">Error</option></select><a href="latest.json">Latest JSON</a><a href="history.json">Full history</a></div>
+{% if monitoring_sites is not none %}
+<section aria-labelledby="monitoring-heading">
+<h2 id="monitoring-heading">Monitoring list · {{ monitoring_sites | length }} sites</h2>
+<div class="table-wrap"><table><thead><tr><th>Site</th><th>Coordinates</th><th>Width</th><th>Latest check</th></tr></thead><tbody>
+{% for item in monitoring_sites %}<tr><td>{{ item.site.name }}</td><td>{{ item.site.latitude }}, {{ item.site.longitude }}</td><td>{{ item.site.size_m }} m square</td><td>{% if item.record %}{{ item.record.status | replace('_', ' ') }} · {{ item.record.windows.target_end }}{% else %}Awaiting first check{% endif %}</td></tr>
+{% else %}<tr><td colspan="4">No sites in monitoring. Add a site in the local management page.</td></tr>{% endfor %}
+</tbody></table></div>
+</section>
+{% endif %}
 <h2>Latest location checks</h2>
 <div class="grid">
 {% for r in latest %}

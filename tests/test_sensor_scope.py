@@ -102,7 +102,7 @@ def demo_arguments(tmp_path, scope="both"):
         "--end-date",
         "2026-10-12",
         "--sites",
-        str(ROOT / "sites.yaml"),
+        str(ROOT / "tests" / "fixtures" / "sites.yaml"),
         "--settings",
         str(ROOT / "settings.yaml"),
         "--results",
@@ -345,7 +345,7 @@ def test_review_case_annotation_preserves_retained_other_scope_and_science_recor
         case_id
     ]
     site, period = Site(**case["site"]), windows(case["end_date"])
-    _, settings = load_config(ROOT / "sites.yaml", ROOT / "settings.yaml")
+    _, settings = load_config(ROOT / "tests" / "fixtures" / "sites.yaml", ROOT / "settings.yaml")
     directory = tmp_path / "results" / case_id / "live" / "records"
     directory.mkdir(parents=True)
     retained = {}
