@@ -3,9 +3,4 @@ sites:
   name: Engels air base
   latitude: 51.480499
   longitude: 46.215
-  size_m: 2000
-- id: kacha-air-base
-  name: kacha air base
-  latitude: 44.779215
-  longitude: 33.569155
-  size_m: 2000
+  size_m: 4000
