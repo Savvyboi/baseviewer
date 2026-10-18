@@ -14,7 +14,7 @@ import ee
 import google.auth
 from PIL import Image
 
-from .config import Settings, Site
+from .config import Settings, Site, validate_sensor_options
 from .decisions import comparison_status, detection_id, radar_group
 from .diagnostics import (
     OPTICAL_STRETCH,
@@ -96,11 +96,17 @@ class EarthEngineAnalyzer:
         analysis_key: str,
         assets: Path,
         *,
+        requested_sensors=None,
         radar_diagnostics: bool = False,
         review_previews: bool = False,
         imagery_diagnostics: bool = False,
         optical_review_stretch: bool = False,
     ):
+        self.requested_sensors = validate_sensor_options(
+            requested_sensors,
+            radar_diagnostics=radar_diagnostics,
+            optical_review_stretch=optical_review_stretch,
+        )
         self.site, self.settings, self.period = site, settings, period
         self.key, self.assets = analysis_key, assets
         self.include_radar_diagnostics = radar_diagnostics
@@ -565,6 +571,8 @@ class EarthEngineAnalyzer:
             )
 
     def sensor(self, sensor):
+        if sensor not in self.requested_sensors:
+            raise ValueError(f"Sensor {sensor} was not requested")
         raw = (
             ee.ImageCollection(S2 if sensor == "optical" else S1)
             .filterBounds(self.aoi)
@@ -679,7 +687,7 @@ class EarthEngineAnalyzer:
 
     def analyze(self):
         ee.data.setWorkloadTag(f"sentinel-{self.key}")
-        for sensor in ["optical", "radar"]:
+        for sensor in self.requested_sensors:
             try:
                 self.sensor(sensor)
             except Exception as exc:
@@ -689,23 +697,24 @@ class EarthEngineAnalyzer:
         area = {"optical_m2": None, "radar_m2": None, "overlap_m2": None}
         if self.masks:
             try:
-                zero = self.on_grid(ee.Image(0))
-                optical = self.masks.get("optical", zero)
-                radar = self.masks.get("radar", zero)
-                images = (
-                    ee.Image.pixelArea()
-                    .multiply(optical)
-                    .rename("optical_m2")
-                    .addBands(ee.Image.pixelArea().multiply(radar).rename("radar_m2"))
-                    .addBands(
-                        ee.Image.pixelArea().multiply(optical.And(radar)).rename("overlap_m2")
+                images = None
+                for sensor in self.requested_sensors:
+                    if sensor in self.masks:
+                        band = (
+                            ee.Image.pixelArea().multiply(self.masks[sensor]).rename(f"{sensor}_m2")
+                        )
+                        images = band if images is None else images.addBands(band)
+                if all(sensor in self.masks for sensor in ("optical", "radar")):
+                    images = images.addBands(
+                        ee.Image.pixelArea()
+                        .multiply(self.masks["optical"].And(self.masks["radar"]))
+                        .rename("overlap_m2")
                     )
-                )
                 summary = self.request(lambda: self.reduce(images).getInfo())
-                for sensor in ["optical", "radar"]:
+                for sensor in self.requested_sensors:
                     if sensor in self.masks:
                         area[f"{sensor}_m2"] = summary.get(f"{sensor}_m2") or 0.0
-                if len(self.masks) == 2:
+                if all(sensor in self.masks for sensor in ("optical", "radar")):
                     area["overlap_m2"] = summary.get("overlap_m2") or 0.0
             except Exception as exc:
                 details = error_details(exc)

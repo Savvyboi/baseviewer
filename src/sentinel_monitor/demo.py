@@ -5,6 +5,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw
 
+from .config import requested_sensors as canonical_sensors
 from .decisions import comparison_status, detection_id
 
 
@@ -27,7 +28,10 @@ def patch_cells(candidates: set[tuple[int, int]], minimum: int):
     return retained
 
 
-def analyze_demo(site, settings, period, key, assets: Path, scenario: str):
+def analyze_demo(
+    site, settings, period, key, assets: Path, scenario: str, *, requested_sensors=None
+):
+    sensors = canonical_sensors(requested_sensors)
     side = site.size_m // 10
     edge = max(0, side // 2 - 1)
     patch = {(x, y) for x in range(edge, edge + 3) for y in range(edge, edge + 3)}
@@ -43,7 +47,7 @@ def analyze_demo(site, settings, period, key, assets: Path, scenario: str):
         for d in (18, 6)
     ]
     comparisons = []
-    for sensor in ["optical", "radar"]:
+    for sensor in sensors:
         sources = [f"synthetic:{sensor}:{acquisition}"]
         identity = detection_id(site.id, sensor, sources, key)
         comparison = {
@@ -91,9 +95,10 @@ def analyze_demo(site, settings, period, key, assets: Path, scenario: str):
         comparisons.append(comparison)
     area = float(len(retained) * 100) if valid else None
     errors = []
-    areas = {"optical_m2": area, "radar_m2": area, "overlap_m2": area}
-    if scenario == "sensor-error":
-        comparison = comparisons[1]
+    areas = {f"{sensor}_m2": area if sensor in sensors else None for sensor in ("optical", "radar")}
+    areas["overlap_m2"] = area if len(sensors) == 2 else None
+    if scenario == "sensor-error" and "radar" in sensors:
+        comparison = next(c for c in comparisons if c["sensor"] == "radar")
         comparison.pop("previews", None)
         comparison.update(
             status="error",
@@ -110,8 +115,8 @@ def analyze_demo(site, settings, period, key, assets: Path, scenario: str):
             }
         )
         areas.update(radar_m2=None, overlap_m2=None)
-    elif scenario == "preview-error":
-        comparison = comparisons[0]
+    elif scenario == "preview-error" and "optical" in sensors:
+        comparison = next(c for c in comparisons if c["sensor"] == "optical")
         comparison.pop("previews", None)
         comparison.update(
             preview_error="SyntheticError",
