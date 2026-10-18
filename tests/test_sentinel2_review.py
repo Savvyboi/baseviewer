@@ -188,6 +188,78 @@ def test_requested_acquisition_failure_without_comparisons_is_not_a_negative(tmp
     assert result["source_records"][0]["detector_status"] == "error"
 
 
+@pytest.mark.parametrize("state", ["missing", "unreadable"])
+def test_rebuild_same_output_never_advertises_stale_original_png(tmp_path, state):
+    source = review_record()
+    results, output = render_fixture(tmp_path, source)
+    history_before = (output / "history.json").read_bytes()
+    assert (output / "index.html").read_text(encoding="utf-8").count('class="review-tools"') == 2
+    retained = results / "live/assets/after.png"
+    if state == "missing":
+        retained.unlink()
+        # Rebuilding used to trust this stale copy and expose review controls.
+        assert (output / "assets/after.png").is_file()
+    else:
+        retained.write_bytes(b"SYNTHETIC invalid retained PNG")
+    build_site(results, output, "live")
+    html = (output / "index.html").read_text(encoding="utf-8")
+    assert html.count('data-preview-ready="false"') == 3
+    assert 'class="review-tools"' not in html
+    assert 'src="assets/after.png"' not in html
+    assert 'href="assets/after.png"' not in html
+    assert "Awaiting previews:" in html
+    assert (output / "history.json").read_bytes() == history_before
+    assert (
+        json.loads((results / "live/records/synthetic.json").read_text(encoding="utf-8")) == source
+    )
+
+
+@pytest.mark.parametrize("scope", [None, [], ["radar"]])
+def test_rejected_scope_leaves_previous_output_bundle_unchanged(tmp_path, scope):
+    source = review_record()
+    results, output = render_fixture(tmp_path, source)
+    before = {
+        path.relative_to(output): path.read_bytes() for path in output.rglob("*") if path.is_file()
+    }
+    source["requested_sensors"] = scope
+    save_json(results / "live/records/synthetic.json", source)
+    # Ensure the rejected build also would have changed copied imagery if it ran.
+    Image.new("RGB", (10, 10), (200, 40, 50)).save(results / "live/assets/after.png")
+    with pytest.raises(ValueError):
+        build_site(results, output, "live")
+    after = {
+        path.relative_to(output): path.read_bytes() for path in output.rglob("*") if path.is_file()
+    }
+    assert after == before
+
+
+@pytest.mark.parametrize("view", ["after", "overlay"])
+def test_rebuild_never_advertises_stale_shared_display(tmp_path, view):
+    source = review_record()
+    paths = {name: f"assets/shared-{name}.png" for name in ("before", "after", "overlay")}
+    source["comparisons"][0]["optical_review"] = {
+        "status": "complete",
+        "previews": paths,
+        "common_valid_cells": 100,
+    }
+    results, output = render_fixture(tmp_path, source)
+    for relative in paths.values():
+        Image.new("RGB", (10, 10), (100, 120, 140)).save(results / "live" / relative)
+    build_site(results, output, "live")
+    assert 'data-rendering="Shared optical range"' in (output / "index.html").read_text(
+        encoding="utf-8"
+    )
+    (results / "live" / paths[view]).unlink()
+    assert (output / paths[view]).is_file()
+    build_site(results, output, "live")
+    html = (output / "index.html").read_text(encoding="utf-8")
+    assert 'data-rendering="Shared optical range"' not in html
+    assert 'href="assets/shared-' not in html
+    assert 'src="assets/shared-' not in html
+    assert "Shared-range PNG endpoint check is incomplete" in html
+    assert html.count('class="review-tools"') == 2
+
+
 if __name__ == "__main__":
     import sys
 

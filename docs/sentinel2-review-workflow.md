@@ -27,7 +27,9 @@ trying this bounded review workflow.
 4. Keep insufficient-data comparisons and errors in check history. Usable rows
    with missing/unreadable original PNGs stay **Awaiting previews**, have no review
    controls and are excluded from export until their previews are available.
-   Other available original images and the science measurements remain visible.
+   Readiness and links are checked against current retained source PNGs, so an old
+   copied output file cannot make a rebuilt row ready. Other available original
+   images and the science measurements remain visible.
    None of these availability gaps becomes a negative observation.
 5. Export notes to keep a local copy. Restore fills only empty entries matching
    the exact eight-field identity. Existing choices, notes and resets remain.
@@ -54,7 +56,8 @@ never as a failure, zero area, or detector negative. The private assessment's
 `absent_sensors` means requested sensors with no comparisons; intentional omissions
 appear separately as `not_requested_sensors`. Every existing science comparison,
 including insufficient data/errors, remains in assessment denominators. Malformed
-scope or a comparison outside declared scope is rejected rather than reclassified.
+scope or a comparison outside declared scope is rejected before any output-bundle
+write. A previous report bundle remains unchanged on rejection.
 
 Retained historical records without the field stay historically **both**. Rebuilding
 HTML never rewrites them or adds scope to their downloaded source JSON. An optical-only
@@ -99,7 +102,7 @@ It serves only generated synthetic files on a temporary loopback port and uses f
 headless contexts, never the user's browser/storage or pilot server. Disposable
 screenshots and the synthetic check receipt stay under ignored `.preview-output`.
 
-Verification: 219 offline tests and nine subtests passed, as did lint/format checks.
+Verification: 226 offline tests and nine subtests passed, as did lint/format checks.
 Synthetic desktop/mobile/no-JavaScript and keyboard checks passed; screenshots were
 visually inspected. Browser checks verified detector-negative queue inclusion,
 awaiting previews, intentional sensor omission versus legacy missing radar, exact

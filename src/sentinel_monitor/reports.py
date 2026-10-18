@@ -95,28 +95,28 @@ def sensor_scope(record):
     }
 
 
-def previews_ready(output, comparison):
-    """Missing or unreadable local images must leave a usable row awaiting previews."""
-    asset_root = (output / "assets").resolve()
-    for view in ("before", "after", "overlay"):
-        relative = (comparison.get("previews") or {}).get(view)
-        if not relative:
-            return False
-        path = (output / relative).resolve()
-        if not path.is_relative_to(asset_root):
-            return False
-        try:
-            with Image.open(path) as image:
-                if image.format != "PNG":
-                    return False
-                image.verify()
-        except (OSError, ValueError):
-            return False
+def preview_available(image_root, relative):
+    """Verify the current retained source, never an old copied output image."""
+    if not relative:
+        return False
+    asset_root = (image_root / "assets").resolve()
+    path = (image_root / relative).resolve()
+    if not path.is_relative_to(asset_root):
+        return False
+    try:
+        with Image.open(path) as image:
+            if image.format != "PNG":
+                return False
+            image.verify()
+    except (OSError, ValueError):
+        return False
     return True
 
 
 def build_site(results: Path, output: Path, mode: str):
     records = read_records(results, mode)
+    # Reject contradictory scope before touching a previously built report bundle.
+    sensor_scopes = {id(record): sensor_scope(record) for record in records}
     output.mkdir(parents=True, exist_ok=True)
     marker = output / ".sentinel-mode"
     if marker.exists() and marker.read_text(encoding="utf-8") != mode:
@@ -138,7 +138,15 @@ def build_site(results: Path, output: Path, mode: str):
     review_workbench = any(
         r.get("validation_case") and r.get("review_previews_requested") for r in records
     )
-    sensor_scopes = {id(record): sensor_scope(record) for record in records}
+    image_root = results / mode
+    preview_availability = {
+        f"observation-{record_index}-{comparison_index}": {
+            view: preview_available(image_root, (comparison.get("previews") or {}).get(view))
+            for view in ("before", "after", "overlay")
+        }
+        for record_index, record in enumerate(records)
+        for comparison_index, comparison in enumerate(record["comparisons"])
+    }
     review_queue = []
     review_image_info = {}
     for record_index, record in enumerate(records):
@@ -148,13 +156,17 @@ def build_site(results: Path, output: Path, mode: str):
             if comparison["status"] not in {"possible_change", "no_change_detected"}:
                 continue
             target = f"observation-{record_index}-{comparison_index}"
-            review_image_info[target] = preview_display_info(output, comparison)
-            ready = previews_ready(output, comparison)
+            review_image_info[target] = preview_display_info(image_root, comparison)
+            ready = all(preview_availability[target].values())
             review_image_info[target]["ready"] = ready
             optical_review = comparison.get("optical_review") or {}
             if optical_review.get("status") == "complete":
                 review_image_info[target]["alternate"] = preview_display_info(
-                    output, comparison, optical_review.get("previews") or {}
+                    image_root, comparison, optical_review.get("previews") or {}
+                )
+                review_image_info[target]["alternate"]["ready"] = all(
+                    preview_available(image_root, (optical_review.get("previews") or {}).get(view))
+                    for view in ("before", "after", "overlay")
                 )
             review_queue.append(
                 {
@@ -176,6 +188,7 @@ def build_site(results: Path, output: Path, mode: str):
         review_workbench=review_workbench,
         review_queue=review_queue,
         review_image_info=review_image_info,
+        preview_availability=preview_availability,
         sensor_scope=lambda record: sensor_scopes[id(record)],
         review_mode=any(r.get("review_previews_requested") for r in records),
     )
