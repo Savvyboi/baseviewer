@@ -73,7 +73,7 @@ def invoke(tmp_path, result, *, end="2026-10-12", extra=()):
             [
                 "run",
                 "--sites",
-                str(ROOT / "sites.yaml"),
+                str(ROOT / "tests" / "fixtures" / "sites.yaml"),
                 "--settings",
                 str(ROOT / "settings.yaml"),
                 "--results",

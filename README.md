@@ -45,11 +45,50 @@ configured site, both sensors, and review previews disabled. The port profile do
 change the active site file or enable scheduling. See [the regular optical review
 pilot](docs/regular-optical-review.md) for the exact inputs, locations and persistence.
 
+## Manage the monitoring list
+
+Start the local management page:
+
+```powershell
+.\.venv\Scripts\sentinel-monitor.exe manage
+```
+
+Open `http://127.0.0.1:8767`. Enter a site name, latitude, longitude and square width
+in metres, then choose **Add to monitoring**. This saves a local draft in
+`sites.yaml`; IDs are generated automatically and the list survives restarts.
+
+Choose **Publish list to GitHub** to submit your site edits to `main` using your
+existing Git/GitHub credentials. The manager uses an isolated checkout and commits
+only `sites.yaml`, without switching your branch or committing other local files.
+Independent GitHub additions are preserved; conflicting edits to the same site
+stop publication. The local list is updated with the merged published list.
+Publication status and links to the hosted report and GitHub runs appear in the UI.
+The site-list publishing workflow must be merged into `main` before submission.
+
+A main-branch update rebuilds GitHub Pages from the saved list and retained history,
+without an Earth Engine request. New sites appear as **Awaiting first check**.
+The weekly GitHub workflow checks the published list every Monday at 06:30 UTC
+when `MONITOR_ENABLED=true`, using its existing Google federation configuration.
+You can close the local tool after publishing. No local Google login is needed.
+Check **GitHub runs** for publication, analysis and deployment results; a successful
+submission means the list was saved, not that the Pages deployment has finished.
+
+Removing a site edits the local draft. Publish again to stop its future GitHub
+checks; earlier results are retained. An empty monitoring list is supported.
+The default cap is 20 sites; `max_sites` is enforced against both local settings
+and the settings on GitHub during publication.
+
+`manage --demo` keeps changes local and provides an optional synthetic demo check.
+Manager reports default to separate `site-manager` and `site-manager-demo` folders.
+`--sites`, `--settings`, `--results`, `--output`, `--project` and `--port` can override
+defaults; GitHub submission requires the repository's root `sites.yaml` and an
+`origin` remote on GitHub. Local submission bookkeeping is ignored by Git.
+
 ## Configure locations and rules
 
 Add entries to `sites.yaml` with a unique lowercase slug, name, latitude, longitude and `size_m` (default 2000). Widths must be multiples of 10 m, between 30 m and 20 km. The analysis constructs a metric square in local UTM or polar UPS and stores its fixed CRS and grid transform. A 2 km square has 40,000 cells at 10 m. The grid centre can shift by up to 5 m in each axis to keep cell edges aligned.
 
-Select one location using `--site-id engels-air-base`; repeat the option for several locations. The initial `max_sites: 1` guard must be raised deliberately before larger runs. Planned area is the sum of individual squared widths.
+Select one location using `--site-id engels-air-base`; repeat the option for several locations. The managed list is capped at `max_sites: 20`; both the manager and analysis enforce this setting. Raise it deliberately for larger runs (at most 200). Planned area is the sum of individual squared widths.
 
 `settings.yaml` contains prototype thresholds:
 
@@ -174,7 +213,7 @@ The workflow fetches history from the `results` branch (creating it if necessary
 
 ## Benchmark before scaling
 
-Use 20 representative locations across several historical weeks, including varied sizes, cloud conditions and candidate densities. Raise `max_sites` to 20 only for that stage. Include both sensors, all baseline work, summaries, previews and retries in measurement. Workload tags are saved in each record and `results/run-summary.json`; filter these in [Cloud Monitoring](https://developers.google.com/earth-engine/guides/monitoring_usage). Elapsed seconds in the report are diagnostic wall time, **not EECU usage**.
+Use 20 representative locations across several historical weeks, including varied sizes, cloud conditions and candidate densities. The configured list limit is 20; measure that workload before raising the limit further. Include both sensors, all baseline work, summaries, previews and retries in measurement. Workload tags are saved in each record and `results/run-summary.json`; filter these in [Cloud Monitoring](https://developers.google.com/earth-engine/guides/monitoring_usage). Elapsed seconds in the report are diagnostic wall time, **not EECU usage**.
 
 Record measured EECU-hours and extrapolate explicitly:
 
@@ -194,4 +233,4 @@ pytest -q
 
 The checks exercise configuration, UTC windows, grid construction, coverage/status handling, orbit isolation, tile deduplication, history, mode separation, escaping and Earth Engine expression serialization using the client library's offline API fixture. Reducer outputs in those graph tests are mocked. They establish client-side construction and handling, not real imagery accuracy; the live one-site run verifies server execution and saved previews, while scientific accuracy remains an acceptance step.
 
-Object recognition, people/vehicle counting, a database and coordinate-entry forms are outside this initial milestone.
+Object recognition, people/vehicle counting, a database and editing sites from the published GitHub Pages report are outside this milestone.

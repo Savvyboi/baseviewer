@@ -12,6 +12,7 @@ from pathlib import Path
 
 from .config import (
     load_config,
+    load_sites,
     record_requested_sensors,
     signature,
     validate_sensor_options,
@@ -71,6 +72,15 @@ def parser():
     build.add_argument("--results", type=Path, default=Path("results"))
     build.add_argument("--output", type=Path, default=Path("site"))
     build.add_argument("--demo", action="store_true")
+    build.add_argument("--sites", type=Path, default=Path("sites.yaml"))
+    manage = commands.add_parser("manage", help="Open the local monitoring-list manager")
+    manage.add_argument("--sites", type=Path, default=Path("sites.yaml"))
+    manage.add_argument("--settings", type=Path, default=Path("settings.yaml"))
+    manage.add_argument("--results", type=Path, default=Path("results"))
+    manage.add_argument("--output", type=Path, help="Defaults to site-manager or site-manager-demo")
+    manage.add_argument("--port", type=int, default=8767)
+    manage.add_argument("--project", default=os.environ.get("EE_PROJECT_ID"))
+    manage.add_argument("--demo", action="store_true", help="Run synthetic checks only")
     benchmark = commands.add_parser("benchmark")
     benchmark.add_argument("--measured-eecu-hours", type=float, required=True)
     benchmark.add_argument("--measured-sites", type=int, default=20)
@@ -156,6 +166,7 @@ def run(args):
     ):
         raise ValueError("Imagery review options require live imagery")
     sites, settings = load_config(args.sites, args.settings)
+    configured_sites = sites
     if args.site_id:
         unknown = set(args.site_id) - {s.id for s in sites}
         if unknown:
@@ -280,7 +291,7 @@ def run(args):
         save_json(path, record)
         records.append(record)
         logging.info("%s: %s", site.id, record["status"])
-    build_site(args.results, args.output, mode)
+    build_site(args.results, args.output, mode, configured_sites)
     # This manifest is for this invocation only; history remains in records/.
     save_json(
         args.results / "run-summary.json",
@@ -357,7 +368,13 @@ def main(argv=None):
                 )
             )
         elif args.command == "build":
-            build_site(args.results, args.output, "demo" if args.demo else "live")
+            build_site(
+                args.results, args.output, "demo" if args.demo else "live", load_sites(args.sites)
+            )
+        elif args.command == "manage":
+            from .manager import serve
+
+            serve(args)
         elif args.command == "review-case":
             from .validation import review_case
 

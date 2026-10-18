@@ -26,7 +26,7 @@ def test_synthetic_failure_is_labelled_separate_and_retried(tmp_path, scenario):
         "--end-date",
         "2026-10-12",
         "--sites",
-        str(ROOT / "sites.yaml"),
+        str(ROOT / "tests" / "fixtures" / "sites.yaml"),
         "--settings",
         str(ROOT / "settings.yaml"),
         "--results",
@@ -175,7 +175,7 @@ def test_frozen_case_runs_one_site_without_modifying_active_configuration(
     assert provenance["frozen_on"] == (
         "2026-10-17" if case_id.startswith("salzbachtal-") else "2026-10-16"
     )
-    active = yaml.safe_load((ROOT / "sites.yaml").read_text())["sites"]
+    active = yaml.safe_load((ROOT / "tests" / "fixtures" / "sites.yaml").read_text())["sites"]
     assert len(active) == 1 and active[0]["id"] == "engels-air-base"
 
 

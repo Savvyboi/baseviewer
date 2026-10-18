@@ -463,7 +463,7 @@ def test_cache_upgrade_reanalyzes_fresh_record_retries_error_then_reuses_complet
     args = [
         "run",
         "--sites",
-        str(ROOT / "sites.yaml"),
+        str(ROOT / "tests" / "fixtures" / "sites.yaml"),
         "--settings",
         str(ROOT / "settings.yaml"),
         "--end-date",

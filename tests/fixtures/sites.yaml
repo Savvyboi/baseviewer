@@ -1,0 +1,9 @@
+# Initial 2 km square around the public aerodrome reference location.
+# This covers a portion of the airfield; increase size_m to monitor a wider area.
+# Coordinate source: https://ourairports.com/airports/RU-8602/
+sites:
+  - id: engels-air-base
+    name: Engels air base
+    latitude: 51.480499
+    longitude: 46.215000
+    size_m: 2000

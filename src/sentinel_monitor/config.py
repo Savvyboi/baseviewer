@@ -118,15 +118,18 @@ class Settings:
             raise ValueError("dem_collection must identify a Copernicus DEM collection")
 
 
-def load_config(sites_path: Path, settings_path: Path):
+def load_sites(sites_path: Path):
     raw = yaml.safe_load(sites_path.read_text(encoding="utf-8-sig"))
     if not isinstance(raw, dict) or set(raw) != {"sites"} or not isinstance(raw["sites"], list):
         raise ValueError("sites.yaml must contain a sites list")
-    if not raw["sites"]:
-        raise ValueError("Configure at least one site")
     sites = [Site(**entry) for entry in raw["sites"]]
     if len({s.id for s in sites}) != len(sites):
         raise ValueError("Site IDs must be unique")
+    return sites
+
+
+def load_config(sites_path: Path, settings_path: Path):
+    sites = load_sites(sites_path)
     data = yaml.safe_load(settings_path.read_text(encoding="utf-8-sig")) or {}
     if not isinstance(data, dict) or set(data) - {f.name for f in fields(Settings)}:
         raise ValueError("settings.yaml contains unknown settings")
