@@ -166,7 +166,7 @@ jobs:
           create_credentials_file: true
       - shell: bash
         run: |
-          args=(--case "$CASE_ID")
+          args=(--case "$CASE_ID" --sensors "$SENSORS")
           if [[ "$CASE_ID" == genoa-morandi-east-demolition ]]; then
             args+=(--case-file validation/sentinel2-cases.json)
           fi
