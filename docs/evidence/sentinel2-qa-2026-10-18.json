@@ -1,0 +1,21 @@
+{
+  "kind": "Offline verification; public metadata and synthetic tests only",
+  "date": "2026-10-18",
+  "base_commit": "d7e52ef76ccbf525f3507d0c13db6c6e3a6f479e",
+  "python_source": "This isolated worktree/src via PYTHONPATH",
+  "pytest": {
+    "passed": 217,
+    "subtests_passed": 9,
+    "command": "python -m pytest -q"
+  },
+  "ruff_check": "passed",
+  "ruff_format": "passed",
+  "offline_cli_reproduces_saved_eligibility": true,
+  "independent_capture_product_identity_agreement": 7,
+  "source_provenance_tests": "Original IDs, provider IDs, timestamps, cloud fields, footprints, attributes, complete raw response and exact LF hashes verified.",
+  "sensor_integration": "External engine increment required before executing proposed --sensors optical command. No engine or shared manifest edits in this branch.",
+  "live_ee_calls": 0,
+  "satellite_raster_downloads": 0,
+  "private_review_data_accessed_or_included": false,
+  "deployment_or_monitoring_change": false
+}

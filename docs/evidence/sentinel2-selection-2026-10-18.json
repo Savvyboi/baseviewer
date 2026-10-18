@@ -1,0 +1,74 @@
+{
+  "kind": "Frozen selection before detector output for a practical human Sentinel-2 review pilot",
+  "frozen_on": "2026-10-18",
+  "selected_case": "genoa-morandi-east-demolition",
+  "shortlist": [
+    {
+      "candidate": "Tropicana Las Vegas October 9, 2024 demolition",
+      "selected": false,
+      "reason": "Verified civilian demolition, but public metadata for September 9-October 14 contains only two baseline days and one target day (October 11), with 39.88/42.65 percent scene clouds in the overlapping tiles. A clearer October 16 target shifts the unchanged rolling baseline past September 11, leaving only one baseline day. No detector output was used.",
+      "primary_urls": [
+        "https://www.controlled-demolition.com/explosives-demolition/projects/tropicana-hotel-casino/",
+        "https://ballys2022corp.q4web.com/news/news-details/2024/Tropicana-Las-Vegas-Implosion-to-Make-Way-for-the-As-Ballpark-and-Ballys-Entertainment-Resort-Destination-2024-9NZuey6eTG/default.aspx"
+      ]
+    },
+    {
+      "candidate": "Genoa remaining eastern Morandi viaduct demolition June 28, 2019",
+      "selected": true,
+      "reason": "Independently dated large civilian transport alteration on predominantly land. Six catalog baseline days and a low scene-cloud July 1 target support one bounded review attempt. AOI mask coverage and visible usefulness remain unknown."
+    }
+  ],
+  "selection_sources": [
+    {
+      "url": "https://smart.comune.genova.it/comunicati-stampa-articoli/lex-ponte-morandi-demolito-con-pi%C3%B9-di-cinquecento-chili-di-esplosivo",
+      "supports": "City account dated June 28, 2019 reports demolition of the eastern remains at 09:37 local. Reconstruction had already begun, so the baseline includes works."
+    },
+    {
+      "url": "https://smart.comune.genova.it/articoli/ponte-morandi-abbattute-le-pile-10-e-11",
+      "supports": "City event recap identifies the two remaining eastern piers 10 and 11, demolished June 28, 2019."
+    },
+    {
+      "url": "https://www.commissario.ricostruzione.genova.it/sites/default/files/upload/aree%20evacuazione_26giugno19.png",
+      "supports": "Official June 26 evacuation map locates the eastern works around Via Walter Fillak, Via Porro and the railway yard, east of the Polcevera. Contextual locator; not a georeferenced demolition footprint."
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/110707992",
+      "supports": "Current Via Walter Fillak street geometry cross-checks the analyst-selected location. Modern geometry does not establish 2019 surfaces."
+    }
+  ],
+  "independent_validation": {
+    "method": "Separate bounded agent checked primary city evidence, official locator map, street geometry and public CDSE metadata before selection. No detector output or satellite pixels were read.",
+    "catalog_agreement": "Independent slightly enclosing bbox and exact production-grid polygon query returned the same seven SAFE product IDs and six baseline/one target days.",
+    "snapshot_sha256": "53a883c862e3b54a4f5a643820c69601f000fc6323b4c3ea2292aa2f24b4ccf0",
+    "timestamp_caveat": "CDSE ContentDate is a product sensing reference. Earth Search tile timestamps differ and are not silently substituted. Earth Search may list original N0212 and reprocessed N0500 versions; these do not create extra acquisition days."
+  },
+  "exact_lf_sha256": {
+    "validation/sentinel2-cases.json": "62ca8ffd2c873176950aaf146b956f9230098bddd33287e2bce0ab7f3f7c36cb",
+    "validation/sentinel2-optical-catalog.json": "91897c2864f468ed82ff70a9ca4644c7a246a093bf3fb5f0d3c9568e6527a1c2",
+    "docs/evidence/sentinel2-cdse-2019-genoa.json": "947c7a7471bcad463405c5b6646dbffb039a93ef6a1b223817084335ed8261ee",
+    "docs/evidence/sentinel2-catalog-query-2026-10-18.json": "4946e51010f0ca663bb230eb3d3a4db0c6c0318938cb83affd20c38a4d4f8583",
+    "docs/evidence/sentinel2-locator-2026-10-18.json": "8c16423d0b29886c679f6156e48b93821538fc310b4c8c5fb66fced32349b13c",
+    "docs/evidence/sentinel2-eligibility-2026-10-18.json": "95994522966b216cf45d3b67dd9e12eac089d4cfc70adf2e0a4615dca55339d1"
+  },
+  "proposed_live_action_not_executed": {
+    "case_id": "genoa-morandi-east-demolition",
+    "sensors": "optical",
+    "case_file": "validation/sentinel2-cases.json",
+    "imagery_diagnostics": true,
+    "optical_review_stretch": true,
+    "review_previews": "review-case requests every usable comparison, including detector negatives",
+    "requires": "Sensor-selection integration, approved merged commit and specific authorization for one bounded EE analysis/render run."
+  },
+  "pending": [
+    "Real EE ingestion and common valid-cell coverage",
+    "Baseline per-cell validity after SCL and Cloud Score+ masking",
+    "Preview generation, paired shared-stretch rendering and failure information",
+    "Human appearance review; observations remain distinct from ground truth"
+  ],
+  "detector_output_inspected": false,
+  "live_ee_requests": 0,
+  "satellite_raster_downloads": 0,
+  "private_review_data_accessed_or_included": false,
+  "publication_or_monitoring_change": false,
+  "accuracy_calibration_prerequisite": false
+}

@@ -1,0 +1,458 @@
+{
+  "schema_version": 1,
+  "case_id": "genoa-morandi-east-demolition",
+  "provider": "Copernicus Data Space Ecosystem OData Products",
+  "query": {
+    "url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products?%24filter=Collection%2FName+eq+%27SENTINEL-2%27+and+contains%28Name%2C%27MSIL2A%27%29+and+ContentDate%2FStart+ge+2019-05-31T00%3A00%3A00.000Z+and+ContentDate%2FStart+lt+2019-07-05T00%3A00%3A00.000Z+and+OData.CSC.Intersects%28area%3Dgeography%27SRID%3D4326%3BPOLYGON%28%288.8878182262+44.4225283914%2C8.8940993895+44.4225343877%2C8.8940912625+44.4270357988%2C8.8878096171+44.4270298016%2C8.8878182262+44.4225283914%29%29%27%29&%24top=100&%24expand=Attributes&%24orderby=ContentDate%2FStart+asc&%24count=true",
+    "start": "2019-05-31",
+    "end": "2019-07-05",
+    "grid": {
+      "crs": "EPSG:32632",
+      "transform": [
+        10,
+        0,
+        491070,
+        0,
+        -10,
+        4919310
+      ],
+      "bounds": [
+        491070,
+        4918810,
+        491570,
+        4919310
+      ],
+      "cells": 2500
+    },
+    "footprint": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            8.887818226177881,
+            44.42252839138784
+          ],
+          [
+            8.894099389538072,
+            44.42253438765181
+          ],
+          [
+            8.894091262529992,
+            44.42703579875336
+          ],
+          [
+            8.88780961714414,
+            44.427029801553296
+          ],
+          [
+            8.887818226177881,
+            44.42252839138784
+          ]
+        ]
+      ]
+    },
+    "wkt": "POLYGON((8.8878182262 44.4225283914,8.8940993895 44.4225343877,8.8940912625 44.4270357988,8.8878096171 44.4270298016,8.8878182262 44.4225283914))",
+    "retrieved_at": "2026-10-17T21:19:42.210691+00:00",
+    "returned_count": 7,
+    "reported_count": 7,
+    "next_link_present": false,
+    "truncated": false
+  },
+  "source_response": "docs/evidence/sentinel2-cdse-2019-genoa.json",
+  "source_response_sha256": "947c7a7471bcad463405c5b6646dbffb039a93ef6a1b223817084335ed8261ee",
+  "normalization": "One item per returned SAFE product identity; UTC days determine observations. No cloud metadata filter or fabricated EE IDs. All seven returned N0500 items retained.",
+  "items": [
+    {
+      "provider_id": "75a0f51c-462d-4cb3-9d3a-51dc5cd25266",
+      "product_id": "S2B_MSIL2A_20190601T102029_N0500_R065_T32TMQ_20230724T191309.SAFE",
+      "start_time": "2019-06-01T10:20:29.024000Z",
+      "stop_time": "2019-06-01T10:20:29.024000Z",
+      "time_semantics": "CDSE ContentDate product sensing reference; not tile scan time or exposure duration",
+      "cloud_cover_percent": 4.089396,
+      "cloud_semantics": "CDSE product/tile scene cloud percentage; not AOI clear coverage",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.72745034166859,
+              45.14674718783555
+            ],
+            [
+              7.748882946640433,
+              44.15851530960486
+            ],
+            [
+              9.12207449093611,
+              44.165301274896635
+            ],
+            [
+              9.124166397187789,
+              45.153769755990965
+            ],
+            [
+              7.72745034166859,
+              45.14674718783555
+            ]
+          ]
+        ]
+      },
+      "attributes": {
+        "origin": "ESA",
+        "tileId": "32TMQ",
+        "cloudCover": 4.089396,
+        "datastripId": "S2B_OPER_MSI_L2A_DS_S2RP_20230724T191309_S20190601T102031_N05.00",
+        "orbitNumber": 11674,
+        "processingDate": "2023-07-24T19:13:09.000000Z",
+        "productGroupId": "GS2B_20190601T102029_011674_N05.00",
+        "operationalMode": "INS-NOBS",
+        "processingLevel": "S2MSI2A",
+        "processorVersion": "05.00",
+        "granuleIdentifier": "S2B_OPER_MSI_L2A_TL_S2RP_20230724T191309_A011674_T32TMQ_N05.00",
+        "platformShortName": "SENTINEL-2",
+        "instrumentShortName": "MSI",
+        "relativeOrbitNumber": 65,
+        "platformSerialIdentifier": "B",
+        "productType": "S2MSI2A",
+        "beginningDateTime": "2019-06-01T10:20:29.024000Z",
+        "endingDateTime": "2019-06-01T10:20:29.024000Z"
+      }
+    },
+    {
+      "provider_id": "f1f47ab4-c038-4094-8363-343ad5a3df91",
+      "product_id": "S2A_MSIL2A_20190606T102031_N0500_R065_T32TMQ_20230712T081022.SAFE",
+      "start_time": "2019-06-06T10:20:31.024000Z",
+      "stop_time": "2019-06-06T10:20:31.024000Z",
+      "time_semantics": "CDSE ContentDate product sensing reference; not tile scan time or exposure duration",
+      "cloud_cover_percent": 67.600828,
+      "cloud_semantics": "CDSE product/tile scene cloud percentage; not AOI clear coverage",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.72745034166859,
+              45.14674718783555
+            ],
+            [
+              7.748882946640433,
+              44.15851530960486
+            ],
+            [
+              9.12207449093611,
+              44.165301274896635
+            ],
+            [
+              9.124166397187789,
+              45.153769755990965
+            ],
+            [
+              7.72745034166859,
+              45.14674718783555
+            ]
+          ]
+        ]
+      },
+      "attributes": {
+        "origin": "ESA",
+        "tileId": "32TMQ",
+        "cloudCover": 67.600828,
+        "datastripId": "S2A_OPER_MSI_L2A_DS_S2RP_20230712T081022_S20190606T102358_N05.00",
+        "orbitNumber": 20654,
+        "processingDate": "2023-07-12T08:10:22.000000Z",
+        "productGroupId": "GS2A_20190606T102031_020654_N05.00",
+        "operationalMode": "INS-NOBS",
+        "processingLevel": "S2MSI2A",
+        "processorVersion": "05.00",
+        "granuleIdentifier": "S2A_OPER_MSI_L2A_TL_S2RP_20230712T081022_A020654_T32TMQ_N05.00",
+        "platformShortName": "SENTINEL-2",
+        "instrumentShortName": "MSI",
+        "relativeOrbitNumber": 65,
+        "platformSerialIdentifier": "A",
+        "productType": "S2MSI2A",
+        "beginningDateTime": "2019-06-06T10:20:31.024000Z",
+        "endingDateTime": "2019-06-06T10:20:31.024000Z"
+      }
+    },
+    {
+      "provider_id": "d497d49f-fec7-4508-ad2f-e4999b34cd94",
+      "product_id": "S2B_MSIL2A_20190611T102029_N0500_R065_T32TMQ_20221220T092351.SAFE",
+      "start_time": "2019-06-11T10:20:29.024000Z",
+      "stop_time": "2019-06-11T10:20:29.024000Z",
+      "time_semantics": "CDSE ContentDate product sensing reference; not tile scan time or exposure duration",
+      "cloud_cover_percent": 88.092381,
+      "cloud_semantics": "CDSE product/tile scene cloud percentage; not AOI clear coverage",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.72745034166859,
+              45.14674718783555
+            ],
+            [
+              7.748882946640433,
+              44.15851530960486
+            ],
+            [
+              9.12207449093611,
+              44.165301274896635
+            ],
+            [
+              9.124166397187789,
+              45.153769755990965
+            ],
+            [
+              7.72745034166859,
+              45.14674718783555
+            ]
+          ]
+        ]
+      },
+      "attributes": {
+        "origin": "ESA",
+        "tileId": "32TMQ",
+        "cloudCover": 88.092381,
+        "datastripId": "S2B_OPER_MSI_L2A_DS_S2RP_20221220T092351_S20190611T102030_N05.00",
+        "orbitNumber": 11817,
+        "processingDate": "2022-12-20T09:23:51.000000Z",
+        "productGroupId": "GS2B_20190611T102029_011817_N05.00",
+        "operationalMode": "INS-NOBS",
+        "processingLevel": "S2MSI2A",
+        "processorVersion": "05.00",
+        "granuleIdentifier": "S2B_OPER_MSI_L2A_TL_S2RP_20221220T092351_A011817_T32TMQ_N05.00",
+        "platformShortName": "SENTINEL-2",
+        "instrumentShortName": "MSI",
+        "relativeOrbitNumber": 65,
+        "platformSerialIdentifier": "B",
+        "productType": "S2MSI2A",
+        "beginningDateTime": "2019-06-11T10:20:29.024000Z",
+        "endingDateTime": "2019-06-11T10:20:29.024000Z"
+      }
+    },
+    {
+      "provider_id": "4a113030-6d34-4d26-be49-095bf24db708",
+      "product_id": "S2A_MSIL2A_20190616T102031_N0500_R065_T32TMQ_20230724T071119.SAFE",
+      "start_time": "2019-06-16T10:20:31.024000Z",
+      "stop_time": "2019-06-16T10:20:31.024000Z",
+      "time_semantics": "CDSE ContentDate product sensing reference; not tile scan time or exposure duration",
+      "cloud_cover_percent": 14.909137999999999,
+      "cloud_semantics": "CDSE product/tile scene cloud percentage; not AOI clear coverage",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.72745034166859,
+              45.14674718783555
+            ],
+            [
+              7.748882946640433,
+              44.15851530960486
+            ],
+            [
+              9.12207449093611,
+              44.165301274896635
+            ],
+            [
+              9.124166397187789,
+              45.153769755990965
+            ],
+            [
+              7.72745034166859,
+              45.14674718783555
+            ]
+          ]
+        ]
+      },
+      "attributes": {
+        "origin": "ESA",
+        "tileId": "32TMQ",
+        "cloudCover": 14.909137999999999,
+        "datastripId": "S2A_OPER_MSI_L2A_DS_S2RP_20230724T071119_S20190616T102649_N05.00",
+        "orbitNumber": 20797,
+        "processingDate": "2023-07-24T07:11:19.000000Z",
+        "productGroupId": "GS2A_20190616T102031_020797_N05.00",
+        "operationalMode": "INS-NOBS",
+        "processingLevel": "S2MSI2A",
+        "processorVersion": "05.00",
+        "granuleIdentifier": "S2A_OPER_MSI_L2A_TL_S2RP_20230724T071119_A020797_T32TMQ_N05.00",
+        "platformShortName": "SENTINEL-2",
+        "instrumentShortName": "MSI",
+        "relativeOrbitNumber": 65,
+        "platformSerialIdentifier": "A",
+        "productType": "S2MSI2A",
+        "beginningDateTime": "2019-06-16T10:20:31.024000Z",
+        "endingDateTime": "2019-06-16T10:20:31.024000Z"
+      }
+    },
+    {
+      "provider_id": "036a5853-ca02-4c84-bb58-ad7d2596886c",
+      "product_id": "S2B_MSIL2A_20190621T102029_N0500_R065_T32TMQ_20230711T175020.SAFE",
+      "start_time": "2019-06-21T10:20:29.024000Z",
+      "stop_time": "2019-06-21T10:20:29.024000Z",
+      "time_semantics": "CDSE ContentDate product sensing reference; not tile scan time or exposure duration",
+      "cloud_cover_percent": 92.240566,
+      "cloud_semantics": "CDSE product/tile scene cloud percentage; not AOI clear coverage",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.72745034166859,
+              45.14674718783555
+            ],
+            [
+              7.748882946640433,
+              44.15851530960486
+            ],
+            [
+              9.12207449093611,
+              44.165301274896635
+            ],
+            [
+              9.124166397187789,
+              45.153769755990965
+            ],
+            [
+              7.72745034166859,
+              45.14674718783555
+            ]
+          ]
+        ]
+      },
+      "attributes": {
+        "origin": "ESA",
+        "tileId": "32TMQ",
+        "cloudCover": 92.240566,
+        "datastripId": "S2B_OPER_MSI_L2A_DS_S2RP_20230711T175020_S20190621T102031_N05.00",
+        "orbitNumber": 11960,
+        "processingDate": "2023-07-11T17:50:20.000000Z",
+        "productGroupId": "GS2B_20190621T102029_011960_N05.00",
+        "operationalMode": "INS-NOBS",
+        "processingLevel": "S2MSI2A",
+        "processorVersion": "05.00",
+        "granuleIdentifier": "S2B_OPER_MSI_L2A_TL_S2RP_20230711T175020_A011960_T32TMQ_N05.00",
+        "platformShortName": "SENTINEL-2",
+        "instrumentShortName": "MSI",
+        "relativeOrbitNumber": 65,
+        "platformSerialIdentifier": "B",
+        "productType": "S2MSI2A",
+        "beginningDateTime": "2019-06-21T10:20:29.024000Z",
+        "endingDateTime": "2019-06-21T10:20:29.024000Z"
+      }
+    },
+    {
+      "provider_id": "015b8c15-e13c-4cc5-9a0e-c6d593c8f675",
+      "product_id": "S2A_MSIL2A_20190626T102031_N0500_R065_T32TMQ_20230723T161149.SAFE",
+      "start_time": "2019-06-26T10:20:31.024000Z",
+      "stop_time": "2019-06-26T10:20:31.024000Z",
+      "time_semantics": "CDSE ContentDate product sensing reference; not tile scan time or exposure duration",
+      "cloud_cover_percent": 0.031287,
+      "cloud_semantics": "CDSE product/tile scene cloud percentage; not AOI clear coverage",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.72745034166859,
+              45.14674718783555
+            ],
+            [
+              7.748882946640433,
+              44.15851530960486
+            ],
+            [
+              9.12207449093611,
+              44.165301274896635
+            ],
+            [
+              9.124166397187789,
+              45.153769755990965
+            ],
+            [
+              7.72745034166859,
+              45.14674718783555
+            ]
+          ]
+        ]
+      },
+      "attributes": {
+        "origin": "ESA",
+        "tileId": "32TMQ",
+        "cloudCover": 0.031287,
+        "datastripId": "S2A_OPER_MSI_L2A_DS_S2RP_20230723T161149_S20190626T102737_N05.00",
+        "orbitNumber": 20940,
+        "processingDate": "2023-07-23T16:11:49.000000Z",
+        "productGroupId": "GS2A_20190626T102031_020940_N05.00",
+        "operationalMode": "INS-NOBS",
+        "processingLevel": "S2MSI2A",
+        "processorVersion": "05.00",
+        "granuleIdentifier": "S2A_OPER_MSI_L2A_TL_S2RP_20230723T161149_A020940_T32TMQ_N05.00",
+        "platformShortName": "SENTINEL-2",
+        "instrumentShortName": "MSI",
+        "relativeOrbitNumber": 65,
+        "platformSerialIdentifier": "A",
+        "productType": "S2MSI2A",
+        "beginningDateTime": "2019-06-26T10:20:31.024000Z",
+        "endingDateTime": "2019-06-26T10:20:31.024000Z"
+      }
+    },
+    {
+      "provider_id": "e8bafe37-74be-43dc-8747-a5cceb1c731f",
+      "product_id": "S2B_MSIL2A_20190701T102029_N0500_R065_T32TMQ_20230809T195545.SAFE",
+      "start_time": "2019-07-01T10:20:29.024000Z",
+      "stop_time": "2019-07-01T10:20:29.024000Z",
+      "time_semantics": "CDSE ContentDate product sensing reference; not tile scan time or exposure duration",
+      "cloud_cover_percent": 1.764848,
+      "cloud_semantics": "CDSE product/tile scene cloud percentage; not AOI clear coverage",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              7.72745034166859,
+              45.14674718783555
+            ],
+            [
+              7.748882946640433,
+              44.15851530960486
+            ],
+            [
+              9.12207449093611,
+              44.165301274896635
+            ],
+            [
+              9.124166397187789,
+              45.153769755990965
+            ],
+            [
+              7.72745034166859,
+              45.14674718783555
+            ]
+          ]
+        ]
+      },
+      "attributes": {
+        "origin": "ESA",
+        "tileId": "32TMQ",
+        "cloudCover": 1.764848,
+        "datastripId": "S2B_OPER_MSI_L2A_DS_S2RP_20230809T195545_S20190701T102032_N05.00",
+        "orbitNumber": 12103,
+        "processingDate": "2023-08-09T19:55:45.000000Z",
+        "productGroupId": "GS2B_20190701T102029_012103_N05.00",
+        "operationalMode": "INS-NOBS",
+        "processingLevel": "S2MSI2A",
+        "processorVersion": "05.00",
+        "granuleIdentifier": "S2B_OPER_MSI_L2A_TL_S2RP_20230809T195545_A012103_T32TMQ_N05.00",
+        "platformShortName": "SENTINEL-2",
+        "instrumentShortName": "MSI",
+        "relativeOrbitNumber": 65,
+        "platformSerialIdentifier": "B",
+        "productType": "S2MSI2A",
+        "beginningDateTime": "2019-07-01T10:20:29.024000Z",
+        "endingDateTime": "2019-07-01T10:20:29.024000Z"
+      }
+    }
+  ]
+}

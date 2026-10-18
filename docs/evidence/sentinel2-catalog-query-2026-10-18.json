@@ -1,0 +1,56 @@
+{
+  "url": "https://catalogue.dataspace.copernicus.eu/odata/v1/Products?%24filter=Collection%2FName+eq+%27SENTINEL-2%27+and+contains%28Name%2C%27MSIL2A%27%29+and+ContentDate%2FStart+ge+2019-05-31T00%3A00%3A00.000Z+and+ContentDate%2FStart+lt+2019-07-05T00%3A00%3A00.000Z+and+OData.CSC.Intersects%28area%3Dgeography%27SRID%3D4326%3BPOLYGON%28%288.8878182262+44.4225283914%2C8.8940993895+44.4225343877%2C8.8940912625+44.4270357988%2C8.8878096171+44.4270298016%2C8.8878182262+44.4225283914%29%29%27%29&%24top=100&%24expand=Attributes&%24orderby=ContentDate%2FStart+asc&%24count=true",
+  "start": "2019-05-31",
+  "end": "2019-07-05",
+  "grid": {
+    "crs": "EPSG:32632",
+    "transform": [
+      10,
+      0,
+      491070,
+      0,
+      -10,
+      4919310
+    ],
+    "bounds": [
+      491070,
+      4918810,
+      491570,
+      4919310
+    ],
+    "cells": 2500
+  },
+  "footprint": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          8.887818226177881,
+          44.42252839138784
+        ],
+        [
+          8.894099389538072,
+          44.42253438765181
+        ],
+        [
+          8.894091262529992,
+          44.42703579875336
+        ],
+        [
+          8.88780961714414,
+          44.427029801553296
+        ],
+        [
+          8.887818226177881,
+          44.42252839138784
+        ]
+      ]
+    ]
+  },
+  "wkt": "POLYGON((8.8878182262 44.4225283914,8.8940993895 44.4225343877,8.8940912625 44.4270357988,8.8878096171 44.4270298016,8.8878182262 44.4225283914))",
+  "retrieved_at": "2026-10-17T21:19:42.210691+00:00",
+  "returned_count": 7,
+  "reported_count": 7,
+  "next_link_present": false,
+  "truncated": false
+}

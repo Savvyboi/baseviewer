@@ -1,0 +1,44 @@
+{
+  "frozen_on": "2026-10-18",
+  "selection_note": "Practical Sentinel-2 human triage pilot. Automated flags are triage; human appearance observations are not certified ground truth. Formal accuracy calibration is not a prerequisite for this bounded review. Execute with explicit --sensors optical after sensor-selection integration.",
+  "cases": {
+    "genoa-morandi-east-demolition": {
+      "frozen_on": "2026-10-18",
+      "label": "Documented civilian viaduct demolition; unreviewed optical surface-change candidate",
+      "review_status": "unreviewed",
+      "quiet_ground_truth": false,
+      "requested_sensors": [
+        "optical"
+      ],
+      "event_time_utc": "2019-06-28T07:37:00Z",
+      "event_time_uncertainty": "City account reports 09:37 local (CEST, UTC+2), represented to minute precision; source acquisition starts provide timing context.",
+      "site": {
+        "id": "genoa-morandi-east",
+        "name": "Genoa eastern viaduct demolition (Sentinel-2 review)",
+        "latitude": 44.4248,
+        "longitude": 8.891,
+        "size_m": 500
+      },
+      "end_date": "2019-07-05",
+      "selection_basis": "500 m square centred on an analyst-selected point in the eastern demolition area, fixed using the official evacuation map and current street geometry before detector output. Target [2019-06-28,2019-07-05) begins on the documented demolition day; unchanged rolling baseline [2019-05-31,2019-06-28) includes preparation and nearby works. The catalog contains a July 1 target and six earlier acquisition days. The contextual land AOI is not a surveyed pier footprint. No date, AOI or threshold is selected from detector output.",
+      "references": [
+        {
+          "url": "https://smart.comune.genova.it/comunicati-stampa-articoli/lex-ponte-morandi-demolito-con-pi%C3%B9-di-cinquecento-chili-di-esplosivo",
+          "supports": "City account dated June 28, 2019 reports demolition of the eastern remains at 09:37 local. Reconstruction had already begun, so the baseline includes works."
+        },
+        {
+          "url": "https://smart.comune.genova.it/articoli/ponte-morandi-abbattute-le-pile-10-e-11",
+          "supports": "City event recap identifies the two remaining eastern piers 10 and 11, demolished June 28, 2019."
+        },
+        {
+          "url": "https://www.commissario.ricostruzione.genova.it/sites/default/files/upload/aree%20evacuazione_26giugno19.png",
+          "supports": "Official June 26 evacuation map locates the eastern works around Via Walter Fillak, Via Porro and the railway yard, east of the Polcevera. Contextual locator; not a georeferenced demolition footprint."
+        },
+        {
+          "url": "https://www.openstreetmap.org/way/110707992",
+          "supports": "Current Via Walter Fillak street geometry cross-checks the analyst-selected location. Modern geometry does not establish 2019 surfaces."
+        }
+      ]
+    }
+  }
+}
