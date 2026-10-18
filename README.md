@@ -31,6 +31,20 @@ For a real run, configure [Google access](docs/google-cloud.md), then:
 
 `--project PROJECT_ID` or `EE_PROJECT_ID` overrides `earth_engine_project` in `settings.yaml`. The client always initializes with an explicit project. Live mode uses Application Default Credentials; no private keys are stored in the repository.
 
+## Regular Sentinel-2 review
+
+Ordinary monitoring reports support the same local review controls as frozen validation
+cases when `--review-previews` is requested. Use `--sensors optical` for Sentinel-2-only
+analysis and `--optical-review-stretch` for an additional paired display range. Review
+all usable observations, including those without an automated flag; notes stay in the
+browser and can be exported/restored locally.
+
+The manual **Sentinel monitor** workflow exposes these controls and a fixed
+`european-ports` profile for three small container-yard areas. Its default remains the
+configured site, both sensors, and review previews disabled. The port profile does not
+change the active site file or enable scheduling. See [the regular optical review
+pilot](docs/regular-optical-review.md) for the exact inputs, locations and persistence.
+
 ## Configure locations and rules
 
 Add entries to `sites.yaml` with a unique lowercase slug, name, latitude, longitude and `size_m` (default 2000). Widths must be multiples of 10 m, between 30 m and 20 km. The analysis constructs a metric square in local UTM or polar UPS and stores its fixed CRS and grid transform. A 2 km square has 40,000 cells at 10 m. The grid centre can shift by up to 5 m in each axis to keep cell edges aligned.

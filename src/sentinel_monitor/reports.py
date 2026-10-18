@@ -45,7 +45,7 @@ def preview_display_info(output: Path, comparison, previews=None):
         previews = comparison.get("previews") or {}
     for view in ("before", "after"):
         relative = previews.get(view)
-        if not relative:
+        if not relative or any(char in relative for char in ("%", "?", "#")):
             continue
         path = (output / relative).resolve()
         if not path.is_relative_to(asset_root):
@@ -97,7 +97,7 @@ def sensor_scope(record):
 
 def preview_available(image_root, relative):
     """Verify the current retained source, never an old copied output image."""
-    if not relative:
+    if not relative or any(char in relative for char in ("%", "?", "#")):
         return False
     asset_root = (image_root / "assets").resolve()
     path = (image_root / relative).resolve()
@@ -135,9 +135,7 @@ def build_site(results: Path, output: Path, mode: str):
     template = env.from_string(
         files("sentinel_monitor").joinpath("templates/index.html").read_text(encoding="utf-8")
     )
-    review_workbench = any(
-        r.get("validation_case") and r.get("review_previews_requested") for r in records
-    )
+    review_workbench = any(r.get("review_previews_requested") for r in records)
     image_root = results / mode
     preview_availability = {
         f"observation-{record_index}-{comparison_index}": {
@@ -150,7 +148,7 @@ def build_site(results: Path, output: Path, mode: str):
     review_queue = []
     review_image_info = {}
     for record_index, record in enumerate(records):
-        if not (record.get("validation_case") and record.get("review_previews_requested")):
+        if not record.get("review_previews_requested"):
             continue
         for comparison_index, comparison in enumerate(record["comparisons"]):
             if comparison["status"] not in {"possible_change", "no_change_detected"}:

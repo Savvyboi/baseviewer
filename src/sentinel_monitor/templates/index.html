@@ -55,7 +55,7 @@
 <h3 id="review-queue-heading">Review queue</h3>
 <p id="review-progress" role="status"></p>
 <div class="toolbar"><button id="next-unreviewed" type="button">Next unreviewed</button><label><input id="only-unreviewed" type="checkbox"> Only unreviewed in queue</label></div>
-<ol>{% for item in review_queue %}<li data-review-target="{{ item.target }}" data-preview-ready="{{ 'true' if item.ready else 'false' }}"><a href="#{{ item.target }}">{{ item.record.site.name }} · {{ item.comparison.sensor }} · {{ item.comparison.acquisition_date }}</a><small>{{ item.record.validation_case.label }}{% if item.comparison.event_timing %} · {{ item.comparison.event_timing.label }}{% endif %} · Screening: {{ item.comparison.status }} · <span class="queue-review-status">{{ 'Unreviewed' if item.ready else 'Awaiting previews' }}</span></small></li>{% endfor %}</ol>
+<ol>{% for item in review_queue %}<li data-review-target="{{ item.target }}" data-preview-ready="{{ 'true' if item.ready else 'false' }}"><a href="#{{ item.target }}">{{ item.record.site.name }} · {{ item.comparison.sensor }} · {{ item.comparison.acquisition_date }}</a><small>{{ item.record.validation_case.label if item.record.validation_case else 'Routine monitoring' }}{% if item.comparison.event_timing %} · {{ item.comparison.event_timing.label }}{% endif %} · Screening: {{ item.comparison.status }} · <span class="queue-review-status">{{ 'Unreviewed' if item.ready else 'Awaiting previews' }}</span></small></li>{% endfor %}</ol>
 <p id="review-queue-empty" class="muted" hidden>No unreviewed observations in this queue.</p>
 <p class="muted">Usable observations with missing or unreadable previews stay incomplete. Insufficient-data comparisons and analysis failures are listed separately in check history; they are not negative screening results.</p>
 </section>
@@ -63,7 +63,7 @@
 {% set count = namespace(value=0) %}
 {% for r in records %}{% set record_index = loop.index0 %}{% for c in r.comparisons %}{% if c.status == 'possible_change' or (r.review_previews_requested and c.status == 'no_change_detected') %}{% set count.value = count.value + 1 %}
 <article class="report" id="observation-{{ record_index }}-{{ loop.index0 }}" tabindex="-1"><span class="badge {{ c.status }}">{{ ("Screening: " ~ c.status) if review_mode else ("Possible ground change" if c.status == "possible_change" else "No change detected") }} · {{ c.sensor }}</span><h3>{{ r.site.name }} · {{ c.acquisition_date }}</h3>
-{% if r.validation_case %}<p class="muted">Case: {{ r.validation_case.label }}</p>{% endif %}
+{% if r.validation_case %}<p class="muted">Case: {{ r.validation_case.label }}</p>{% elif r.review_previews_requested %}<p class="muted">Routine monitoring observation; no independent reference label is attached.</p>{% endif %}
 {{ timing_context(c) }}
 {% set observation_id = 'observation-' ~ record_index ~ '-' ~ loop.index0 %}
 {% set info = review_image_info.get(observation_id) %}
@@ -79,13 +79,13 @@
 <p><strong>Automated screening: <code>{{ c.status }}</code>.</strong> {{ '%.0f' | format(c.changed_area_m2) }} m² flagged · {{ '%.1f' | format(c.valid_coverage * 100) }}% common valid coverage{% if c.changed_cells is defined and c.valid_coverage > 0 %} · {{ '%.1f' | format(100 * c.changed_cells / (r.grid.cells * c.valid_coverage)) }}% of valid cells flagged{% endif %}</p>
 <p>Baseline acquisition days: {{ c.baseline_acquisition_dates | join(', ') or 'none returned' }}. Cloud / mask context: {{ c.cloud_screening or 'not recorded for this comparison' }}.</p>
 {% if c.sensor == 'optical' %}<p class="muted">RGB appearance may differ from the four-band optical screening signal. Clouds, shadows, masking and the baseline composite can limit comparison. Individual object identities and vehicle counts are not established.</p>{% endif %}
-{% set optical = c.optical_review if r.validation_case and r.review_previews_requested else none %}
+{% set optical = c.optical_review if r.review_previews_requested else none %}
 {% if optical %}
 <aside class="image-context optical-context">
 <p><strong>Optional shared optical range · {{ optical.status }}</strong></p>
 <p>This is a display option for this paired comparison. The fixed original PNGs remain below. A fresh render has its own record timestamp and review; earlier reviews are not transferred.</p>
 {% if optical.applied_stretch %}<p>One RGB range for both dates: {{ '%.8g' | format(optical.applied_stretch.min) }} to {{ '%.8g' | format(optical.applied_stretch.max) }} reflectance · gamma {{ optical.applied_stretch.gamma }} · B4/B3/B2.</p>{% endif %}
-<p>{{ optical.common_valid_cells }} common valid cells. Range method: envelope of the six per-view RGB band 5th–95th percentiles (Earth Engine defaults), not a pooled percentile. The same scalar mapping preserves colour relationships; tails can still clip. Both alternate views show only common valid cells. Pair-specific brightness cannot be compared across cases. This adds no ground resolution and does not change detection.</p>
+<p>{{ optical.common_valid_cells }} common valid cells. Range method: envelope of the six per-view RGB band 5th–95th percentiles (Earth Engine defaults), not a pooled percentile. The same scalar mapping preserves colour relationships; tails can still clip. Both alternate views show only common valid cells. Pair-specific brightness cannot be compared across observations. This adds no ground resolution and does not change detection.</p>
 {% if optical.fixed_endpoint_fractions %}<details><summary>Reflectance support for fixed display clipping</summary><ul>{% for view, bands in optical.fixed_endpoint_fractions.items() %}{% for band, fractions in bands.items() %}<li>{{ 'Baseline' if view == 'before' else 'Target' }} {{ band }}: {{ '%.1f' | format(100 * fractions.at_or_below_min) }}% at/below 0; {{ '%.1f' | format(100 * fractions.at_or_above_max) }}% at/above 0.3.</li>{% endfor %}{% endfor %}</ul><p>Prepared reflectance cells, before PNG resize and quantization; these are display diagnostics.</p></details>{% endif %}
 {% if info and info.alternate %}
 {% if not info.alternate.ready or not info.alternate.opaque_pixels.before or not info.alternate.opaque_pixels.after %}<p>Shared-range PNG endpoint check is incomplete: a baseline/target file is missing, invalid, or has no opaque pixels.</p>{% endif %}
@@ -106,8 +106,8 @@
 {% if c.previews.after and available.after %}<figure><img src="{{ c.previews.after }}" alt="{{ r.site.name }} {{ c.sensor }} observation on {{ c.acquisition_date }}" loading="lazy"><figcaption>Target observation · {{ c.acquisition_date }}<br><a href="{{ c.previews.after }}" target="_blank" rel="noopener">Open original PNG</a></figcaption></figure>{% endif %}
 {% if c.previews.overlay and available.overlay %}<figure><img src="{{ c.previews.overlay }}" alt="Flagged connected patches shown in orange" loading="lazy"><figcaption>Orange: qualifying change patches<br>Matching before/after display stretch<br><a href="{{ c.previews.overlay }}" target="_blank" rel="noopener">Open original PNG</a></figcaption></figure>{% endif %}
 </div>
-{% if r.validation_case and r.review_previews_requested and info and info.ready %}
-<details class="review-tools" data-mode="{{ r.mode }}" data-analysis-key="{{ r.analysis_key }}" data-comparison-id="{{ c.id }}" data-case-id="{{ r.validation_case.id }}" data-site-id="{{ r.site.id }}" data-date="{{ c.acquisition_date }}" data-sensor="{{ c.sensor }}" data-generated-at="{{ r.generated_at }}">
+{% if r.review_previews_requested and info and info.ready %}
+<details class="review-tools" data-mode="{{ r.mode }}" data-analysis-key="{{ r.analysis_key }}" data-comparison-id="{{ c.id }}" data-case-id="{{ r.validation_case.id if r.validation_case else '' }}" data-site-id="{{ r.site.id }}" data-date="{{ c.acquisition_date }}" data-sensor="{{ c.sensor }}" data-generated-at="{{ r.generated_at }}">
 <summary>Compare images and record review</summary>
 <div class="review-toolbar" role="group" aria-label="Displayed comparison image">
 <button type="button" data-view="before" data-src="{{ c.previews.before }}" aria-pressed="false">Baseline</button>

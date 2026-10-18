@@ -1,0 +1,19 @@
+analysis_version: "0.1.0"
+optical_threshold: 0.10
+radar_threshold_db: 3.0
+cloud_score_min: 0.6
+min_baseline_observations: 2
+min_valid_coverage: 0.70
+min_patch_pixels: 9
+radar_speckle_radius_m: 10
+radar_min_db: -35
+radar_min_angle: 31
+radar_max_angle: 45
+terrain_max_slope_deg: 15
+# Conservative terrain screening is not radiometric terrain flattening.
+dem_collection: COPERNICUS/DEM/GLO30_2024_1
+max_sites: 3
+max_images_per_sensor: 300
+request_attempts: 3
+preview_pixels: 400
+earth_engine_project: baseviewer-511722

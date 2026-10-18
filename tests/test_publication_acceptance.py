@@ -216,7 +216,16 @@ def test_review_previews_upgrade_cache_and_render_usable_negative_observations(t
         encoding="utf-8"
     )
     first = read_records(tmp_path / "results", "live")[0]
-    assert invoke(tmp_path, outcome(), extra=["--review-previews"]) == (0, 1)
+    reviewed = outcome()
+    reviewed["comparisons"][0]["previews"] = {
+        view: f"assets/controlled-fixture/{view}.png" for view in ("before", "after", "overlay")
+    }
+    # A completed review cache requires the actual source triple, as a live analyzer saves.
+    for relative in reviewed["comparisons"][0]["previews"].values():
+        target = tmp_path / "results/live" / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        Image.new("RGB", (20, 20), (80, 100, 120)).save(target)
+    assert invoke(tmp_path, reviewed, extra=["--review-previews"]) == (0, 1)
     upgraded = read_records(tmp_path / "results", "live")[0]
     assert upgraded["analysis_key"] == first["analysis_key"]
     assert upgraded["review_previews_requested"] is True
@@ -224,7 +233,7 @@ def test_review_previews_upgrade_cache_and_render_usable_negative_observations(t
     assert "Imagery review observations" in html
     assert "They do not establish a quiet control" in html
     assert "No change detected" in html
-    assert invoke(tmp_path, outcome(), extra=["--review-previews"]) == (0, 0)
+    assert invoke(tmp_path, reviewed, extra=["--review-previews"]) == (0, 0)
 
 
 def test_case_runner_attaches_frozen_context_without_duplicate_records(tmp_path):

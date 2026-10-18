@@ -179,7 +179,7 @@ def _preview(path, asset_root):
         and relative.parts[0] == "assets"
         and len(relative.parts) > 1
         and ".." not in relative.parts
-        and not any(char in path for char in ("\\", ":", "?", "#"))
+        and not any(char in path for char in ("\\", ":", "%", "?", "#"))
     )
     target = asset_root.joinpath(*relative.parts[1:]).resolve()
     _require(target.is_relative_to(asset_root))
@@ -373,8 +373,7 @@ def validate_history(history, asset_root):
                 else:
                     previews[view] = _preview(path, asset_root)
             eligible = bool(
-                case
-                and record.get("review_previews_requested")
+                record.get("review_previews_requested")
                 and comparison["status"] in USABLE
                 and all(paths.get(view) for view in VIEWS)
             )
