@@ -1,0 +1,20 @@
+# Optional land-side civilian port pilot; selected before any imagery or detector run.
+# Provenance and exact snapped geometry: docs/evidence/european-port-pilot-selection-2026-10-18.json
+# Coverage is unknown. Genoa includes a small mapped terminal-edge remainder.
+# This profile does not establish ship, vehicle or container counts.
+sites:
+  - id: rotterdam-ect-delta-yard
+    name: Rotterdam ECT Delta land-side yard
+    latitude: 51.95730000
+    longitude: 4.06650000
+    size_m: 400
+  - id: valencia-msc-yard
+    name: Valencia MSC land-side yard
+    latitude: 39.44008787
+    longitude: -0.32136927
+    size_m: 300
+  - id: genoa-sech-yard
+    name: Genoa PSA SECH land-side yard
+    latitude: 44.40508294
+    longitude: 8.91058266
+    size_m: 300

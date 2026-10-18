@@ -1,0 +1,939 @@
+{
+  "schema_version": 1,
+  "kind": "European civilian land-side container-yard pilot selection; not validation labels",
+  "selection_date": "2026-10-18",
+  "selection_scope": "Exactly three European port terminals; bounded public-source research and geometry only. No imagery, Earth Engine, catalog availability, detector outputs or private observations used.",
+  "profile_sites": "pilots/european-ports/sites.yaml",
+  "profile_settings": "pilots/european-ports/settings.yaml",
+  "settings_difference_from_root": {
+    "max_sites": {
+      "before": 1,
+      "after": 3
+    }
+  },
+  "analysis_thresholds_and_masks": "Unchanged from root settings and detector code. The optical SCL mask retains classes 4/5 and excludes water.",
+  "limitations": [
+    "The AOIs were selected for mapped container-yard land use; source geometry is not authoritative cadastral surveying and may be incomplete or outdated.",
+    "No independent quiet/change truth label is attached. Every usable acquisition, including negatives, is for human appearance review.",
+    "Usable optical coverage, baseline support, clouds/shadows, SCL assignment and display quality remain unknown before live analysis.",
+    "At 10 m analysis spacing and a nine-cell minimum connected patch, individual ships, vehicles or containers are not counted or identified.",
+    "The squares cover small yard portions, not entire ports or terminal operations. Changes may reflect surface appearance, stacks, weather, shadow or masking; cause is unestablished.",
+    "This optional profile does not change root sites, scheduling, publication or result-writing behavior."
+  ],
+  "geometry_overlap_method": "Transform OSM outer rings to each Site.grid CRS, clip polygon against the exact snapped projected square using Sutherland-Hodgman axis clipping, and divide shoelace area by square area. This is continuous map geometry, not analysis-cell or satellite-pixel coverage.",
+  "sites": [
+    {
+      "site_id": "rotterdam-ect-delta-yard",
+      "name": "Rotterdam ECT Delta land-side yard",
+      "country": "Netherlands",
+      "centre_wgs84": {
+        "latitude": 51.9573,
+        "longitude": 4.0665
+      },
+      "size_m": 400,
+      "grid": {
+        "crs": "EPSG:32631",
+        "transform": [
+          10,
+          0,
+          573080,
+          0,
+          -10,
+          5757030
+        ],
+        "bounds": [
+          573080,
+          5756630,
+          573480,
+          5757030
+        ],
+        "cells": 1600
+      },
+      "aoi_wgs84_polygon_lon_lat": [
+        [
+          4.063483727994296,
+          51.95556320637861
+        ],
+        [
+          4.069303564381327,
+          51.95551049458173
+        ],
+        [
+          4.069389120866799,
+          51.959106277259686
+        ],
+        [
+          4.063568819040989,
+          51.95915899583005
+        ],
+        [
+          4.063483727994296,
+          51.95556320637861
+        ]
+      ],
+      "official_sources": [
+        {
+          "url": "https://www.ect.nl/nl/terminals/hutchison-ports-ect-delta",
+          "title": "Hutchison Ports ECT Delta",
+          "accessed_date": "2026-10-18",
+          "supports": "Operator identifies its Delta terminal on the Maasvlakte at Europaweg 875 and describes deep-sea, feeder, inland-waterway and land-side facilities. Official container-use crosscheck: https://www.ect.nl/en/about-us/about-us"
+        }
+      ],
+      "mapped_geometry": {
+        "provider": "OpenStreetMap contributors",
+        "license": "ODbL 1.0",
+        "copyright_url": "https://www.openstreetmap.org/copyright",
+        "source_api_url": "https://api.openstreetmap.org/api/0.6/way/145664536/full.json",
+        "retrieved_date": "2026-10-18",
+        "features": [
+          {
+            "type": "way",
+            "id": 145664536,
+            "version": 11,
+            "timestamp": "2023-10-14T17:51:42Z",
+            "tags": {
+              "addr:city": "Maasvlakte Rotterdam",
+              "addr:housenumber": "875",
+              "addr:postcode": "3199LD",
+              "addr:street": "Europaweg",
+              "cargo": "container",
+              "industrial": "port",
+              "landuse": "industrial",
+              "name": "Hutchison ECT Delta Terminal",
+              "phone": "+31 181 278278",
+              "ref:harbour": "8200",
+              "website": "https://www.ect.nl/nl/terminals/hutchison-ports-ect-delta",
+              "wikidata": "Q123046617"
+            }
+          }
+        ],
+        "outer_ring_wgs84_lon_lat": [
+          [
+            4.0755066,
+            51.9555085
+          ],
+          [
+            4.0745762,
+            51.9553677
+          ],
+          [
+            4.073442,
+            51.9551961
+          ],
+          [
+            4.0720055,
+            51.9549771
+          ],
+          [
+            4.0716037,
+            51.9549213
+          ],
+          [
+            4.069201,
+            51.9546279
+          ],
+          [
+            4.0689364,
+            51.9551377
+          ],
+          [
+            4.0683965,
+            51.955092
+          ],
+          [
+            4.0683646,
+            51.9552342
+          ],
+          [
+            4.0683263,
+            51.9553307
+          ],
+          [
+            4.0682734,
+            51.9554493
+          ],
+          [
+            4.0658317,
+            51.9552777
+          ],
+          [
+            4.0658361,
+            51.9550383
+          ],
+          [
+            4.0656214,
+            51.954944
+          ],
+          [
+            4.0656087,
+            51.9546869
+          ],
+          [
+            4.0637075,
+            51.9545236
+          ],
+          [
+            4.0635853,
+            51.9551173
+          ],
+          [
+            4.0605752,
+            51.9549206
+          ],
+          [
+            4.0607547,
+            51.954413
+          ],
+          [
+            4.0590687,
+            51.954276
+          ],
+          [
+            4.058402,
+            51.9542233
+          ],
+          [
+            4.0581836,
+            51.9541639
+          ],
+          [
+            4.0579058,
+            51.9546748
+          ],
+          [
+            4.0575442,
+            51.9564007
+          ],
+          [
+            4.0574735,
+            51.956436
+          ],
+          [
+            4.0574469,
+            51.9565708
+          ],
+          [
+            4.0574205,
+            51.9565766
+          ],
+          [
+            4.0574066,
+            51.9566492
+          ],
+          [
+            4.0574293,
+            51.9566642
+          ],
+          [
+            4.0573518,
+            51.9570385
+          ],
+          [
+            4.0573241,
+            51.9570533
+          ],
+          [
+            4.0573059,
+            51.9571479
+          ],
+          [
+            4.0573264,
+            51.9571622
+          ],
+          [
+            4.0572564,
+            51.9575
+          ],
+          [
+            4.0572295,
+            51.9575054
+          ],
+          [
+            4.0572154,
+            51.9575759
+          ],
+          [
+            4.0572374,
+            51.9575917
+          ],
+          [
+            4.0571605,
+            51.9579667
+          ],
+          [
+            4.0571379,
+            51.9579723
+          ],
+          [
+            4.0571079,
+            51.9581219
+          ],
+          [
+            4.0571838,
+            51.9581769
+          ],
+          [
+            4.0571664,
+            51.9582641
+          ],
+          [
+            4.0570609,
+            51.958779
+          ],
+          [
+            4.0570328,
+            51.9587767
+          ],
+          [
+            4.0570239,
+            51.9588215
+          ],
+          [
+            4.0570171,
+            51.9588557
+          ],
+          [
+            4.0719789,
+            51.9600257
+          ],
+          [
+            4.0732992,
+            51.9596402
+          ],
+          [
+            4.0755066,
+            51.9555085
+          ]
+        ],
+        "outer_ring_sha256": "470dd451d3db8885ea972c483bd0795c8d44cb172e41367136a20039cbc1a8ae"
+      },
+      "selection_method": "Analyst-selected interior square checked against the mapped terminal polygon.",
+      "analyst_anchor_wgs84": [
+        4.0665,
+        51.9573
+      ],
+      "terminal_polygon_overlap_fraction": 1.0,
+      "outside_mapped_terminal_fraction": 0.0,
+      "coverage_status": "Unknown before a live run: mapped land use is not Sentinel-2 SCL validity, cloud clearance, baseline availability or common valid coverage."
+    },
+    {
+      "site_id": "valencia-msc-yard",
+      "name": "Valencia MSC land-side yard",
+      "country": "Spain",
+      "centre_wgs84": {
+        "latitude": 39.44008787,
+        "longitude": -0.32136927
+      },
+      "size_m": 300,
+      "grid": {
+        "crs": "EPSG:32630",
+        "transform": [
+          10,
+          0,
+          730370,
+          0,
+          -10,
+          4369190
+        ],
+        "bounds": [
+          730370,
+          4368890,
+          730670,
+          4369190
+        ],
+        "cells": 900
+      },
+      "aoi_wgs84_polygon_lon_lat": [
+        [
+          -0.32316219650014055,
+          39.438777861904896
+        ],
+        [
+          -0.31967984943428684,
+          39.43869761098563
+        ],
+        [
+          -0.3195762804031681,
+          39.441397848841994
+        ],
+        [
+          -0.3230587616366976,
+          39.44147810742068
+        ],
+        [
+          -0.32316219650014055,
+          39.438777861904896
+        ]
+      ],
+      "official_sources": [
+        {
+          "url": "https://www.valenciaport.com/en/servicio/msc-terminal-valencia/",
+          "title": "MSC Terminal Valencia - Valenciaport",
+          "accessed_date": "2026-10-18",
+          "supports": "Port authority identifies MSC TERMINAL VALENCIA, S.A.U. at Transversal Muelle de Costa, describes storage and container facilities, and embeds terminal marker latitude 39.441989, longitude -0.3271544. The selected AOI is an interior yard square, not that office/terminal marker."
+        }
+      ],
+      "mapped_geometry": {
+        "provider": "OpenStreetMap contributors",
+        "license": "ODbL 1.0",
+        "copyright_url": "https://www.openstreetmap.org/copyright",
+        "source_api_url": "https://api.openstreetmap.org/api/0.6/relation/21216348/full.json",
+        "retrieved_date": "2026-10-18",
+        "features": [
+          {
+            "type": "way",
+            "id": 505250943,
+            "version": 11,
+            "timestamp": "2026-08-11T16:20:34Z"
+          },
+          {
+            "type": "way",
+            "id": 1548884692,
+            "version": 1,
+            "timestamp": "2026-08-11T16:05:26Z"
+          },
+          {
+            "type": "way",
+            "id": 1548884693,
+            "version": 1,
+            "timestamp": "2026-08-11T16:05:26Z",
+            "tags": {
+              "barrier": "wall"
+            }
+          },
+          {
+            "type": "way",
+            "id": 1548884694,
+            "version": 1,
+            "timestamp": "2026-08-11T16:05:26Z",
+            "tags": {
+              "natural": "coastline",
+              "source": "ICV odcv05"
+            }
+          },
+          {
+            "type": "way",
+            "id": 1548884696,
+            "version": 1,
+            "timestamp": "2026-08-11T16:05:26Z"
+          },
+          {
+            "type": "way",
+            "id": 1548884697,
+            "version": 1,
+            "timestamp": "2026-08-11T16:05:26Z",
+            "tags": {
+              "natural": "coastline",
+              "source": "ICV odcv05"
+            }
+          },
+          {
+            "type": "way",
+            "id": 1548884704,
+            "version": 1,
+            "timestamp": "2026-08-11T16:05:26Z"
+          },
+          {
+            "type": "relation",
+            "id": 21216348,
+            "version": 1,
+            "timestamp": "2026-08-11T16:05:26Z",
+            "tags": {
+              "cargo": "container",
+              "industrial": "port",
+              "landuse": "industrial",
+              "man_made": "container_terminal",
+              "name": "MSC Terminal",
+              "port": "cargo",
+              "port:type": "seaport",
+              "type": "multipolygon"
+            }
+          }
+        ],
+        "outer_ring_wgs84_lon_lat": [
+          [
+            -0.3308769,
+            39.4416257
+          ],
+          [
+            -0.3308345,
+            39.441678
+          ],
+          [
+            -0.3307479,
+            39.4417798
+          ],
+          [
+            -0.3307099,
+            39.4418159
+          ],
+          [
+            -0.3305895,
+            39.4418736
+          ],
+          [
+            -0.3304428,
+            39.4419371
+          ],
+          [
+            -0.3302929,
+            39.4419909
+          ],
+          [
+            -0.3301807,
+            39.4420277
+          ],
+          [
+            -0.330059,
+            39.4420635
+          ],
+          [
+            -0.3299277,
+            39.4420954
+          ],
+          [
+            -0.3296891,
+            39.4421354
+          ],
+          [
+            -0.3294885,
+            39.4421592
+          ],
+          [
+            -0.3293621,
+            39.4421688
+          ],
+          [
+            -0.3290716,
+            39.4421744
+          ],
+          [
+            -0.3291464,
+            39.4420184
+          ],
+          [
+            -0.3282813,
+            39.4417305
+          ],
+          [
+            -0.3279372,
+            39.4418113
+          ],
+          [
+            -0.3275544,
+            39.4416894
+          ],
+          [
+            -0.327403,
+            39.4420579
+          ],
+          [
+            -0.3275463,
+            39.4421622
+          ],
+          [
+            -0.3263721,
+            39.4427203
+          ],
+          [
+            -0.3259483,
+            39.4431047
+          ],
+          [
+            -0.3257772,
+            39.4432341
+          ],
+          [
+            -0.3256778,
+            39.4435246
+          ],
+          [
+            -0.3197912,
+            39.4416266
+          ],
+          [
+            -0.3197,
+            39.4418277
+          ],
+          [
+            -0.3195301,
+            39.4418407
+          ],
+          [
+            -0.3193709,
+            39.4417887
+          ],
+          [
+            -0.3192223,
+            39.4420808
+          ],
+          [
+            -0.3190132,
+            39.442221
+          ],
+          [
+            -0.3187802,
+            39.4421467
+          ],
+          [
+            -0.3185746,
+            39.4420811
+          ],
+          [
+            -0.3183853,
+            39.4420207
+          ],
+          [
+            -0.3184561,
+            39.4418861
+          ],
+          [
+            -0.318503,
+            39.4417946
+          ],
+          [
+            -0.3184668,
+            39.4417536
+          ],
+          [
+            -0.3184351,
+            39.4417071
+          ],
+          [
+            -0.3184241,
+            39.4416581
+          ],
+          [
+            -0.3184294,
+            39.4416111
+          ],
+          [
+            -0.3184415,
+            39.4415833
+          ],
+          [
+            -0.3188317,
+            39.4408773
+          ],
+          [
+            -0.3185325,
+            39.4406239
+          ],
+          [
+            -0.3183484,
+            39.4403971
+          ],
+          [
+            -0.3182807,
+            39.4400575
+          ],
+          [
+            -0.3194246,
+            39.4379335
+          ],
+          [
+            -0.3194311,
+            39.4378722
+          ],
+          [
+            -0.3194934,
+            39.4377513
+          ],
+          [
+            -0.3196963,
+            39.4373789
+          ],
+          [
+            -0.3279794,
+            39.4400984
+          ],
+          [
+            -0.3282853,
+            39.4406046
+          ],
+          [
+            -0.3286074,
+            39.440879
+          ],
+          [
+            -0.3308769,
+            39.4416257
+          ]
+        ],
+        "outer_ring_sha256": "5d2e90afc2dc7f485db23c708deda63bd46252286c559550a63e7adf897e6bb6"
+      },
+      "selection_method": "Analyst selected a 300 m interior square around this geometry-derived yard centre and checked full containment against the mapped terminal polygon. No imagery, availability, detector output or review was used.",
+      "analyst_anchor_wgs84": [
+        -0.3245,
+        39.4405
+      ],
+      "terminal_polygon_overlap_fraction": 1.0,
+      "outside_mapped_terminal_fraction": 0.0,
+      "coverage_status": "Unknown before a live run: mapped land use is not Sentinel-2 SCL validity, cloud clearance, baseline availability or common valid coverage."
+    },
+    {
+      "site_id": "genoa-sech-yard",
+      "name": "Genoa PSA SECH land-side yard",
+      "country": "Italy",
+      "centre_wgs84": {
+        "latitude": 44.40508294,
+        "longitude": 8.91058266
+      },
+      "size_m": 300,
+      "grid": {
+        "crs": "EPSG:32632",
+        "transform": [
+          10,
+          0,
+          492730,
+          0,
+          -10,
+          4917020
+        ],
+        "bounds": [
+          492730,
+          4916720,
+          493030,
+          4917020
+        ],
+        "cells": 900
+      },
+      "aoi_wgs84_polygon_lon_lat": [
+        [
+          8.908700974327772,
+          44.40373102356968
+        ],
+        [
+          8.912468467483146,
+          44.40373397280357
+        ],
+        [
+          8.912464439912215,
+          44.40643483028291
+        ],
+        [
+          8.908696773404506,
+          44.40643188077277
+        ],
+        [
+          8.908700974327772,
+          44.40373102356968
+        ]
+      ],
+      "official_sources": [
+        {
+          "url": "https://www.psasech.it/",
+          "title": "Home - PSA SECH",
+          "accessed_date": "2026-10-18",
+          "supports": "Operator identifies the Calata Sanita terminal in the Sampierdarena basin and describes container handling in its operational yard. Port authority crosscheck: https://www.portsofgenoa.com/documenti/pubblicazioni/The_Southern_Gateway_to_Europe_for_fresh_trade_-_Fruit_Logistica_2024.pdf"
+        }
+      ],
+      "mapped_geometry": {
+        "provider": "OpenStreetMap contributors",
+        "license": "ODbL 1.0",
+        "copyright_url": "https://www.openstreetmap.org/copyright",
+        "source_api_url": "https://api.openstreetmap.org/api/0.6/way/148457415/full.json",
+        "retrieved_date": "2026-10-18",
+        "features": [
+          {
+            "type": "way",
+            "id": 148457415,
+            "version": 11,
+            "timestamp": "2026-03-04T09:12:18Z",
+            "tags": {
+              "cargo": "container",
+              "industrial": "port",
+              "landuse": "industrial",
+              "name": "Terminal SECH",
+              "port": "cargo",
+              "port:type": "seaport",
+              "seamark:harbour:category": "container",
+              "seamark:type": "harbour",
+              "website": "https://www.sech.it/"
+            }
+          }
+        ],
+        "outer_ring_wgs84_lon_lat": [
+          [
+            8.9076178,
+            44.4065971
+          ],
+          [
+            8.9075878,
+            44.4065004
+          ],
+          [
+            8.9075214,
+            44.4062778
+          ],
+          [
+            8.9073995,
+            44.4058749
+          ],
+          [
+            8.9072478,
+            44.4058999
+          ],
+          [
+            8.9072379,
+            44.4058086
+          ],
+          [
+            8.9072452,
+            44.4056353
+          ],
+          [
+            8.9072988,
+            44.4054154
+          ],
+          [
+            8.9073668,
+            44.4052626
+          ],
+          [
+            8.9075086,
+            44.4050744
+          ],
+          [
+            8.9076736,
+            44.4049115
+          ],
+          [
+            8.9079118,
+            44.404724
+          ],
+          [
+            8.9080971,
+            44.4046033
+          ],
+          [
+            8.9083784,
+            44.4044492
+          ],
+          [
+            8.9085886,
+            44.4043492
+          ],
+          [
+            8.9087979,
+            44.4042701
+          ],
+          [
+            8.9156766,
+            44.402804
+          ],
+          [
+            8.9160266,
+            44.4029199
+          ],
+          [
+            8.9160958,
+            44.4029061
+          ],
+          [
+            8.9161954,
+            44.4029931
+          ],
+          [
+            8.9162204,
+            44.4030663
+          ],
+          [
+            8.9163029,
+            44.4030607
+          ],
+          [
+            8.9164525,
+            44.4033695
+          ],
+          [
+            8.9171535,
+            44.4032235
+          ],
+          [
+            8.9172632,
+            44.4033632
+          ],
+          [
+            8.9173165,
+            44.4033811
+          ],
+          [
+            8.9183327,
+            44.4031584
+          ],
+          [
+            8.9186375,
+            44.403912
+          ],
+          [
+            8.9123335,
+            44.4052335
+          ],
+          [
+            8.91264,
+            44.4060199
+          ],
+          [
+            8.9127631,
+            44.4063077
+          ],
+          [
+            8.9110778,
+            44.4066515
+          ],
+          [
+            8.910902,
+            44.4062263
+          ],
+          [
+            8.9107497,
+            44.4062574
+          ],
+          [
+            8.9106209,
+            44.4059382
+          ],
+          [
+            8.9105473,
+            44.4059475
+          ],
+          [
+            8.910481,
+            44.4060178
+          ],
+          [
+            8.9101722,
+            44.4061212
+          ],
+          [
+            8.9098578,
+            44.4061947
+          ],
+          [
+            8.9078172,
+            44.406586
+          ],
+          [
+            8.9076918,
+            44.4065974
+          ],
+          [
+            8.9076178,
+            44.4065971
+          ]
+        ],
+        "outer_ring_sha256": "229c69f4e50d4e3e7502f0789a3a40df989d3b30e11634a4406e8d036c7045c4"
+      },
+      "selection_method": "Geometry-only selection: maximize mapped terminal overlap for this fixed square size over 10 m projected centre steps within the terminal bounding box; ties choose the centre nearest the documented analyst anchor. No imagery, availability, detector output or review was used.",
+      "analyst_anchor_wgs84": [
+        8.91058266,
+        44.40508294
+      ],
+      "terminal_polygon_overlap_fraction": 0.876060859,
+      "outside_mapped_terminal_fraction": 0.123939141,
+      "coverage_status": "Unknown before a live run: mapped land use is not Sentinel-2 SCL validity, cloud clearance, baseline availability or common valid coverage.",
+      "selection_limit": "The narrow terminal cannot contain the entire 300 m square. About 12.4% lies outside the mapped terminal and may include access, quay edges or water. This is a land-dominant yard AOI, not a water or ship AOI; the exact remainder is unverified."
+    }
+  ]
+}

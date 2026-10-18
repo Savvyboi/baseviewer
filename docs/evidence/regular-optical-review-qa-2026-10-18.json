@@ -1,0 +1,43 @@
+{
+  "recorded_date": "2026-10-18",
+  "kind": "Synthetic software verification only",
+  "base_main": "996a5f2b7ac1c0c5fb57c229ac6f13c7325a268a",
+  "tests": {
+    "passed": 380,
+    "subtests_passed": 9,
+    "ruff_lint": "passed",
+    "ruff_format": "passed"
+  },
+  "checks": [
+    "actual Bash workflow sensor/review/profile argument forwarding",
+    "known three-site profile and unchanged detector settings",
+    "ordinary empty-case schema1 review export/restore and private assessment",
+    "usable negatives included; insufficiency/errors/missing previews visible",
+    "fixed/shared switches preserve eight-field identity",
+    "refreshed timestamps reject stale synthetic observations",
+    "missing/corrupt fixed source PNGs repair opt-in cache across sensor scopes",
+    "ambiguous encoded/query/fragment source paths rejected before reads",
+    "desktop/mobile/no-JavaScript generated-fixture browser checks",
+    "browser checks no external requests or network writes",
+    "exact source receipt grids match all three profile sites"
+  ],
+  "pilot_profile": {
+    "sites": 3,
+    "planned_area_m2": 340000,
+    "grid_cells": 3400,
+    "settings_difference": {
+      "max_sites": {
+        "active": 1,
+        "pilot": 3
+      }
+    }
+  },
+  "no_live_port_analysis": true,
+  "no_private_review_inputs": true,
+  "no_actual_browser_profile_or_storage_access": true,
+  "no_deployment_or_schedule_change": true,
+  "limitations": [
+    "Synthetic checks establish software behavior, not port imagery coverage or detection accuracy.",
+    "Mapped terminal overlap is not optical pixel validity."
+  ]
+}

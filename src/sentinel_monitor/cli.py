@@ -19,7 +19,7 @@ from .config import (
 )
 from .decisions import location_status
 from .optical_review import cache_complete
-from .reports import build_site, save_json
+from .reports import build_site, preview_available, save_json
 
 
 def parser():
@@ -129,6 +129,16 @@ def parser():
     return root
 
 
+def review_previews_complete(record, image_root):
+    """Require intact source PNGs for every usable opt-in review comparison."""
+    return all(
+        preview_available(image_root, (comparison.get("previews") or {}).get(view))
+        for comparison in record["comparisons"]
+        if comparison["status"] in {"possible_change", "no_change_detected"}
+        for view in ("before", "after", "overlay")
+    )
+
+
 def run(args):
     mode = "demo" if args.demo else "live"
     sensors = validate_sensor_options(
@@ -175,7 +185,13 @@ def run(args):
             if (
                 existing_sensors == sensors
                 and (not args.radar_diagnostics or existing.get("radar_diagnostics_requested"))
-                and (not args.review_previews or existing.get("review_previews_requested"))
+                and (
+                    not args.review_previews
+                    or (
+                        existing.get("review_previews_requested")
+                        and review_previews_complete(existing, args.results / mode)
+                    )
+                )
                 and (not args.imagery_diagnostics or existing.get("imagery_diagnostics_requested"))
                 and (
                     not args.optical_review_stretch
