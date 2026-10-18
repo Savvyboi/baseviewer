@@ -10,7 +10,13 @@ from dataclasses import asdict
 from datetime import UTC, datetime
 from pathlib import Path
 
-from .config import load_config, signature, windows
+from .config import (
+    load_config,
+    record_requested_sensors,
+    signature,
+    validate_sensor_options,
+    windows,
+)
 from .decisions import location_status
 from .optical_review import cache_complete
 from .reports import build_site, save_json
@@ -26,6 +32,7 @@ def parser():
         command.add_argument("--end-date", help="Exclusive UTC end date, YYYY-MM-DD")
         command.add_argument("--site-id", action="append", help="Select a site; repeat for several")
     run = commands.choices["run"]
+    run.add_argument("--sensors", choices=["both", "optical", "radar"], default="both")
     run.add_argument("--project", default=os.environ.get("EE_PROJECT_ID"))
     run.add_argument(
         "--demo", action="store_true", help="Use synthetic fixtures; no Earth Engine calls"
@@ -76,6 +83,12 @@ def parser():
     live.add_argument("--output", type=Path, default=Path("results-validation/numeric-checks.json"))
     review = commands.add_parser("review-case", help="Run a frozen imagery-validation case")
     review.add_argument("--case", required=True)
+    review.add_argument("--sensors", choices=["both", "optical", "radar"], default="both")
+    review.add_argument(
+        "--radar-diagnostics",
+        action="store_true",
+        help="Radar diagnostics are included automatically when radar is requested",
+    )
     review.add_argument("--case-file", type=Path, default=Path("validation/cases.json"))
     review.add_argument("--settings", type=Path, default=Path("settings.yaml"))
     review.add_argument("--project", default=os.environ.get("EE_PROJECT_ID"))
@@ -118,6 +131,11 @@ def parser():
 
 def run(args):
     mode = "demo" if args.demo else "live"
+    sensors = validate_sensor_options(
+        getattr(args, "sensors", "both"),
+        radar_diagnostics=args.radar_diagnostics,
+        optical_review_stretch=args.optical_review_stretch,
+    )
     if args.optical_review_stretch and not args.review_previews:
         raise ValueError("--optical-review-stretch requires --review-previews")
     if args.demo and (
@@ -143,12 +161,20 @@ def run(args):
     records = []
     has_errors = False
     for site in sites:
-        key = signature(site, settings, period, f"demo:{args.demo_scenario}" if args.demo else mode)
+        key = signature(
+            site, settings, period, f"demo:{args.demo_scenario}" if args.demo else mode, sensors
+        )
         path = args.results / mode / "records" / f"{site.id}-{period['target_end']}-{key}.json"
         if path.exists() and not args.refresh:
             existing = json.loads(path.read_text(encoding="utf-8"))
+            try:
+                existing_sensors = record_requested_sensors(existing)
+            except ValueError:
+                # Malformed provenance is not a completed cache hit. Recompute it.
+                existing_sensors = None
             if (
-                (not args.radar_diagnostics or existing.get("radar_diagnostics_requested"))
+                existing_sensors == sensors
+                and (not args.radar_diagnostics or existing.get("radar_diagnostics_requested"))
                 and (not args.review_previews or existing.get("review_previews_requested"))
                 and (not args.imagery_diagnostics or existing.get("imagery_diagnostics_requested"))
                 and (
@@ -170,7 +196,13 @@ def run(args):
             from .demo import analyze_demo
 
             result = analyze_demo(
-                site, settings, period, key, args.results / mode / "assets", args.demo_scenario
+                site,
+                settings,
+                period,
+                key,
+                args.results / mode / "assets",
+                args.demo_scenario,
+                requested_sensors=sensors,
             )
         else:
             from .earth import EarthEngineAnalyzer, initialize
@@ -189,6 +221,7 @@ def run(args):
                 period,
                 key,
                 args.results / mode / "assets",
+                requested_sensors=sensors,
                 radar_diagnostics=args.radar_diagnostics,
                 review_previews=args.review_previews,
                 imagery_diagnostics=args.imagery_diagnostics,
@@ -198,6 +231,7 @@ def run(args):
             "schema_version": 1,
             "analysis_version": settings.analysis_version,
             "analysis_key": key,
+            "requested_sensors": sensors,
             "radar_diagnostics_requested": args.radar_diagnostics and not args.demo,
             "review_previews_requested": args.review_previews and not args.demo,
             "imagery_diagnostics_requested": args.imagery_diagnostics and not args.demo,
@@ -236,6 +270,7 @@ def run(args):
         args.results / "run-summary.json",
         {
             "mode": mode,
+            "requested_sensors": sensors,
             "windows": period,
             "site_count": len(records),
             "planned_area_m2": sum(s.size_m**2 for s in sites),
@@ -243,6 +278,7 @@ def run(args):
             "sites": [
                 {
                     "id": r["site"]["id"],
+                    "requested_sensors": record_requested_sensors(r),
                     "status": r["status"],
                     "errors": r["errors"],
                     "preview_errors": [
