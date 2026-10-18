@@ -12,7 +12,7 @@ on:
       case_id:
         description: Frozen artifact-only imagery case
         type: choice
-        options: [park-fire-event, park-fire-pre-event, huoshenshan-event, huoshenshan-pre-event, huoshenshan-nearby, gobabeb-quiet-reference, salzbachtal-demolition, salzbachtal-pre-demolition]
+        options: [park-fire-event, park-fire-pre-event, huoshenshan-event, huoshenshan-pre-event, huoshenshan-nearby, gobabeb-quiet-reference, salzbachtal-demolition, salzbachtal-pre-demolition, genoa-morandi-east-demolition]
         default: park-fire-event
       imagery_diagnostics:
         description: Source eligibility, validity and pre-patch optical values (extra compute)
@@ -161,6 +161,9 @@ jobs:
       - shell: bash
         run: |
           args=(--case "$CASE_ID")
+          if [[ "$CASE_ID" == genoa-morandi-east-demolition ]]; then
+            args+=(--case-file validation/sentinel2-cases.json)
+          fi
           if [[ "$IMAGERY_DIAGNOSTICS" == true ]]; then args+=(--imagery-diagnostics); fi
           if [[ "$OPTICAL_REVIEW_STRETCH" == true ]]; then args+=(--optical-review-stretch); fi
           sentinel-monitor review-case "${args[@]}"

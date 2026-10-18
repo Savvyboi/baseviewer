@@ -1,0 +1,113 @@
+{
+  "kind": "offline public Sentinel-2 L2A metadata eligibility replay",
+  "schema_version": 1,
+  "case_id": "genoa-morandi-east-demolition",
+  "windows": {
+    "baseline_start": "2019-05-31",
+    "baseline_end": "2019-06-28",
+    "target_start": "2019-06-28",
+    "target_end": "2019-07-05"
+  },
+  "grid": {
+    "crs": "EPSG:32632",
+    "transform": [
+      10,
+      0,
+      491070,
+      0,
+      -10,
+      4919310
+    ],
+    "bounds": [
+      491070,
+      4918810,
+      491570,
+      4919310
+    ],
+    "cells": 2500
+  },
+  "intersecting_l2a_products": 7,
+  "baseline_product_count": 6,
+  "target_product_count": 1,
+  "baseline_distinct_days": 6,
+  "target_distinct_days": 1,
+  "minimum_baseline_days": 2,
+  "metadata_baseline_sufficient": true,
+  "baseline": [
+    {
+      "day": "2019-06-01",
+      "product_ids": [
+        "S2B_MSIL2A_20190601T102029_N0500_R065_T32TMQ_20230724T191309.SAFE"
+      ],
+      "scene_cloud_percent_by_product": {
+        "S2B_MSIL2A_20190601T102029_N0500_R065_T32TMQ_20230724T191309.SAFE": 4.089396
+      }
+    },
+    {
+      "day": "2019-06-06",
+      "product_ids": [
+        "S2A_MSIL2A_20190606T102031_N0500_R065_T32TMQ_20230712T081022.SAFE"
+      ],
+      "scene_cloud_percent_by_product": {
+        "S2A_MSIL2A_20190606T102031_N0500_R065_T32TMQ_20230712T081022.SAFE": 67.600828
+      }
+    },
+    {
+      "day": "2019-06-11",
+      "product_ids": [
+        "S2B_MSIL2A_20190611T102029_N0500_R065_T32TMQ_20221220T092351.SAFE"
+      ],
+      "scene_cloud_percent_by_product": {
+        "S2B_MSIL2A_20190611T102029_N0500_R065_T32TMQ_20221220T092351.SAFE": 88.092381
+      }
+    },
+    {
+      "day": "2019-06-16",
+      "product_ids": [
+        "S2A_MSIL2A_20190616T102031_N0500_R065_T32TMQ_20230724T071119.SAFE"
+      ],
+      "scene_cloud_percent_by_product": {
+        "S2A_MSIL2A_20190616T102031_N0500_R065_T32TMQ_20230724T071119.SAFE": 14.909137999999999
+      }
+    },
+    {
+      "day": "2019-06-21",
+      "product_ids": [
+        "S2B_MSIL2A_20190621T102029_N0500_R065_T32TMQ_20230711T175020.SAFE"
+      ],
+      "scene_cloud_percent_by_product": {
+        "S2B_MSIL2A_20190621T102029_N0500_R065_T32TMQ_20230711T175020.SAFE": 92.240566
+      }
+    },
+    {
+      "day": "2019-06-26",
+      "product_ids": [
+        "S2A_MSIL2A_20190626T102031_N0500_R065_T32TMQ_20230723T161149.SAFE"
+      ],
+      "scene_cloud_percent_by_product": {
+        "S2A_MSIL2A_20190626T102031_N0500_R065_T32TMQ_20230723T161149.SAFE": 0.031287
+      }
+    }
+  ],
+  "target": [
+    {
+      "day": "2019-07-01",
+      "product_ids": [
+        "S2B_MSIL2A_20190701T102029_N0500_R065_T32TMQ_20230809T195545.SAFE"
+      ],
+      "scene_cloud_percent_by_product": {
+        "S2B_MSIL2A_20190701T102029_N0500_R065_T32TMQ_20230809T195545.SAFE": 1.764848
+      }
+    }
+  ],
+  "aoi_valid_coverage": null,
+  "ee_ingestion_verified": false,
+  "limitations": [
+    "Spatial filtering is trusted from the retained query; no catalog is contacted.",
+    "Public L2A products do not prove EE harmonized collection ingestion or identity.",
+    "Granules on one UTC day are one observation; platforms and tiles are not extra days.",
+    "No scene cloud-percent filter: production applies SCL and Cloud Score+ per pixel.",
+    "Metadata counts do not establish per-cell baseline sufficiency or common coverage.",
+    "Automated flags are triage; appearance observations are not certified ground truth."
+  ]
+}

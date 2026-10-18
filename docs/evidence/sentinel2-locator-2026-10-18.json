@@ -1,0 +1,87 @@
+{
+  "retrieved_at": "2026-10-18T02:10:44.342958+00:00",
+  "official_map_url": "https://www.commissario.ricostruzione.genova.it/sites/default/files/upload/aree%20evacuazione_26giugno19.png",
+  "official_map_sha256": "87170f933ee85bff7e6efffae9162350eeb565eb9dfd458cccba39b6786652ba",
+  "map_inspection": "Official evacuation rings centre on the eastern landward works across Via Walter Fillak and the railway yard; the river lies west of these works. No satellite raster was downloaded or reviewed.",
+  "osm_query_url": "https://api.openstreetmap.org/api/0.6/map?bbox=8.887,44.423,8.898,44.428",
+  "osm_response_sha256": "b223aac805f6fa66b581075e4361e2e481864030919358163d1585e5d47998b4",
+  "osm_attribution": "OpenStreetMap contributors, ODbL; https://www.openstreetmap.org/copyright",
+  "way": {
+    "id": 110707992,
+    "version": 15,
+    "timestamp": "2019-11-12T12:52:17Z",
+    "tags": {
+      "highway": "secondary",
+      "lanes": "2",
+      "lit": "yes",
+      "maxspeed": "30",
+      "name": "Via Walter Fillak",
+      "surface": "asphalt"
+    },
+    "coordinates": [
+      [
+        8.8904751,
+        44.4245553
+      ],
+      [
+        8.8910788,
+        44.4254144
+      ],
+      [
+        8.8911501,
+        44.4255192
+      ]
+    ]
+  },
+  "selected_center": [
+    8.891,
+    44.4248
+  ],
+  "center_method": "Analyst-selected contextual point from official map and street geometry; not a mathematical centroid or surveyed pier location.",
+  "grid": {
+    "crs": "EPSG:32632",
+    "transform": [
+      10,
+      0,
+      491070,
+      0,
+      -10,
+      4919310
+    ],
+    "bounds": [
+      491070,
+      4918810,
+      491570,
+      4919310
+    ],
+    "cells": 2500
+  },
+  "grid_wgs84_footprint": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          8.887818226177881,
+          44.42252839138784
+        ],
+        [
+          8.894099389538072,
+          44.42253438765181
+        ],
+        [
+          8.894091262529992,
+          44.42703579875336
+        ],
+        [
+          8.88780961714414,
+          44.427029801553296
+        ],
+        [
+          8.887818226177881,
+          44.42252839138784
+        ]
+      ]
+    ]
+  },
+  "land_scope": "Mostly urban/railway land, with possible narrow western river-edge overlap; not water dominated. Exact SCL land coverage remains unmeasured."
+}
