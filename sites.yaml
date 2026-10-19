@@ -9,3 +9,33 @@ sites:
   latitude: 44.779215
   longitude: 33.569155
   size_m: 4000
+- id: gvardeyskoye-air-base
+  name: gvardeyskoye air base
+  latitude: 45.117267
+  longitude: 33.977795
+  size_m: 2000
+- id: krymsk-air-base
+  name: krymsk air base
+  latitude: 44.963099
+  longitude: 37.998962
+  size_m: 4000
+- id: yeysk-air-base
+  name: yeysk air base
+  latitude: 46.681479
+  longitude: 38.217316
+  size_m: 4000
+- id: millerovo-air-base
+  name: millerovo air base
+  latitude: 48.956327
+  longitude: 40.29476
+  size_m: 4000
+- id: morozovsk-air-base
+  name: morozovsk air base
+  latitude: 48.313799
+  longitude: 41.78839
+  size_m: 4000
+- id: erebuni-air-base
+  name: erebuni air base
+  latitude: 40.126686
+  longitude: 44.472957
+  size_m: 4000
