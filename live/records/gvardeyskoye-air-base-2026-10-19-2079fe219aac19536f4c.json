@@ -1,0 +1,294 @@
+{
+  "schema_version": 1,
+  "analysis_version": "0.1.0",
+  "analysis_key": "2079fe219aac19536f4c",
+  "requested_sensors": [
+    "optical",
+    "radar"
+  ],
+  "radar_diagnostics_requested": false,
+  "review_previews_requested": false,
+  "imagery_diagnostics_requested": false,
+  "optical_review_stretch_requested": false,
+  "site": {
+    "id": "gvardeyskoye-air-base",
+    "name": "gvardeyskoye air base",
+    "latitude": 45.117267,
+    "longitude": 33.977795,
+    "size_m": 2000
+  },
+  "grid": {
+    "crs": "EPSG:32636",
+    "transform": [
+      10,
+      0,
+      575910,
+      0,
+      -10,
+      4997440
+    ],
+    "bounds": [
+      575910,
+      4995440,
+      577910,
+      4997440
+    ],
+    "cells": 40000
+  },
+  "windows": {
+    "baseline_start": "2026-09-14",
+    "baseline_end": "2026-10-12",
+    "target_start": "2026-10-12",
+    "target_end": "2026-10-19"
+  },
+  "mode": "live",
+  "generated_at": "2026-10-19T13:52:57.396454+00:00",
+  "settings": {
+    "analysis_version": "0.1.0",
+    "earth_engine_project": "baseviewer-511722",
+    "optical_threshold": 0.1,
+    "radar_threshold_db": 3.0,
+    "cloud_score_min": 0.6,
+    "min_baseline_observations": 2,
+    "min_valid_coverage": 0.7,
+    "min_patch_pixels": 9,
+    "radar_speckle_radius_m": 10,
+    "radar_min_db": -35,
+    "radar_min_angle": 31,
+    "radar_max_angle": 45,
+    "terrain_max_slope_deg": 15,
+    "dem_collection": "COPERNICUS/DEM/GLO30_2024_1",
+    "max_sites": 20,
+    "max_images_per_sensor": 300,
+    "request_attempts": 3,
+    "preview_pixels": 400
+  },
+  "elapsed_seconds": 16.592,
+  "comparisons": [
+    {
+      "id": "783a42074232e955368894fa",
+      "sensor": "optical",
+      "acquisition_date": "2026-10-12",
+      "acquisition_times": [
+        "2026-10-12T08:47:49.295000+00:00",
+        "2026-10-12T08:47:34.704000+00:00"
+      ],
+      "source_ids": [
+        "20261012T083909_20261012T084142_T36TWQ",
+        "20261012T083909_20261012T084142_T36TWR"
+      ],
+      "baseline_source_ids": [
+        "20260917T083611_20260917T084441_T36TWQ",
+        "20260917T083611_20260917T084441_T36TWR",
+        "20260919T083741_20260919T083735_T36TWQ",
+        "20260919T083741_20260919T083735_T36TWR",
+        "20260922T083559_20260922T084311_T36TWQ",
+        "20260922T083559_20260922T084311_T36TWR",
+        "20260927T083721_20260927T084531_T36TWQ",
+        "20260927T083721_20260927T084531_T36TWR",
+        "20260929T084451_20260929T084736_T36TWQ",
+        "20260929T084451_20260929T084736_T36TWR",
+        "20261002T083759_20261002T084152_T36TWQ",
+        "20261002T083759_20261002T084152_T36TWR",
+        "20261007T083831_20261007T084603_T36TWQ",
+        "20261007T083831_20261007T084603_T36TWR",
+        "20261009T083801_20261009T083803_T36TWQ",
+        "20261009T083801_20261009T083803_T36TWR"
+      ],
+      "baseline_acquisition_dates": [
+        "2026-09-17",
+        "2026-09-19",
+        "2026-09-22",
+        "2026-09-27",
+        "2026-09-29",
+        "2026-10-02",
+        "2026-10-07",
+        "2026-10-09"
+      ],
+      "baseline_observations": 8,
+      "radar_group": null,
+      "status": "no_change_detected",
+      "valid_coverage": 1.0,
+      "changed_area_m2": 0.0,
+      "cloud_screening": "SCL and Cloud Score+",
+      "changed_cells": 0
+    },
+    {
+      "id": "b85791915a9f0c2019d7814f",
+      "sensor": "optical",
+      "acquisition_date": "2026-10-17",
+      "acquisition_times": [
+        "2026-10-17T08:47:50.940000+00:00",
+        "2026-10-17T08:47:36.364000+00:00"
+      ],
+      "source_ids": [
+        "20261017T083941_20261017T084040_T36TWQ",
+        "20261017T083941_20261017T084040_T36TWR"
+      ],
+      "baseline_source_ids": [
+        "20260917T083611_20260917T084441_T36TWQ",
+        "20260917T083611_20260917T084441_T36TWR",
+        "20260919T083741_20260919T083735_T36TWQ",
+        "20260919T083741_20260919T083735_T36TWR",
+        "20260922T083559_20260922T084311_T36TWQ",
+        "20260922T083559_20260922T084311_T36TWR",
+        "20260927T083721_20260927T084531_T36TWQ",
+        "20260927T083721_20260927T084531_T36TWR",
+        "20260929T084451_20260929T084736_T36TWQ",
+        "20260929T084451_20260929T084736_T36TWR",
+        "20261002T083759_20261002T084152_T36TWQ",
+        "20261002T083759_20261002T084152_T36TWR",
+        "20261007T083831_20261007T084603_T36TWQ",
+        "20261007T083831_20261007T084603_T36TWR",
+        "20261009T083801_20261009T083803_T36TWQ",
+        "20261009T083801_20261009T083803_T36TWR"
+      ],
+      "baseline_acquisition_dates": [
+        "2026-09-17",
+        "2026-09-19",
+        "2026-09-22",
+        "2026-09-27",
+        "2026-09-29",
+        "2026-10-02",
+        "2026-10-07",
+        "2026-10-09"
+      ],
+      "baseline_observations": 8,
+      "radar_group": null,
+      "status": "insufficient_data",
+      "valid_coverage": 0.0,
+      "changed_area_m2": 0.0,
+      "cloud_screening": "SCL and Cloud Score+",
+      "reason": "Common valid coverage is below the configured minimum"
+    },
+    {
+      "id": "14228b2738719641722bfd4a",
+      "sensor": "radar",
+      "acquisition_date": "2026-10-14",
+      "acquisition_times": [
+        "2026-10-14T03:56:12+00:00"
+      ],
+      "source_ids": [
+        "S1D_IW_GRDH_1SDV_20261014T035612_20261014T035637_005006_009751_2B71"
+      ],
+      "baseline_source_ids": [
+        "S1C_IW_GRDH_1SDV_20260914T035559_20260914T035624_009438_012C5D_EE26",
+        "S1C_IW_GRDH_1SDV_20260926T035559_20260926T035624_009613_01321E_CCB1",
+        "S1C_IW_GRDH_1SDV_20261008T035559_20261008T035624_009788_0137EE_ADA3",
+        "S1D_IW_GRDH_1SDV_20260920T035612_20260920T035637_004656_008B15_19AA"
+      ],
+      "baseline_acquisition_dates": [
+        "2026-09-14",
+        "2026-09-20",
+        "2026-09-26",
+        "2026-10-08"
+      ],
+      "baseline_observations": 4,
+      "radar_group": {
+        "relative_orbit": 65,
+        "pass": "DESCENDING"
+      },
+      "status": "possible_change",
+      "valid_coverage": 0.940175,
+      "changed_area_m2": 495624.381690979,
+      "changed_cells": 4953,
+      "previews": {
+        "before": "assets/14228b2738719641722bfd4a/before.png",
+        "after": "assets/14228b2738719641722bfd4a/after.png",
+        "overlay": "assets/14228b2738719641722bfd4a/overlay.png"
+      }
+    },
+    {
+      "id": "1efc949b0de39c324f966c42",
+      "sensor": "radar",
+      "acquisition_date": "2026-10-15",
+      "acquisition_times": [
+        "2026-10-15T03:47:54+00:00"
+      ],
+      "source_ids": [
+        "S1C_IW_GRDH_1SDV_20261015T034754_20261015T034819_009890_013B84_A2E5"
+      ],
+      "baseline_source_ids": [
+        "S1C_IW_GRDH_1SDV_20260921T034754_20260921T034819_009540_012FC4_BC0C",
+        "S1C_IW_GRDH_1SDV_20261003T034755_20261003T034820_009715_013596_B431",
+        "S1D_IW_GRDH_1SDV_20260915T034807_20260915T034832_004583_008891_11C5",
+        "S1D_IW_GRDH_1SDV_20260927T034808_20260927T034833_004758_008E9B_59B5",
+        "S1D_IW_GRDH_1SDV_20261009T034808_20261009T034833_004933_0094C1_E619"
+      ],
+      "baseline_acquisition_dates": [
+        "2026-09-15",
+        "2026-09-21",
+        "2026-09-27",
+        "2026-10-03",
+        "2026-10-09"
+      ],
+      "baseline_observations": 5,
+      "radar_group": {
+        "relative_orbit": 167,
+        "pass": "DESCENDING"
+      },
+      "status": "possible_change",
+      "valid_coverage": 1.0,
+      "changed_area_m2": 2205343.6766204834,
+      "changed_cells": 22039,
+      "previews": {
+        "before": "assets/1efc949b0de39c324f966c42/before.png",
+        "after": "assets/1efc949b0de39c324f966c42/after.png",
+        "overlay": "assets/1efc949b0de39c324f966c42/overlay.png"
+      }
+    },
+    {
+      "id": "0bd1f5c13408932b65687362",
+      "sensor": "radar",
+      "acquisition_date": "2026-10-16",
+      "acquisition_times": [
+        "2026-10-16T15:35:32+00:00"
+      ],
+      "source_ids": [
+        "S1C_IW_GRDH_1SDV_20261016T153532_20261016T153557_009912_013C2D_C20A"
+      ],
+      "baseline_source_ids": [
+        "S1C_IW_GRDH_1SDV_20260922T153532_20260922T153557_009562_013076_CB09",
+        "S1C_IW_GRDH_1SDV_20261004T153533_20261004T153558_009737_013648_C71C",
+        "S1D_IW_GRDH_1SDV_20260916T153545_20260916T153610_004605_008958_8412",
+        "S1D_IW_GRDH_1SDV_20260928T153545_20260928T153610_004780_008F64_028F",
+        "S1D_IW_GRDH_1SDV_20261010T153545_20261010T153610_004955_009587_D193"
+      ],
+      "baseline_acquisition_dates": [
+        "2026-09-16",
+        "2026-09-22",
+        "2026-09-28",
+        "2026-10-04",
+        "2026-10-10"
+      ],
+      "baseline_observations": 5,
+      "radar_group": {
+        "relative_orbit": 14,
+        "pass": "ASCENDING"
+      },
+      "status": "possible_change",
+      "valid_coverage": 0.996575,
+      "changed_area_m2": 2133597.161605835,
+      "changed_cells": 21322,
+      "previews": {
+        "before": "assets/0bd1f5c13408932b65687362/before.png",
+        "after": "assets/0bd1f5c13408932b65687362/after.png",
+        "overlay": "assets/0bd1f5c13408932b65687362/overlay.png"
+      }
+    }
+  ],
+  "errors": [],
+  "changed_area": {
+    "optical_m2": 0.0,
+    "radar_m2": 3156866.5101852417,
+    "overlap_m2": 0.0
+  },
+  "newest_observation": "2026-10-17T08:47:50.940000+00:00",
+  "workload_tag": "sentinel-2079fe219aac19536f4c",
+  "status": "possible_change",
+  "usable_sensors": [
+    "optical",
+    "radar"
+  ],
+  "has_errors": false
+}

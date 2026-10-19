@@ -1,22 +1,122 @@
 {
   "mode": "live",
+  "requested_sensors": [
+    "optical",
+    "radar"
+  ],
   "windows": {
-    "baseline_start": "2026-08-31",
-    "baseline_end": "2026-09-28",
-    "target_start": "2026-09-28",
-    "target_end": "2026-10-05"
+    "baseline_start": "2026-09-14",
+    "baseline_end": "2026-10-12",
+    "target_start": "2026-10-12",
+    "target_end": "2026-10-19"
   },
-  "site_count": 1,
-  "planned_area_m2": 4000000,
+  "site_count": 8,
+  "planned_area_m2": 116000000,
   "has_errors": false,
   "sites": [
     {
       "id": "engels-air-base",
+      "requested_sensors": [
+        "optical",
+        "radar"
+      ],
       "status": "possible_change",
       "errors": [],
       "preview_errors": [],
-      "workload_tag": "sentinel-48bde0526dbe9527b809",
-      "elapsed_seconds": 9.814
+      "optical_review_errors": [],
+      "workload_tag": "sentinel-a268fae0d465caa23c3b",
+      "elapsed_seconds": 27.147
+    },
+    {
+      "id": "kacha-air-base",
+      "requested_sensors": [
+        "optical",
+        "radar"
+      ],
+      "status": "possible_change",
+      "errors": [],
+      "preview_errors": [],
+      "optical_review_errors": [],
+      "workload_tag": "sentinel-f110a5006a2e74eef2ca",
+      "elapsed_seconds": 37.708
+    },
+    {
+      "id": "gvardeyskoye-air-base",
+      "requested_sensors": [
+        "optical",
+        "radar"
+      ],
+      "status": "possible_change",
+      "errors": [],
+      "preview_errors": [],
+      "optical_review_errors": [],
+      "workload_tag": "sentinel-2079fe219aac19536f4c",
+      "elapsed_seconds": 16.592
+    },
+    {
+      "id": "krymsk-air-base",
+      "requested_sensors": [
+        "optical",
+        "radar"
+      ],
+      "status": "possible_change",
+      "errors": [],
+      "preview_errors": [],
+      "optical_review_errors": [],
+      "workload_tag": "sentinel-644f1206a7025869f122",
+      "elapsed_seconds": 38.805
+    },
+    {
+      "id": "yeysk-air-base",
+      "requested_sensors": [
+        "optical",
+        "radar"
+      ],
+      "status": "possible_change",
+      "errors": [],
+      "preview_errors": [],
+      "optical_review_errors": [],
+      "workload_tag": "sentinel-59ca5a346fdd8f5202c7",
+      "elapsed_seconds": 41.661
+    },
+    {
+      "id": "millerovo-air-base",
+      "requested_sensors": [
+        "optical",
+        "radar"
+      ],
+      "status": "possible_change",
+      "errors": [],
+      "preview_errors": [],
+      "optical_review_errors": [],
+      "workload_tag": "sentinel-802fd41311a45e460ebe",
+      "elapsed_seconds": 37.59
+    },
+    {
+      "id": "morozovsk-air-base",
+      "requested_sensors": [
+        "optical",
+        "radar"
+      ],
+      "status": "possible_change",
+      "errors": [],
+      "preview_errors": [],
+      "optical_review_errors": [],
+      "workload_tag": "sentinel-411476be2386f0a7a8c3",
+      "elapsed_seconds": 33.007
+    },
+    {
+      "id": "erebuni-air-base",
+      "requested_sensors": [
+        "optical",
+        "radar"
+      ],
+      "status": "possible_change",
+      "errors": [],
+      "preview_errors": [],
+      "optical_review_errors": [],
+      "workload_tag": "sentinel-094aa152fbd5fb5433cf",
+      "elapsed_seconds": 19.536
     }
   ]
 }
