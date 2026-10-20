@@ -25,7 +25,14 @@
     let reviewed = 0;
     let awaiting = 0;
     let unclear = 0;
+    const statusFilter = document.getElementById("status-filter");
+    const categoryFilter = document.getElementById("category-filter");
+    const visibleRows = queueRows.filter(row =>
+      (!categoryFilter || categoryFilter.value === "all" || categoryFilter.value === `category:${row.dataset.category}`) &&
+      (!statusFilter || statusFilter.value === "all" || statusFilter.value === row.dataset.status));
     for (const row of queueRows) {
+      row.hidden = !visibleRows.includes(row);
+      if (row.hidden) continue;
       const entry = queueReviews.get(row.dataset.reviewTarget);
       const complete = entry && entry.decision !== "unreviewed";
       const ready = row.dataset.previewReady === "true";
@@ -39,9 +46,9 @@
         : "Unreviewed";
       row.hidden = onlyUnreviewed.checked && complete;
     }
-    const pending = queueRows.length - reviewed - awaiting;
+    const pending = visibleRows.length - reviewed - awaiting;
     document.getElementById("review-progress").textContent =
-      reviewed + " of " + queueRows.length + " usable observations reviewed · "
+      reviewed + " of " + visibleRows.length + " usable observations reviewed · "
       + pending + " unreviewed" + (unclear ? " · " + unclear + " unclear" : "")
       + (awaiting ? " · " + awaiting + " awaiting previews" : "");
     nextButton.disabled = pending === 0;
@@ -50,13 +57,14 @@
   };
   const openObservation = target => {
     const article = document.getElementById(target);
-    if (!article) return;
+    if (!article || article.hidden) return;
     activeTarget = target;
     const tool = article.querySelector(".review-tools");
     if (tool) tool.open = true;
     article.scrollIntoView({block: "start"});
     (tool?.querySelector(".review-decision") || article).focus({preventScroll: true});
   };
+  document.addEventListener("sentinel-filter-change", updateQueue);
   onlyUnreviewed?.addEventListener("change", updateQueue);
   for (const row of queueRows) {
     row.querySelector("a").addEventListener("click", event => {
@@ -68,7 +76,7 @@
     const start = queueRows.findIndex(row => row.dataset.reviewTarget === activeTarget);
     for (let offset = 1; offset <= queueRows.length; offset++) {
       const row = queueRows[(start + offset) % queueRows.length];
-      if (row.dataset.previewReady === "true"
+      if (!row.hidden && row.dataset.previewReady === "true"
           && queueReviews.get(row.dataset.reviewTarget)?.decision === "unreviewed") {
         openObservation(row.dataset.reviewTarget);
         break;

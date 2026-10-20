@@ -124,3 +124,44 @@ def test_workflow_publishes_list_without_google_and_keeps_schedule_gate():
     )
     assert "vars.MONITOR_ENABLED == 'true'" in jobs["monitor"]["if"]
     assert jobs["deploy"]["needs"] == ["monitor", "list-publish"]
+
+
+@pytest.mark.parametrize("max_sites, succeeds", [(20, True), (1, False)])
+def test_publish_with_retired_radar_settings_still_enforces_remote_limit(
+    publisher, max_sites, succeeds
+):
+    publisher, local, remote = publisher
+    settings = {
+        "max_sites": max_sites,
+        "radar_threshold_db": 3.0,
+        "radar_speckle_radius_m": 10,
+        "radar_min_db": -35,
+        "radar_min_angle": 31,
+        "radar_max_angle": 45,
+        "terrain_max_slope_deg": 15,
+        "dem_collection": "COPERNICUS/DEM/GLO30_2024_1",
+    }
+    original = yaml.safe_dump(settings)
+    (local / "settings.yaml").write_text(original, encoding="utf-8")
+    git(local, "add", "settings.yaml")
+    git(local, "commit", "--quiet", "-m", "Legacy settings")
+    git(local, "push", "--quiet", publisher.remote, "HEAD:refs/heads/main")
+    write_list(local / "sites.yaml", [{**FIRST, "category": "Air bases"}, SECOND])
+    if succeeds:
+        sites, _ = publisher.publish()
+        assert sites[0].category == "Air bases"
+        assert git(remote, "show", "main:settings.yaml") == original.strip()
+    else:
+        with pytest.raises(PublishError, match="exceeds GitHub's 1-site limit"):
+            publisher.publish()
+
+
+def test_unknown_settings_are_still_rejected(tmp_path):
+    from sentinel_monitor.config import load_config
+
+    sites = tmp_path / "sites.yaml"
+    settings = tmp_path / "settings.yaml"
+    write_list(sites, [FIRST])
+    settings.write_text("optical_theshold: 0.1\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="unknown settings: optical_theshold"):
+        load_config(sites, settings)

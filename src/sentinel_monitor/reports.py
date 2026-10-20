@@ -8,6 +8,8 @@ from pathlib import Path
 from jinja2 import Environment, select_autoescape
 from PIL import Image
 
+from .decisions import location_status
+
 
 def save_json(path: Path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -28,6 +30,48 @@ def read_records(results: Path, mode: str):
     return sorted(
         records, key=lambda r: (r["windows"]["target_end"], r["generated_at"]), reverse=True
     )
+
+
+def optical_record(record):
+    """Project retained mixed-sensor history onto the current Sentinel-2 report."""
+    record = {**record, "site": {**record["site"]}}
+    record["site"].setdefault("category", "")
+    record["comparisons"] = [
+        {k: v for k, v in comparison.items() if not k.startswith("radar_")}
+        for comparison in record["comparisons"]
+        if comparison["sensor"] == "optical"
+    ]
+    record["errors"] = [error for error in record["errors"] if error.get("sensor") != "radar"]
+    record["changed_area"] = {"optical_m2": record["changed_area"].get("optical_m2")}
+    record["requested_sensors"] = ["optical"]
+    record["status"] = location_status(record["comparisons"], record["errors"])
+    record["usable_sensors"] = (
+        ["optical"]
+        if any(
+            c["status"] in {"possible_change", "no_change_detected"} for c in record["comparisons"]
+        )
+        else []
+    )
+    record["has_errors"] = bool(
+        record["errors"]
+        or any(
+            c.get("preview_error") or (c.get("optical_review") or {}).get("status") == "error"
+            for c in record["comparisons"]
+        )
+    )
+    record["settings"] = {
+        k: v
+        for k, v in record["settings"].items()
+        if not k.startswith("radar_") and k not in {"terrain_max_slope_deg", "dem_collection"}
+    }
+    record.pop("radar_diagnostics_requested", None)
+    if "source_diagnostics" in record:
+        record["source_diagnostics"] = {
+            k: v for k, v in record["source_diagnostics"].items() if k == "optical"
+        }
+    times = [time for c in record["comparisons"] for time in c.get("acquisition_times", [])]
+    record["newest_observation"] = max(times, default=None)
+    return record
 
 
 def preview_display_info(output: Path, comparison, previews=None):
@@ -113,10 +157,20 @@ def preview_available(image_root, relative):
     return True
 
 
-def build_site(results: Path, output: Path, mode: str, sites=None):
+def build_site(results: Path, output: Path, mode: str, sites=None, *, optical_only=False):
     records = read_records(results, mode)
     # Reject contradictory scope before touching a previously built report bundle.
     sensor_scopes = {id(record): sensor_scope(record) for record in records}
+    if optical_only:
+        records = [optical_record(record) for record in records]
+        sensor_scopes = {id(record): sensor_scope(record) for record in records}
+    if sites is not None:
+        categories = {site.id: site.category for site in sites}
+        for record in records:
+            if record["site"]["id"] in categories:
+                record["site"] = {**record["site"], "category": categories[record["site"]["id"]]}
+    for record in records:
+        record["site"].setdefault("category", "")
     output.mkdir(parents=True, exist_ok=True)
     marker = output / ".sentinel-mode"
     if marker.exists() and marker.read_text(encoding="utf-8") != mode:
@@ -137,8 +191,32 @@ def build_site(results: Path, output: Path, mode: str, sites=None):
             monitoring_sites.append({"site": site, "record": record if current else None})
         latest = {item["site"].id: item["record"] for item in monitoring_sites if item["record"]}
     assets = results / mode / "assets"
-    if assets.exists():
-        shutil.copytree(assets, output / "assets", dirs_exist_ok=True)
+    # Publish only referenced optical previews, including when rebuilding old output.
+    asset_root = (output / "assets").resolve()
+    wanted = set()
+    for record in records:
+        for comparison in record["comparisons"]:
+            previews = dict(comparison.get("previews") or {})
+            alternate = comparison.get("optical_review") or {}
+            if alternate.get("status") == "complete":
+                previews.update(
+                    {"alternate_" + k: v for k, v in (alternate.get("previews") or {}).items()}
+                )
+            for relative in previews.values():
+                source = (results / mode / relative).resolve()
+                destination = (output / relative).resolve()
+                if not source.is_relative_to(assets.resolve()) or not destination.is_relative_to(
+                    asset_root
+                ):
+                    raise ValueError("Preview path must stay inside assets")
+                wanted.add(destination)
+                if source.is_file():
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(source, destination)
+    if asset_root.exists():
+        for preview in asset_root.rglob("*.png"):
+            if preview.resolve().is_relative_to(asset_root) and preview.resolve() not in wanted:
+                preview.unlink()
     # Public downloads contain only this mode's analysis output, never credentials.
     save_json(output / "history.json", records)
     save_json(output / "latest.json", list(latest.values()))
@@ -191,6 +269,12 @@ def build_site(results: Path, output: Path, mode: str, sites=None):
             encoding="utf-8",
         )
     html = template.render(
+        optical_only=optical_only,
+        categories=sorted(
+            ({site.category for site in sites} if sites is not None else set())
+            | {record["site"]["category"] for record in records},
+            key=str.casefold,
+        ),
         monitoring_sites=monitoring_sites,
         records=records,
         latest=list(latest.values()),

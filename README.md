@@ -1,5 +1,9 @@
 # Baseviewer
 
+The published monitoring viewer now focuses on **Sentinel-2**. Scheduled monitoring and the manual workflow default to optical imagery. Rebuilding the published list filters retained radar comparisons/previews and recalculates statuses from optical results; original analysis records and explicit historical review scopes remain intact.
+
+The local manager supports an optional category when adding a site, **Save category** for existing sites, grouping, and category filtering. Publish the saved list to apply categories online. The viewer's category selector filters the monitoring list, latest checks, observations, review queue and history together with the status filter. Blank categories appear as **Uncategorized**.
+
 Weekly **possible ground-change** monitoring with Google Earth Engine, Sentinel-1 radar, Sentinel-2 optical imagery, Python, GitHub Actions and GitHub Pages.
 
 The first location is **Engels air base**, with a 2 km square around the [public aerodrome reference coordinate](https://ourairports.com/airports/RU-8602/). This initial tile covers only part of the airfield. The configured Earth Engine project is `baseviewer-511722`. Coordinates and project IDs are not credentials.

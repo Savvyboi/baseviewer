@@ -40,7 +40,8 @@ def _input_environment(job, inputs):
     for name in INPUT_ENVIRONMENT:
         expression = job["env"][name]
         match = re.fullmatch(
-            r"\$\{\{ inputs\.([a-z_]+)(?: \|\| (false|'both'|'configured'))? \}\}", expression
+            r"\$\{\{ inputs\.([a-z_]+)(?: \|\| (false|'both'|'optical'|'configured'))? \}\}",
+            expression,
         )
         assert match is not None, expression
         input_name, fallback = match.groups()
@@ -111,7 +112,7 @@ def test_manual_input_defaults_and_schedule_fallbacks(workflow, tmp_path):
     )
     assert inputs["sensors"]["type"] == "choice"
     assert inputs["sensors"]["options"] == ["both", "optical", "radar"]
-    assert inputs["sensors"]["default"] == "both"
+    assert inputs["sensors"]["default"] == "optical"
     for name in ("review_previews", "optical_review_stretch"):
         assert inputs[name]["type"] == "boolean"
         assert inputs[name]["default"] == "false"
@@ -119,15 +120,15 @@ def test_manual_input_defaults_and_schedule_fallbacks(workflow, tmp_path):
     assert inputs["refresh"]["default"] == "false"
     assert inputs["radar_diagnostics"]["default"] == "false"
     assert inputs["publish"]["default"] == "false"
-    assert workflow["jobs"]["monitor"]["env"]["SENSORS"] == "${{ inputs.sensors || 'both' }}"
+    assert workflow["jobs"]["monitor"]["env"]["SENSORS"] == "${{ inputs.sensors || 'optical' }}"
 
-    # Scheduled events have no manual inputs, so must retain both sensors/live defaults.
+    # Scheduled events have no manual inputs, so use the optical sensor and live defaults.
     result, arguments, parsed, output = _execute_analysis(workflow, tmp_path)
     assert result.returncode == 0
-    assert parsed.sensors == "both"
+    assert parsed.sensors == "optical"
     assert parsed.sites == Path("sites.yaml")
     assert parsed.settings == Path("settings.yaml")
-    assert arguments[arguments.index("--sensors") + 1] == "both"
+    assert arguments[arguments.index("--sensors") + 1] == "optical"
     assert not parsed.demo and not parsed.refresh and not parsed.radar_diagnostics
     assert not parsed.review_previews and not parsed.optical_review_stretch
     assert parsed.end_date is None and parsed.site_id is None
@@ -195,7 +196,7 @@ def test_manual_demo_default_is_forwarded(workflow, tmp_path):
     }
     result, _, parsed, _ = _execute_analysis(workflow, tmp_path, defaults)
     assert result.returncode == 0
-    assert parsed.demo and parsed.sensors == "both"
+    assert parsed.demo and parsed.sensors == "optical"
     assert not parsed.review_previews and not parsed.optical_review_stretch
 
 
@@ -213,7 +214,7 @@ def test_manual_demo_default_is_forwarded(workflow, tmp_path):
             {"demo": True, "review_previews": True, "optical_review_stretch": True},
             "require live imagery",
         ),
-        ({"demo": True, "radar_diagnostics": True}, "require live imagery"),
+        ({"demo": True, "sensors": "both", "radar_diagnostics": True}, "require live imagery"),
     ],
 )
 def test_invalid_combinations_reach_existing_cli_validation(workflow, tmp_path, inputs, message):

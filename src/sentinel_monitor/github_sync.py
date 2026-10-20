@@ -98,6 +98,7 @@ class GitHubPublisher:
         if self.state_path.exists():
             data = json.loads(self.state_path.read_text(encoding="utf-8"))
             if data.get("repository") == self.repository_url and data.get("branch") == self.branch:
+                data["sites"] = [asdict(Site(**entry)) for entry in data["sites"]]
                 return data
         return None
 

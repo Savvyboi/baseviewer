@@ -291,7 +291,9 @@ def run(args):
         save_json(path, record)
         records.append(record)
         logging.info("%s: %s", site.id, record["status"])
-    build_site(args.results, args.output, mode, configured_sites)
+    build_site(
+        args.results, args.output, mode, configured_sites, optical_only=sensors == ["optical"]
+    )
     # This manifest is for this invocation only; history remains in records/.
     save_json(
         args.results / "run-summary.json",
@@ -369,7 +371,11 @@ def main(argv=None):
             )
         elif args.command == "build":
             build_site(
-                args.results, args.output, "demo" if args.demo else "live", load_sites(args.sites)
+                args.results,
+                args.output,
+                "demo" if args.demo else "live",
+                load_sites(args.sites),
+                optical_only=True,
             )
         elif args.command == "manage":
             from .manager import serve

@@ -26,32 +26,32 @@
 <p class="muted">Weather, vegetation and moisture can change the signal. Flags identify candidates for review; they do not establish a cause. Missing imagery never implies no activity.</p>
 </header>
 <main>
-<div class="toolbar"><label for="status-filter">Show locations</label><select id="status-filter"><option value="all">All statuses</option><option value="possible_change">Possible change</option><option value="no_change_detected">No change detected</option><option value="insufficient_data">Insufficient data</option><option value="error">Error</option></select><a href="latest.json">Latest JSON</a><a href="history.json">Full history</a></div>
+<div class="toolbar"><label for="status-filter">Show locations</label><select id="status-filter"><option value="all">All statuses</option><option value="possible_change">Possible change</option><option value="no_change_detected">No change detected</option><option value="insufficient_data">Insufficient data</option><option value="error">Error</option><option value="pending">Awaiting first check</option></select><label for="category-filter">Category</label><select id="category-filter"><option value="all">All categories</option>{% for category in categories %}<option value="category:{{ category }}">{{ category or "Uncategorized" }}</option>{% endfor %}</select><a href="latest.json">Latest JSON</a><a href="history.json">Full history</a></div>
 {% if monitoring_sites is not none %}
 <section aria-labelledby="monitoring-heading">
 <h2 id="monitoring-heading">Monitoring list · {{ monitoring_sites | length }} sites</h2>
-<div class="table-wrap"><table><thead><tr><th>Site</th><th>Coordinates</th><th>Width</th><th>Latest check</th></tr></thead><tbody>
-{% for item in monitoring_sites %}<tr><td>{{ item.site.name }}</td><td>{{ item.site.latitude }}, {{ item.site.longitude }}</td><td>{{ item.site.size_m }} m square</td><td>{% if item.record %}{{ item.record.status | replace('_', ' ') }} · {{ item.record.windows.target_end }}{% else %}Awaiting first check{% endif %}</td></tr>
-{% else %}<tr><td colspan="4">No sites in monitoring. Add a site in the local management page.</td></tr>{% endfor %}
+<div class="table-wrap"><table><thead><tr><th>Site</th><th>Category</th><th>Coordinates</th><th>Width</th><th>Latest check</th></tr></thead><tbody>
+{% for item in monitoring_sites %}<tr data-category="{{ item.site.category }}" data-status="{{ item.record.status if item.record else 'pending' }}"><td>{{ item.site.name }}</td><td>{{ item.site.category or "Uncategorized" }}</td><td>{{ item.site.latitude }}, {{ item.site.longitude }}</td><td>{{ item.site.size_m }} m square</td><td>{% if item.record %}{{ item.record.status | replace('_', ' ') }} · {{ item.record.windows.target_end }}{% else %}Awaiting first check{% endif %}</td></tr>
+{% else %}<tr><td colspan="5">No sites in monitoring. Add a site in the local management page.</td></tr>{% endfor %}
 </tbody></table></div>
 </section>
 {% endif %}
 <h2>Latest location checks</h2>
 <div class="grid">
 {% for r in latest %}
-<article class="card" data-status="{{ r.status }}">
+<article class="card" data-status="{{ r.status }}" data-category="{{ r.site.category }}">
 <span class="badge {{ r.status }}">{{ r.status | replace('_', ' ') }}</span>
-<h3>{{ r.site.name }}</h3>
+<h3>{{ r.site.name }}</h3><p class="muted">{{ r.site.category or "Uncategorized" }}</p>
 {% set scope = sensor_scope(r) %}
 <p><strong>Requested sensors: {{ scope.requested | join(", ") }}</strong>{% if scope.legacy %} <small>(legacy record: both)</small>{% endif %}</p>
-{% if scope.not_requested %}<p>{{ scope.not_requested | join(", ") | capitalize }} not requested for this analysis.</p>{% endif %}
+{% if scope.not_requested and not optical_only %}<p>{{ scope.not_requested | join(", ") | capitalize }} not requested for this analysis.</p>{% endif %}
 {% if scope.missing %}<p class="muted">Requested sensor without returned comparisons: {{ scope.missing | join(", ") }}. No observation was returned; this is not a negative screening result. See check history for any reported failure.</p>{% endif %}
 {% if r.validation_case %}<p class="banner">Validation case: {{ r.validation_case.label }}. Reference label status: {{ r.validation_case.review_status }}. <a href="validation-case.json">Frozen inputs and independent references</a>.</p>{% endif %}
 <p class="muted">{{ '%.5f' | format(r.site.latitude) }}, {{ '%.5f' | format(r.site.longitude) }} · {{ r.site.size_m }} m square</p>
 <p><small>Target week: {{ r.windows.target_start }} → {{ r.windows.target_end }} (exclusive, UTC)</small></p>
 <p><small>Usable sensors: {{ r.usable_sensors | join(', ') or 'none' }}<br>Newest available observation: {{ r.newest_observation or 'none in analysis window' }}</small></p>
-<div class="stats">{% for sensor in ['optical', 'radar'] %}<div><strong>{% if sensor not in scope.requested %}Not requested{% elif r.changed_area[sensor ~ '_m2'] is not none %}{{ '%.0f' | format(r.changed_area[sensor ~ '_m2']) }} m²{% else %}—{% endif %}</strong><small>{{ sensor }} changed area</small></div>{% endfor %}</div>
-<p><small>Overlapping sensor support: {% if scope.requested | length < 2 %}not requested (requires both sensors){% elif r.changed_area.overlap_m2 is not none %}{{ '%.0f' | format(r.changed_area.overlap_m2) }} m²{% else %}unavailable{% endif %}. Spatial overlap across the target week; observation dates may differ.</small></p>
+<div class="stats">{% for sensor in (['optical'] if optical_only else ['optical', 'radar']) %}<div><strong>{% if sensor not in scope.requested %}Not requested{% elif r.changed_area[sensor ~ '_m2'] is not none %}{{ '%.0f' | format(r.changed_area[sensor ~ '_m2']) }} m²{% else %}—{% endif %}</strong><small>{{ sensor }} changed area</small></div>{% endfor %}</div>
+{% if not optical_only %}<p><small>Overlapping sensor support: {% if scope.requested | length < 2 %}not requested (requires both sensors){% elif r.changed_area.overlap_m2 is not none %}{{ '%.0f' | format(r.changed_area.overlap_m2) }} m²{% else %}unavailable{% endif %}. Spatial overlap across the target week; observation dates may differ.</small></p>{% endif %}
 {% if r.has_errors %}<p class="error">Some analysis or previews failed; review the comparison details.</p>{% endif %}
 </article>
 {% else %}<p class="empty">No saved checks yet. Run the monitor to create a report.</p>{% endfor %}
@@ -64,14 +64,14 @@
 <h3 id="review-queue-heading">Review queue</h3>
 <p id="review-progress" role="status"></p>
 <div class="toolbar"><button id="next-unreviewed" type="button">Next unreviewed</button><label><input id="only-unreviewed" type="checkbox"> Only unreviewed in queue</label></div>
-<ol>{% for item in review_queue %}<li data-review-target="{{ item.target }}" data-preview-ready="{{ 'true' if item.ready else 'false' }}"><a href="#{{ item.target }}">{{ item.record.site.name }} · {{ item.comparison.sensor }} · {{ item.comparison.acquisition_date }}</a><small>{{ item.record.validation_case.label if item.record.validation_case else 'Routine monitoring' }}{% if item.comparison.event_timing %} · {{ item.comparison.event_timing.label }}{% endif %} · Screening: {{ item.comparison.status }} · <span class="queue-review-status">{{ 'Unreviewed' if item.ready else 'Awaiting previews' }}</span></small></li>{% endfor %}</ol>
+<ol>{% for item in review_queue %}<li data-category="{{ item.record.site.category }}" data-status="{{ item.record.status }}" data-review-target="{{ item.target }}" data-preview-ready="{{ 'true' if item.ready else 'false' }}"><a href="#{{ item.target }}">{{ item.record.site.name }} · {{ item.comparison.sensor }} · {{ item.comparison.acquisition_date }}</a><small>{{ item.record.validation_case.label if item.record.validation_case else 'Routine monitoring' }}{% if item.comparison.event_timing %} · {{ item.comparison.event_timing.label }}{% endif %} · Screening: {{ item.comparison.status }} · <span class="queue-review-status">{{ 'Unreviewed' if item.ready else 'Awaiting previews' }}</span></small></li>{% endfor %}</ol>
 <p id="review-queue-empty" class="muted" hidden>No unreviewed observations in this queue.</p>
 <p class="muted">Usable observations with missing or unreadable previews stay incomplete. Insufficient-data comparisons and analysis failures are listed separately in check history; they are not negative screening results.</p>
 </section>
 {% endif %}
 {% set count = namespace(value=0) %}
 {% for r in records %}{% set record_index = loop.index0 %}{% for c in r.comparisons %}{% if c.status == 'possible_change' or (r.review_previews_requested and c.status == 'no_change_detected') %}{% set count.value = count.value + 1 %}
-<article class="report" id="observation-{{ record_index }}-{{ loop.index0 }}" tabindex="-1"><span class="badge {{ c.status }}">{{ ("Screening: " ~ c.status) if review_mode else ("Possible ground change" if c.status == "possible_change" else "No change detected") }} · {{ c.sensor }}</span><h3>{{ r.site.name }} · {{ c.acquisition_date }}</h3>
+<article class="report" data-category="{{ r.site.category }}" data-status="{{ r.status }}" id="observation-{{ record_index }}-{{ loop.index0 }}" tabindex="-1"><span class="badge {{ c.status }}">{{ ("Screening: " ~ c.status) if review_mode else ("Possible ground change" if c.status == "possible_change" else "No change detected") }} · {{ c.sensor }}</span><h3>{{ r.site.name }} · {{ c.acquisition_date }}</h3>
 {% if r.validation_case %}<p class="muted">Case: {{ r.validation_case.label }}</p>{% elif r.review_previews_requested %}<p class="muted">Routine monitoring observation; no independent reference label is attached.</p>{% endif %}
 {{ timing_context(c) }}
 {% set observation_id = 'observation-' ~ record_index ~ '-' ~ loop.index0 %}
@@ -135,15 +135,33 @@
 </details>
 {% endif %}
 {% else %}<p class="error">Preview unavailable; screening measurements are retained. {{ c.preview_error_message or c.preview_error or "" }}</p>{% endif %}
-<details><summary>Source dates and analysis details</summary><p>Analysis {{ r.analysis_version }} · optical mean absolute reflectance difference &gt; {{ r.settings.optical_threshold }} · radar VV or VH difference &gt; {{ r.settings.radar_threshold_db }} dB · patch ≥ {{ r.settings.min_patch_pixels }} cells at 10 m.</p><p>Baseline acquisition days: {{ c.baseline_acquisition_dates | join(', ') }}. {{ c.cloud_screening or '' }}</p>{% if c.radar_group %}<p>Relative orbit {{ c.radar_group.relative_orbit }} · {{ c.radar_group.pass }}. Compared only within this group.</p>{% endif %}{% if c.radar_diagnostics %}<p>Radar diagnostics use common valid cells before patch filtering. Signed delta is target minus baseline; positive values mean increased backscatter.</p><div class="table-wrap"><table><thead><tr><th>Polarization</th><th>Median signed delta</th><th>5th–95th percentile</th><th>Above +{{ c.radar_diagnostics.threshold_db }} dB</th><th>Below −{{ c.radar_diagnostics.threshold_db }} dB</th></tr></thead><tbody>{% for band, d in c.radar_diagnostics.polarizations.items() %}<tr><td>{{ band }}</td><td>{% if d.signed_delta_db.median_db is not none %}{{ '%.2f' | format(d.signed_delta_db.median_db) }} dB{% else %}unavailable{% endif %}</td><td>{% if d.signed_delta_db.p05_db is not none and d.signed_delta_db.p95_db is not none %}{{ '%.2f' | format(d.signed_delta_db.p05_db) }} to {{ '%.2f' | format(d.signed_delta_db.p95_db) }} dB{% else %}unavailable{% endif %}</td><td>{% if d.positive_fraction is not none %}{{ '%.1f' | format(100 * d.positive_fraction) }}%{% else %}unavailable{% endif %}</td><td>{% if d.negative_fraction is not none %}{{ '%.1f' | format(100 * d.negative_fraction) }}%{% else %}unavailable{% endif %}</td></tr>{% endfor %}</tbody></table></div>{% endif %}<p>Target sources:</p><ul class="sources">{% for source in c.source_ids %}<li><code>{{ source }}</code></li>{% endfor %}</ul><p>Baseline sources:</p><ul class="sources">{% for source in c.baseline_source_ids %}<li><code>{{ source }}</code></li>{% endfor %}</ul><p><small>Detection ID: {{ c.id }}</small></p></details>
+<details><summary>Source dates and analysis details</summary><p>Analysis {{ r.analysis_version }} · optical mean absolute reflectance difference &gt; {{ r.settings.optical_threshold }}{% if not optical_only %} · radar VV or VH difference &gt; {{ r.settings.radar_threshold_db }} dB{% endif %} · patch ≥ {{ r.settings.min_patch_pixels }} cells at 10 m.</p><p>Baseline acquisition days: {{ c.baseline_acquisition_dates | join(', ') }}. {{ c.cloud_screening or '' }}</p>{% if c.radar_group %}<p>Relative orbit {{ c.radar_group.relative_orbit }} · {{ c.radar_group.pass }}. Compared only within this group.</p>{% endif %}{% if c.radar_diagnostics %}<p>Radar diagnostics use common valid cells before patch filtering. Signed delta is target minus baseline; positive values mean increased backscatter.</p><div class="table-wrap"><table><thead><tr><th>Polarization</th><th>Median signed delta</th><th>5th–95th percentile</th><th>Above +{{ c.radar_diagnostics.threshold_db }} dB</th><th>Below −{{ c.radar_diagnostics.threshold_db }} dB</th></tr></thead><tbody>{% for band, d in c.radar_diagnostics.polarizations.items() %}<tr><td>{{ band }}</td><td>{% if d.signed_delta_db.median_db is not none %}{{ '%.2f' | format(d.signed_delta_db.median_db) }} dB{% else %}unavailable{% endif %}</td><td>{% if d.signed_delta_db.p05_db is not none and d.signed_delta_db.p95_db is not none %}{{ '%.2f' | format(d.signed_delta_db.p05_db) }} to {{ '%.2f' | format(d.signed_delta_db.p95_db) }} dB{% else %}unavailable{% endif %}</td><td>{% if d.positive_fraction is not none %}{{ '%.1f' | format(100 * d.positive_fraction) }}%{% else %}unavailable{% endif %}</td><td>{% if d.negative_fraction is not none %}{{ '%.1f' | format(100 * d.negative_fraction) }}%{% else %}unavailable{% endif %}</td></tr>{% endfor %}</tbody></table></div>{% endif %}<p>Target sources:</p><ul class="sources">{% for source in c.source_ids %}<li><code>{{ source }}</code></li>{% endfor %}</ul><p>Baseline sources:</p><ul class="sources">{% for source in c.baseline_source_ids %}<li><code>{{ source }}</code></li>{% endfor %}</ul><p><small>Detection ID: {{ c.id }}</small></p></details>
 </article>
 {% endif %}{% endfor %}{% endfor %}
 {% if count.value == 0 %}<p class="empty">{{ 'No saved usable review observations.' if review_mode else 'No saved candidate observations.' }} Check each location's data status above.</p>{% endif %}
-<h2>Check history</h2><div class="table-wrap"><table><thead><tr><th>Location</th><th>Week ending (exclusive)</th><th>Status</th><th>Requested / usable sensors</th><th>Comparisons</th></tr></thead><tbody>
-{% for r in records %}<tr><td>{{ r.site.name }}</td><td>{{ r.windows.target_end }}</td><td class="{{ r.status }}">{{ r.status | replace('_', ' ') }}</td><td>Requested: {{ sensor_scope(r).requested | join(', ') }}<br>Usable: {{ r.usable_sensors | join(', ') or 'none' }}{% if sensor_scope(r).not_requested %}<br>Not requested: {{ sensor_scope(r).not_requested | join(', ') }}{% endif %}{% if sensor_scope(r).missing %}<br>No returned comparisons: {{ sensor_scope(r).missing | join(', ') }}{% endif %}</td><td><details><summary>{{ r.comparisons | length }} observations{% if r.has_errors %} · errors{% endif %}</summary>{% for c in r.comparisons %}<p>{{ c.sensor }} · {{ c.acquisition_date }} · {{ c.status | replace('_', ' ') }} · {{ '%.1f' | format(c.valid_coverage * 100) }}% coverage{% if c.reason %}<br>{{ c.reason }}{% endif %}</p>{{ timing_context(c) }}{% endfor %}{% for e in r.errors %}<p class="error">{{ e.sensor }}: {{ e.message or e.error }}</p>{% endfor %}</details></td></tr>{% endfor %}
+<h2>Check history</h2><div class="table-wrap"><table><thead><tr><th>Location</th><th>Category</th><th>Week ending (exclusive)</th><th>Status</th><th>Requested / usable sensors</th><th>Comparisons</th></tr></thead><tbody>
+{% for r in records %}<tr data-category="{{ r.site.category }}" data-status="{{ r.status }}"><td>{{ r.site.name }}</td><td>{{ r.site.category or "Uncategorized" }}</td><td>{{ r.windows.target_end }}</td><td class="{{ r.status }}">{{ r.status | replace('_', ' ') }}</td><td>Requested: {{ sensor_scope(r).requested | join(', ') }}<br>Usable: {{ r.usable_sensors | join(', ') or 'none' }}{% if sensor_scope(r).not_requested and not optical_only %}<br>Not requested: {{ sensor_scope(r).not_requested | join(', ') }}{% endif %}{% if sensor_scope(r).missing %}<br>No returned comparisons: {{ sensor_scope(r).missing | join(', ') }}{% endif %}</td><td><details><summary>{{ r.comparisons | length }} observations{% if r.has_errors %} · errors{% endif %}</summary>{% for c in r.comparisons %}<p>{{ c.sensor }} · {{ c.acquisition_date }} · {{ c.status | replace('_', ' ') }} · {{ '%.1f' | format(c.valid_coverage * 100) }}% coverage{% if c.reason %}<br>{{ c.reason }}{% endif %}</p>{{ timing_context(c) }}{% endfor %}{% for e in r.errors %}<p class="error">{{ e.sensor }}: {{ e.message or e.error }}</p>{% endfor %}</details></td></tr>{% endfor %}
 </tbody></table></div>
+<p id="filter-empty" class="empty" role="status" hidden>No sites or observations match these filters.</p>
 </main>
-<footer><p>Contains modified Copernicus Sentinel data. Radar sigma-zero backscatter is geometrically terrain corrected, without radiometric terrain flattening. A conservative DEM slope mask screens difficult terrain.</p><p>Terrain screening produced using Copernicus WorldDEM-30 © DLR e.V. 2010–2014 and © Airbus Defence and Space GmbH 2014–2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. The organisations in charge of the Copernicus programme by law or by delegation do not incur any liability for any use of the Copernicus WorldDEM-30.</p></footer>
-<script>document.getElementById('status-filter').addEventListener('change',event=>{document.querySelectorAll('[data-status]').forEach(card=>{card.hidden=event.target.value!=='all'&&card.dataset.status!==event.target.value})});</script>
+{% if optical_only %}<footer><p>Contains modified Copernicus Sentinel-2 data.</p></footer>{% else %}<footer><p>Contains modified Copernicus Sentinel data. Radar sigma-zero backscatter is geometrically terrain corrected, without radiometric terrain flattening. A conservative DEM slope mask screens difficult terrain.</p><p>Terrain screening produced using Copernicus WorldDEM-30 © DLR e.V. 2010–2014 and © Airbus Defence and Space GmbH 2014–2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. The organisations in charge of the Copernicus programme by law or by delegation do not incur any liability for any use of the Copernicus WorldDEM-30.</p></footer>{% endif %}
+<script>
+(() => {
+  const status = document.getElementById('status-filter');
+  const category = document.getElementById('category-filter');
+  function filter() {
+    const rows = [...document.querySelectorAll('[data-category]')];
+    for (const row of rows) {
+      row.hidden = (category.value !== 'all' && `category:${row.dataset.category}` !== category.value) ||
+        (status.value !== 'all' && row.dataset.status !== status.value);
+    }
+    document.getElementById('filter-empty').hidden = rows.some(row => !row.hidden) ||
+      (status.value === 'all' && category.value === 'all');
+    document.dispatchEvent(new Event('sentinel-filter-change'));
+  }
+  status.addEventListener('change', filter);
+  category.addEventListener('change', filter);
+})();
+</script>
 {% if review_workbench %}<script src="review.js" defer></script>{% endif %}
 </body></html>

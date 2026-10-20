@@ -23,7 +23,7 @@ on:
         description: Sensors to analyze
         type: choice
         options: [both, optical, radar]
-        default: both
+        default: optical
       review_previews:
         description: Save previews for every usable comparison (live imagery only)
         type: boolean
@@ -131,7 +131,7 @@ jobs:
       END_DATE: ${{ inputs.end_date }}
       SITE_ID: ${{ inputs.site_id }}
       REFRESH: ${{ inputs.refresh || false }}
-      SENSORS: ${{ inputs.sensors || 'both' }}
+      SENSORS: ${{ inputs.sensors || 'optical' }}
       SITES_PROFILE: ${{ inputs.sites_profile || 'configured' }}
       REVIEW_PREVIEWS: ${{ inputs.review_previews || false }}
       OPTICAL_REVIEW_STRETCH: ${{ inputs.optical_review_stretch || false }}

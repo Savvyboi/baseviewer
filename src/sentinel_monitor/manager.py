@@ -8,7 +8,7 @@ import secrets
 import tempfile
 import threading
 import unicodedata
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from importlib.resources import files
 from pathlib import Path
@@ -17,7 +17,7 @@ from urllib.parse import unquote, urlsplit
 import yaml
 
 from .config import Site, load_config
-from .reports import build_site, read_records
+from .reports import build_site, optical_record, read_records
 
 
 class ConflictError(ValueError):
@@ -50,14 +50,14 @@ class Manager:
             except PublishError as exc:
                 self.publish_error = str(exc)
         sites, _ = load_config(args.sites, args.settings)
-        build_site(args.results, args.output, self.mode, sites)
+        build_site(args.results, args.output, self.mode, sites, optical_only=True)
 
     def state(self):
         with self.lock:
             sites, settings = load_config(self.args.sites, self.args.settings)
             latest = {}
             for record in read_records(self.args.results, self.mode) if self.args.demo else []:
-                latest.setdefault(record["site"]["id"], record)
+                latest.setdefault(record["site"]["id"], optical_record(record))
             published = self.publisher.snapshot() if self.publisher else None
             published_sites = {site["id"]: site for site in published["sites"]} if published else {}
             entries = []
@@ -114,7 +114,7 @@ class Manager:
         finally:
             if temporary is not None:
                 temporary.unlink(missing_ok=True)
-        build_site(self.args.results, self.args.output, self.mode, sites)
+        build_site(self.args.results, self.args.output, self.mode, sites, optical_only=True)
 
     def add(self, data):
         with self.lock:
@@ -125,7 +125,7 @@ class Manager:
                     f"The monitoring list is limited to {settings.max_sites} sites. "
                     "Raise max_sites in settings.yaml to add more."
                 )
-            if not isinstance(data, dict) or set(data) != {
+            if not isinstance(data, dict) or set(data) - {"category"} != {
                 "name",
                 "latitude",
                 "longitude",
@@ -144,11 +144,30 @@ class Manager:
                 identifier = f"{base}-{number}"
                 number += 1
             site = Site(
-                identifier, name.strip(), data["latitude"], data["longitude"], data["size_m"]
+                identifier,
+                name.strip(),
+                data["latitude"],
+                data["longitude"],
+                data["size_m"],
+                data.get("category", ""),
             )
             sites.append(site)
             self._save(sites)
             return asdict(site)
+
+    def categorize(self, identifier, data):
+        with self.lock:
+            self._editable()
+            if not isinstance(data, dict) or set(data) != {"category"}:
+                raise ValueError("Provide a category, or empty text for Uncategorized.")
+            sites, _ = load_config(self.args.sites, self.args.settings)
+            for index, site in enumerate(sites):
+                if site.id == identifier:
+                    updated = replace(site, category=data["category"])
+                    sites[index] = updated
+                    self._save(sites)
+                    return asdict(updated)
+            raise LookupError("Site not found.")
 
     def remove(self, identifier):
         with self.lock:
@@ -306,14 +325,18 @@ def make_server(manager, port):
                 return
             try:
                 route = urlsplit(self.path).path
-                if route == "/api/sites":
+                if route == "/api/sites" or route.startswith("/api/sites/"):
                     if self.headers.get("Content-Type") != "application/json":
                         raise ValueError("Send the site as application/json.")
                     length = int(self.headers.get("Content-Length", "0"))
                     if not 0 < length <= 8192:
                         raise ValueError("Site request must be between 1 and 8192 bytes.")
-                    site = manager.add(json.loads(self.rfile.read(length)))
-                    self._send(201, site)
+                    data = json.loads(self.rfile.read(length))
+                    if route == "/api/sites":
+                        self._send(201, manager.add(data))
+                    else:
+                        identifier = unquote(route.removeprefix("/api/sites/"))
+                        self._send(200, manager.categorize(identifier, data))
                 elif route == "/api/publish":
                     manager.publish()
                     self._send(202, {"message": "Submitting sites to GitHub."})
@@ -324,6 +347,8 @@ def make_server(manager, port):
                     self._send(404, {"error": "Not found."})
             except ConflictError as exc:
                 self._send(409, {"error": str(exc)})
+            except LookupError as exc:
+                self._send(404, {"error": str(exc)})
             except (ValueError, TypeError) as exc:
                 self._send(400, {"error": str(exc)})
             except Exception:

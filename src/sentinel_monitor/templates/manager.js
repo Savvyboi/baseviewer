@@ -7,6 +7,8 @@
   const runFeedback = document.getElementById("run-feedback");
   const publishButton = document.getElementById("publish-sites");
   const runButton = document.getElementById("run-monitor");
+  const categoryFilter = document.getElementById("category-filter");
+  const groupCategories = document.getElementById("group-categories");
   const token = document.querySelector('meta[name="sentinel-token"]').content;
   const labels = {
     draft: "Saved locally",
@@ -44,7 +46,7 @@
     runButton.disabled = busy || !state || running || !state.sites.length;
     runButton.textContent = running ? "Checking…" : "Run demo check";
     publishButton.disabled = busy || !state || running || !state.github || state.github.synced;
-    list.querySelectorAll("button").forEach(button => {button.disabled = busy || running;});
+    list.querySelectorAll("button, input").forEach(button => {button.disabled = busy || running;});
   }
 
   function cell(row, text) {
@@ -69,14 +71,57 @@
     }
     document.getElementById("list-summary").textContent =
       `${state.sites.length} of ${state.max_sites} sites · ${(state.planned_area_m2 / 1e6).toLocaleString(undefined, {maximumFractionDigits: 3})} km² monitored`;
-    document.getElementById("empty-list").hidden = state.sites.length > 0;
-    const serialized = JSON.stringify(state.sites);
+
+    const serialized = JSON.stringify([state.sites, categoryFilter.value, groupCategories.checked]);
     if (serialized !== lastList) {
       lastList = serialized;
       list.replaceChildren();
-      for (const site of state.sites) {
+      const categories = [...new Set(state.sites.map(site => site.category || ""))].sort((a, b) => a.localeCompare(b));
+      const selected = categoryFilter.value;
+      categoryFilter.replaceChildren(new Option("All categories", "all"));
+      const suggestions = document.getElementById("site-categories");
+      suggestions.replaceChildren();
+      for (const category of categories) {
+        categoryFilter.add(new Option(category || "Uncategorized", `category:${category}`));
+        if (category) suggestions.append(new Option(category, category));
+      }
+      if ([...categoryFilter.options].some(option => option.value === selected)) categoryFilter.value = selected;
+      const sites = state.sites.filter(site => categoryFilter.value === "all" || `category:${site.category || ""}` === categoryFilter.value);
+      document.getElementById("empty-list").hidden = sites.length > 0;
+      if (groupCategories.checked) sites.sort((a, b) => (a.category || "").localeCompare(b.category || "") || a.name.localeCompare(b.name));
+      let previousCategory = null;
+      for (const site of sites) {
+        const category = site.category || "";
+        if (groupCategories.checked && previousCategory !== category) {
+          const heading = document.createElement("tr");
+          const title = document.createElement("th");
+          title.colSpan = 6;
+          title.scope = "rowgroup";
+          title.textContent = category || "Uncategorized";
+          heading.append(title);
+          list.append(heading);
+          previousCategory = category;
+        }
         const row = document.createElement("tr");
         cell(row, site.name);
+        const categoryCell = cell(row, "");
+        const categoryInput = document.createElement("input");
+        categoryInput.value = category;
+        categoryInput.maxLength = 80;
+        categoryInput.placeholder = "Uncategorized";
+        categoryInput.setAttribute("list", "site-categories");
+        categoryInput.setAttribute("aria-label", `Category for ${site.name}`);
+        const saveCategory = document.createElement("button");
+        saveCategory.type = "button";
+        saveCategory.textContent = "Save category";
+        saveCategory.addEventListener("click", () => {
+          const value = categoryInput.value.trim();
+          mutate(async () => {
+            await request(`/api/sites/${encodeURIComponent(site.id)}`, "POST", {category: value});
+            message(feedback, `Category saved for ${site.name}. Publish the list to update the online viewer.`);
+          });
+        });
+        categoryCell.append(categoryInput, saveCategory);
         cell(row, `${site.latitude}, ${site.longitude}`);
         cell(row, `${site.size_m.toLocaleString()} m`);
         const statusCell = cell(row, "");
@@ -136,12 +181,16 @@
         name: data.get("name").trim(),
         latitude: Number(data.get("latitude")),
         longitude: Number(data.get("longitude")),
-        size_m: Number(data.get("size_m"))
+        size_m: Number(data.get("size_m")),
+        category: data.get("category").trim()
       });
       form.reset();
       message(feedback, `${site.name} saved locally. Publish the list to add it to GitHub monitoring.`);
     });
   });
+
+  categoryFilter.addEventListener("change", render);
+  groupCategories.addEventListener("change", render);
 
   publishButton.addEventListener("click", () => mutate(async () => {
     await request("/api/publish", "POST");

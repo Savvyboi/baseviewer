@@ -19,12 +19,16 @@ class Site:
     latitude: float
     longitude: float
     size_m: int = 2000
+    category: str = ""
 
     def __post_init__(self):
         if not isinstance(self.id, str) or not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,47}", self.id):
             raise ValueError("Site id must be a lowercase slug, at most 48 characters")
         if not isinstance(self.name, str) or not self.name.strip():
             raise ValueError(f"{self.id}: name is required")
+        if not isinstance(self.category, str) or len(self.category.strip()) > 80:
+            raise ValueError(f"{self.id}: category must be text, at most 80 characters")
+        object.__setattr__(self, "category", self.category.strip())
         for name, low, high in [("latitude", -90, 90), ("longitude", -180, 180)]:
             value = getattr(self, name)
             if isinstance(value, bool) or not isinstance(value, (int, float)):
@@ -132,7 +136,12 @@ def load_config(sites_path: Path, settings_path: Path):
     sites = load_sites(sites_path)
     data = yaml.safe_load(settings_path.read_text(encoding="utf-8-sig")) or {}
     if not isinstance(data, dict) or set(data) - {f.name for f in fields(Settings)}:
-        raise ValueError("settings.yaml contains unknown settings")
+        raise ValueError(
+            "settings.yaml contains unknown settings: "
+            + ", ".join(sorted(set(data) - {f.name for f in fields(Settings)}))
+            if isinstance(data, dict)
+            else "settings.yaml must contain a settings mapping"
+        )
     return sites, Settings(**data)
 
 
@@ -186,7 +195,7 @@ def validate_sensor_options(sensors, *, radar_diagnostics=False, optical_review_
 
 def signature(site: Site, settings: Settings, period: dict, mode: str, requested_sensors=None):
     data = {
-        "site": asdict(site),
+        "site": {k: v for k, v in asdict(site).items() if k != "category"},
         "settings": {
             k: v
             for k, v in asdict(settings).items()
