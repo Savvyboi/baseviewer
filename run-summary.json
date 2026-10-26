@@ -1,14 +1,13 @@
 {
   "mode": "live",
   "requested_sensors": [
-    "optical",
-    "radar"
+    "optical"
   ],
   "windows": {
-    "baseline_start": "2026-09-14",
-    "baseline_end": "2026-10-12",
-    "target_start": "2026-10-12",
-    "target_end": "2026-10-19"
+    "baseline_start": "2026-09-21",
+    "baseline_end": "2026-10-19",
+    "target_start": "2026-10-19",
+    "target_end": "2026-10-26"
   },
   "site_count": 8,
   "planned_area_m2": 116000000,
@@ -17,106 +16,98 @@
     {
       "id": "engels-air-base",
       "requested_sensors": [
-        "optical",
-        "radar"
+        "optical"
       ],
       "status": "possible_change",
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-a268fae0d465caa23c3b",
-      "elapsed_seconds": 27.147
+      "workload_tag": "sentinel-a4245690ab127d7c1866",
+      "elapsed_seconds": 20.252
     },
     {
       "id": "kacha-air-base",
       "requested_sensors": [
-        "optical",
-        "radar"
+        "optical"
       ],
       "status": "possible_change",
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-f110a5006a2e74eef2ca",
-      "elapsed_seconds": 37.708
+      "workload_tag": "sentinel-9e9d655b91f8f05c793e",
+      "elapsed_seconds": 11.855
     },
     {
       "id": "gvardeyskoye-air-base",
       "requested_sensors": [
-        "optical",
-        "radar"
+        "optical"
       ],
-      "status": "possible_change",
+      "status": "no_change_detected",
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-2079fe219aac19536f4c",
-      "elapsed_seconds": 16.592
+      "workload_tag": "sentinel-d54276bd6807d1dbed87",
+      "elapsed_seconds": 3.649
     },
     {
       "id": "krymsk-air-base",
       "requested_sensors": [
-        "optical",
-        "radar"
+        "optical"
       ],
       "status": "possible_change",
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-644f1206a7025869f122",
-      "elapsed_seconds": 38.805
+      "workload_tag": "sentinel-bebc535a7ceae6dc349b",
+      "elapsed_seconds": 12.928
     },
     {
       "id": "yeysk-air-base",
       "requested_sensors": [
-        "optical",
-        "radar"
+        "optical"
       ],
       "status": "possible_change",
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-59ca5a346fdd8f5202c7",
-      "elapsed_seconds": 41.661
+      "workload_tag": "sentinel-b0caf4c34b29d0e157ed",
+      "elapsed_seconds": 19.063
     },
     {
       "id": "millerovo-air-base",
       "requested_sensors": [
-        "optical",
-        "radar"
+        "optical"
       ],
-      "status": "possible_change",
+      "status": "no_change_detected",
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-802fd41311a45e460ebe",
-      "elapsed_seconds": 37.59
+      "workload_tag": "sentinel-6cd0150e34a8280b3923",
+      "elapsed_seconds": 7.005
     },
     {
       "id": "morozovsk-air-base",
       "requested_sensors": [
-        "optical",
-        "radar"
+        "optical"
       ],
       "status": "possible_change",
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-411476be2386f0a7a8c3",
-      "elapsed_seconds": 33.007
+      "workload_tag": "sentinel-7636bada3efc22dc76f8",
+      "elapsed_seconds": 27.57
     },
     {
       "id": "erebuni-air-base",
       "requested_sensors": [
-        "optical",
-        "radar"
+        "optical"
       ],
       "status": "possible_change",
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-094aa152fbd5fb5433cf",
-      "elapsed_seconds": 19.536
+      "workload_tag": "sentinel-1fdf9d608a9a8f535f32",
+      "elapsed_seconds": 8.464
     }
   ]
 }
