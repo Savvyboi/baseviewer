@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "analysis_version": "0.1.0",
+  "analysis_key": "e8e7a20f51d26db9ae44",
+  "requested_sensors": [
+    "optical"
+  ],
+  "radar_diagnostics_requested": false,
+  "review_previews_requested": false,
+  "imagery_diagnostics_requested": false,
+  "optical_review_stretch_requested": false,
+  "site": {
+    "id": "kacha-air-base",
+    "name": "kacha air base",
+    "latitude": 44.779215,
+    "longitude": 33.569155,
+    "size_m": 4000,
+    "category": "airbase"
+  },
+  "grid": {
+    "crs": "EPSG:32636",
+    "transform": [
+      10,
+      0,
+      543030,
+      0,
+      -10,
+      4960580
+    ],
+    "bounds": [
+      543030,
+      4956580,
+      547030,
+      4960580
+    ],
+    "cells": 160000
+  },
+  "windows": {
+    "baseline_start": "2026-10-05",
+    "baseline_end": "2026-11-02",
+    "target_start": "2026-11-02",
+    "target_end": "2026-11-09"
+  },
+  "mode": "live",
+  "generated_at": "2026-11-09T16:47:49.280295+00:00",
+  "settings": {
+    "analysis_version": "0.1.0",
+    "earth_engine_project": "baseviewer-511722",
+    "optical_threshold": 0.1,
+    "radar_threshold_db": 3.0,
+    "cloud_score_min": 0.6,
+    "min_baseline_observations": 2,
+    "min_valid_coverage": 0.7,
+    "min_patch_pixels": 9,
+    "radar_speckle_radius_m": 10,
+    "radar_min_db": -35,
+    "radar_min_angle": 31,
+    "radar_max_angle": 45,
+    "terrain_max_slope_deg": 15,
+    "dem_collection": "COPERNICUS/DEM/GLO30_2024_1",
+    "max_sites": 20,
+    "max_images_per_sensor": 300,
+    "request_attempts": 3,
+    "preview_pixels": 400
+  },
+  "elapsed_seconds": 13.225,
+  "comparisons": [
+    {
+      "id": "4416312585234736e8dca6c4",
+      "sensor": "optical",
+      "acquisition_date": "2026-11-08",
+      "acquisition_times": [
+        "2026-11-08T08:47:55.845000+00:00"
+      ],
+      "source_ids": [
+        "20261108T084451_20261108T084725_T36TWQ"
+      ],
+      "baseline_source_ids": [
+        "20261005T084819_20261005T085608_T36TWQ",
+        "20261007T083831_20261007T084603_T36TWQ",
+        "20261009T083801_20261009T083803_T36TWQ",
+        "20261010T084901_20261010T084857_T36TWQ",
+        "20261012T083909_20261012T084142_T36TWQ",
+        "20261012T085431_20261012T085429_T36TWQ",
+        "20261015T084929_20261015T085625_T36TWQ",
+        "20261017T083941_20261017T084040_T36TWQ",
+        "20261019T084451_20261019T084736_T36TWQ",
+        "20261020T085001_20261020T085128_T36TWQ",
+        "20261022T084009_20261022T084508_T36TWQ",
+        "20261022T084931_20261022T084930_T36TWQ",
+        "20261025T085039_20261025T085033_T36TWQ",
+        "20261027T084041_20261027T084510_T36TWQ",
+        "20261029T084021_20261029T084015_T36TWQ",
+        "20261030T085101_20261030T085100_T36TWQ",
+        "20261101T084109_20261101T084110_T36TWQ",
+        "20261101T085421_20261101T085423_T36TWQ"
+      ],
+      "baseline_acquisition_dates": [
+        "2026-10-05",
+        "2026-10-07",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-12",
+        "2026-10-15",
+        "2026-10-17",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-22",
+        "2026-10-25",
+        "2026-10-27",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-11-01"
+      ],
+      "baseline_observations": 15,
+      "radar_group": null,
+      "status": "possible_change",
+      "valid_coverage": 0.99184375,
+      "changed_area_m2": 22316.77717590332,
+      "cloud_screening": "reduced: SCL fallback in baseline or target",
+      "changed_cells": 223,
+      "previews": {
+        "before": "assets/4416312585234736e8dca6c4/before.png",
+        "after": "assets/4416312585234736e8dca6c4/after.png",
+        "overlay": "assets/4416312585234736e8dca6c4/overlay.png"
+      }
+    },
+    {
+      "id": "61551b66c075e66d97d8d8e7",
+      "sensor": "optical",
+      "acquisition_date": "2026-11-04",
+      "acquisition_times": [
+        "2026-11-04T08:57:46.807000+00:00"
+      ],
+      "source_ids": [
+        "20261104T085129_20261104T085515_T36TWQ"
+      ],
+      "baseline_source_ids": [
+        "20261005T084819_20261005T085608_T36TWQ",
+        "20261007T083831_20261007T084603_T36TWQ",
+        "20261009T083801_20261009T083803_T36TWQ",
+        "20261010T084901_20261010T084857_T36TWQ",
+        "20261012T083909_20261012T084142_T36TWQ",
+        "20261012T085431_20261012T085429_T36TWQ",
+        "20261015T084929_20261015T085625_T36TWQ",
+        "20261017T083941_20261017T084040_T36TWQ",
+        "20261019T084451_20261019T084736_T36TWQ",
+        "20261020T085001_20261020T085128_T36TWQ",
+        "20261022T084009_20261022T084508_T36TWQ",
+        "20261022T084931_20261022T084930_T36TWQ",
+        "20261025T085039_20261025T085033_T36TWQ",
+        "20261027T084041_20261027T084510_T36TWQ",
+        "20261029T084021_20261029T084015_T36TWQ",
+        "20261030T085101_20261030T085100_T36TWQ",
+        "20261101T084109_20261101T084110_T36TWQ",
+        "20261101T085421_20261101T085423_T36TWQ"
+      ],
+      "baseline_acquisition_dates": [
+        "2026-10-05",
+        "2026-10-07",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-12",
+        "2026-10-15",
+        "2026-10-17",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-22",
+        "2026-10-25",
+        "2026-10-27",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-11-01"
+      ],
+      "baseline_observations": 15,
+      "radar_group": null,
+      "status": "insufficient_data",
+      "valid_coverage": 0.0,
+      "changed_area_m2": 0.0,
+      "cloud_screening": "SCL and Cloud Score+",
+      "reason": "Common valid coverage is below the configured minimum"
+    },
+    {
+      "id": "5d589d1c0aa8e469fe4f6c76",
+      "sensor": "optical",
+      "acquisition_date": "2026-11-06",
+      "acquisition_times": [
+        "2026-11-06T08:47:45.516000+00:00"
+      ],
+      "source_ids": [
+        "20261106T084131_20261106T084213_T36TWQ"
+      ],
+      "baseline_source_ids": [
+        "20261005T084819_20261005T085608_T36TWQ",
+        "20261007T083831_20261007T084603_T36TWQ",
+        "20261009T083801_20261009T083803_T36TWQ",
+        "20261010T084901_20261010T084857_T36TWQ",
+        "20261012T083909_20261012T084142_T36TWQ",
+        "20261012T085431_20261012T085429_T36TWQ",
+        "20261015T084929_20261015T085625_T36TWQ",
+        "20261017T083941_20261017T084040_T36TWQ",
+        "20261019T084451_20261019T084736_T36TWQ",
+        "20261020T085001_20261020T085128_T36TWQ",
+        "20261022T084009_20261022T084508_T36TWQ",
+        "20261022T084931_20261022T084930_T36TWQ",
+        "20261025T085039_20261025T085033_T36TWQ",
+        "20261027T084041_20261027T084510_T36TWQ",
+        "20261029T084021_20261029T084015_T36TWQ",
+        "20261030T085101_20261030T085100_T36TWQ",
+        "20261101T084109_20261101T084110_T36TWQ",
+        "20261101T085421_20261101T085423_T36TWQ"
+      ],
+      "baseline_acquisition_dates": [
+        "2026-10-05",
+        "2026-10-07",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-12",
+        "2026-10-15",
+        "2026-10-17",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-22",
+        "2026-10-25",
+        "2026-10-27",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-11-01"
+      ],
+      "baseline_observations": 15,
+      "radar_group": null,
+      "status": "insufficient_data",
+      "valid_coverage": 0.0,
+      "changed_area_m2": 0.0,
+      "cloud_screening": "SCL and Cloud Score+",
+      "reason": "Common valid coverage is below the configured minimum"
+    }
+  ],
+  "errors": [],
+  "changed_area": {
+    "optical_m2": 22316.77717590332,
+    "radar_m2": null,
+    "overlap_m2": null
+  },
+  "newest_observation": "2026-11-08T08:47:55.845000+00:00",
+  "workload_tag": "sentinel-e8e7a20f51d26db9ae44",
+  "status": "possible_change",
+  "usable_sensors": [
+    "optical"
+  ],
+  "has_errors": false
+}
