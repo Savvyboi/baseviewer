@@ -4,10 +4,10 @@
     "optical"
   ],
   "windows": {
-    "baseline_start": "2026-10-12",
-    "baseline_end": "2026-11-09",
-    "target_start": "2026-11-09",
-    "target_end": "2026-11-16"
+    "baseline_start": "2026-10-19",
+    "baseline_end": "2026-11-16",
+    "target_start": "2026-11-16",
+    "target_end": "2026-11-23"
   },
   "site_count": 8,
   "planned_area_m2": 116000000,
@@ -18,12 +18,12 @@
       "requested_sensors": [
         "optical"
       ],
-      "status": "insufficient_data",
+      "status": "possible_change",
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-9149e0aca9d4264b6eab",
-      "elapsed_seconds": 4.266
+      "workload_tag": "sentinel-0fb9e2f94c9af2a13ba7",
+      "elapsed_seconds": 11.735
     },
     {
       "id": "kacha-air-base",
@@ -34,8 +34,8 @@
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-aa5e54a01307669663f5",
-      "elapsed_seconds": 4.826
+      "workload_tag": "sentinel-9adab808102174391e13",
+      "elapsed_seconds": 3.061
     },
     {
       "id": "gvardeyskoye-air-base",
@@ -46,20 +46,20 @@
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-574536b73fec2122d118",
-      "elapsed_seconds": 1.061
+      "workload_tag": "sentinel-042c3855ed9afc4d913d",
+      "elapsed_seconds": 2.751
     },
     {
       "id": "krymsk-air-base",
       "requested_sensors": [
         "optical"
       ],
-      "status": "insufficient_data",
+      "status": "possible_change",
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-bc3457bf78661a4349c4",
-      "elapsed_seconds": 4.941
+      "workload_tag": "sentinel-fa5af91dec5c64076d9b",
+      "elapsed_seconds": 7.674
     },
     {
       "id": "yeysk-air-base",
@@ -70,8 +70,8 @@
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-2f33ccd596134d997555",
-      "elapsed_seconds": 5.24
+      "workload_tag": "sentinel-25027c12986e2acf70f1",
+      "elapsed_seconds": 3.831
     },
     {
       "id": "millerovo-air-base",
@@ -82,32 +82,32 @@
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-ec8ca489f5751767aa74",
-      "elapsed_seconds": 5.752
+      "workload_tag": "sentinel-f16559c0dc2ef350a597",
+      "elapsed_seconds": 3.36
     },
     {
       "id": "morozovsk-air-base",
       "requested_sensors": [
         "optical"
       ],
-      "status": "possible_change",
+      "status": "no_change_detected",
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-adffaf4970356df9ea82",
-      "elapsed_seconds": 12.494
+      "workload_tag": "sentinel-ec803dfa8da4126f8926",
+      "elapsed_seconds": 7.202
     },
     {
       "id": "erebuni-air-base",
       "requested_sensors": [
         "optical"
       ],
-      "status": "possible_change",
+      "status": "insufficient_data",
       "errors": [],
       "preview_errors": [],
       "optical_review_errors": [],
-      "workload_tag": "sentinel-9ba23e4bce052c899974",
-      "elapsed_seconds": 7.444
+      "workload_tag": "sentinel-e9757c009f3e9dbff7ab",
+      "elapsed_seconds": 2.397
     }
   ]
 }
